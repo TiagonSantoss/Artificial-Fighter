@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://c6ttcn6s3gd7e"]
+
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="1_j7dal"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js7ka"]
+
+[resource]
+script = ExtResource("1_j7dal")
+texture = SubResource("AtlasTexture_js7ka")
+metadata/_custom_type_script = "uid://dll1idsl2062t"
