@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://trvpmwnapc7o"]
 
-[ext_resource type="Texture2D" uid="uid://bhe3e7h2lf06f" path="res://char/RATO.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Game/event_handler.gd" id="1_tlwt5"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
+[ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -35,23 +35,20 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=752132049]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019470215, -0.09423491, -0.107177734)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019470215, -0.09423491, -0.5031738)
 use_collision = true
-size = Vector3(0.57214355, 0.17480469, 0.64453125)
+size = Vector3(0.57214355, 0.17480469, 1.4365234)
 
 [node name="Node" type="Node" parent="." unique_id=938875907]
 
 [node name="Player" type="Sprite3D" parent="." unique_id=214679721]
 transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0.12384495, -0.0881615)
+visible = false
 pixel_size = 0.05
 billboard = 1
-texture = ExtResource("1_f3sb7")
+texture = ExtResource("2_tlwt5")
 hframes = 6
 vframes = 7
-
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=60823169]
-transform = Transform3D(25.256405, 0, 0, 0, 22.287294, 30.626345, 0, -0.15666299, 0.11400624, 0, 20.755013, 0.09699379)
-projection = 1
 
 [node name="EventHandler" type="Node" parent="." unique_id=674829051]
 script = ExtResource("1_tlwt5")
@@ -59,4 +56,9 @@ script = ExtResource("1_tlwt5")
 [node name="Entities" type="Node3D" parent="." unique_id=681819372]
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=1854988913]
-transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0.12384495, -0.0881615)
+transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
+transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, 0, 0.6717975, 0.41244057)
+visible = false
+projection = 1
