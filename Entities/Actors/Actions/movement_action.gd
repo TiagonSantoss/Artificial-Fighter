@@ -1,7 +1,10 @@
 class_name MovementAction
 extends Action
 
-var offset: Vector3
+var direction: Vector3
 
-func _init(dx: float, dy: float, dz: float) -> void:
-	offset = Vector3(dx, dy, dz)
+func _init(dir: Vector3) -> void:
+	direction = dir.normalized()
+
+func execute(actor, delta: float) -> void:
+	actor.move(direction, delta)

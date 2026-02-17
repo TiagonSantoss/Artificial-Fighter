@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://trvpmwnapc7o"]
 
-[ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Game/event_handler.gd" id="1_tlwt5"]
+[ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Entities/Controllers/player_controller.gd" id="1_tlwt5"]
+[ext_resource type="Shader" uid="uid://df1dsxax0ne1k" path="res://water.gdshader" id="2_aqk2v"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_tlwt5"]
 
@@ -24,6 +25,29 @@ fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
 fog_sun_scatter = 0.16
 fog_density = 0.0924
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_036b0"]
+render_priority = 0
+shader = ExtResource("2_aqk2v")
+shader_parameter/tint = Vector4(0, 0, 0, 0)
+shader_parameter/albedo_texture = ExtResource("2_tlwt5")
+shader_parameter/metallic = 0.0
+shader_parameter/shadow_size = 0.045
+shader_parameter/shadow_blend = 0.001
+shader_parameter/shadow_extra_intensity = 0.0
+shader_parameter/shadow_color = Vector4(0, 0, 0, 0)
+shader_parameter/light_tint = Vector4(0, 0, 0, 0)
+shader_parameter/rimlight_size = 0.921
+shader_parameter/rimlight_blend = 0.01
+shader_parameter/rimlight_color = Vector4(0, 0, 0, 0)
+shader_parameter/use_normalmap = true
+shader_parameter/animated = true
+shader_parameter/time_scale = 0.10999999754128
+shader_parameter/normal_bias = Vector3(0, 0, 0)
+shader_parameter/light_bias = Vector3(0, 0, 0)
+shader_parameter/use_view = true
+shader_parameter/view_bias = Vector4(1, 0, 1, 1)
+shader_parameter/view_multiplier = -0.0109999530225
+
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
 
@@ -35,9 +59,25 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=752132049]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019470215, -0.09423491, -0.5031738)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.030700684, -0.09423491, -0.5031738)
 use_collision = true
 size = Vector3(0.57214355, 0.17480469, 1.4365234)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1447459452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6706314, -0.10412261, -0.95832825)
+use_collision = true
+size = Vector3(0.8486786, 0.17480469, 0.5845947)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1167197488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62584114, 0.047519237, -0.22882308)
+use_collision = true
+size = Vector3(0.19849777, 0.34033203, 0.18116406)
+
+[node name="water" type="CSGBox3D" parent="." unique_id=70021859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79425204, 0.23321104, -0.23236084)
+use_collision = true
+size = Vector3(0.8344116, 0.10664368, 0.885376)
+material = SubResource("ShaderMaterial_036b0")
 
 [node name="Node" type="Node" parent="." unique_id=938875907]
 
@@ -62,3 +102,5 @@ transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0,
 transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, 0, 0.6717975, 0.41244057)
 visible = false
 projection = 1
+size = 2.38
+far = 1.88

@@ -15,3 +15,10 @@ func _ready() -> void:
 	var npc := Entity.new(player_spawn.position + Vector3.RIGHT, player_definition)
 	npc.modulate = Color.ORANGE_RED
 	entities.add_child(npc)
+
+func _process(_delta: float) -> void:
+	var actions = event_handler.get_actions()
+	
+	for action in actions:
+		if action is EscapeAction:
+			get_tree().quit()
