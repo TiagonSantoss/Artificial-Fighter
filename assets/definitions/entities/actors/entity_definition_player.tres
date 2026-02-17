@@ -1,7 +1,12 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://c6ttcn6s3gd7e"]
 
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="1_j7dal"]
+[ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Entities/Controllers/player_controller.gd" id="1_qkhq4"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_js7ka"]
+
+[sub_resource type="Resource" id="Resource_qkhq4"]
+script = ExtResource("1_qkhq4")
+metadata/_custom_type_script = "uid://dvumffdux2tu8"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j7dal"]
 atlas = ExtResource("2_js7ka")
@@ -10,5 +15,5 @@ region = Rect2(0, 0, 24, 24)
 [resource]
 script = ExtResource("1_j7dal")
 texture = SubResource("AtlasTexture_j7dal")
-texture_filter = 0
+controller = SubResource("Resource_qkhq4")
 metadata/_custom_type_script = "uid://dll1idsl2062t"

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://trvpmwnapc7o"]
 
-[ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Entities/Controllers/player_controller.gd" id="1_tlwt5"]
 [ext_resource type="Shader" uid="uid://df1dsxax0ne1k" path="res://water.gdshader" id="2_aqk2v"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_tlwt5"]
@@ -79,8 +78,6 @@ use_collision = true
 size = Vector3(0.8344116, 0.10664368, 0.885376)
 material = SubResource("ShaderMaterial_036b0")
 
-[node name="Node" type="Node" parent="." unique_id=938875907]
-
 [node name="Player" type="Sprite3D" parent="." unique_id=214679721]
 transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0.12384495, -0.0881615)
 visible = false
@@ -89,9 +86,6 @@ billboard = 1
 texture = ExtResource("2_tlwt5")
 hframes = 6
 vframes = 7
-
-[node name="EventHandler" type="Node" parent="." unique_id=674829051]
-script = ExtResource("1_tlwt5")
 
 [node name="Entities" type="Node3D" parent="." unique_id=681819372]
 
@@ -104,3 +98,5 @@ visible = false
 projection = 1
 size = 2.38
 far = 1.88
+
+[node name="Rooms" type="Node3D" parent="." unique_id=582252656]

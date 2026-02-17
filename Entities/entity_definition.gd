@@ -1,8 +1,12 @@
 class_name EntityDefinition
 extends Resource
 
-@export_category("Visuals")
+@export_category("Visual")
 @export var texture: AtlasTexture
-@export var billboard = BaseMaterial3D.BILLBOARD_ENABLED
-@export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
-@export_color_no_alpha var color: Color = Color.WHITE
+@export var color: Color = Color.WHITE
+
+@export_category("Stats")
+@export var max_health: int = 3
+
+@export_category("Behavior")
+@export var controller: Controller

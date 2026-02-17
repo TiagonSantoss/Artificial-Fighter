@@ -1,25 +1,32 @@
 class_name Entity
-extends Sprite3D
+extends CharacterBody3D
 
-var _grid_position: Vector3i
-
-var grid_position: Vector3i:
-	get:
-		return _grid_position
-	set(value):
-		_grid_position = value
-		position = Grid.grid_to_world(_grid_position)
-
+var definition: EntityDefinition
+var controller: Controller
+var health: int
 
 func _init(start_position: Vector3i, entity_definition: EntityDefinition) -> void:
-	centered = false
-	grid_position = start_position
-	texture = entity_definition.texture
-	modulate = entity_definition.color
-	billboard = entity_definition.billboard
-	texture_filter = entity_definition.texture_filter
-	shaded = false
+	definition = entity_definition
+	
+	texture = definition.texture
+	modulate = definition.color
+	
+	health = definition.max_health
+	
+	if definition.controller:
+		controller = definition.controller.duplicate()
 
+func move(direction: Vector3, _delta: float) -> void:
+	input_direction = direction
 
-func move(move_offset: Vector3i) -> void:
-	grid_position += move_offset
+func apply_movement(delta: float) -> void:
+	var target_velocity = input_direction * speed
+	
+	if input_direction != Vector3.ZERO:
+		velocity.x = move_toward(velocity.x, target_velocity.x, acceleration * delta)
+		velocity.z = move_toward(velocity.z, target_velocity.z, acceleration * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0, friction * delta)
+
+	move_and_slide()
