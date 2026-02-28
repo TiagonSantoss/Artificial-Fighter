@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://buba6lphfkr02"]
+
+[ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Entities/Entity.gd" id="1_0p8jp"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97436523, 0)
+script = ExtResource("1_0p8jp")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]

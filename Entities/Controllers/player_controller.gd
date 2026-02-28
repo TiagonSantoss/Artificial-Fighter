@@ -1,7 +1,7 @@
 class_name PlayerController
 extends Controller
 
-func get_actions() -> Array[Action]:
+func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
 	
 	var dir := Vector3.ZERO
@@ -9,6 +9,7 @@ func get_actions() -> Array[Action]:
 	dir.z = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
 	if dir != Vector3.ZERO:
+		dir = dir.normalized()
 		actions.append(MovementAction.new(dir))
 
 	if Input.is_action_just_pressed("ui_cancel"):

@@ -2,25 +2,18 @@ class_name Game
 extends Node3D
 
 const player_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_player.tres")
+const npc_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_npc.tres")
+const ENTITY_SCENE = preload("res://Entities/Entity.tscn")
 
-@onready var player: Entity
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
 
-
 func _ready() -> void:
-	player = Entity.new(player_spawn.position, player_definition)
+	var player: Entity = ENTITY_SCENE.instantiate()
 	entities.add_child(player)
-	var npc := Entity.new(player_spawn.position + Vector3.RIGHT, player_definition)
-	npc.modulate = Color.ORANGE_RED
-	entities.add_child(npc)
+	player.setup(player_spawn.position, player_definition)
 
-func _process(delta: float) -> void:
-	for entity in entities.get_children():
-		if entity.controller:
-			var actions = entity.controller.get_actions()
-			for action in actions:
-				if action is EscapeAction:
-					get_tree().quit()
-				else:
-					action.execute(entity, delta)
+	var npc: Entity = ENTITY_SCENE.instantiate()
+	entities.add_child(npc)
+	npc.setup(player_spawn.position + Vector3.RIGHT, npc_definition)
+	npc.sprite.modulate = Color.CORNFLOWER_BLUE
