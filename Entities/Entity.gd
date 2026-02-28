@@ -29,6 +29,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 
 func _apply_visuals() -> void:
 	sprite.sprite_frames = definition.sprite_frames
+	sprite.texture_filter = definition.texture_filter
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
 	sprite.play(definition.default_animation)
@@ -46,14 +47,13 @@ func _physics_process(delta: float) -> void:
 			action.execute(self, delta)
 
 	# Apply friction if no movement input
-	if not had_movement:
-		var horizontal := Vector3(velocity.x, 0, velocity.z)
-		horizontal = horizontal.move_toward(
-			Vector3.ZERO,
-			friction * delta
-		)
-		velocity.x = horizontal.x
-		velocity.z = horizontal.z
+	var horizontal := Vector3(velocity.x, 0, velocity.z)
+	horizontal = horizontal.move_toward(
+		Vector3.ZERO,
+		friction * delta
+	)
+	velocity.x = horizontal.x
+	velocity.z = horizontal.z
 
 	#Clamp speed
 	var horizontal_speed := Vector3(velocity.x, 0, velocity.z)

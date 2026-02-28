@@ -3,7 +3,7 @@ extends Controller
 
 func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
-	
+
 	var dir := Vector3.ZERO
 	dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	dir.z = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")

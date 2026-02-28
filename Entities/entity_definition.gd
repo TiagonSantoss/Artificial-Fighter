@@ -6,6 +6,7 @@ extends Resource
 @export var default_animation: String = "idle"
 @export var modulate: Color = Color.WHITE
 @export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
+@export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
 @export_category("Stats")
 @export var max_health: int = 3

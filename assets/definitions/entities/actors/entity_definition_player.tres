@@ -120,8 +120,9 @@ animations = [{
 [resource]
 script = ExtResource("1_j7dal")
 sprite_frames = SubResource("SpriteFrames_vwgaw")
+default_animation = "walk"
 max_speed = 1.2
-acceleration = 2.7
+acceleration = 10.0
 friction = 3.0
 controller = SubResource("Resource_qkhq4")
 metadata/_custom_type_script = "uid://dll1idsl2062t"
