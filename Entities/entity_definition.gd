@@ -17,3 +17,6 @@ extends Resource
 
 @export_category("Behavior")
 @export var controller: Controller
+
+@export_category("Data")
+@export var entity_id: int

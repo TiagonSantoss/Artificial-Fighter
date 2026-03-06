@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bsju70y0xbc13"]
+
+[ext_resource type="PackedScene" uid="uid://dg6hbybixtmds" path="res://cube.glb" id="1_n65sj"]
+[ext_resource type="Shader" uid="uid://ddnc6kmsuv64f" path="res://fire.tres" id="2_y8ul7"]
+[ext_resource type="Texture2D" uid="uid://citpti256xstj" path="res://textures/T_Noise_HU85k.png" id="3_ftslj"]
+[ext_resource type="Texture2D" uid="uid://c8hh2tjuyeg56" path="res://textures/T_Wave66.png" id="3_n65sj"]
+
+[sub_resource type="Gradient" id="Gradient_ftslj"]
+offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
+colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n65sj"]
+gradient = SubResource("Gradient_ftslj")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hltrp"]
+render_priority = 0
+shader = ExtResource("2_y8ul7")
+shader_parameter/displace_speed = Vector2(1, 1)
+shader_parameter/displace_scale = Vector2(1, 1)
+shader_parameter/displace_texture = ExtResource("3_n65sj")
+shader_parameter/displacement_intensity = 0.2
+shader_parameter/Speed = Vector2(0.5, 0.5)
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/texture_base = ExtResource("3_ftslj")
+shader_parameter/color_pallete = SubResource("GradientTexture1D_n65sj")
+shader_parameter/edge_intensity = 2.0
+shader_parameter/edge_color2 = Color(2.8083563, 0.5051003, 0, 1)
+
+[node name="cube" unique_id=380877417 instance=ExtResource("1_n65sj")]
+
+[node name="Cube" parent="." index="0" unique_id=935112820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93182373, 0)
+material_override = SubResource("ShaderMaterial_hltrp")

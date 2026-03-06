@@ -115,4 +115,5 @@ animations = [{
 [resource]
 script = ExtResource("2_mimxp")
 sprite_frames = SubResource("SpriteFrames_tpari")
+entity_id = 3
 metadata/_custom_type_script = "uid://dll1idsl2062t"

@@ -3,6 +3,7 @@ extends Node3D
 
 const player_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_player.tres")
 const npc_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_npc.tres")
+const companion_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_companion.tres")
 const ENTITY_SCENE = preload("res://Entities/Entity.tscn")
 
 @onready var entities: Node3D = $Entities
@@ -17,3 +18,8 @@ func _ready() -> void:
 	entities.add_child(npc)
 	npc.setup(player_spawn.position + Vector3.RIGHT, npc_definition)
 	npc.sprite.modulate = Color.CORNFLOWER_BLUE
+	
+	var player_companion: Entity = ENTITY_SCENE.instantiate()
+	entities.add_child(player_companion)
+	player_companion.setup(player_spawn.position + Vector3.LEFT, companion_definition)
+	player_companion.controller.follow_target = player

@@ -9,6 +9,7 @@ var move_speed: float
 var max_speed: float
 var acceleration: float
 var friction: float
+var entity_id: int
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 
@@ -21,6 +22,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	max_speed = definition.max_speed
 	acceleration = definition.acceleration
 	friction = definition.friction
+	entity_id = definition.entity_id
 	
 	if definition.controller:
 		controller = definition.controller.duplicate()
@@ -35,18 +37,18 @@ func _apply_visuals() -> void:
 	sprite.play(definition.default_animation)
 
 func _physics_process(delta: float) -> void:
-	var had_movement := false
+	var _had_movement := false
 	
 	if controller:
 		var actions = controller.get_actions(self, delta)
+		print(entity_id,":", actions)
 		
 		for action in actions:
 			if action is MovementAction:
-				had_movement = true
-			
+				_had_movement = true
 			action.execute(self, delta)
 
-	# Apply friction if no movement input
+	#Apply friction if no movement input
 	var horizontal := Vector3(velocity.x, 0, velocity.z)
 	horizontal = horizontal.move_toward(
 		Vector3.ZERO,
@@ -57,7 +59,7 @@ func _physics_process(delta: float) -> void:
 
 	#Clamp speed
 	var horizontal_speed := Vector3(velocity.x, 0, velocity.z)
-	print(horizontal_speed)
+	#print(horizontal_speed)
 	
 	if horizontal_speed.length() > max_speed:
 		horizontal_speed = horizontal_speed.normalized() * max_speed

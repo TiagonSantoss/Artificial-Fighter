@@ -15,6 +15,10 @@ run/main_scene="uid://trvpmwnapc7o"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/TileMapLayer3D/plugin.cfg")
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

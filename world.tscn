@@ -1,8 +1,79 @@
 [gd_scene format=3 uid="uid://trvpmwnapc7o"]
 
-[ext_resource type="Shader" uid="uid://df1dsxax0ne1k" path="res://water.gdshader" id="2_aqk2v"]
+[ext_resource type="Shader" uid="uid://ddnc6kmsuv64f" path="res://fire.tres" id="2_aqk2v"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://dt0cgc86sgldp" path="res://textures/T_Noise_6Yu1.png" id="3_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://bsju70y0xbc13" path="res://cube.tscn" id="5_036b0"]
+[ext_resource type="Texture2D" uid="uid://citpti256xstj" path="res://textures/T_Noise_HU85k.png" id="6_dwbse"]
+[ext_resource type="Texture2D" uid="uid://c8hh2tjuyeg56" path="res://textures/T_Wave66.png" id="6_pkg7o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkg7o"]
+texture = ExtResource("2_tlwt5")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gbfbk"]
+sources/0 = SubResource("TileSetAtlasSource_pkg7o")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,28 +98,53 @@ fog_density = 0.0924
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_036b0"]
 render_priority = 0
 shader = ExtResource("2_aqk2v")
-shader_parameter/tint = Vector4(0, 0, 0, 0)
-shader_parameter/albedo_texture = ExtResource("2_tlwt5")
-shader_parameter/metallic = 0.0
-shader_parameter/shadow_size = 0.045
-shader_parameter/shadow_blend = 0.001
-shader_parameter/shadow_extra_intensity = 0.0
-shader_parameter/shadow_color = Vector4(0, 0, 0, 0)
-shader_parameter/light_tint = Vector4(0, 0, 0, 0)
-shader_parameter/rimlight_size = 0.921
-shader_parameter/rimlight_blend = 0.01
-shader_parameter/rimlight_color = Vector4(0, 0, 0, 0)
-shader_parameter/use_normalmap = true
-shader_parameter/animated = true
-shader_parameter/time_scale = 0.10999999754128
-shader_parameter/normal_bias = Vector3(0, 0, 0)
-shader_parameter/light_bias = Vector3(0, 0, 0)
-shader_parameter/use_view = true
-shader_parameter/view_bias = Vector4(1, 0, 1, 1)
-shader_parameter/view_multiplier = -0.0109999530225
+shader_parameter/displace_speed = Vector2(0, 0)
+shader_parameter/displace_scale = Vector2(1, 1)
+shader_parameter/displacement_intensity = 0.2
+shader_parameter/Speed = Vector2(0, 1)
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/texture_base = ExtResource("3_aqk2v")
+shader_parameter/edge_intensity = 0.0
+shader_parameter/edge_color2 = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ioo17"]
+render_priority = 0
+shader = ExtResource("2_aqk2v")
+shader_parameter/displace_speed = Vector2(0, 0)
+shader_parameter/displace_scale = Vector2(1, 1)
+shader_parameter/displacement_intensity = 0.2
+shader_parameter/Speed = Vector2(0, 0)
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/edge_intensity = 0.0
+shader_parameter/edge_color2 = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_ftslj"]
+offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
+colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwbse"]
+gradient = SubResource("Gradient_ftslj")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
+render_priority = 0
+shader = ExtResource("2_aqk2v")
+shader_parameter/displace_speed = Vector2(1, 1)
+shader_parameter/displace_scale = Vector2(1, 1)
+shader_parameter/displace_texture = ExtResource("6_pkg7o")
+shader_parameter/displacement_intensity = 0.1
+shader_parameter/Speed = Vector2(0.5, 0.5)
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/texture_base = ExtResource("6_dwbse")
+shader_parameter/color_pallete = SubResource("GradientTexture1D_dwbse")
+shader_parameter/edge_intensity = 2.0
+shader_parameter/edge_color2 = Color(0.4008436, 0.21760604, 0.07645293, 1)
 
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1066360572]
+tile_set = SubResource("TileSet_gbfbk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=650788768]
 environment = SubResource("Environment_aqk2v")
@@ -73,9 +169,9 @@ use_collision = true
 size = Vector3(0.19849777, 0.34033203, 0.18116406)
 
 [node name="water" type="CSGBox3D" parent="." unique_id=70021859]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79425204, 0.23321104, -0.23236084)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1594292, 0.23321104, 0.06617737)
 use_collision = true
-size = Vector3(0.8344116, 0.10664368, 0.885376)
+size = Vector3(0.10405731, 0.10664368, 0.104156494)
 material = SubResource("ShaderMaterial_036b0")
 
 [node name="Player" type="Sprite3D" parent="." unique_id=214679721]
@@ -100,3 +196,19 @@ size = 2.38
 far = 1.88
 
 [node name="Rooms" type="Node3D" parent="." unique_id=582252656]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=1029708635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9573517, 0.23861694, 0)
+radius = 0.048828125
+height = 0.16210938
+material = SubResource("ShaderMaterial_ioo17")
+
+[node name="cube" parent="." unique_id=380877417 instance=ExtResource("5_036b0")]
+transform = Transform3D(0.07934972, 0, 0, 0, 0.048396967, 0, 0, 0, 0.13288307, -1.3729324, 0.1703186, 0.05167389)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=181206754]
+transform = Transform3D(0.2031874, 0, 0, 0, 0.09126928, -0.18237177, 0, 0.2373559, 0.07012649, -0.026000977, 0.12683105, -0.9649658)
+inner_radius = 1.6785771
+sides = 23
+ring_sides = 16
+material = SubResource("ShaderMaterial_pkg7o")
