@@ -1,11 +1,11 @@
 class_name Grid
 extends Object
 
-const tile_size = Vector3(0.1, 0.1, 0.1)
+const tile_size = Vector3i(1, 1, 1)
 
 
-static func grid_to_world(grid_pos: Vector3) -> Vector3:
-	var world_pos: Vector3 = grid_pos * tile_size
+static func grid_to_world(grid_pos: Vector3i) -> Vector3:
+	var world_pos: Vector3i = grid_pos * tile_size
 	return world_pos
 
 
