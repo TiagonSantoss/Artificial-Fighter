@@ -2,7 +2,7 @@ class_name CompanionController
 extends Controller
 
 var follow_target: Entity
-var follow_distance := 0.8
+var follow_distance := 0.3
 
 func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []

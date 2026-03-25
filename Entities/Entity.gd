@@ -72,5 +72,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	grid_position = Grid.world_to_grid(global_position)
-	print("WORLD:", global_position)
-	print("GRID:", grid_position)
+	
+	if controller is CompanionController:
+		print("WORLD:", global_position)
+		print("GRID:", grid_position)

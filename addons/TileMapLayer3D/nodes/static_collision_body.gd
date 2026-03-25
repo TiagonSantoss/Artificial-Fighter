@@ -1,2 +1,0 @@
-class_name StaticCollisionBody3D
-extends StaticBody3D
