@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CellDefinition" format=3 uid="uid://q8u24l7mx1mc"]
+
+[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Game/Room/Grid/cell_definition.gd" id="1_alj05"]
+
+[resource]
+script = ExtResource("1_alj05")
+tags = Array[String](["hole"])
+metadata/_custom_type_script = "uid://grak3h02csx2"

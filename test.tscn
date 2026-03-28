@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c5t0a1ucjxofw"]
+
+[ext_resource type="Script" uid="uid://cl5rfcmrn81uw" path="res://Game/Room/Grid/grid_test.gd" id="1_8uh7m"]
+[ext_resource type="MeshLibrary" uid="uid://1vthnj7qomf7" path="res://example_meshlibrary.tres" id="1_37kl0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_37kl0"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_tlwt5"]
+sky_material = SubResource("ProceduralSkyMaterial_37kl0")
+
+[sub_resource type="Environment" id="Environment_8uh7m"]
+background_color = Color(0.852695, 0.71877337, 0.87123346, 1)
+background_energy_multiplier = 2.3
+sky = SubResource("Sky_tlwt5")
+ambient_light_source = 2
+ambient_light_color = Color(0.22597522, 0.39669406, 0.4383236, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
+fog_sun_scatter = 0.16
+fog_density = 0.0924
+
+[node name="Node3D" type="Node3D" unique_id=2012007892]
+script = ExtResource("1_8uh7m")
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1863053147]
+mesh_library = ExtResource("1_37kl0")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 0, 0, 65535, 1, 0, 65534, 1, 0, 65534, 0, 0, 65534, 65535, 0, 65535, 65535, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 65535, 0, 1, 65534, 0, 0, 65534, 0, 65535, 65534, 0, 65534, 65534, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0, 65538, 65533, 2, 65538, 2, 2, 131068, 2, 2, 131068, 65533, 2, 131068, 65534, 2, 131068, 65535, 2, 131068, 0, 2, 131068, 1, 2, 131069, 2, 2, 131070, 2, 2, 131071, 2, 2, 65536, 2, 2, 65537, 2, 2, 65538, 1, 2, 65538, 0, 2, 65538, 65535, 2, 65538, 65534, 2, 65537, 65533, 2, 65536, 65533, 2, 131071, 65533, 2, 131070, 65533, 2, 131069, 65533, 2)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="PlayerSpawn" type="Marker3D" parent="GridMap" unique_id=472550009]
+transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 3.5061035, 3.3446426, 0.003540039)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1843954158]
+transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, -0.53741455, 7.715316, 4.30331)
+visible = false
+projection = 1
+size = 7.331
+far = 35.47
+
+[node name="Entities" type="Node3D" parent="." unique_id=968355238]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1638571241]
+environment = SubResource("Environment_8uh7m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1179302050]
+transform = Transform3D(-0.18799439, 0.87944925, -0.43729523, 0.3473405, 0.47599265, 0.80795145, 0.91870165, 0, -0.3949523, 0, 3.3477783, 0)
