@@ -27,8 +27,7 @@ func build(gridmap: GridMap) -> GridData:
 		
 		var mesh_name = mesh_library.get_item_name(item_id)
 		var cell_data := load_cell_definition(mesh_name)
-		print(cell_data)
-		
+		#print(cell_data)
 		if cell_data == null:
 			push_warning("Tile without config: " + mesh_name)
 			continue
@@ -37,5 +36,4 @@ func build(gridmap: GridMap) -> GridData:
 		
 		#var world_pos = gridmap.map_to_local(cell)
 		#print(cell, " -> ", world_pos)
-	
 	return data

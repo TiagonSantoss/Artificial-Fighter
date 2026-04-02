@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CellDefinition" format=3 uid="uid://ctho2va4i2ga0"]
+
+[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Game/Room/Grid/cell_definition.gd" id="1_egwr2"]
+
+[resource]
+script = ExtResource("1_egwr2")
+is_door = true
+door_dir = Vector3i(1, 0, 0)
+metadata/_custom_type_script = "uid://grak3h02csx2"
