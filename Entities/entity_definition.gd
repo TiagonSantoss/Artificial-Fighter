@@ -20,3 +20,4 @@ extends Resource
 
 @export_category("Data")
 @export var entity_id: int
+@export var light: bool

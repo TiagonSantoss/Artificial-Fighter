@@ -21,7 +21,7 @@ func spawn_room(def: RoomDefinition, offset: Vector3i):
 	node.position = offset * CELL_SIZE
 	add_child(node)
 	
-	instance.grid = def.grid_data
+	instance.grid = GridBuild.new().build(node.get_node("GridMap"))
 	instance.node = node
 	instance.position = offset
 	
@@ -79,17 +79,22 @@ func generate():
 	register_room(start_room.grid, Vector3i.ZERO)
 	
 	var open_doors: Array[Dictionary] = []
-
+	print(start_room.grid.get_doors().size())
 	for d in start_room.grid.get_doors():
+		print(d.pos)
+		print(d.dir)
 		open_doors.append({
 			"pos": d.pos,
 			"dir": d.dir
 		})
-	#print(start_room.grid.)
-	while open_doors.size() > 0 and rooms.size() < MAX_ROOMS:
+		
+	
+	print(open_doors)
+	while rooms.size() < MAX_ROOMS:
 		var door = open_doors.pop_back()
 		
 		var next_def: RoomDefinition = pick_random_room()
+		#print(next_def)
 		var result = try_attach_room(door, next_def)
 		
 		if result != null:

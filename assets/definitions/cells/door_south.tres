@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_h3so0")
+is_door = true
 door_dir = Vector3i(0, -1, 0)
 metadata/_custom_type_script = "uid://grak3h02csx2"

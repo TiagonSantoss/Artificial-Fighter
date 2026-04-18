@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://di7drq2jbicnh"]
+
+[ext_resource type="Script" uid="uid://dvkdj3l7aft1p" path="res://Game/Room/Grid/grid_data.gd" id="1_kkjvs"]
+
+[resource]
+script = ExtResource("1_kkjvs")
