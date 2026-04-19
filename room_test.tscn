@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://bs8beltsryn0b"]
 
-[ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Game/Room/room_grid.gd" id="1_jm6y3"]
+[ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Game/Room/room_renderer.gd" id="1_jm6y3"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="2_brcqa"]
+[ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Game/Room/room_generator.gd" id="2_p1rem"]
+[ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="3_65mac"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="3_wi0rs"]
+[ext_resource type="Script" uid="uid://b54ag2n20epkj" path="res://camera_3d.gd" id="6_65mac"]
+
+[sub_resource type="Resource" id="Resource_pfqek"]
+script = ExtResource("2_p1rem")
+metadata/_custom_type_script = "uid://chf8ya3atxdj1"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7jyaa"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -26,14 +33,17 @@ fog_density = 0.0924
 
 [node name="Node3D" type="Node3D" unique_id=1260476123]
 script = ExtResource("1_jm6y3")
+generator = SubResource("Resource_pfqek")
+start_room = ExtResource("3_65mac")
 room_pool = Array[ExtResource("2_brcqa")]([ExtResource("3_wi0rs")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1816929792]
-transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, -0.53741455, 7.715316, 4.30331)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, 0.36235428, 11.615211, 11.090641)
 projection = 1
-size = 13.629
-far = 35.47
+current = true
+size = 21.077
+near = 0.001
+script = ExtResource("6_65mac")
 
 [node name="Entities" type="Node3D" parent="." unique_id=1912163484]
 

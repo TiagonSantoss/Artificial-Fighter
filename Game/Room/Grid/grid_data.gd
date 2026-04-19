@@ -1,8 +1,8 @@
-extends Resource
 class_name GridData
+extends Resource
 
-var grid: Dictionary = {} # Vector3i -> CellData
-var doors: Array[Dictionary] = []
+@export var grid: Dictionary = {}
+@export var doors: Array[Dictionary] = []
 
 func set_cell(pos: Vector3i, data: CellDefinition):
 	grid[pos] = data

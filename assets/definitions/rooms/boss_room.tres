@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://d3vqkrs0fbbdt"]
 
-[ext_resource type="Resource" uid="uid://d04blwm7lhjdx" path="res://Game/Room/Rooms/bossDATA.tres" id="1_0cr7h"]
+[ext_resource type="Resource" uid="uid://c2glsj3xk7smo" path="res://Game/Room/Rooms/bossDATA.tres" id="1_0cr7h"]
 [ext_resource type="PackedScene" uid="uid://cwmxap0hqtmqw" path="res://boss.tscn" id="2_1qk7q"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="3_41hia"]
 

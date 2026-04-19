@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://bjyq57nj3ajj"]
 
-[ext_resource type="Resource" path="res://Game/Room/Rooms/startDATA.tres" id="1_46gxy"]
+[ext_resource type="Resource" uid="uid://di7drq2jbicnh" path="res://Game/Room/Rooms/startDATA.tres" id="1_46gxy"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="1_wevgu"]
 [ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://start.tscn" id="2_46gxy"]
 
