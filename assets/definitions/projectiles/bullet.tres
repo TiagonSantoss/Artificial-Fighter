@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ProjectileDefinition" format=3 uid="uid://csebym7jqvd3r"]
+
+[ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Game/Combat/Projectile/projectile_definition.gd" id="1_00wyo"]
+[ext_resource type="Texture2D" uid="uid://by7sjn684dtgj" path="res://assets/sprites/combat/projectiles/bullet8.png" id="2_abtai"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5xhjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_abtai")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_00wyo")
+sprite_frames = SubResource("SpriteFrames_5xhjc")
+default_animation = "default"
+metadata/_custom_type_script = "uid://dgoeygudsoucv"

@@ -9,7 +9,7 @@ extends Resource
 @export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
 @export_category("Stats")
-@export var max_health: int = 3
+@export var max_health: int = 100
 @export var move_speed: float = 3.0
 @export var max_speed: float = 10.0
 @export var acceleration: float = 1.0

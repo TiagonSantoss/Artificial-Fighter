@@ -43,7 +43,7 @@ func _apply_visuals() -> void:
 	sprite.texture_filter = definition.texture_filter
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
-	sprite.play(definition.default_animation)	
+	sprite.play(definition.default_animation)
 
 
 func _physics_process(delta: float) -> void:

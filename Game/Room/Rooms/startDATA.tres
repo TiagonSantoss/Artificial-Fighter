@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="GridData" format=3]
+[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://c0m7s1sdq7au"]
 
-[ext_resource type="Resource" path="res://assets/definitions/cells/floor.tres" id="1_4110s"]
-[ext_resource type="Resource" path="res://assets/definitions/cells/wall.tres" id="2_45ik0"]
-[ext_resource type="Resource" path="res://assets/definitions/cells/door_south.tres" id="3_cotbr"]
-[ext_resource type="Script" path="res://Game/Room/Grid/grid_data.gd" id="4_e5fuo"]
+[ext_resource type="Resource" uid="uid://1crpor0ebos7" path="res://assets/definitions/cells/floor.tres" id="1_4110s"]
+[ext_resource type="Resource" uid="uid://20ev1xh1kgfs" path="res://assets/definitions/cells/wall.tres" id="2_45ik0"]
+[ext_resource type="Resource" uid="uid://krg8ntsd6wc2" path="res://assets/definitions/cells/door_south.tres" id="3_cotbr"]
+[ext_resource type="Script" uid="uid://dvkdj3l7aft1p" path="res://Game/Room/Grid/grid_data.gd" id="4_e5fuo"]
 
 [resource]
 script = ExtResource("4_e5fuo")

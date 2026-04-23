@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bwsd8bs2svql5"]
+
+[ext_resource type="Script" uid="uid://bj4pjumgqq66k" path="res://Game/Combat/Projectile/Projectile.gd" id="1_4mawt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pxyg4"]
+size = Vector3(0.23022461, 0.0234375, 0.06640625)
+
+[node name="Projectile" type="Node3D" unique_id=1039168439]
+script = ExtResource("1_4mawt")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2067710752]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=644330748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004638672, 0, 0)
+shape = SubResource("BoxShape3D_pxyg4")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1049357351]

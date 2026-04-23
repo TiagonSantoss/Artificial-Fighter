@@ -1,0 +1,20 @@
+class_name WeaponDefinition
+extends Resource
+
+@export_category("Visuals")
+@export var sprite_frames: SpriteFrames
+@export var default_animation := "idle"
+@export var modulate := Color.WHITE
+@export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
+@export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+
+@export_category("Stats")
+@export var damage_multiplier := 1.5
+@export var fire_rate := 1.0 # cadência de tiro
+@export var pierce_multiplier := 0.0
+@export var recoil := 1.0
+@export var spread := 1.0
+@export var projectile_count := 1
+
+@export_category("Misc")
+@export var projectile: ProjectileDefinition
