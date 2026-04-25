@@ -14,4 +14,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_just_pressed("ui_cancel"):
 		actions.append(EscapeAction.new())
 	
+	if Input.is_action_just_pressed("fire"):
+		actions.append(FireAction.new())
+	
 	return actions

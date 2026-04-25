@@ -12,7 +12,11 @@ var friction: float
 var entity_id: int
 
 var grid_position: Vector3i
+var equipped_weapon: Weapon
 
+const WEAPON_SCENE = preload("res://Game/Combat/Weapon/Weapon.tscn")
+
+@onready var weapon_socket = $WeaponSocket
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -33,6 +37,9 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	if definition.controller:
 		controller = definition.controller.duplicate()
 	
+	if definition.starting_weapon:
+		equip_weapon(definition.starting_weapon)
+	
 	_apply_visuals()
 
 func is_blocked(_pos: Vector3i) -> bool:
@@ -43,8 +50,29 @@ func _apply_visuals() -> void:
 	sprite.texture_filter = definition.texture_filter
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
+	sprite.scale = definition.sprite_scale
 	sprite.play(definition.default_animation)
 
+func equip_weapon(weapon_definition):
+	if equipped_weapon:
+		equipped_weapon.queue_free()
+	
+	equipped_weapon = WEAPON_SCENE.instantiate()
+	
+	weapon_socket.add_child(equipped_weapon)
+	
+	equipped_weapon.setup(weapon_definition)
+
+func get_mouse_world():
+	var cam = get_viewport().get_camera_3d()
+	var mouse = get_viewport().get_mouse_position()
+	
+	var ray_origin = cam.project_ray_origin(mouse)
+	var ray_dir = cam.project_ray_normal(mouse)
+	
+	var ground = Plane(Vector3.UP, global_position)
+	
+	return ground.intersects_ray(ray_origin, ray_dir)
 
 func _physics_process(delta: float) -> void:
 	var _had_movement := false
@@ -76,3 +104,7 @@ func _physics_process(delta: float) -> void:
 	if controller is CompanionController:
 		print("WORLD:", global_position)
 		print("GRID:", grid_position)
+	
+	var target = get_mouse_world()
+	if target:
+		weapon_socket.look_at(target, Vector3.UP)

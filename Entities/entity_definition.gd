@@ -7,6 +7,7 @@ extends Resource
 @export var modulate: Color = Color.WHITE
 @export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
 @export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+@export var sprite_scale := Vector3.ONE
 
 @export_category("Stats")
 @export var max_health: int = 100
@@ -20,4 +21,5 @@ extends Resource
 
 @export_category("Data")
 @export var entity_id: int
-@export var light: bool
+#@export var light: bool
+@export var starting_weapon: WeaponDefinition

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://fbs03a08aq7g"]
+
+[ext_resource type="Script" uid="uid://dgr2xo03h8xl2" path="res://Game/Combat/Weapon/Weapon.gd" id="1_r5pab"]
+
+[node name="Weapon" type="Node3D" unique_id=103886595]
+script = ExtResource("1_r5pab")
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=190607701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013594005, 0.024554964, 0)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1060400207]
+render_priority = 1

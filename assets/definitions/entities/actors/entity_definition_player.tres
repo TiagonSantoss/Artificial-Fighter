@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="1_j7dal"]
 [ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Entities/Controllers/player_controller.gd" id="1_qkhq4"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_js7ka"]
+[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/pistol.tres" id="4_eqybp"]
 
 [sub_resource type="Resource" id="Resource_qkhq4"]
 script = ExtResource("1_qkhq4")
@@ -121,8 +122,10 @@ animations = [{
 script = ExtResource("1_j7dal")
 sprite_frames = SubResource("SpriteFrames_vwgaw")
 default_animation = "walk"
+sprite_scale = Vector3(1.2, 1.2, 1.2)
 max_speed = 1.2
 acceleration = 10.0
 friction = 3.0
 controller = SubResource("Resource_qkhq4")
+starting_weapon = ExtResource("4_eqybp")
 metadata/_custom_type_script = "uid://dll1idsl2062t"

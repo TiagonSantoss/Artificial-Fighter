@@ -64,11 +64,10 @@ shadow_enabled = true
 transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0.13700104, 0.003540039)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, 0, 0.6717975, 0.41244057)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 0.5884063, 0.8085654, 0, -0.8085654, 0.5884064, 0, 2.900069, 1.9810612)
 projection = 1
-size = 2.38
-far = 1.88
+size = 3.0302877
+near = 0.001
 
 [node name="Rooms" type="Node3D" parent="." unique_id=582252656]
 

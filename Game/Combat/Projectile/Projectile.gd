@@ -30,7 +30,13 @@ func setup(
 	pierce = definition.pierce
 	lifetime = definition.lifetime
 	knockback = definition.knockback
-
+	
+	global_position = start_position
+	direction = dir.normalized()
+	
+	
+	
+	definition = projectile_definition
 	_apply_visuals()
 
 	await get_tree().create_timer(lifetime).timeout
@@ -46,4 +52,5 @@ func _apply_visuals():
 	sprite.texture_filter = definition.texture_filter
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
+	sprite.scale = definition.sprite_scale
 	sprite.play(definition.default_animation)

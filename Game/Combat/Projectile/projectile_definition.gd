@@ -7,6 +7,7 @@ extends Resource
 @export var modulate := Color.WHITE
 @export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
 @export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+@export var sprite_scale := Vector3.ONE
 
 @export_category("Stats")
 @export var damage := 10
