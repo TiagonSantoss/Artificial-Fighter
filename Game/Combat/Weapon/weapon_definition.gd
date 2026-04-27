@@ -3,14 +3,14 @@ extends Resource
 
 @export_category("Visuals")
 @export var sprite_frames: SpriteFrames
-@export var default_animation := "idle"
+@export var default_animation := "default"
 @export var modulate := Color.WHITE
 @export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
 @export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 @export var sprite_scale := Vector3.ONE
 
 @export_category("Stats")
-@export var damage_multiplier := 1.5
+@export var damage_multiplier := 1.0
 @export var fire_rate := 1.0 # cadência de tiro
 @export var pierce_multiplier := 0.0
 @export var recoil := 1.0

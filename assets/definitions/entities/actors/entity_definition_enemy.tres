@@ -1,64 +1,59 @@
-[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://c6ttcn6s3gd7e"]
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bbomo87c2vdl8"]
 
-[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="1_j7dal"]
-[ext_resource type="Script" uid="uid://dvumffdux2tu8" path="res://Entities/Controllers/player_controller.gd" id="1_qkhq4"]
-[ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_js7ka"]
-[ext_resource type="Resource" uid="uid://dxoaosoohpd1v" path="res://assets/definitions/weapons/TMP.tres" id="4_eqybp"]
-
-[sub_resource type="Resource" id="Resource_qkhq4"]
-script = ExtResource("1_qkhq4")
-metadata/_custom_type_script = "uid://dvumffdux2tu8"
+[ext_resource type="Resource" uid="uid://7qyp57e81yb5" path="res://assets/definitions/entities/controllers/enemy_controller.tres" id="1_cv6wd"]
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="2_f8fcw"]
+[ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="3_325pe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qkhq4"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqybp"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iqfcy"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(48, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0myl"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(72, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4skn"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(0, 72, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37err"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(24, 72, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iavvi"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(48, 72, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55bqv"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(0, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gjvmm"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(24, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibwuo"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(48, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qfde"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(72, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cdfi3"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(96, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_chtbi"]
-atlas = ExtResource("2_js7ka")
+atlas = ExtResource("3_325pe")
 region = Rect2(120, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vwgaw"]
@@ -119,12 +114,12 @@ animations = [{
 }]
 
 [resource]
-script = ExtResource("1_j7dal")
+script = ExtResource("2_f8fcw")
 sprite_frames = SubResource("SpriteFrames_vwgaw")
 default_animation = "walk"
-sprite_scale = Vector3(1.2, 1.2, 1.2)
-acceleration = 10.0
-friction = 3.0
-controller = SubResource("Resource_qkhq4")
-starting_weapon = ExtResource("4_eqybp")
+modulate = Color(0.6162354, 0, 0.013446769, 1)
+sprite_scale = Vector3(1.5, 1.5, 1.5)
+move_speed = 0.4
+controller = ExtResource("1_cv6wd")
+team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"

@@ -5,13 +5,18 @@ const PROJECTILE_SCENE = preload("res://Game/Combat/Projectile/Projectile.tscn")
 
 var definition: WeaponDefinition
 var can_fire := true
+var wielder: Entity
+
+var damage_multiplier := 1.0
 
 @onready var sprite = $AnimatedSprite3D
 @onready var muzzle = $Muzzle
 
 
-func setup(weapon_definition):
+func setup(weapon_definition, owner_entity):
 	definition = weapon_definition
+	wielder = owner_entity
+	damage_multiplier = weapon_definition.damage_multiplier
 	_apply_visuals()
 
 
@@ -38,6 +43,8 @@ func fire(direction: Vector3):
 		direction,
 		definition.projectile
 	)
+	projectile.source_team = wielder.team
+	projectile.source_entity = wielder
 	
 	await get_tree().create_timer(definition.fire_rate).timeout
 	can_fire = true

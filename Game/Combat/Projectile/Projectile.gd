@@ -10,6 +10,8 @@ var lifetime: float
 var knockback: float
 
 var direction: Vector3
+var source_team
+var source_entity: Entity
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var hitbox: Area3D = $Area3D
@@ -39,21 +41,22 @@ func setup(
 func _physics_process(delta):
 	var from = global_position
 	var to = from + direction * speed * delta
-
+	
 	var space = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(from, to)
-
+	
 	var hit = space.intersect_ray(query)
-
+	
 	if hit:
 		var target = hit.collider
-
+		
 		if target.has_method("on_projectile_hit"):
-			target.on_projectile_hit(self, hit)
-
-		queue_free()
-		return
-
+			var consumed = target.on_projectile_hit(self)
+			
+			if consumed:
+				queue_free()
+				return
+	
 	global_position = to
 
 func _apply_visuals():

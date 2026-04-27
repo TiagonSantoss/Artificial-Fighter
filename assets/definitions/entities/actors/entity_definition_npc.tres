@@ -1,7 +1,12 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://c8k1sacc2ergh"]
 
+[ext_resource type="Script" uid="uid://dkw2icx6afovj" path="res://Utils/controller.gd" id="1_mimxp"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Entities/entity_definition.gd" id="2_mimxp"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="3_mimxp"]
+
+[sub_resource type="Resource" id="Resource_33iun"]
+script = ExtResource("1_mimxp")
+metadata/_custom_type_script = "uid://dkw2icx6afovj"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qkhq4"]
 atlas = ExtResource("3_mimxp")
@@ -115,6 +120,8 @@ animations = [{
 [resource]
 script = ExtResource("2_mimxp")
 sprite_frames = SubResource("SpriteFrames_tpari")
+modulate = Color(0.2659841, 0.6272627, 0.8710297, 1)
+controller = SubResource("Resource_33iun")
 entity_id = 3
 team = 1
 metadata/_custom_type_script = "uid://dll1idsl2062t"

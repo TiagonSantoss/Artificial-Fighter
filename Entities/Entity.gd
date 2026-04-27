@@ -1,6 +1,12 @@
 class_name Entity
 extends CharacterBody3D
 
+enum Team {
+	PLAYER,
+	ALLY,
+	ENEMY
+}
+
 var definition: EntityDefinition
 var controller: Controller
 
@@ -47,6 +53,15 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 func is_blocked(_pos: Vector3i) -> bool:
 	return false 
 
+func is_friendly_to(other_team) -> bool:
+	match team:
+		Team.PLAYER, Team.ALLY:
+			match other_team:
+				Team.PLAYER, Team.ALLY:
+					return true
+
+	return false
+
 func _apply_visuals() -> void:
 	sprite.sprite_frames = definition.sprite_frames
 	sprite.texture_filter = definition.texture_filter
@@ -63,13 +78,24 @@ func equip_weapon(weapon_definition):
 	
 	weapon_socket.add_child(equipped_weapon)
 	
-	equipped_weapon.setup(weapon_definition)
+	equipped_weapon.setup(weapon_definition, self)
 
 func take_damage(amount):
 	health -= amount
+	print(health)
 	
 	if health <= 0:
 		queue_free()
+
+func on_projectile_hit(projectile) -> bool:
+	if is_friendly_to(projectile.source_team):
+		return false
+	
+	take_damage(
+	projectile.damage *
+	projectile.source_entity.equipped_weapon.damage_multiplier
+	)
+	return true 
 
 func get_mouse_world():
 	var cam = get_viewport().get_camera_3d()
@@ -109,9 +135,9 @@ func _physics_process(delta: float) -> void:
 	
 	grid_position = Grid.world_to_grid(global_position)
 	
-	if controller is CompanionController:
-		print("WORLD:", global_position)
-		print("GRID:", grid_position)
+	#if controller is CompanionController:
+		#print("WORLD:", global_position)
+		#print("GRID:", grid_position)
 	
 	var target = get_mouse_world()
 	if target:

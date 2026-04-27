@@ -1,12 +1,6 @@
 class_name EntityDefinition
 extends Resource
 
-enum Team {
-	PLAYER,
-	ALLY,
-	ENEMY
-}
-
 @export_category("Visual")
 @export var sprite_frames: SpriteFrames
 @export var default_animation: String = "idle"
@@ -17,8 +11,8 @@ enum Team {
 
 @export_category("Stats")
 @export var max_health: int = 100
-@export var move_speed: float = 3.0
-@export var max_speed: float = 10.0
+@export var move_speed: float = 1.5
+@export var max_speed: float = 1.2
 @export var acceleration: float = 1.0
 @export var friction: float = 1.3
 
@@ -29,4 +23,4 @@ enum Team {
 @export var entity_id: int
 #@export var light: bool LATER
 @export var starting_weapon: WeaponDefinition
-@export var team: Team
+@export var team: Entity.Team

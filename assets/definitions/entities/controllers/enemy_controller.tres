@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CompanionController" format=3 uid="uid://7qyp57e81yb5"]
+
+[ext_resource type="Script" uid="uid://do5nwha53ks5i" path="res://Entities/Controllers/companion_controller.gd" id="1_mn6wd"]
+
+[resource]
+script = ExtResource("1_mn6wd")
+metadata/_custom_type_script = "uid://do5nwha53ks5i"
