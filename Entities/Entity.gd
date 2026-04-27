@@ -10,6 +10,7 @@ var max_speed: float
 var acceleration: float
 var friction: float
 var entity_id: int
+var team
 
 var grid_position: Vector3i
 var equipped_weapon: Weapon
@@ -29,6 +30,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	acceleration = definition.acceleration
 	friction = definition.friction
 	entity_id = definition.entity_id
+	team = definition.team
 	
 	global_position = start_position
 	
@@ -62,6 +64,12 @@ func equip_weapon(weapon_definition):
 	weapon_socket.add_child(equipped_weapon)
 	
 	equipped_weapon.setup(weapon_definition)
+
+func take_damage(amount):
+	health -= amount
+	
+	if health <= 0:
+		queue_free()
 
 func get_mouse_world():
 	var cam = get_viewport().get_camera_3d()

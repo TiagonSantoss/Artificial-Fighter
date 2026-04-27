@@ -6,7 +6,7 @@
 script = ExtResource("1_r5pab")
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=190607701]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013594005, 0.024554964, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013594005, 0.08743036, 0)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1060400207]
 render_priority = 1

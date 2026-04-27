@@ -1,6 +1,12 @@
 class_name EntityDefinition
 extends Resource
 
+enum Team {
+	PLAYER,
+	ALLY,
+	ENEMY
+}
+
 @export_category("Visual")
 @export var sprite_frames: SpriteFrames
 @export var default_animation: String = "idle"
@@ -21,5 +27,6 @@ extends Resource
 
 @export_category("Data")
 @export var entity_id: int
-#@export var light: bool
+#@export var light: bool LATER
 @export var starting_weapon: WeaponDefinition
+@export var team: Team

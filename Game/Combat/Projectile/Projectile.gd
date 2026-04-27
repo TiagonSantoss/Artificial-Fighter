@@ -31,21 +31,30 @@ func setup(
 	lifetime = definition.lifetime
 	knockback = definition.knockback
 	
-	global_position = start_position
-	direction = dir.normalized()
-	
-	
-	
-	definition = projectile_definition
 	_apply_visuals()
 
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
 
-
 func _physics_process(delta):
-	global_position += direction * speed * delta
+	var from = global_position
+	var to = from + direction * speed * delta
 
+	var space = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+
+	var hit = space.intersect_ray(query)
+
+	if hit:
+		var target = hit.collider
+
+		if target.has_method("on_projectile_hit"):
+			target.on_projectile_hit(self, hit)
+
+		queue_free()
+		return
+
+	global_position = to
 
 func _apply_visuals():
 	sprite.sprite_frames = definition.sprite_frames
