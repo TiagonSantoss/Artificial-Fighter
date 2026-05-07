@@ -122,6 +122,7 @@ script = ExtResource("2_swodp")
 sprite_frames = SubResource("SpriteFrames_vwgaw")
 default_animation = "walk"
 modulate = Color(0.33, 0.31625, 0.31350002, 1)
+sprite_scale = Vector3(1.2, 1.2, 1.2)
 acceleration = 10.0
 friction = 3.0
 controller = SubResource("Resource_fy7fe")

@@ -18,6 +18,8 @@ var friction: float
 var entity_id: int
 var team
 
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 var grid_position: Vector3i
 var equipped_weapon: Weapon
 
@@ -109,6 +111,8 @@ func get_mouse_world():
 	return ground.intersects_ray(ray_origin, ray_dir)
 
 func _physics_process(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 	var _had_movement := false
 	
 	if controller:

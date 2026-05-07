@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dmoxknn2y4a2y"]
+
+[ext_resource type="PackedScene" uid="uid://i5tufgt5ijuh" path="res://assets/models/level/first_level_cardinal.glb" id="1_lefx1"]
+
+[node name="first_level_cardinal" unique_id=23116085 instance=ExtResource("1_lefx1")]
