@@ -12,26 +12,6 @@
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="11_70uel"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_tlwt5"]
-sky_material = SubResource("ProceduralSkyMaterial_fj7yv")
-
-[sub_resource type="Environment" id="Environment_aqk2v"]
-background_color = Color(0.852695, 0.71877337, 0.87123346, 1)
-background_energy_multiplier = 2.3
-sky = SubResource("Sky_tlwt5")
-ambient_light_source = 2
-ambient_light_color = Color(0.22597522, 0.39669406, 0.4383236, 1)
-reflected_light_source = 2
-tonemap_mode = 2
-glow_enabled = true
-fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
-fog_sun_scatter = 0.16
-fog_density = 0.0924
-
 [sub_resource type="Gradient" id="Gradient_ftslj"]
 offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
 colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
@@ -58,11 +38,32 @@ shader_parameter/edge_color2 = Color(0.4008436, 0.21760604, 0.07645293, 1)
 script = ExtResource("8_ic0uy")
 metadata/_custom_type_script = "uid://chf8ya3atxdj1"
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.32297173, 0.6693039, 0.9092894, 1)
+sky_curve = 2.160075
+
+[sub_resource type="Sky" id="Sky_1o2vn"]
+sky_material = SubResource("ProceduralSkyMaterial_ic0uy")
+
+[sub_resource type="Environment" id="Environment_k3n1d"]
+background_mode = 1
+sky = SubResource("Sky_1o2vn")
+ambient_light_source = 2
+ambient_light_color = Color(0.6942511, 0.5954767, 0.99999934, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+ssao_enabled = true
+ssao_intensity = 6.69
+fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
+fog_sun_scatter = 0.16
+fog_density = 0.0924
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0037
+volumetric_fog_albedo = Color(0.8576179, 0.5873762, 1, 1)
+
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=650788768]
-environment = SubResource("Environment_aqk2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0.29394203, 0)
@@ -98,6 +99,9 @@ room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel")])
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
 transform = Transform3D(1, 0, 0, 0, 0.67944133, 0.73372984, 0, -0.73372984, 0.67944133, 0.07426453, 10.486923, 9.15621)
 projection = 1
-size = 3.668
+size = 4.622
 near = 0.001
 far = 54.16
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
+environment = SubResource("Environment_k3n1d")

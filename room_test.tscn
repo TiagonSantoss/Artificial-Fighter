@@ -11,17 +11,17 @@
 script = ExtResource("2_p1rem")
 metadata/_custom_type_script = "uid://chf8ya3atxdj1"
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7jyaa"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_65mac"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_tlwt5"]
-sky_material = SubResource("ProceduralSkyMaterial_7jyaa")
+[sub_resource type="Sky" id="Sky_pfqek"]
+sky_material = SubResource("ProceduralSkyMaterial_65mac")
 
-[sub_resource type="Environment" id="Environment_jm6y3"]
+[sub_resource type="Environment" id="Environment_3j3en"]
 background_color = Color(0.852695, 0.71877337, 0.87123346, 1)
 background_energy_multiplier = 2.3
-sky = SubResource("Sky_tlwt5")
+sky = SubResource("Sky_pfqek")
 ambient_light_source = 2
 ambient_light_color = Color(0.22597522, 0.39669406, 0.4383236, 1)
 reflected_light_source = 2
@@ -47,8 +47,8 @@ script = ExtResource("6_65mac")
 
 [node name="Entities" type="Node3D" parent="." unique_id=1912163484]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=949455536]
-environment = SubResource("Environment_jm6y3")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1081941488]
 transform = Transform3D(-0.18799439, 0.87944925, -0.43729523, 0.3473405, 0.47599265, 0.80795145, 0.91870165, 0, -0.3949523, 0, 3.3477783, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=238350876]
+environment = SubResource("Environment_3j3en")

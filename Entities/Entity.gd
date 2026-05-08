@@ -11,6 +11,7 @@ var definition: EntityDefinition
 var controller: Controller
 
 var health: int
+var jump_force: float
 var move_speed: float
 var max_speed: float
 var acceleration: float
@@ -35,6 +36,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	
 	health = definition.max_health
 	move_speed = definition.move_speed
+	jump_force = definition.jump_force
 	max_speed = definition.max_speed
 	acceleration = definition.acceleration
 	friction = definition.friction

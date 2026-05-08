@@ -34,9 +34,9 @@ func _ready() -> void:
 	if controlled_entity:
 		camera_rig.reparent(entity_camera_pivot)
 	
-	while true:
-		var enemy: Entity = ENTITY_SCENE.instantiate()
-		entities.add_child(enemy)
-		enemy.setup(player_spawn.position + Vector3(1,0,1), enemy_definition)
-		enemy.controller.follow_target = player_companion
-		await get_tree().create_timer(2).timeout
+	#while true:
+	var enemy: Entity = ENTITY_SCENE.instantiate()
+	entities.add_child(enemy)
+	enemy.setup(player_spawn.position + Vector3(1,0,1), enemy_definition)
+	enemy.controller.follow_target = player_companion
+		#await get_tree().create_timer(2).timeout

@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="GridData" format=3]
 
-[ext_resource type="Resource" path="res://assets/definitions/cells/door_weast.tres" id="2_vymaa"]
+[ext_resource type="Resource" path="res://assets/definitions/cells/door_south.tres" id="2_umisr"]
 [ext_resource type="Script" path="res://Game/Room/Grid/grid_data.gd" id="4_sdlmu"]
 
 [resource]
 script = ExtResource("4_sdlmu")
 grid = {
-Vector3i(11, -1, -1): ExtResource("2_vymaa")
+Vector3i(-4, -1, 0): ExtResource("2_umisr")
 }
 doors = Array[Dictionary]([{
-"dir": Vector3i(1, 0, 0),
-"pos": Vector3i(11, -1, -1)
+"dir": Vector3i(0, -1, 0),
+"pos": Vector3i(-4, -1, 0)
 }])

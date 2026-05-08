@@ -51,4 +51,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_just_pressed("rotate_camera_left"):
 		actions.append(RotateCameraAction.new(-90, pivot))
 	
+	if Input.is_action_just_pressed("jump"):
+		actions.append((JumpAction.new()))
+	
 	return actions
