@@ -27,6 +27,7 @@ const WEAPON_SCENE = preload("res://Game/Combat/Weapon/Weapon.tscn")
 
 @onready var weapon_socket = $WeaponSocket
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
+@onready var camera_pivot: Marker3D = $CameraPivot
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
 	definition = entity_definition

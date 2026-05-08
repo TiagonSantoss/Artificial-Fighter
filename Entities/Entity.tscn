@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Entities/Entity.gd" id="1_0p8jp"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_y048k"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/game_camera.gd" id="3_8xvi6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8xvi6"]
 atlas = ExtResource("2_y048k")
@@ -35,3 +36,6 @@ debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
 [node name="WeaponSocket" type="Marker3D" parent="." unique_id=504328398]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109822944, -0.01002121, 0.0068742484)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=1482553420]
+script = ExtResource("3_8xvi6")

@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="9_k3n1d"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="11_70uel"]
-[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://game_camera.gd" id="12_k3n1d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -97,9 +96,8 @@ start_room = ExtResource("9_k3n1d")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.67944133, 0.73372984, 0, -0.73372984, 0.67944133, 11.726379, 4.9924774, 7.457329)
+transform = Transform3D(1, 0, 0, 0, 0.67944133, 0.73372984, 0, -0.73372984, 0.67944133, 0.07426453, 10.486923, 9.15621)
 projection = 1
 size = 3.668
 near = 0.001
 far = 54.16
-script = ExtResource("12_k3n1d")
