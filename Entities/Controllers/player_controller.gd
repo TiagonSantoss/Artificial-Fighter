@@ -18,7 +18,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	
 	var cam := _actor.get_viewport().get_camera_3d()
 	var pivot := cam.get_parent() as GameCamera
-
+	
 	if input != Vector2.ZERO:
 		if input != previous_input:
 			var forward = -pivot.global_transform.basis.z
