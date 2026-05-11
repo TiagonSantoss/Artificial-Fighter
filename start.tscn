@@ -139,7 +139,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(-0.25625452, 4.4344697, 0.6246032, 0.6208873, 3.730917, -0.47868195, -0.7409929, 1.5912106, -0.61715525, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-0.29360893, 4.4769, 0.6006568, 0.6596199, 3.6849844, -0.43592378, -0.6921145, 1.6108257, -0.670337, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="BlueCubes" type="GPUParticles3D" parent="." unique_id=1386428913]

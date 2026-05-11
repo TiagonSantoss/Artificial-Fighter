@@ -1,6 +1,10 @@
 [gd_scene format=4 uid="uid://c5kmrq04536uc"]
 
 [ext_resource type="PackedScene" uid="uid://dmle45gqdh5qa" path="res://assets/models/PS1/assets.glb" id="1_yfcdo"]
+[ext_resource type="PackedScene" uid="uid://bsju70y0xbc13" path="res://cube.tscn" id="2_wpkub"]
+[ext_resource type="Shader" uid="uid://ddnc6kmsuv64f" path="res://fire.tres" id="3_tfxfp"]
+[ext_resource type="Texture2D" uid="uid://c8hh2tjuyeg56" path="res://textures/T_Wave66.png" id="4_gn0dj"]
+[ext_resource type="Texture2D" uid="uid://citpti256xstj" path="res://textures/T_Noise_HU85k.png" id="5_vy6do"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
 render_priority = 1
@@ -357,6 +361,28 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0037
 volumetric_fog_albedo = Color(0.91846806, 0.62254554, 0.6737001, 1)
 
+[sub_resource type="Gradient" id="Gradient_h7wsl"]
+offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
+colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwbse"]
+gradient = SubResource("Gradient_h7wsl")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_thvc1"]
+render_priority = 0
+shader = ExtResource("3_tfxfp")
+shader_parameter/displace_speed = Vector2(1, 1)
+shader_parameter/displace_scale = Vector2(1, 1)
+shader_parameter/displace_texture = ExtResource("4_gn0dj")
+shader_parameter/displacement_intensity = 0.1
+shader_parameter/Speed = Vector2(0.5, 0.5)
+shader_parameter/Scale = Vector2(1, 1)
+shader_parameter/texture_base = ExtResource("5_vy6do")
+shader_parameter/color_pallete = SubResource("GradientTexture1D_dwbse")
+shader_parameter/edge_intensity = 2.0
+shader_parameter/edge_color2 = Color(0.4008436, 0.21760604, 0.07645293, 1)
+
 [node name="assets" unique_id=1957593520 instance=ExtResource("1_yfcdo")]
 
 [node name="spiral thing" parent="." index="0" unique_id=74165869]
@@ -459,3 +485,13 @@ environment = SubResource("Environment_mlaa2")
 
 [node name="Red" type="WorldEnvironment" parent="." index="16" unique_id=381114616]
 environment = SubResource("Environment_v5fse")
+
+[node name="cube" parent="." index="17" unique_id=380877417 instance=ExtResource("2_wpkub")]
+transform = Transform3D(0.099605896, 0, 0.95607877, 0.702253, -0.023328962, -0.13544296, 0.024510955, 0.66838837, -0.0047274074, -14.637726, 1.7023569, -1.7144845)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." index="18" unique_id=887740542]
+transform = Transform3D(0.25505656, 2.467658, 1.3391873, 1.7982287, -0.38301054, -0.06701749, 0.062764145, 0.945577, -3.5220037, -14.894157, 1.8258718, -1.5260818)
+inner_radius = 1.6785771
+sides = 23
+ring_sides = 16
+material = SubResource("ShaderMaterial_thvc1")

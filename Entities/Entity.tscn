@@ -20,7 +20,7 @@ animations = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
-size = Vector3(0.083984375, 0.48425293, 0.05078125)
+size = Vector3(0.14453125, 0.33494568, 0.14355469)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97436523, 0)
@@ -30,7 +30,7 @@ script = ExtResource("1_0p8jp")
 sprite_frames = SubResource("SpriteFrames_on4x7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1783856047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, -0.1232425, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, -0.048588872, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
@@ -38,4 +38,12 @@ debug_color = Color(0.96862745, 0, 0.48235294, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109822944, -0.01002121, 0.0068742484)
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1482553420]
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
 script = ExtResource("3_8xvi6")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1570299467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13847351, 0)
+transparency = 1.0
+cast_shadow = 3
+calculate_tangents = false
+size = Vector3(0.14282227, 0.040496826, 0.15454102)

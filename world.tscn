@@ -16,7 +16,7 @@
 offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
 colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwbse"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ic0uy"]
 gradient = SubResource("Gradient_ftslj")
 use_hdr = true
 
@@ -30,7 +30,7 @@ shader_parameter/displacement_intensity = 0.1
 shader_parameter/Speed = Vector2(0.5, 0.5)
 shader_parameter/Scale = Vector2(1, 1)
 shader_parameter/texture_base = ExtResource("6_dwbse")
-shader_parameter/color_pallete = SubResource("GradientTexture1D_dwbse")
+shader_parameter/color_pallete = SubResource("GradientTexture1D_ic0uy")
 shader_parameter/edge_intensity = 2.0
 shader_parameter/edge_color2 = Color(0.4008436, 0.21760604, 0.07645293, 1)
 
@@ -54,19 +54,24 @@ ambient_light_color = Color(0.6942511, 0.5954767, 0.99999934, 1)
 reflected_light_source = 2
 tonemap_mode = 2
 ssao_enabled = true
-ssao_intensity = 6.69
+ssao_radius = 0.44
+ssao_intensity = 4.19
+ssao_power = 1.2491086
+ssao_detail = 2.8
+ssao_horizon = 0.05
 fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
 fog_sun_scatter = 0.16
 fog_density = 0.0924
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0037
 volumetric_fog_albedo = Color(0.8576179, 0.5873762, 1, 1)
+volumetric_fog_ambient_inject = 0.77
 
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0.29394203, 0)
+transform = Transform3D(-0.90412116, -0.41353, -0.10750823, -0.057911098, -0.13069305, 0.9897301, -0.42333364, 0.9010617, 0.09421434, 0, 0.29394203, 0)
 shadow_enabled = true
 
 [node name="Entities" type="Node3D" parent="." unique_id=681819372]
@@ -78,16 +83,17 @@ transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0,
 
 [node name="cube" parent="." unique_id=380877417 instance=ExtResource("5_036b0")]
 transform = Transform3D(0.07934972, 0, 0, 0, 0.048396967, 0, 0, 0, 0.13288307, -1.3729324, 0.1703186, 0.05167389)
+visible = false
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=181206754]
 transform = Transform3D(0.2031874, 0, 0, 0, 0.09126928, -0.18237177, 0, 0.2373559, 0.07012649, -1.3625641, 0.2364502, 0.043331146)
+visible = false
 inner_radius = 1.6785771
 sides = 23
 ring_sides = 16
 material = SubResource("ShaderMaterial_pkg7o")
 
 [node name="CharacterBody3D" parent="." unique_id=1484144425 instance=ExtResource("6_gbfbk")]
-visible = false
 
 [node name="Room" type="Node3D" parent="." unique_id=1054715471]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -2.269165, 0)
@@ -97,7 +103,7 @@ start_room = ExtResource("9_k3n1d")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.67944133, 0.73372984, 0, -0.73372984, 0.67944133, 0.07426453, 10.486923, 9.15621)
+transform = Transform3D(1, 0, 0, 0, 0.6794413, 0.7337298, 0, -0.7337298, 0.6794413, 0.07426453, 10.486923, 9.15621)
 projection = 1
 size = 4.622
 near = 0.001
