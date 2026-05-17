@@ -120,5 +120,6 @@ default_animation = "walk"
 modulate = Color(0.6162354, 0, 0.013446769, 1)
 move_speed = 0.4
 controller = ExtResource("1_cv6wd")
+entity_id = 3
 team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"

@@ -124,6 +124,6 @@ modulate = Color(0.2659841, 0.6272627, 0.8710297, 1)
 billboard = 0
 sprite_scale = Vector3(3, 3, 3)
 controller = SubResource("Resource_33iun")
-entity_id = 3
+entity_id = 2
 team = 1
 metadata/_custom_type_script = "uid://dll1idsl2062t"
