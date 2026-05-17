@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Entities/Entity.gd" id="1_0p8jp"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_y048k"]
-[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/game_camera.gd" id="3_8xvi6"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="3_8xvi6"]
 [ext_resource type="Script" uid="uid://bm14sbbdlmu3u" path="res://Entities/Actors/entity_component.gd" id="4_pxkd2"]
 [ext_resource type="Script" uid="uid://ubllp3x1v5hq" path="res://Entities/Actors/Components/health_component.gd" id="5_eivxr"]
 [ext_resource type="Script" uid="uid://b6tbg4krpsruy" path="res://Entities/Actors/Components/animation_component.gd" id="6_3hqy6"]

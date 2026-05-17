@@ -1,25 +1,14 @@
 class_name GameCamera
-extends Node3D
+extends Camera3D
 
-@export var rotation_speed := 8.0
+@export var start_size := 20.0
+@export var target_size := 8.0
+@export var zoom_duration := 2.0
+@export var wait_time := 1.5
 
-var target_rotation_y := 0.0
-var is_rotating := false
-
-func rotate_by(degrees: float):
-	#if is_rotating:
-	#	return
+func _ready():
+	size = start_size
 	
-	is_rotating = true
-	target_rotation_y += deg_to_rad(degrees)
-
-func _process(delta):
-	rotation.y = lerp_angle(
-		rotation.y,
-		target_rotation_y,
-		rotation_speed * delta
-	)
-	
-	if abs(angle_difference(rotation.y, target_rotation_y)) <= 0.001:
-		rotation.y = target_rotation_y
-		is_rotating = false
+	await get_tree().create_timer(wait_time).timeout
+	var tween := create_tween()
+	tween.tween_property(self, "size", target_size, zoom_duration)

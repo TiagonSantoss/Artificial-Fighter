@@ -17,7 +17,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	input.y = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
 	
 	var cam := _actor.get_viewport().get_camera_3d()
-	var pivot := cam.get_parent() as GameCamera
+	var pivot := cam.get_parent() as RotateCameraPivot
 	
 	if input != Vector2.ZERO:
 		if input != previous_input:
