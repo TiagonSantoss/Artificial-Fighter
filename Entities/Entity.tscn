@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Entities/Entity.gd" id="1_0p8jp"]
 [ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_y048k"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/game_camera.gd" id="3_8xvi6"]
+[ext_resource type="Script" uid="uid://bm14sbbdlmu3u" path="res://Entities/Actors/entity_component.gd" id="4_pxkd2"]
+[ext_resource type="Script" uid="uid://ubllp3x1v5hq" path="res://Entities/Actors/Components/health_component.gd" id="5_eivxr"]
+[ext_resource type="Script" uid="uid://b6tbg4krpsruy" path="res://Entities/Actors/Components/animation_component.gd" id="6_3hqy6"]
+[ext_resource type="Script" uid="uid://cr7fju12dylcr" path="res://Entities/Actors/Components/movement_component.gd" id="6_4mw2e"]
+[ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Entities/Actors/Components/weapon_component.gd" id="7_4mw2e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8xvi6"]
 atlas = ExtResource("2_y048k")
@@ -20,26 +25,27 @@ animations = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
-size = Vector3(0.14453125, 0.33494568, 0.14355469)
+size = Vector3(0.14453125, 0.2231369, 0.14355469)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97436523, 0)
 script = ExtResource("1_0p8jp")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10770047, 0)
 sprite_frames = SubResource("SpriteFrames_on4x7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1783856047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, -0.048588872, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, 0.0073155165, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
-
-[node name="WeaponSocket" type="Marker3D" parent="." unique_id=504328398]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109822944, -0.01002121, 0.0068742484)
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1482553420]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
 script = ExtResource("3_8xvi6")
+
+[node name="WeaponSocket" type="Marker3D" parent="CameraPivot" unique_id=504328398]
+transform = Transform3D(0.99996775, 0.0072719823, 0.0034204416, -0.007273332, 0.9999735, 0.00038131527, -0.0034175767, -0.00040618377, 0.99999404, 0.09295854, -0.010713398, -0.0395141)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1570299467]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13847351, 0)
@@ -47,3 +53,18 @@ transparency = 1.0
 cast_shadow = 3
 calculate_tangents = false
 size = Vector3(0.14282227, 0.040496826, 0.15454102)
+
+[node name="Components" type="Node" parent="." unique_id=1339899819]
+script = ExtResource("4_pxkd2")
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=259781504]
+script = ExtResource("5_eivxr")
+
+[node name="MovementComponent" type="Node" parent="Components" unique_id=823241683]
+script = ExtResource("6_4mw2e")
+
+[node name="AnimationComponent" type="Node" parent="Components" unique_id=1008868513]
+script = ExtResource("6_3hqy6")
+
+[node name="WeaponComponent" type="Node" parent="Components" unique_id=426781965]
+script = ExtResource("7_4mw2e")

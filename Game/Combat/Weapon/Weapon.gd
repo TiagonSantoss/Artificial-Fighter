@@ -29,6 +29,10 @@ func _apply_visuals():
 	sprite.play(definition.default_animation)
 
 func fire(direction: Vector3):
+	if wielder == null:
+		push_error("Weapon fired without wielder (setup missing)")
+		return
+
 	if not can_fire:
 		return
 	

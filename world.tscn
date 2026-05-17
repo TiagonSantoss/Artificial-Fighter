@@ -94,6 +94,8 @@ ring_sides = 16
 material = SubResource("ShaderMaterial_pkg7o")
 
 [node name="CharacterBody3D" parent="." unique_id=1484144425 instance=ExtResource("6_gbfbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2857666, 0)
+visible = false
 
 [node name="Room" type="Node3D" parent="." unique_id=1054715471]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -2.269165, 0)

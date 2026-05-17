@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://cphyyay6iwj7h"]
+[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://dlx8c2umwx8l2"]
 
 [ext_resource type="Resource" uid="uid://krg8ntsd6wc2" path="res://assets/definitions/cells/door_south.tres" id="2_umisr"]
 [ext_resource type="Script" uid="uid://dvkdj3l7aft1p" path="res://Game/Room/Grid/grid_data.gd" id="4_sdlmu"]
