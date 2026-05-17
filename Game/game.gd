@@ -7,27 +7,31 @@ const companion_definition: EntityDefinition = preload("res://assets/definitions
 const enemy_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_enemy.tres")
 const ENTITY_SCENE = preload("res://Entities/Entity.tscn")
 
+var controlled_entity: Entity
+var entity_camera_pivot: Marker3D
+
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
+@onready var camera_rig: Camera3D = $Camera3D
 
-func _ready() -> void:
-	var player: Entity = ENTITY_SCENE.instantiate()
-	entities.add_child(player)
-	player.setup(player_spawn.position, player_definition)
+func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
+	var e: Entity = ENTITY_SCENE.instantiate()
+	entities.add_child(e)
+	e.setup(pos, definition)
+	return e
 
-	var npc: Entity = ENTITY_SCENE.instantiate()
-	entities.add_child(npc)
-	npc.setup(player_spawn.position + Vector3.RIGHT, npc_definition)
-	npc.sprite.modulate = Color.CORNFLOWER_BLUE
+func _ready():
+	var player = spawn_entity(player_definition, player_spawn.position)
 	
-	var player_companion: Entity = ENTITY_SCENE.instantiate()
-	entities.add_child(player_companion)
-	player_companion.setup(player_spawn.position + Vector3.LEFT, companion_definition)
-	player_companion.controller.follow_target = player
+	controlled_entity = player
+	entity_camera_pivot = player.camera_pivot
+
+	var _npc = spawn_entity(npc_definition, player_spawn.position + Vector3.RIGHT)
 	
-	while true:
-		var enemy: Entity = ENTITY_SCENE.instantiate()
-		entities.add_child(enemy)
-		enemy.setup(player_spawn.position + Vector3(2,0,2), enemy_definition)
-		enemy.controller.follow_target = player_companion
-		await get_tree().create_timer(0.1).timeout
+	var companion = spawn_entity(companion_definition, player_spawn.position + Vector3.LEFT)
+	companion.controller.follow_target = player
+	
+	var enemy = spawn_entity(enemy_definition, player_spawn.position + Vector3(1,0,1))
+	enemy.controller.follow_target = companion
+	
+	camera_rig.reparent(entity_camera_pivot)

@@ -15,6 +15,7 @@ extends Resource
 @export var max_speed: float = 1.2
 @export var acceleration: float = 1.0
 @export var friction: float = 1.3
+@export var jump_force := 6.0
 
 @export_category("Behavior")
 @export var controller: Controller
