@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://chf8ya3atxdj1"
 sky_top_color = Color(0, 0, 0, 1)
 sky_horizon_color = Color(0.32297173, 0.6693039, 0.9092894, 1)
 sky_curve = 2.160075
+use_debanding = false
 
 [sub_resource type="Sky" id="Sky_1o2vn"]
 sky_material = SubResource("ProceduralSkyMaterial_ic0uy")
@@ -29,7 +30,6 @@ ambient_light_source = 2
 ambient_light_color = Color(0.6942511, 0.5954767, 0.99999934, 1)
 reflected_light_source = 2
 tonemap_mode = 2
-ssao_enabled = true
 ssao_radius = 0.44
 ssao_intensity = 4.19
 ssao_power = 1.2491086
