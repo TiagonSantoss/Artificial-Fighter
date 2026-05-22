@@ -9,37 +9,37 @@
 script = ExtResource("1_qkhq4")
 metadata/_custom_type_script = "uid://dvumffdux2tu8"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqybp"]
+atlas = ExtResource("3_eqybp")
+region = Rect2(0, 0, 100, 100)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_iqfcy"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(0, 0, 512, 512)
+region = Rect2(100, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0myl"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(512, 0, 512, 512)
+region = Rect2(200, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4skn"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(1024, 0, 512, 512)
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37err"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(1536, 0, 512, 512)
+region = Rect2(400, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iavvi"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(2048, 0, 512, 512)
+region = Rect2(500, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55bqv"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(2560, 0, 512, 512)
+region = Rect2(600, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gjvmm"]
 atlas = ExtResource("3_eqybp")
-region = Rect2(3072, 0, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibwuo"]
-atlas = ExtResource("3_eqybp")
-region = Rect2(0, 512, 512, 512)
+region = Rect2(0, 100, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qfde"]
 atlas = ExtResource("3_eqybp")
@@ -165,6 +165,9 @@ region = Rect2(1024, 1536, 512, 512)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_eqybp")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_iqfcy")
 }, {
 "duration": 1.0,
@@ -184,9 +187,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gjvmm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ibwuo")
 }],
 "loop": true,
 "name": &"idle_down",
@@ -314,7 +314,7 @@ sprite_frames = SubResource("SpriteFrames_vwgaw")
 default_animation = "idle_down"
 billboard = 2
 texture_filter = 3
-sprite_scale = Vector3(0.1, 0.12, 0.1)
+sprite_scale = Vector3(0.5, 0.5, 0.5)
 acceleration = 10.0
 friction = 3.0
 controller = SubResource("Resource_qkhq4")

@@ -31,10 +31,7 @@ var grid_position: Vector3i
 @onready var animation_component: AnimationComponent = $Components/AnimationComponent
 @onready var weapon_component: WeaponComponent = $Components/WeaponComponent
 
-func setup(
-	start_position: Vector3,
-	entity_definition: EntityDefinition
-) -> void:
+func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
 	
 	global_position = start_position
@@ -82,21 +79,26 @@ func _physics_process(delta: float) -> void:
 			self,
 			delta
 		)
+		
 		for action in actions:
 			if action is MovementAction:
 				had_movement = true
 			action.execute(self, delta)
+		
+		var target = controller.get_aim_target(self)
+		if target != null:
+			weapon_component.look_at_target(target)
+		
 	if not had_movement:
 		movement_component.apply_friction(delta)
 	
 	move_and_slide()
 	
-	grid_position = Grid.world_to_grid(global_position)
-	
-	var target = get_mouse_world()
-	
-	if target:
-		weapon_component.look_at_target(target)
+	var new_grid := Grid.world_to_grid(
+		global_position
+	)
+	if new_grid != grid_position:
+		grid_position = new_grid
 	
 	animation_component.update_animation()
 
@@ -126,24 +128,6 @@ func on_projectile_hit(projectile) -> bool:
 
 func damage(amount: int) -> void:
 	health_component.damage(amount)
-
-func get_mouse_world():
-	var cam = get_viewport().get_camera_3d()
-	
-	if not cam:
-		return null
-	
-	var mouse = get_viewport().get_mouse_position()
-	
-	var ray_origin = cam.project_ray_origin(mouse)
-	var ray_dir = cam.project_ray_normal(mouse)
-	
-	var ground = Plane(Vector3.UP, global_position)
-	
-	return ground.intersects_ray(
-		ray_origin,
-		ray_dir
-	)
 
 func _on_died() -> void:
 	queue_free()

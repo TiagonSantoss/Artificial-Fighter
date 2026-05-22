@@ -1,12 +1,12 @@
 class_name FireAction
 extends Action
 
+var direction: Vector3
+
+func _init(dir: Vector3):
+	direction = dir
 
 func execute(entity, _delta):
-	var target = entity.get_mouse_world()
-	
-	if target:
-		var dir = target - entity.global_position
-		dir.y = 0
-		dir = dir.normalized()
-		entity.weapon_component.equipped_weapon.fire(dir)
+	entity.weapon_component.equipped_weapon.fire(
+		direction
+	)

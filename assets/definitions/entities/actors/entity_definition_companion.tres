@@ -310,7 +310,7 @@ animations = [{
 [resource]
 script = ExtResource("2_swodp")
 sprite_frames = SubResource("SpriteFrames_swodp")
-default_animation = "walk"
+default_animation = "idle_down"
 modulate = Color(0.33, 0.31625, 0.31350002, 1)
 texture_filter = 3
 sprite_scale = Vector3(0.07, 0.073, 0.7)

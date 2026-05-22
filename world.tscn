@@ -113,7 +113,7 @@ near = 0.001
 far = 54.16
 script = ExtResource("12_k3n1d")
 start_size = 62.0
-target_size = 4.6
+target_size = 5.0
 zoom_duration = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]

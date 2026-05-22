@@ -43,7 +43,16 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append(EscapeAction.new())
 	
 	if Input.is_action_pressed("fire"):
-		actions.append(FireAction.new())
+		var target = get_aim_target(_actor)
+		if target != null:
+			var dir = (
+				target - _actor.global_position
+			)
+			dir.y = 0
+			dir = dir.normalized()
+			actions.append(
+				FireAction.new(dir)
+			)
 	
 	if Input.is_action_just_pressed("rotate_camera_right"):
 		actions.append(RotateCameraAction.new(90, pivot))
@@ -55,3 +64,24 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append((JumpAction.new()))
 	
 	return actions
+
+func get_aim_target(actor) -> Variant:
+	var cam: Camera3D = actor.get_viewport().get_camera_3d()
+	
+	if cam == null:
+		return null
+	
+	var mouse: Vector2 = actor.get_viewport().get_mouse_position()
+	
+	var ray_origin := cam.project_ray_origin(mouse)
+	var ray_dir := cam.project_ray_normal(mouse)
+	
+	var plane := Plane(
+		Vector3.UP,
+		actor.global_position
+	)
+	
+	return plane.intersects_ray(
+		ray_origin,
+		ray_dir
+	)
