@@ -28,7 +28,7 @@ animations = [{
 size = Vector3(0.14453125, 0.2231369, 0.14355469)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97436523, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
 script = ExtResource("1_0p8jp")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
@@ -39,6 +39,8 @@ sprite_frames = SubResource("SpriteFrames_on4x7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, 0.0073155165, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1482553420]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
