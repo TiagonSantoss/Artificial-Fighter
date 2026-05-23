@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://crkyo7an01huo" path="res://Game/Room/Rooms/Scripts/start.gd" id="1_qn1rc"]
 [ext_resource type="MeshLibrary" uid="uid://b2uyjbo5a8xcx" path="res://assets/models/new_mesh_library.tres" id="2_qn1rc"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_qn1rc"]
+vertices = PackedVector3Array(1.5, 2.4562566, -9.5, 0.5, 2.4562566, -9.5, 0.5, 2.4562566, -7.75, 1.75, 1.9562566, -7.5, 4.75, 1.9562566, 2.25, 7.5, 1.9562566, 1.75, 7.5, 1.9562566, 0.25, 0, 1.9562566, -7.5, 1, 1.9562566, -4.5, 9.5, 2.4562566, 1.5, 9.5, 2.4562566, 0.5, 4.75, 1.9562566, -4.25, 7.5, 1.9562566, -7.5, 4.25, 1.9562566, 2.75, 7.5, 1.9562566, 2.75, -0.5, 1.9562566, -4.25, -2.25, 1.9562566, -0.5, -0.5, 1.9562566, -0.5, -7.5, 1.9562566, 0, -2.5, 1.9562566, 0.75, -7.5, 1.9562566, -7.5, 2.5, 3.9562566, -0.5, 2.75, 3.9562566, 1.75, 3.75, 3.9562566, 1.5, 3.75, 3.9562566, -3.25, 0.5, 3.9562566, -3.5, 0.5, 3.9562566, -0.5, -7.75, 1.9562566, 0.5, -9.25, 1.9562566, 0.5, -9.25, 1.9562566, 1.5, -7.5, 1.9562566, 1.75, -2.5, 1.9562566, 4.25, -7.5, 1.9562566, 7.5, -2.75, 1.9562566, 7.5, -23.5, 15.956257, 1.5, -22.25, 15.956257, 1.5, -22.5, 15.956257, 0.5, -23.5, 15.956257, 0.5, -21.25, 13.956257, 1.5, -20.25, 13.956257, 1.5, -20.5, 13.956257, 0.5, -21.25, 13.956257, 0.5, -19.25, 11.956257, 1.5, -18.25, 11.956257, 1.5, -18.5, 11.956257, 0.5, -19.25, 11.956257, 0.5, -17.25, 9.956257, 1.5, -16.25, 9.956257, 1.5, -16.5, 9.956257, 0.5, -17.25, 9.956257, 0.5, -15.25, 7.956257, 1.5, -14.25, 7.956257, 1.5, -14.5, 7.956257, 0.5, -15.25, 7.956257, 0.5, -13.25, 5.956257, 1.5, -12.25, 5.956257, 1.5, -12.5, 5.956257, 0.5, -13.25, 5.956257, 0.5, -11.25, 3.9562566, 0.5, -11.25, 3.9562566, 1.5, -10.25, 3.9562566, 1.5, -10.25, 3.9562566, 0.5, -1.25, 5.956257, 3.75, 1.25, 5.956257, 3.75, 1.75, 5.956257, 3.25, 1.75, 5.956257, 0.5, -1.5, 5.956257, 0.5, 2.75, 1.9562566, 2.75, 2.75, 1.9562566, 4.25, 0.25, 1.9562566, 7.5, 0.5, 2.4562566, 9.5, 1.5, 2.4562566, 9.5, 1.75, 1.9562566, 7.5, 2.25, 1.9562566, 4.75, -2.25, 1.9562566, 4.75, 7.5, 1.9562566, 7.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(2, 3, 7), PackedInt32Array(7, 3, 8), PackedInt32Array(9, 5, 10), PackedInt32Array(10, 5, 6), PackedInt32Array(8, 3, 11), PackedInt32Array(11, 3, 12), PackedInt32Array(5, 14, 4), PackedInt32Array(4, 14, 13), PackedInt32Array(4, 11, 6), PackedInt32Array(6, 11, 12), PackedInt32Array(7, 8, 15), PackedInt32Array(15, 17, 16), PackedInt32Array(18, 16, 19), PackedInt32Array(15, 16, 7), PackedInt32Array(7, 16, 18), PackedInt32Array(7, 18, 20), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(26, 25, 21), PackedInt32Array(21, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(31, 33, 19), PackedInt32Array(19, 33, 30), PackedInt32Array(30, 33, 32), PackedInt32Array(27, 18, 30), PackedInt32Array(30, 18, 19), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(41, 40, 38), PackedInt32Array(38, 40, 39), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(49, 48, 46), PackedInt32Array(46, 48, 47), PackedInt32Array(53, 52, 50), PackedInt32Array(50, 52, 51), PackedInt32Array(57, 56, 54), PackedInt32Array(54, 56, 55), PackedInt32Array(61, 60, 58), PackedInt32Array(58, 60, 59), PackedInt32Array(63, 62, 64), PackedInt32Array(64, 62, 65), PackedInt32Array(65, 62, 66), PackedInt32Array(68, 67, 13), PackedInt32Array(70, 69, 71), PackedInt32Array(71, 69, 72), PackedInt32Array(68, 72, 73), PackedInt32Array(73, 72, 69), PackedInt32Array(74, 33, 31), PackedInt32Array(33, 74, 69), PackedInt32Array(69, 74, 73), PackedInt32Array(13, 14, 68), PackedInt32Array(68, 14, 75), PackedInt32Array(68, 75, 72)]
+agent_height = 3.0
+agent_max_climb = 1.5
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
 render_priority = 1
 transparency = 1
@@ -64,87 +70,33 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1o2vn")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qn1rc"]
-particle_flag_rotate_y = true
-emission_shape_offset = Vector3(1, 0, 0)
-emission_shape_scale = Vector3(4, 4, 4)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-angular_velocity_min = -38.060017
-angular_velocity_max = 52.99998
-gravity = Vector3(0, 1, 0)
-linear_accel_min = 0.09999776
-linear_accel_max = 0.49999776
-radial_accel_min = 0.09999776
-radial_accel_max = 0.99999774
-scale_min = 0.099999994
-scale_max = 0.39999998
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlaa2"]
-transparency = 1
-albedo_color = Color(0.44730002, 0.50820005, 0.63, 0.105882354)
-roughness = 0.3
-roughness_texture_channel = 2
-emission = Color(0.15073305, 0.0003029109, 0.3064861, 1)
-emission_energy_multiplier = 2.05
-rim_tint = 1.0
-ao_light_affect = 1.0
-subsurf_scatter_enabled = true
-subsurf_scatter_strength = 1.0
-backlight_enabled = true
-backlight = Color(0.162, 0.23790003, 0.3, 1)
-refraction_enabled = true
-billboard_keep_scale = true
-stencil_flags = 2
-stencil_color = Color(0.6159605, 0.77062285, 1, 1)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_y5hus"]
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 2, 2, 2),
-"format": 34896613377,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_1n0d2"]
-resource_name = "assets_Cube_001"
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 2, 2, 2),
-"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
-"format": 34896613399,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_mlaa2"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 24,
-"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_y5hus")
-
 [node name="Node3D" type="Node3D" unique_id=251378112]
 script = ExtResource("1_qn1rc")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1117237120]
 mesh_library = ExtResource("2_qn1rc")
 data = {
-"cells": PackedInt32Array(65521, 65531, 2, 65521, 65533, 8, 131066, 0, 8, 196601, 0, 8, 262136, 0, 8, 327671, 0, 8, 393206, 0, 8, 458741, 0, 8, 524276, 0, 8, 65531, 0, 8, 65532, 65532, 8, 65532, 65533, 8, 65532, 65534, 8, 65532, 65535, 8, 65532, 0, 8, 65532, 1, 8, 65532, 2, 8, 65532, 3, 8, 65533, 65532, 8, 65533, 65533, 8, 65533, 65534, 8, 65533, 65535, 8, 65533, 0, 8, 65533, 1, 8, 65533, 2, 8, 65533, 3, 8, 65534, 65532, 8, 65534, 65533, 8, 65534, 65534, 8, 65534, 65535, 8, 65534, 0, 8, 65534, 1, 8, 65534, 2, 8, 65534, 3, 8, 65535, 65532, 8, 65535, 65533, 8, 65535, 65534, 8, 65535, 65535, 8, 65535, 0, 8, 65535, 1, 8, 65535, 2, 8, 65535, 3, 8, 0, 65532, 8, 0, 65533, 8, 0, 65534, 8, 0, 65535, 8, 0, 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 1, 65532, 8, 1, 65533, 8, 1, 65534, 8, 1, 65535, 8, 1, 0, 8, 1, 1, 8, 1, 2, 8, 1, 3, 8, 2, 65532, 8, 2, 65533, 8, 2, 65534, 8, 2, 65535, 8, 2, 0, 8, 2, 1, 8, 2, 2, 8, 2, 3, 8, 3, 65532, 8, 3, 65533, 8, 3, 65534, 8, 3, 65535, 8, 3, 0, 8, 3, 1, 8, 3, 2, 8, 3, 3, 8)
+"cells": PackedInt32Array(131066, 0, 8, 196601, 0, 8, 262136, 0, 8, 327671, 0, 8, 393206, 0, 8, 458741, 0, 8, 524276, 0, 8, 65532, 65532, 8, 65532, 65533, 8, 65532, 65534, 8, 65532, 65535, 8, 65532, 0, 8, 65532, 1, 8, 65532, 2, 8, 65532, 3, 8, 65533, 65532, 8, 65533, 65533, 8, 65533, 65534, 8, 65533, 65535, 8, 65533, 0, 8, 65533, 1, 8, 65533, 2, 8, 65533, 3, 8, 65534, 65532, 8, 65534, 65533, 8, 65534, 65534, 8, 65534, 65535, 8, 65534, 0, 8, 65534, 1, 8, 65534, 2, 8, 65534, 3, 8, 65535, 65532, 8, 65535, 65533, 8, 65535, 65534, 8, 65535, 65535, 8, 65535, 0, 8, 65535, 1, 8, 65535, 2, 8, 65535, 3, 8, 0, 65532, 8, 0, 65533, 8, 0, 65534, 8, 0, 65535, 8, 0, 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 1, 65532, 8, 1, 65533, 8, 1, 65534, 8, 1, 65535, 8, 1, 0, 8, 1, 1, 8, 1, 2, 8, 1, 3, 8, 2, 65532, 8, 2, 65533, 8, 2, 65534, 8, 2, 65535, 8, 2, 0, 8, 2, 1, 8, 2, 2, 8, 2, 3, 8, 3, 65532, 8, 3, 65533, 8, 3, 65534, 8, 3, 65535, 8, 3, 0, 8, 3, 1, 8, 3, 2, 8, 3, 3, 8, 0, 4, 5, 0, 65531, 6, 65531, 0, 8, 4, 0, 4, 131071, 0, 8, 131071, 1, 8, 65536, 0, 8, 65536, 1, 8, 196607, 0, 8, 196607, 1, 8, 131072, 0, 8, 131072, 1, 8, 65536, 65534, 8, 65536, 65535, 8, 65537, 65534, 8, 65537, 65535, 8, 65537, 0, 8)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.63057005, -0.5178394, 0.77138036, 0.6393969, -3.0465431, -0.57893217, 0.4406494, 5.1646442, -0.26358813, 0, 1.6989145, -0.8869953)
-mesh = SubResource("ArrayMesh_qn1rc")
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=967508230]
+navigation_mesh = SubResource("NavigationMesh_qn1rc")
 
-[node name="BlueCubes" type="GPUParticles3D" parent="." unique_id=1386428913]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-amount = 18
-lifetime = 5.0
-process_material = SubResource("ParticleProcessMaterial_qn1rc")
-draw_pass_1 = SubResource("ArrayMesh_1n0d2")
+[node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=410397462]
+start_position = Vector3(1.995, 5.457, 2.017)
+end_position = Vector3(2.526, 3.498, 0)
+
+[node name="NavigationLink3D2" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=1298772449]
+start_position = Vector3(3.214, 3.453, -3.985)
+end_position = Vector3(3.146, 1.533, -4.483)
+
+[node name="NavigationLink3D3" type="NavigationLink3D" parent="NavigationRegion3D" unique_id=4910111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.937201, 5.395777, 0.7636123)
+bidirectional = false
+end_position = Vector3(-1.051, -3.925, 0)
+
+[node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
+transform = Transform3D(1.9708291, -0.09496074, -0.3357498, -0.081191465, -11.794964, -0.38416377, -0.32603613, 2.3610027, -1.9331814, 0, 1.6989145, -0.8869953)
+visible = false
+mesh = SubResource("ArrayMesh_qn1rc")

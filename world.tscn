@@ -74,7 +74,7 @@ size = 4.622
 near = 0.001
 far = 54.16
 script = ExtResource("12_k3n1d")
-start_size = 62.0
+start_size = 10.0
 target_size = 10.0
 zoom_duration = 0.5
 

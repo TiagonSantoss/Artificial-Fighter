@@ -28,10 +28,10 @@ func _ready():
 
 	var _npc = spawn_entity(npc_definition, player_spawn.position + Vector3.RIGHT)
 	
-	var companion = spawn_entity(companion_definition, player_spawn.position + Vector3.LEFT)
+	var companion = spawn_entity(companion_definition, player_spawn.position + Vector3.UP)
 	companion.controller.follow_target = player
 	
 	var enemy = spawn_entity(enemy_definition, player_spawn.position + Vector3(1,0,1))
-	enemy.controller.follow_target = companion
+	enemy.controller.follow_target = player
 	
 	camera_rig.reparent(entity_camera_pivot)
