@@ -9,7 +9,7 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 agent_radius = 1.0
 agent_max_slope = 90.0
 
-[node name="Node3D" type="Node3D" unique_id=2117219993]
+[node name="BOSS" type="Node3D" unique_id=2117219993]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_6xxrv")
 

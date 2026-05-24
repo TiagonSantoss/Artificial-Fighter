@@ -77,11 +77,14 @@ jump={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+3d/default_gravity=12.0
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=2
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 environment/ssao/quality=1
 anti_aliasing/quality/msaa_3d=1
 anti_aliasing/quality/use_debanding=true

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CellDefinition" format=3 uid="uid://w0ewa2mdhft7"]
+
+[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Game/Room/Grid/cell_definition.gd" id="1_sepap"]
+
+[resource]
+script = ExtResource("1_sepap")
+metadata/_custom_type_script = "uid://grak3h02csx2"

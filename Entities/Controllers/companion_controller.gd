@@ -28,7 +28,6 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 	actions.append(MovementAction.new(flat_dir))
 	
 	var height_diff := move_dir.y
-	print(height_diff)
 	
 	if height_diff > 0.3:
 		actions.append(JumpAction.new())

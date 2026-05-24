@@ -1,5 +1,7 @@
 [gd_resource type="MeshLibrary" format=4 uid="uid://b2uyjbo5a8xcx"]
 
+[ext_resource type="Shader" uid="uid://di6plykc205ep" path="res://assets/shaders/gray_dither_apply.gdshader" id="1_5bokj"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
 render_priority = 1
 transparency = 1
@@ -348,8 +350,10 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_w8ii3"]
 image = SubResource("Image_umw2u")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8mp26"]
-albedo_color = Color(0.58431375, 0.68235296, 0.8, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gt2oq"]
+render_priority = 0
+shader = ExtResource("1_5bokj")
+shader_parameter/inactive_amount = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_8l4fj"]
 _surfaces = [{
@@ -372,7 +376,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 36,
 "index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_8mp26"),
+"material": SubResource("ShaderMaterial_gt2oq"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 24,
@@ -396,6 +400,11 @@ image = SubResource("Image_wbdq5")
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vmdom"]
 data = PackedVector3Array(-1, -1.5437, 1, -1, 0.4563, -1, -1, 0.4563, 1, -1, -1.5437, 1, -1, -1.5437, -1, -1, 0.4563, -1, -1, -1.5437, -1, 1, 0.4563, -1, -1, 0.4563, -1, -1, -1.5437, -1, 1, -1.5437, -1, 1, 0.4563, -1, 1, -1.5437, -1, 1, 0.4563, 1, 1, 0.4563, -1, 1, -1.5437, -1, 1, -1.5437, 1, 1, 0.4563, 1, 1, -1.5437, 1, -1, 0.4563, 1, 1, 0.4563, 1, 1, -1.5437, 1, -1, -1.5437, 1, -1, 0.4563, 1, -1, -1.5437, -1, 1, -1.5437, 1, 1, -1.5437, -1, -1, -1.5437, -1, -1, -1.5437, 1, 1, -1.5437, 1, 1, 0.4563, -1, -1, 0.4563, 1, -1, 0.4563, -1, 1, 0.4563, -1, 1, 0.4563, 1, -1, 0.4563, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16tgn"]
+render_priority = 0
+shader = ExtResource("1_5bokj")
+shader_parameter/inactive_amount = 0.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_h20ky"]
 resource_name = "assets_Cube_003"
 _surfaces = [{
@@ -404,7 +413,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 36,
 "index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_8mp26"),
+"material": SubResource("ShaderMaterial_16tgn"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 24,

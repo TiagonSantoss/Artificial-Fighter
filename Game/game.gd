@@ -7,6 +7,8 @@ const companion_definition: EntityDefinition = preload("res://assets/definitions
 const enemy_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_enemy.tres")
 const ENTITY_SCENE = preload("res://Entities/Entity.tscn")
 
+static var player: Entity
+
 var controlled_entity: Entity
 var entity_camera_pivot: Marker3D
 
@@ -21,7 +23,7 @@ func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
 	return e
 
 func _ready():
-	var player = spawn_entity(player_definition, player_spawn.position)
+	player = spawn_entity(player_definition, player_spawn.position)
 	
 	controlled_entity = player
 	entity_camera_pivot = player.camera_pivot
