@@ -38,10 +38,12 @@ func generate(start_def: RoomDefinition, pool: Array[RoomDefinition]) -> Array:
 	
 	return placed_rooms
 
-func get_world_doors(room: RoomNode) -> Array:
+func get_world_doors(room: RoomNode, exclude = null) -> Array:
 	var result := []
 	
 	for d in room.def.grid_data.get_doors():
+		if d == exclude:
+			continue
 		result.append({
 			"pos": d.pos + room.offset,
 			"dir": d.dir
@@ -54,7 +56,7 @@ func try_attach(door, room_def):
 		if candidate.dir != -door.dir:
 			continue
 		
-		var offset = door.pos + candidate.pos #+ door.dir
+		var offset = (door.pos + door.dir - candidate.pos)
 		
 		print("Offset:", offset)
 		print("Collision?", check_collision(room_def.grid_data, offset))
@@ -70,7 +72,7 @@ func try_attach(door, room_def):
 		
 		return {
 			"room": room,
-			"new_doors": get_world_doors(room)
+			"new_doors": get_world_doors(room, candidate)
 		}
 	return null
 

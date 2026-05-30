@@ -14,7 +14,7 @@ var entity_camera_pivot: Marker3D
 
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
-@onready var camera_rig: Camera3D = $Camera3D
+@onready var camera_rig: Node3D = $Camera3D
 
 func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
 	var e: Entity = ENTITY_SCENE.instantiate()
@@ -27,7 +27,7 @@ func _ready():
 	
 	controlled_entity = player
 	entity_camera_pivot = player.camera_pivot
-
+	
 	var _npc = spawn_entity(npc_definition, player_spawn.position + Vector3.RIGHT)
 	
 	var companion = spawn_entity(companion_definition, player_spawn.position + Vector3.UP)
@@ -37,3 +37,4 @@ func _ready():
 	enemy.controller.follow_target = player
 	
 	camera_rig.reparent(entity_camera_pivot)
+	

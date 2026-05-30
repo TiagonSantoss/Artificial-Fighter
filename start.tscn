@@ -243,5 +243,5 @@ bidirectional = false
 end_position = Vector3(-1.051, -3.925, 0)
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.7211987, 1.4929445, 0.64648634, 0.11872883, -5.7999024, 0.23760569, 0.68218696, -0.5709889, -0.72473025, 0, 1.6989145, -0.8869953)
+transform = Transform3D(0.5418308, 4.7311068, -0.29576454, -0.46210226, -0.0906956, -0.88647264, -0.70170313, 3.7148824, 0.35531005, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")

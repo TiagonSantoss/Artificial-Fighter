@@ -148,40 +148,37 @@ func set_inactive_amount(node: Node, value: float):
 
 func make_gridmap_materials_unique(node: Node):
 	for child in node.get_children():
-
 		if child is GridMap:
-
 			if child.mesh_library == null:
 				continue
-
+			
 			var unique_library: MeshLibrary = child.mesh_library.duplicate(true)
-
+			
+			child.mesh_library = null
 			child.mesh_library = unique_library
-
+			
 			for item_id in unique_library.get_item_list():
 				var mesh := unique_library.get_item_mesh(item_id)
-
+				
 				if mesh == null:
 					continue
-
+				
 				var unique_mesh := mesh.duplicate(true)
-
-				for surface in range(
-					unique_mesh.get_surface_count()
-				):
+				
+				for surface in range(unique_mesh.get_surface_count()):
 					var mat: Material = unique_mesh.surface_get_material(surface)
-
+					
 					if mat != null:
 						unique_mesh.surface_set_material(
 							surface,
 							mat.duplicate(true)
 						)
-
+				
 				unique_library.set_item_mesh(
 					item_id,
 					unique_mesh
 				)
-
+		
 		make_gridmap_materials_unique(child)
 
 func collect_materials(node: Node, out: Array):

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://6amefbtc63wd"]
+
+[ext_resource type="PackedScene" uid="uid://cfq72ykuxgslp" path="res://room_insana.tscn" id="1_7fics"]
+[ext_resource type="Resource" uid="uid://b3ysub4qumqo6" path="res://Game/Room/Rooms/room_insanaDATA.tres" id="1_skkud"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="3_hbvxd"]
+
+[resource]
+script = ExtResource("3_hbvxd")
+scene = ExtResource("1_7fics")
+grid_data = ExtResource("1_skkud")
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

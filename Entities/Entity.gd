@@ -7,6 +7,14 @@ enum Team {
 	ENEMY
 }
 
+enum HitResult {
+	NONE,
+	CONSUME,
+	PIERCE,
+	BOUNCE,
+	REFLECT
+}
+
 var definition: EntityDefinition
 var controller: Controller
 
@@ -24,12 +32,15 @@ var grid_position: Vector3i
 
 @onready var camera_pivot: Marker3D = $CameraPivot
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
-@onready var weapon_socket: Node3D = $CameraPivot/WeaponSocket
+@onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
+@onready var orbit_socket: Marker3D = $OrbitSocket
+@onready var fake_shadow: Sprite3D = $FakeShadow
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent
 @onready var animation_component: AnimationComponent = $Components/AnimationComponent
 @onready var weapon_component: WeaponComponent = $Components/WeaponComponent
+@onready var visual_effects_component: VisualEffectsComponent = $Components/VisualEffectsComponent
 
 func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
@@ -55,7 +66,12 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	animation_component.configure_visuals(definition)
 	
 	weapon_component.setup(self)
-	weapon_component.set_weapon_socket(weapon_socket)
+	weapon_socket.position = Vector3.ZERO
+	orbit_socket.position = Vector3.ZERO
+	weapon_component.set_sockets(weapon_socket, orbit_socket)
+	
+	visual_effects_component.setup(self)
+	visual_effects_component.set_shadow(fake_shadow)
 	
 	initialized = true
 	
@@ -66,11 +82,31 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	
 	health_component.died.connect(_on_died)
 
+func is_friendly_to(other_team: Team) -> bool:
+	if team == Team.ENEMY:
+		return other_team == Team.ENEMY
+
+	return other_team != Team.ENEMY
+
+func apply_hit(hit: HitData):
+	if hit.source_team == team:
+		return HitResult.NONE
+	
+	if health_component:
+		health_component.damage(hit.get_final_damage())
+	
+	if movement_component:
+		movement_component.apply_impulse(hit.direction * hit.knockback)
+
+func _on_died() -> void:
+	queue_free()
+
+func get_team():
+	return team
+
 func _physics_process(delta: float) -> void:
 	if not initialized:
 		return
-	if not is_on_floor():
-		velocity.y -= gravity * delta
 	
 	var had_movement := false
 	
@@ -83,51 +119,34 @@ func _physics_process(delta: float) -> void:
 		for action in actions:
 			if action is MovementAction:
 				had_movement = true
+			
 			action.execute(self, delta)
 		
-		var target = controller.get_aim_target(self)
-		if target != null:
-			weapon_component.look_at_target(target)
 		
+		controller.update_aim(self)
+		
+		if controller.aim_target != null:
+			weapon_component.update_aim(controller.aim_target)
+	
 	if not had_movement:
 		movement_component.apply_friction(delta)
 	
+	movement_component.update(delta)
+	
+	visual_effects_component.update(delta)
+	
+	weapon_component.update(delta)
+	
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
 	move_and_slide()
 	
-	var new_grid := Grid.world_to_grid(
-		global_position
-	)
-	if new_grid != grid_position:
-		grid_position = new_grid
+	#var new_grid := Grid.world_to_grid(
+	#	global_position
+	#)
+	
+	#if new_grid != grid_position:
+	#	grid_position = new_grid
 	
 	animation_component.update_animation()
-
-func is_friendly_to(other_team) -> bool:
-	match team:
-		Team.PLAYER, Team.ALLY:
-			match other_team:
-				Team.PLAYER, Team.ALLY:
-					return true
-	
-	return false
-
-func on_projectile_hit(projectile) -> bool:
-	if is_friendly_to(projectile.source_team):
-		return false
-	
-	var damageVar: int = (
-		projectile.damage *
-		projectile.source_entity
-			.weapon_component
-			.get_damage_multiplier()
-	)
-	
-	health_component.damage(damageVar)
-	
-	return true
-
-func damage(amount: int) -> void:
-	health_component.damage(amount)
-
-func _on_died() -> void:
-	queue_free()

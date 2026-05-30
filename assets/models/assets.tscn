@@ -426,22 +426,22 @@ mesh = SubResource("ArrayMesh_vmdom")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -28.473686)
 mesh = SubResource("ArrayMesh_vmdom")
 
-[node name="Cube" parent="." index="8" unique_id=1174620060]
+[node name="Cube" parent="." index="8" unique_id=1174620060 groups=["world"]]
 transform = Transform3D(2, 0, 0, 0, 5.756, 0, 0, 0, 2.4, 0, 1.3706589, -12.060932)
 mesh = SubResource("ArrayMesh_noamg")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0" unique_id=1741268859]
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0" unique_id=1741268859 groups=["world"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0" unique_id=181172870]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0" unique_id=181172870 groups=["world"]]
 shape = SubResource("ConcavePolygonShape3D_vmdom")
 
-[node name="floor2" type="MeshInstance3D" parent="." index="9" unique_id=637008880]
+[node name="floor2" type="MeshInstance3D" parent="." index="9" unique_id=637008880 groups=["world"]]
 transform = Transform3D(2, 0, 0, 0, 5.756, 0, 0, 0, 2.4, 0, 1.3706589, -42.422276)
 mesh = SubResource("ArrayMesh_noamg")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="floor2" index="0" unique_id=531959599]
+[node name="StaticBody3D" type="StaticBody3D" parent="floor2" index="0" unique_id=531959599 groups=["world"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor2/StaticBody3D" index="0" unique_id=274698853]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor2/StaticBody3D" index="0" unique_id=274698853 groups=["world"]]
 shape = SubResource("ConcavePolygonShape3D_vmdom")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="10" unique_id=1889697909]

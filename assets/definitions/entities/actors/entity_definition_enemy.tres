@@ -122,6 +122,7 @@ script = ExtResource("2_f8fcw")
 sprite_frames = SubResource("SpriteFrames_vwgaw")
 default_animation = "walk"
 modulate = Color(0.6162354, 0, 0.013446769, 1)
+sprite_scale = Vector3(2, 2, 2)
 move_speed = 2.6
 max_speed = 1.0
 acceleration = 10.0

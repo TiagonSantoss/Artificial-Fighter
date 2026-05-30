@@ -17,7 +17,10 @@ animations = [{
 [resource]
 script = ExtResource("1_00wyo")
 sprite_frames = SubResource("SpriteFrames_5xhjc")
-speed = 10.0
-pierce = 1
-lifetime = 3.0
+billboard = 2
+sprite_scale = Vector3(2, 2, 2)
+speed = 35.0
+lifetime = 1.0
+knockback = 5.0
+radius = 0.1
 metadata/_custom_type_script = "uid://dgoeygudsoucv"

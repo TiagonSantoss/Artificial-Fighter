@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://trvpmwnapc7o"]
+[gd_scene format=4 uid="uid://trvpmwnapc7o"]
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Entities/Entity.tscn" id="6_gbfbk"]
 [ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Game/Room/room_renderer.gd" id="7_pkg7o"]
 [ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Game/Room/room_generator.gd" id="8_ic0uy"]
+[ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/room_insana_room.tres" id="8_ioo17"]
 [ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="9_k3n1d"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="11_70uel"]
@@ -46,6 +47,70 @@ volumetric_fog_albedo = Color(0.8576179, 0.5873762, 1, 1)
 volumetric_fog_ambient_inject = 0.77
 adjustment_enabled = true
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioo17"]
+particle_flag_rotate_y = true
+emission_shape_offset = Vector3(1, 0, 0)
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angular_velocity_min = -38.060017
+angular_velocity_max = 52.99998
+gravity = Vector3(0, 1, 0)
+linear_accel_min = 0.09999776
+linear_accel_max = 0.49999776
+radial_accel_min = 0.09999776
+radial_accel_max = 0.99999774
+scale_min = 0.099999994
+scale_max = 0.39999998
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlaa2"]
+transparency = 1
+albedo_color = Color(0.44730002, 0.50820005, 0.63, 0.105882354)
+roughness = 0.3
+roughness_texture_channel = 2
+emission = Color(0.15073305, 0.0003029109, 0.3064861, 1)
+emission_energy_multiplier = 2.05
+rim_tint = 1.0
+ao_light_affect = 1.0
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+backlight_enabled = true
+backlight = Color(0.162, 0.23790003, 0.3, 1)
+refraction_enabled = true
+billboard_keep_scale = true
+stencil_flags = 2
+stencil_color = Color(0.6159605, 0.77062285, 1, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_y5hus"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wse8f"]
+resource_name = "assets_Cube_001"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_mlaa2"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_y5hus")
+
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
 
@@ -53,34 +118,39 @@ script = ExtResource("2_fj7yv")
 transform = Transform3D(-0.90412116, -0.41353, -0.10750823, -0.057911098, -0.13069305, 0.9897301, -0.42333364, 0.9010617, 0.09421434, 0, 0.29394203, 0)
 shadow_enabled = true
 
-[node name="Entities" type="Node3D" parent="." unique_id=681819372]
+[node name="Entities" type="Node3D" parent="." unique_id=681819372 groups=["entities"]]
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=1854988913]
-transform = Transform3D(0.03959392, 0, 0, 0, 0.026400976, 0, 0, 0, 5.1611767, 0, 0.13700104, 0.003540039)
-
-[node name="Rooms" type="Node3D" parent="." unique_id=582252656]
+transform = Transform3D(1.538, 0, 0, 0, 1, 0, 0, 0, 198.5, 0, 0.13700104, 0.003540039)
 
 [node name="CharacterBody3D" parent="." unique_id=1484144425 instance=ExtResource("6_gbfbk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2857666, 0)
 visible = false
 
-[node name="Room" type="Node3D" parent="." unique_id=1054715471]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2.269165, 0)
+[node name="Room" type="Node3D" parent="." unique_id=1054715471 groups=["world"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2, 0)
 script = ExtResource("7_pkg7o")
 generator = SubResource("Resource_hiqwa")
 start_room = ExtResource("9_k3n1d")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel"), ExtResource("8_ioo17")])
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
+environment = SubResource("Environment_k3n1d")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0.038464546, 10.343246, 9.15621)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 10.343246, 9.15621)
 projection = 1
 size = 4.622
 near = 0.001
 far = 54.16
 script = ExtResource("12_k3n1d")
-start_size = 10.0
+start_size = 50.0
 target_size = 10.0
 zoom_duration = 0.5
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
-environment = SubResource("Environment_k3n1d")
+[node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
+transform = Transform3D(3, 0, 0, 0, 2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, -0.038464546, -0.8393612, -13.7881975)
+amount = 18
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_ioo17")
+draw_pass_1 = SubResource("ArrayMesh_wse8f")

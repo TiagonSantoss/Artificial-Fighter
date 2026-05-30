@@ -1,63 +1,179 @@
 class_name Projectile
 extends Node3D
 
+enum HitResult {
+	NONE,
+	CONSUME,
+	PIERCE,
+	BOUNCE,
+	REFLECT
+}
+
 var definition: ProjectileDefinition
 
-var damage: int
-var speed: float
-var pierce: int
-var lifetime: float
-var knockback: float
+var remaining_pierce := 0
+var remaining_bounces := 0
+var lifetime_left := 0.0
+var damage_multiplier := 1.0
 
-var direction: Vector3
+var velocity := Vector3.ZERO
 var source_team
 var source_entity: Entity
+var already_hit := {}
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var hitbox: Area3D = $Area3D
-
+@onready var shape_cast: ShapeCast3D = $ShapeCast3D
 
 func setup(
 	start_position: Vector3,
 	dir: Vector3,
-	projectile_definition: ProjectileDefinition
+	projectile_definition: ProjectileDefinition,
+	source: Entity,
+	source_t,
+	dmg_mult: float
+	
 ):
 	definition = projectile_definition
 	
-	global_position = start_position
-	direction = dir.normalized()
+	damage_multiplier = dmg_mult
 	
-	damage = definition.damage
-	speed = definition.speed
-	pierce = definition.pierce
-	lifetime = definition.lifetime
-	knockback = definition.knockback
+	global_position = start_position
+	
+	velocity = dir.normalized() * definition.speed
+	
+	remaining_pierce = definition.pierce + 1
+	remaining_bounces = definition.bounce_count
+	lifetime_left = definition.lifetime
+	
+	source_entity = source
+	source_team = source_t
+	
+	var sphere := shape_cast.shape as SphereShape3D
+	
+	if sphere:
+		sphere.radius = definition.radius
+	
+	shape_cast.add_exception(source)
+	for child in source.get_children():
+			if child is CollisionObject3D:
+				shape_cast.add_exception(child)
 	
 	_apply_visuals()
 
-	await get_tree().create_timer(lifetime).timeout
-	queue_free()
+func build_hit_data() -> HitData:
+	var hit = HitData.new()
+	
+	hit.damage = definition.damage
+	hit.damage_mult = damage_multiplier
+	hit.knockback = definition.knockback
+	
+	hit.direction = velocity.normalized()
+	
+	hit.source_entity = source_entity
+	hit.source_team = source_team
+	
+	hit.projectile = self
+	
+	hit.lifetime = lifetime_left
+	
+	return hit
 
 func _physics_process(delta):
-	var from = global_position
-	var to = from + direction * speed * delta
+	velocity.y -= (
+		definition.gravity * delta
+	)
+	lifetime_left -= delta
 	
-	var space = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(from, to)
+	if lifetime_left <= 0.0:
+		queue_free()
+		return
 	
-	var hit = space.intersect_ray(query)
+	# drag should not affect gravity
+	var horizontal := Vector3(
+		velocity.x,
+		0,
+		velocity.z
+	)
 	
-	if hit:
-		var target = hit.collider
-		
-		if target.has_method("on_projectile_hit"):
-			var consumed = target.on_projectile_hit(self)
+	horizontal *= exp(-definition.drag * delta)
+	
+	velocity.x = horizontal.x
+	velocity.z = horizontal.z
+	
+	var motion: Vector3 = velocity * delta
+	
+	shape_cast.global_position = global_position
+	shape_cast.target_position = motion #Vector3.FORWARD * motion.length()
+	
+	shape_cast.force_shapecast_update()
+	
+	
+	if shape_cast.is_colliding():
+		for i in range(shape_cast.get_collision_count()):
+			if is_queued_for_deletion():
+				return
 			
-			if consumed:
+			var collider = (shape_cast.get_collider(i))
+			
+			if collider == null:
+				continue
+			
+			# don't hit self
+			if collider == source_entity:
+				continue
+			
+			# don't hit same target twice
+			if already_hit.has(collider):
+				continue
+			
+			# team filtering
+			if collider.has_method("get_team"):
+				if source_entity.is_friendly_to(collider.team):
+					continue
+			
+			var hit_data := build_hit_data()
+			
+			hit_data.hit_position = (shape_cast.get_collision_point(i))
+			hit_data.hit_normal = (shape_cast.get_collision_normal(i))
+			
+			# WORLD COLLISION
+			if collider.is_in_group("world"):
+				if remaining_bounces > 0:
+					velocity = velocity.bounce(hit_data.hit_normal)
+					remaining_bounces -= 1
+					global_position += hit_data.hit_normal * 0.05
+					return
+				
 				queue_free()
 				return
+			
+			# DAMAGEABLE
+			if collider.has_method("apply_hit"):
+				collider.apply_hit(hit_data)
+				
+				already_hit[collider] = true
+				remaining_pierce -= 1
+				
+				if remaining_pierce <= 0:
+					queue_free()
+					return
 	
-	global_position = to
+	
+	if is_queued_for_deletion():
+		return
+	
+	global_position += motion
+	# rotate to movement
+	if velocity.length_squared() > 0.01:
+		var dir := velocity.normalized()
+		
+		var up := Vector3.UP
+		
+		if abs(dir.dot(up)) > 0.99:
+			up = Vector3.FORWARD
+			
+			sprite.rotation.y = atan2(dir.x,dir.z)
 
 func _apply_visuals():
 	sprite.sprite_frames = definition.sprite_frames

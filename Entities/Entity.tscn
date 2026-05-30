@@ -1,105 +1,35 @@
-[gd_scene format=4 uid="uid://buba6lphfkr02"]
+[gd_scene format=3 uid="uid://buba6lphfkr02"]
 
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Entities/Entity.gd" id="1_0p8jp"]
-[ext_resource type="Texture2D" uid="uid://6avdqcxeh7" path="res://white.png" id="2_y048k"]
+[ext_resource type="Texture2D" uid="uid://dbwfiog43j6q7" path="res://assets/sprites/fake_shadow.png" id="2_4mw2e"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="3_8xvi6"]
 [ext_resource type="Script" uid="uid://bm14sbbdlmu3u" path="res://Entities/Actors/entity_component.gd" id="4_pxkd2"]
 [ext_resource type="Script" uid="uid://ubllp3x1v5hq" path="res://Entities/Actors/Components/health_component.gd" id="5_eivxr"]
 [ext_resource type="Script" uid="uid://b6tbg4krpsruy" path="res://Entities/Actors/Components/animation_component.gd" id="6_3hqy6"]
 [ext_resource type="Script" uid="uid://cr7fju12dylcr" path="res://Entities/Actors/Components/movement_component.gd" id="6_4mw2e"]
 [ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Entities/Actors/Components/weapon_component.gd" id="7_4mw2e"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8xvi6"]
-atlas = ExtResource("2_y048k")
-region = Rect2(0, 0, 24, 24)
+[ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_on4x7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8xvi6")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+animations = []
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
 size = Vector3(0.14453125, 0.2231369, 0.14355469)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4mw2e"]
-particle_flag_rotate_y = true
-emission_shape_offset = Vector3(1, 0, 0)
-emission_shape_scale = Vector3(4, 4, 4)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-angular_velocity_min = -38.060017
-angular_velocity_max = 52.99998
-gravity = Vector3(0, 1, 0)
-linear_accel_min = 0.09999776
-linear_accel_max = 0.49999776
-radial_accel_min = 0.09999776
-radial_accel_max = 0.99999774
-scale_min = 0.099999994
-scale_max = 0.39999998
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlaa2"]
-transparency = 1
-albedo_color = Color(0.44730002, 0.50820005, 0.63, 0.105882354)
-roughness = 0.3
-roughness_texture_channel = 2
-emission = Color(0.15073305, 0.0003029109, 0.3064861, 1)
-emission_energy_multiplier = 2.05
-rim_tint = 1.0
-ao_light_affect = 1.0
-subsurf_scatter_enabled = true
-subsurf_scatter_strength = 1.0
-backlight_enabled = true
-backlight = Color(0.162, 0.23790003, 0.3, 1)
-refraction_enabled = true
-billboard_keep_scale = true
-stencil_flags = 2
-stencil_color = Color(0.6159605, 0.77062285, 1, 1)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_y5hus"]
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 2, 2, 2),
-"format": 34896613377,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_jh0cy"]
-resource_name = "assets_Cube_001"
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 2, 2, 2),
-"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
-"format": 34896613399,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_mlaa2"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 24,
-"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_y5hus")
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
 script = ExtResource("1_0p8jp")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10770047, 0)
-sprite_frames = SubResource("SpriteFrames_on4x7")
+[node name="FakeShadow" type="Sprite3D" parent="." unique_id=1034137781]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11212444, 0)
+texture = ExtResource("2_4mw2e")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1783856047]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)
+sprite_frames = SubResource("SpriteFrames_on4x7")
+animation = &""
+
+[node name="hitbox" type="CollisionShape3D" parent="." unique_id=1783856047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, 0.0073155165, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
@@ -108,26 +38,14 @@ debug_color = Color(0.96862745, 0, 0.48235294, 1)
 debug_enabled = true
 debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
 
+[node name="OrbitSocket" type="Marker3D" parent="." unique_id=1022858180]
+
+[node name="WeaponSocket" type="Marker3D" parent="OrbitSocket" unique_id=504328398]
+transform = Transform3D(1.0000002, -1.368638e-09, 3.1044087e-10, -1.999221e-09, 0.99999994, -7.761022e-11, 9.313226e-10, -2.3283064e-10, 1, 0, 0, 0)
+
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1482553420]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
 script = ExtResource("3_8xvi6")
-
-[node name="WeaponSocket" type="Marker3D" parent="CameraPivot" unique_id=504328398]
-transform = Transform3D(0.99996775, 0.0072719823, 0.0034204416, -0.007273332, 0.9999735, 0.00038131527, -0.0034175767, -0.00040618377, 0.99999404, 0.09295854, -0.010713398, -0.0395141)
-
-[node name="BlueCubes" type="GPUParticles3D" parent="CameraPivot" unique_id=1345439447]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-amount = 18
-lifetime = 5.0
-process_material = SubResource("ParticleProcessMaterial_4mw2e")
-draw_pass_1 = SubResource("ArrayMesh_jh0cy")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1570299467]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13847351, 0)
-transparency = 1.0
-cast_shadow = 3
-calculate_tangents = false
-size = Vector3(0.14282227, 0.040496826, 0.15454102)
 
 [node name="Components" type="Node" parent="." unique_id=1339899819]
 script = ExtResource("4_pxkd2")
@@ -143,3 +61,6 @@ script = ExtResource("6_3hqy6")
 
 [node name="WeaponComponent" type="Node" parent="Components" unique_id=426781965]
 script = ExtResource("7_4mw2e")
+
+[node name="VisualEffectsComponent" type="Node" parent="Components" unique_id=2115617483]
+script = ExtResource("9_jh0cy")
