@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://trvpmwnapc7o"]
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Entities/Entity.tscn" id="6_gbfbk"]
+[ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Core/Entities/Entity.tscn" id="6_gbfbk"]
 [ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Game/Room/room_renderer.gd" id="7_pkg7o"]
 [ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Game/Room/room_generator.gd" id="8_ic0uy"]
 [ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/room_insana_room.tres" id="8_ioo17"]
