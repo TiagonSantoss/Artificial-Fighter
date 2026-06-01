@@ -18,7 +18,6 @@ animations = [{
 [resource]
 script = ExtResource("1_h8nv3")
 sprite_frames = SubResource("SpriteFrames_jb85x")
-billboard = 2
 sprite_scale = Vector3(0.6, 0.6, 0.6)
 damage_multiplier = 1.6
 pierce_multiplier = 5.0

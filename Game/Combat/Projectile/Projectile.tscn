@@ -19,7 +19,8 @@ debug_shape_custom_color = Color(0, 0.0333333, 1, 1)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1049357351]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0014637783, 0, 0)
-render_priority = 100
+double_sided = false
+render_priority = 2
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2067710752]
 visible = false

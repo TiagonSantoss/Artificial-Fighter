@@ -133,7 +133,7 @@ func _physics_process(delta: float) -> void:
 	
 	movement_component.update(delta)
 	
-	visual_effects_component.update(delta)
+	#visual_effects_component.update(delta)
 	
 	weapon_component.update(delta)
 	

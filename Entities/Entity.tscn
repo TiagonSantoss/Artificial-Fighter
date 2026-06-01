@@ -22,10 +22,12 @@ script = ExtResource("1_0p8jp")
 
 [node name="FakeShadow" type="Sprite3D" parent="." unique_id=1034137781]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11212444, 0)
+visible = false
 texture = ExtResource("2_4mw2e")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)
+alpha_cut = 1
 sprite_frames = SubResource("SpriteFrames_on4x7")
 animation = &""
 
