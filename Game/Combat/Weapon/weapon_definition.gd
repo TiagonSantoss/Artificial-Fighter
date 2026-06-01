@@ -11,6 +11,7 @@ extends Resource
 
 @export_category("Stats")
 @export var damage_multiplier := 1.0
+@export var knockback_multiplier := 1.0
 @export var fire_rate := 1.0 # cadência de tiro
 @export var pierce_multiplier := 0.0
 @export var recoil := 1.0

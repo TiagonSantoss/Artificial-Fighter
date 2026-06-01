@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://j72hqupqfjrn"]
+[gd_resource type="Resource" script_class="GridData" format=3 uid="uid://cblp6hura3lvs"]
 
 [ext_resource type="Resource" uid="uid://w0ewa2mdhft7" path="res://assets/definitions/cells/floor2.tres" id="1_hkeut"]
 [ext_resource type="Resource" uid="uid://1crpor0ebos7" path="res://assets/definitions/cells/floor.tres" id="2_umisr"]

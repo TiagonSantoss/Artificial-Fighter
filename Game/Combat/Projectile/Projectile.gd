@@ -15,6 +15,7 @@ var remaining_pierce := 0
 var remaining_bounces := 0
 var lifetime_left := 0.0
 var damage_multiplier := 1.0
+var knock_multiplier := 1.0
 
 var velocity := Vector3.ZERO
 var source_team
@@ -31,12 +32,14 @@ func setup(
 	projectile_definition: ProjectileDefinition,
 	source: Entity,
 	source_t,
-	dmg_mult: float
+	dmg_mult: float,
+	knock_mult: float
 	
 ):
 	definition = projectile_definition
 	
 	damage_multiplier = dmg_mult
+	knock_multiplier = knock_mult
 	
 	global_position = start_position
 	
@@ -67,6 +70,7 @@ func build_hit_data() -> HitData:
 	hit.damage = definition.damage
 	hit.damage_mult = damage_multiplier
 	hit.knockback = definition.knockback
+	hit.knockback_multiplier = knock_multiplier
 	
 	hit.direction = velocity.normalized()
 	

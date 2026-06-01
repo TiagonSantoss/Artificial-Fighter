@@ -18,9 +18,10 @@ animations = [{
 [resource]
 script = ExtResource("2_ppi8x")
 sprite_frames = SubResource("SpriteFrames_hne5q")
-billboard = 0
-sprite_scale = Vector3(1.2, 1, 1.2)
-damage_multiplier = 1.2
+sprite_scale = Vector3(2, 2, 2)
+damage_multiplier = 0.5
+knockback_multiplier = 0.3
 fire_rate = 0.2
+recoil = 0.7
 projectile = ExtResource("1_hne5q")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"

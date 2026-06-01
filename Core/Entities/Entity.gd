@@ -96,7 +96,7 @@ func apply_hit(hit: HitData):
 		health_component.damage(hit.get_final_damage())
 	
 	if movement_component:
-		movement_component.apply_impulse(hit.direction * hit.knockback)
+		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
 
 func _on_died() -> void:
 	queue_free()

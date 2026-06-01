@@ -8,6 +8,7 @@ var can_fire := true
 var wielder: Entity
 
 var damage_multiplier := 1.0
+var knockback_multiplier := 1.0
 var pierce_multiplier := 1.0
 
 @onready var sprite = $AnimatedSprite3D
@@ -18,6 +19,7 @@ func setup(weapon_definition, owner_entity):
 	wielder = owner_entity
 	damage_multiplier = weapon_definition.damage_multiplier
 	pierce_multiplier = weapon_definition.pierce_multiplier
+	knockback_multiplier = weapon_definition.knockback_multiplier
 	_apply_visuals()
 
 
@@ -49,7 +51,8 @@ func fire(direction: Vector3):
 		definition.projectile,
 		wielder,
 		wielder.team,
-		damage_multiplier
+		damage_multiplier,
+		knockback_multiplier
 	)
 	
 	var recoil_dir := -direction.normalized()

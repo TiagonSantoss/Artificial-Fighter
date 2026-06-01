@@ -5,7 +5,7 @@ const player_definition: EntityDefinition = preload("res://assets/definitions/en
 const npc_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_npc.tres")
 const companion_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_companion.tres")
 const enemy_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_enemy.tres")
-const ENTITY_SCENE = preload("res://Entities/Entity.tscn")
+const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 
 static var player: Entity
 
@@ -33,8 +33,12 @@ func _ready():
 	var companion = spawn_entity(companion_definition, player_spawn.position + Vector3.UP)
 	companion.controller.follow_target = player
 	
-	var enemy = spawn_entity(enemy_definition, player_spawn.position + Vector3(1,0,1))
-	enemy.controller.follow_target = player
+	
 	
 	camera_rig.reparent(entity_camera_pivot)
 	
+	while true:
+		await get_tree().create_timer(10).timeout
+		var enemy = spawn_entity(enemy_definition, player_spawn.position + Vector3(1,2,1))
+		enemy.controller.follow_target = player
+		

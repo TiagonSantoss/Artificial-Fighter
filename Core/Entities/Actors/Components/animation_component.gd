@@ -3,7 +3,8 @@ extends EntityComponent
 
 enum AnimMoveState {
 	IDLE,
-	WALK
+	WALK,
+	JUMP
 }
 
 enum AnimDirState {
@@ -16,6 +17,10 @@ var sprite: AnimatedSprite3D
 
 var move_state: AnimMoveState = AnimMoveState.IDLE
 var dir_state: AnimDirState = AnimDirState.DOWN
+var facing_left := false
+var facing_direction: Vector3 = Vector3.FORWARD
+
+
 var warned_missing_anims: Dictionary = {}
 
 func set_sprite(entity_sprite: AnimatedSprite3D) -> void:
@@ -33,17 +38,29 @@ func update_animation() -> void:
 	if entity == null or sprite == null:
 		return
 	
-	var dir: Vector3 = entity.movement_component.last_direction
+	var vertical_velocity := entity.movement_component.movement_velocity.y
+	var is_airborne: bool = abs(vertical_velocity) > 0.1
+	
+	var velocity := entity.movement_component.movement_velocity
+	
+	var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+	var is_moving := horizontal_speed > 0.05
+	var dir: Vector3 = facing_direction
 	
 	# -------------------------
 	# IDLE CASE (no movement)
 	# -------------------------
 	if dir.length() < 0.01:
-		var idle_anim := "idle_down"
+		var idle_anim := "idle_" + get_dir_name()
+		sprite.flip_h = facing_left
+		
 		if sprite.sprite_frames and sprite.sprite_frames.has_animation(idle_anim):
 			if sprite.animation != idle_anim:
 				sprite.play(idle_anim)
 		return
+	
+	if dir.length() > 0.01:
+		facing_direction = dir.normalized()
 	
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
@@ -65,16 +82,43 @@ func update_animation() -> void:
 	# -------------------------
 	if abs(x) > abs(z):
 		anim = "side"
-		sprite.flip_h = x < 0
+		facing_left = x < 0
+		sprite.flip_h = facing_left
 	else:
 		sprite.flip_h = false
 		anim = "up" if z > 0 else "down"
+		
+	if abs(x) > abs(z):
+		dir_state = AnimDirState.SIDE
+		facing_left = x < 0
+		sprite.flip_h = facing_left
+	else:
+		sprite.flip_h = false
+		
+		if z > 0:
+			dir_state = AnimDirState.UP
+		else:
+			dir_state = AnimDirState.DOWN
+	
+	if entity.movement_component.last_direction.length() > 0.01:
+		facing_direction = entity.movement_component.last_direction.normalized()
 	
 	# -------------------------
-	# STATE (walk/idle)
+	# STATES
 	# -------------------------
-	var prefix := "walk_"
-	anim = prefix + anim
+	var prefix := ""
+	
+	if is_moving:
+		facing_direction = entity.movement_component.last_direction.normalized()
+	
+	if is_airborne:
+		prefix = "jump"
+	elif is_moving:
+		prefix = "walk"
+	else:
+		prefix = "idle"
+	
+	anim = "%s_%s" % [prefix, get_dir_name()]
 	
 	# -------------------------
 	# PLAY SAFELY
@@ -86,3 +130,14 @@ func update_animation() -> void:
 		if not warned_missing_anims.has(anim):
 			warned_missing_anims[anim] = true
 			push_warning("Missing animation: %s (entity %s)" % [anim, entity.entity_id])
+
+func get_dir_name() -> String:
+	match dir_state:
+		AnimDirState.UP:
+			return "up"
+		AnimDirState.DOWN:
+			return "down"
+		AnimDirState.SIDE:
+			return "side"
+			
+	return "down"

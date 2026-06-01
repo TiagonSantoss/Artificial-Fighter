@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Core/Entities/Entity.gd" id="1_0p8jp"]
 [ext_resource type="Texture2D" uid="uid://dbwfiog43j6q7" path="res://assets/sprites/fake_shadow.png" id="2_4mw2e"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="3_8xvi6"]
+[ext_resource type="Texture2D" uid="uid://pgfwcda8i4u" path="res://assets/sprites/characters/enemy.png" id="3_uvqxc"]
 [ext_resource type="Script" uid="uid://bm14sbbdlmu3u" path="res://Core/Entities/Actors/entity_component.gd" id="4_pxkd2"]
 [ext_resource type="Script" uid="uid://ubllp3x1v5hq" path="res://Core/Entities/Actors/Components/health_component.gd" id="5_eivxr"]
 [ext_resource type="Script" uid="uid://b6tbg4krpsruy" path="res://Core/Entities/Actors/Components/animation_component.gd" id="6_3hqy6"]
@@ -10,8 +11,20 @@
 [ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Core/Entities/Actors/Components/weapon_component.gd" id="7_4mw2e"]
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
+atlas = ExtResource("3_uvqxc")
+region = Rect2(0, 0, 256, 256)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_on4x7"]
-animations = []
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avlqe")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
 size = Vector3(0.14453125, 0.2231369, 0.14355469)
@@ -29,10 +42,10 @@ texture = ExtResource("2_4mw2e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)
 alpha_cut = 1
 sprite_frames = SubResource("SpriteFrames_on4x7")
-animation = &""
+animation = &"new_animation"
 
 [node name="hitbox" type="CollisionShape3D" parent="." unique_id=1783856047]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00028108805, 0.0073155165, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.00028108805, 0.0073155165, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
