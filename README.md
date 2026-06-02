@@ -24,3 +24,5 @@ GAMEPLAY STEPS TO FIRST REVEAL:
 - [ ] Save system
 - [ ] Multiplayer
 - [ ] Cross platform (maybe)
+
+![Obsidian canvas explaining currently game's architecture](./Canvas.png)
