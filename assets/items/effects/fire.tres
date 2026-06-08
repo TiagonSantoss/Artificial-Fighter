@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="DamageOverTimeEffect" format=3 uid="uid://nwvkxtek20js"]
 
 [ext_resource type="Script" uid="uid://bk2darla0r3vp" path="res://Core/Container/Effect/damage_over_time.gd" id="1_fa3w5"]
-[ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="1_q7yjo"]
+[ext_resource type="Texture2D" uid="uid://bfkvfr4qipt21" path="res://textures/T_Cracks336.png" id="1_q7yjo"]
 
 [resource]
 script = ExtResource("1_fa3w5")
 damage_per_second = 15.0
 id = &"DOT"
-display_name = "On Fire!!"
+display_name = "FIRE"
+description = "BURN IN HEL!!!!!!!!!!!"
 icon = ExtResource("1_q7yjo")
 metadata/_custom_type_script = "uid://bk2darla0r3vp"

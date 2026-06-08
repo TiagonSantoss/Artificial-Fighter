@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_78ukt")
 id = &"damageUP"
-display_name = "More DAMAGE"
+display_name = "DAmegae"
+description = "MORE dAMAGE!!!!!!! 1.5x"
 icon = ExtResource("1_xgquf")
 metadata/_custom_type_script = "uid://cd2jd6u5ycjr4"

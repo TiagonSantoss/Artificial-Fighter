@@ -14,6 +14,7 @@ func _ready() -> void:
 	
 	game.controlled_entity_changed.connect(set_entity)
 	
+	
 	if game.controlled_entity != null:
 		set_entity(game.controlled_entity)
 
@@ -57,5 +58,9 @@ func refresh() -> void:
 		icon.custom_minimum_size = Vector2(32, 32)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		icon.mouse_filter = Control.MOUSE_FILTER_STOP
+		icon.mouse_default_cursor_shape = Control.CURSOR_CROSS
+		icon.tooltip_text = effect.description
 		
 		container.add_child(icon)

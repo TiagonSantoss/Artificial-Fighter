@@ -23,6 +23,10 @@ enabled=PackedStringArray()
 
 world="Main level node3D"
 
+[gui]
+
+timers/tooltip_delay_sec=0.1
+
 [input]
 
 ui_left={
