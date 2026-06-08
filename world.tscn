@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/room_insana_room.tres" id="8_ioo17"]
 [ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="9_k3n1d"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="10_2o6r5"]
+[ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/effects_bar.gd" id="10_wse8f"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="11_70uel"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 
@@ -154,3 +155,20 @@ amount = 18
 lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_ioo17")
 draw_pass_1 = SubResource("ArrayMesh_wse8f")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
+
+[node name="EffectsBar" type="Control" parent="UI" unique_id=30913204]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("10_wse8f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EffectsBar" unique_id=727630296]
+layout_mode = 0
+offset_left = 7.0
+offset_top = -47.0
+offset_right = 47.0
+offset_bottom = -7.0

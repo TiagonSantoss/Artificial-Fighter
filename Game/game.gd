@@ -7,9 +7,19 @@ const companion_definition: EntityDefinition = preload("res://assets/definitions
 const enemy_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_enemy.tres")
 const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 
+signal controlled_entity_changed(entity: Entity)
+
+var _controlled_entity: Entity
+
+var controlled_entity: Entity:
+	get:
+		return _controlled_entity
+	set(value):
+		_controlled_entity = value
+		controlled_entity_changed.emit(value)
+
 static var player: Entity
 
-var controlled_entity: Entity
 var entity_camera_pivot: Marker3D
 
 @onready var entities: Node3D = $Entities
