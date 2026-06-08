@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bk5ynb2583nmv"]
 
-[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Game/Combat/Weapon/weapon_definition.gd" id="1_h8nv3"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="1_h8nv3"]
 [ext_resource type="Resource" uid="uid://csebym7jqvd3r" path="res://assets/definitions/projectiles/bullet.tres" id="1_jb85x"]
 [ext_resource type="Texture2D" uid="uid://vf0cfai7ksag" path="res://assets/sprites/combat/weapons/chippa rhino.png" id="2_sa86l"]
 

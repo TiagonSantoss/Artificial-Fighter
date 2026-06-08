@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bs8beltsryn0b"]
 
-[ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Game/Room/room_renderer.gd" id="1_jm6y3"]
-[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Game/Room/room_definition.gd" id="2_brcqa"]
-[ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Game/Room/room_generator.gd" id="2_p1rem"]
+[ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Core/Room/room_renderer.gd" id="1_jm6y3"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="2_brcqa"]
+[ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Core/Room/room_generator.gd" id="2_p1rem"]
 [ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="3_65mac"]
 [ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="3_wi0rs"]
 [ext_resource type="Script" uid="uid://b54ag2n20epkj" path="res://camera_3d.gd" id="6_65mac"]

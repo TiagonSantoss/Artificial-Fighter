@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://dxoaosoohpd1v"]
 
 [ext_resource type="Resource" uid="uid://csebym7jqvd3r" path="res://assets/definitions/projectiles/bullet.tres" id="1_hne5q"]
-[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Game/Combat/Weapon/weapon_definition.gd" id="2_ppi8x"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_ppi8x"]
 [ext_resource type="Texture2D" uid="uid://bnfs0cr86fae4" path="res://assets/sprites/combat/weapons/TMP automatic machine pistol.png" id="3_lw134"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hne5q"]

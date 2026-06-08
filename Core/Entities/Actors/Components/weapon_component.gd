@@ -6,7 +6,7 @@ class OrbitSlot:
 	var radius: float
 	var height: float
 
-const WEAPON_SCENE = preload("res://Game/Combat/Weapon/Weapon.tscn")
+const WEAPON_SCENE = preload("res://Core/Combat/Weapon/Weapon.tscn")
 
 @export var orbit_radius := 0.15
 @export var orbit_speed := 5.0

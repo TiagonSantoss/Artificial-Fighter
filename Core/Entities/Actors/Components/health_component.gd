@@ -13,10 +13,10 @@ func configure(max_hp: int):
 
 func damage(amount: float):
 	health -= amount
-
+	
 	damaged.emit(amount)
-
+	
 	print(health)
-
+	
 	if health <= 0:
 		died.emit()

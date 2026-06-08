@@ -1,7 +1,7 @@
 class_name Weapon
 extends Node3D
 
-const PROJECTILE_SCENE = preload("res://Game/Combat/Projectile/Projectile.tscn")
+const PROJECTILE_SCENE = preload("res://Core/Combat/Projectile/Projectile.tscn")
 
 var definition: WeaponDefinition
 var can_fire := true

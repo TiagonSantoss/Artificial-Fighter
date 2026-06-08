@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectileDefinition" format=3 uid="uid://csebym7jqvd3r"]
 
-[ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Game/Combat/Projectile/projectile_definition.gd" id="1_00wyo"]
+[ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Core/Combat/Projectile/projectile_definition.gd" id="1_00wyo"]
 [ext_resource type="Texture2D" uid="uid://csl7hatjb0t2d" path="res://assets/sprites/combat/projectiles/bullet.png" id="2_abtai"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xhjc"]

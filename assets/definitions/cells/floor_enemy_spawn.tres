@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CellDefinition" format=3 uid="uid://vq8rpxlr7iqx"]
 
-[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Game/Room/Grid/cell_definition.gd" id="1_oee6p"]
+[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Core/Room/Grid/cell_definition.gd" id="1_oee6p"]
 
 [resource]
 script = ExtResource("1_oee6p")

@@ -41,6 +41,8 @@ var grid_position: Vector3i
 @onready var animation_component: AnimationComponent = $Components/AnimationComponent
 @onready var weapon_component: WeaponComponent = $Components/WeaponComponent
 @onready var visual_effects_component: VisualEffectsComponent = $Components/VisualEffectsComponent
+@onready var effects_component: EffectsComponent = $Components/EffectsComponent
+
 
 func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
@@ -72,6 +74,8 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	
 	visual_effects_component.setup(self)
 	visual_effects_component.set_shadow(fake_shadow)
+	
+	effects_component.setup(self)
 	
 	initialized = true
 	
@@ -134,6 +138,7 @@ func _physics_process(delta: float) -> void:
 	movement_component.update(delta)
 	
 	#visual_effects_component.update(delta)
+	effects_component.update(delta)
 	
 	weapon_component.update(delta)
 	

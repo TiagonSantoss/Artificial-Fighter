@@ -1,6 +1,8 @@
 class_name PlayerController
 extends Controller
 
+const BURN_EFFECT = preload("res://assets/items/effects/fire.tres")
+
 var locked_forward := Vector3.ZERO
 var locked_right := Vector3.ZERO
 var movement_locked := false
@@ -54,7 +56,13 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append(RotateCameraAction.new(-90, pivot))
 	
 	if Input.is_action_just_pressed("jump"):
-		actions.append((JumpAction.new()))
+		actions.append(JumpAction.new())
+	
+	if Input.is_action_just_pressed("add_item"):
+		actions.append(AddItemAction.new(BURN_EFFECT, _actor.effects_component.effects))
+	
+	if Input.is_action_just_pressed("remove_item"):
+		actions.append(RemoveItemAction.new(BURN_EFFECT, _actor.effects_component.effects))
 	
 	return actions
 

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://jy03v0ofdl47"]
 
-[ext_resource type="Script" uid="uid://crkyo7an01huo" path="res://Game/Room/Rooms/Scripts/start.gd" id="1_qn1rc"]
+[ext_resource type="Script" uid="uid://crkyo7an01huo" path="res://Core/Room/Rooms/Scripts/start.gd" id="1_qn1rc"]
 [ext_resource type="MeshLibrary" uid="uid://b2uyjbo5a8xcx" path="res://assets/models/new_mesh_library.tres" id="2_qn1rc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qn1rc"]
@@ -243,5 +243,5 @@ bidirectional = false
 end_position = Vector3(-1.051, -3.925, 0)
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.5418308, 4.7311068, -0.29576454, -0.46210226, -0.0906956, -0.88647264, -0.70170313, 3.7148824, 0.35531005, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-0.05707953, 3.8519146, 0.76595443, 0.8011823, 2.9285536, -0.3471001, -0.595272, 3.574629, -0.5407209, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")

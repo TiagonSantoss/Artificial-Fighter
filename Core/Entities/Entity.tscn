@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cr7fju12dylcr" path="res://Core/Entities/Actors/Components/movement_component.gd" id="6_4mw2e"]
 [ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Core/Entities/Actors/Components/weapon_component.gd" id="7_4mw2e"]
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
+[ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -79,3 +80,6 @@ script = ExtResource("7_4mw2e")
 
 [node name="VisualEffectsComponent" type="Node" parent="Components" unique_id=2115617483]
 script = ExtResource("9_jh0cy")
+
+[node name="EffectsComponent" type="Node" parent="Components" unique_id=630491130]
+script = ExtResource("11_avlqe")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cwmxap0hqtmqw"]
 
-[ext_resource type="Script" uid="uid://p2bhoicapcip" path="res://Game/Room/Rooms/Scripts/boss.gd" id="1_6xxrv"]
+[ext_resource type="Script" uid="uid://p2bhoicapcip" path="res://Core/Room/Rooms/Scripts/boss.gd" id="1_6xxrv"]
 [ext_resource type="MeshLibrary" uid="uid://b2uyjbo5a8xcx" path="res://assets/models/new_mesh_library.tres" id="2_6xxrv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
