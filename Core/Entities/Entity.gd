@@ -73,7 +73,7 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	weapon_component.set_sockets(weapon_socket, orbit_socket)
 	
 	visual_effects_component.setup(self)
-	visual_effects_component.set_shadow(fake_shadow)
+	visual_effects_component.set_sprite(sprite)
 	
 	effects_component.setup(self)
 	
@@ -98,6 +98,7 @@ func apply_hit(hit: HitData):
 	
 	if health_component:
 		health_component.damage(hit.get_final_damage())
+		visual_effects_component.flash_red(0.1)
 	
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())

@@ -1,0 +1,85 @@
+[gd_scene format=4 uid="uid://byx3s2ntqa7vy"]
+
+[ext_resource type="Script" uid="uid://cne43powa4l7" path="res://Utils/hit_vfx.gd" id="1_lrvq0"]
+
+[sub_resource type="Gradient" id="Gradient_lrvq0"]
+offsets = PackedFloat32Array(0, 0.06858101, 0.18345523, 0.46175477, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0.036002398, 0.026641786, 0.026641786, 0.036002398, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qow18"]
+gradient = SubResource("Gradient_lrvq0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qow18"]
+emission_shape_scale = Vector3(0.3, 0.3, 0.3)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -99.79999
+angle_max = 216.20001
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 12.15
+initial_velocity_max = 18.72
+gravity = Vector3(0, -28.806, 0)
+damping_min = 12.598001
+damping_max = 23.880001
+scale_min = 0.049999997
+scale_max = 0.19999999
+color_ramp = SubResource("GradientTexture1D_qow18")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.33
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r52ck"]
+render_priority = -1
+transparency = 1
+vertex_color_use_as_albedo = true
+refraction_enabled = true
+shadow_to_opacity = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrvq0"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_qow18"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"material": SubResource("StandardMaterial3D_lrvq0"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_r52ck"]
+resource_name = "assets_Cube_001"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_r52ck"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_qow18")
+
+[node name="Node3D" type="Node3D" unique_id=1833114907]
+script = ExtResource("1_lrvq0")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=917853836]
+amount = 15
+lifetime = 1.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qow18")
+draw_pass_1 = SubResource("ArrayMesh_r52ck")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="." unique_id=614407117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29658204, 0)
+size = Vector3(8, 0.89, 8)

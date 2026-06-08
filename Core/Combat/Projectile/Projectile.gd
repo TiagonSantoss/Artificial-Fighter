@@ -9,6 +9,8 @@ enum HitResult {
 	REFLECT
 }
 
+const HIT_VFX_SCENE = preload("res://Utils/HitVFX.tscn")
+
 var definition: ProjectileDefinition
 
 var remaining_pierce := 0
@@ -143,10 +145,12 @@ func _physics_process(delta):
 			
 			# WORLD COLLISION
 			if collider.is_in_group("world"):
+				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				if remaining_bounces > 0:
 					velocity = velocity.bounce(hit_data.hit_normal)
 					remaining_bounces -= 1
 					global_position += hit_data.hit_normal * 0.05
+					_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 					return
 				
 				queue_free()
@@ -155,6 +159,8 @@ func _physics_process(delta):
 			# DAMAGEABLE
 			if collider.has_method("apply_hit"):
 				collider.apply_hit(hit_data)
+				
+				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				
 				already_hit[collider] = true
 				remaining_pierce -= 1
@@ -186,3 +192,17 @@ func _apply_visuals():
 	sprite.billboard = definition.billboard
 	sprite.scale = definition.sprite_scale
 	sprite.play(definition.default_animation)
+
+func _spawn_hit_vfx(pos: Vector3, normal: Vector3, damage: float) -> void:
+	var vfx := HIT_VFX_SCENE.instantiate()
+	get_tree().current_scene.add_child(vfx)
+	
+	vfx.global_position = pos
+	vfx.scale = Vector3.ONE * clamp(damage * 0.08 * damage_multiplier, 0.5, damage * 0.08 * damage_multiplier)
+	vfx.rotation.y = randf() * TAU
+	
+	# optional: face surface direction
+	if vfx is Node3D:
+		vfx.look_at(pos + normal, Vector3.UP)
+	
+	vfx.play()
