@@ -5,16 +5,21 @@ extends Node3D
 @export var start_room: RoomDefinition
 @export var room_pool: Array[RoomDefinition]
 
+signal room_entered(room: DungeonRoom)
+signal room_exited(room: DungeonRoom)
+
 const CELL_SIZE := 8
 const ACTIVE_RADIUS := 1
 
 var room_materials := {}
 var room_inactive_values := {}
+var room_was_active := {}
 
 var rooms := []
 var player: Entity
 
 var current_room := Vector2i(999999, 999999)
+var active_room: DungeonRoom = null
 
 func _ready():
 	var generated_rooms = generator.generate(
@@ -24,9 +29,9 @@ func _ready():
 	
 	for room_data in generated_rooms:
 		var node = room_data.def.scene.instantiate()
-		
 		room_inactive_values[node] = 0.0
 		
+		# ✅ SIMPLE ROOM PLACEMENT (NO GRID MATH)
 		node.position = Vector3(
 			room_data.offset.x,
 			0,
@@ -34,17 +39,33 @@ func _ready():
 		)
 		
 		add_child(node)
-		make_gridmap_materials_unique(node)
+		
+		print("=== PLACEMENT ===")
+		print("Node position:", node.position)
+		print("Node global_position:", node.global_position)
+		
+		# ❌ REMOVE ALL GridMap debugging + map_to_local logic
+		# ❌ DO NOT use minimum, world_origin, or grid conversion here
 		
 		var materials := []
 		collect_materials(node, materials)
-		
 		room_materials[node] = materials
 		
-		rooms.append({
-			"node": node,
-			"offset": room_data.offset
-		})
+		var room := DungeonRoom.new()
+		room.definition = room_data.def
+		room.has_encounter = room_data.has_encounter
+		room.node = node
+		room.offset = room_data.offset
+		
+		# ✅ KEEP RAW GRID POSITIONS (NO CONVERSION HERE)
+		for pos in room_data.def.grid_data.get_player_spawns():
+			room.player_spawns.append(pos)
+		
+		for pos in room_data.def.grid_data.get_enemy_spawns():
+			room.enemy_spawns.append(pos)
+		
+		print("Room loaded:", room_data.def)
+		rooms.append(room)
 	
 	update_rooms()
 
@@ -59,12 +80,32 @@ func _process(_delta):
 	
 	if room_pos != current_room:
 		current_room = room_pos
+		
 		update_rooms()
+
+func get_room(coord: Vector2i) -> DungeonRoom:
+	for room in rooms:
+		var room_coord := Vector2i(
+			roundi(room.offset.x),
+			roundi(room.offset.z)
+		)
+		
+		if room_coord == coord:
+			#print("\n--- ROOM FOUND ---")
+			#print("DEF:", room.definition.scene if room.definition else "null")
+			#print("OFFSET:", room.offset)
+			#print("ROOMS:", room_cord)
+			#print("HAS ENCOUNTER:", room.has_encounter)
+			#print("SPAWNERS:", room.enemy_spawns if "enemy_spawns" in room else "none")
+			return room
+	
+	return null
 
 func update_rooms():
 	for room_data in rooms:
-		var room: Node3D = room_data.node
-		var offset: Vector3i = room_data.offset
+		var room: DungeonRoom = room_data
+		var node: Node3D = room.node
+		var offset: Vector3i = room.offset
 		
 		var room_coord := Vector2i(
 			roundi(offset.x / CELL_SIZE),
@@ -77,8 +118,19 @@ func update_rooms():
 		)
 		
 		var active := distance <= ACTIVE_RADIUS
+		var was_active: bool = room_was_active.get(room, false)
 		
-		set_room_active(room, active)
+		# ENTER
+		if active and not was_active:
+			room_was_active[room] = true
+			room_entered.emit(room)
+		
+		# EXIT
+		elif not active and was_active:
+			room_was_active[room] = false
+			room_exited.emit(room)
+		
+		set_room_active(node, active)
 
 func set_room_active(room: Node3D, active: bool):
 	room.process_mode = (

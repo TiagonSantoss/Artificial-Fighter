@@ -20,7 +20,6 @@ var dir_state: AnimDirState = AnimDirState.DOWN
 var facing_left := false
 var facing_direction: Vector3 = Vector3.FORWARD
 
-
 var warned_missing_anims: Dictionary = {}
 
 func set_sprite(entity_sprite: AnimatedSprite3D) -> void:

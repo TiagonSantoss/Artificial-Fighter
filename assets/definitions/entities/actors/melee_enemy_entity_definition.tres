@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bbomo87c2vdl8"]
 
-[ext_resource type="Script" uid="uid://nd2iy1bf4idp" path="res://Core/Entities/Controllers/enemy_controller.gd" id="1_cv6wd"]
+[ext_resource type="Script" uid="uid://nd2iy1bf4idp" path="res://Core/Entities/Controllers/melee_enemy_controller.gd" id="1_f8fcw"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="2_f8fcw"]
 [ext_resource type="Texture2D" uid="uid://pgfwcda8i4u" path="res://assets/sprites/characters/enemy.png" id="3_cv6wd"]
+[ext_resource type="Resource" uid="uid://3i1oi7ojlqlp" path="res://assets/definitions/weapons/Fists.tres" id="4_f8fcw"]
 
 [sub_resource type="Resource" id="Resource_cv6wd"]
-script = ExtResource("1_cv6wd")
+script = ExtResource("1_f8fcw")
 metadata/_custom_type_script = "uid://nd2iy1bf4idp"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f8fcw"]
@@ -262,5 +263,6 @@ acceleration = 10.0
 friction = 10.0
 controller = SubResource("Resource_cv6wd")
 entity_id = 3
+starting_weapon = ExtResource("4_f8fcw")
 team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"

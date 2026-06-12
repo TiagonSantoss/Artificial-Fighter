@@ -26,3 +26,21 @@ func is_spawn(pos: Vector3i) -> bool:
 func is_enemy_spawn(pos: Vector3i) -> bool:
 	var cell = get_cell(pos)
 	return cell and cell.enemy_spawn
+
+func get_player_spawns() -> Array[Vector3i]:
+	var result: Array[Vector3i] = []
+	
+	for pos in grid.keys():
+		if is_spawn(pos):
+			result.append(pos)
+	
+	return result
+
+func get_enemy_spawns() -> Array[Vector3i]:
+	var result: Array[Vector3i] = []
+
+	for pos in grid.keys():
+		if is_enemy_spawn(pos):
+			result.append(pos)
+
+	return result

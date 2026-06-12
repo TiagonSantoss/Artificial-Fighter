@@ -1,7 +1,7 @@
 class_name PlayerController
 extends Controller
 
-const BURN_EFFECT = preload("res://assets/items/cards/damageUP.tres")
+const BURN_EFFECT = preload("res://assets/items/effects/fire.tres")
 
 var locked_forward := Vector3.ZERO
 var locked_right := Vector3.ZERO

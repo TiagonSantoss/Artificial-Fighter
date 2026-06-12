@@ -23,7 +23,7 @@ gravity = Vector3(0, -28.806, 0)
 damping_min = 12.598001
 damping_max = 23.880001
 scale_min = 0.049999997
-scale_max = 0.19999999
+scale_max = 0.099999994
 color_ramp = SubResource("GradientTexture1D_qow18")
 collision_mode = 1
 collision_friction = 0.0
@@ -74,7 +74,6 @@ shadow_mesh = SubResource("ArrayMesh_qow18")
 script = ExtResource("1_lrvq0")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=917853836]
-amount = 15
 lifetime = 1.5
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_qow18")

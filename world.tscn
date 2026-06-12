@@ -1,15 +1,22 @@
 [gd_scene format=4 uid="uid://trvpmwnapc7o"]
 
+[ext_resource type="Resource" uid="uid://c6ttcn6s3gd7e" path="res://assets/definitions/entities/actors/player_entity_definition.tres" id="2_2u3nc"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="3_udxuc"]
+[ext_resource type="Resource" uid="uid://bbomo87c2vdl8" path="res://assets/definitions/entities/actors/melee_enemy_entity_definition.tres" id="4_ikiii"]
+[ext_resource type="Resource" uid="uid://b4lt3plobpv0y" path="res://assets/definitions/entities/actors/ranged_TMP_enemy_entity_definition.tres" id="5_cbp6q"]
+[ext_resource type="Resource" uid="uid://c8k1sacc2ergh" path="res://assets/definitions/entities/actors/npc_entity_definition.tres" id="6_26xuy"]
 [ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Core/Entities/Entity.tscn" id="6_gbfbk"]
+[ext_resource type="Resource" uid="uid://gxp2qhdh2sat" path="res://assets/definitions/entities/actors/ranged_Revolver_enemy_entity_definition.tres" id="6_ikiii"]
+[ext_resource type="Resource" uid="uid://dx6yj5jr2qwa2" path="res://assets/definitions/entities/actors/companion_entity_definition.tres" id="7_bc84e"]
 [ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Core/Room/room_renderer.gd" id="7_pkg7o"]
 [ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Core/Room/room_generator.gd" id="8_ic0uy"]
-[ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/room_insana_room.tres" id="8_ioo17"]
 [ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="9_k3n1d"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/effects_bar.gd" id="10_wse8f"]
-[ext_resource type="Resource" uid="uid://d3vqkrs0fbbdt" path="res://assets/definitions/rooms/boss_room.tres" id="11_70uel"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
+[ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/arena1.tres" id="14_udxuc"]
+[ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Game/Dungeon/dungeon_manager.gd" id="17_udxuc"]
 
 [sub_resource type="Resource" id="Resource_hiqwa"]
 script = ExtResource("8_ic0uy")
@@ -114,6 +121,10 @@ shadow_mesh = SubResource("ArrayMesh_y5hus")
 
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
+player_definition = ExtResource("2_2u3nc")
+enemy_pool = Array[ExtResource("3_udxuc")]([ExtResource("4_ikiii"), ExtResource("5_cbp6q"), ExtResource("6_ikiii")])
+npc_pool = Array[ExtResource("3_udxuc")]([ExtResource("6_26xuy")])
+companion_pool = Array[ExtResource("3_udxuc")]([ExtResource("7_bc84e")])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
 transform = Transform3D(-0.90412116, -0.41353, -0.10750823, -0.057911098, -0.13069305, 0.9897301, -0.42333364, 0.9010617, 0.09421434, 0, 0.29394203, 0)
@@ -133,7 +144,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2, 0)
 script = ExtResource("7_pkg7o")
 generator = SubResource("Resource_hiqwa")
 start_room = ExtResource("9_k3n1d")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("11_70uel"), ExtResource("8_ioo17")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("14_udxuc")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
 environment = SubResource("Environment_k3n1d")
@@ -172,3 +183,7 @@ offset_left = 7.0
 offset_top = -47.0
 offset_right = 47.0
 offset_bottom = -7.0
+
+[node name="DungeonManager" type="Node" parent="." unique_id=882153731 node_paths=PackedStringArray("room_renderer")]
+script = ExtResource("17_udxuc")
+room_renderer = NodePath("../Room")

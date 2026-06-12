@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://3i1oi7ojlqlp"]
+
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="1_ohbt7"]
+[ext_resource type="Resource" uid="uid://84ma0fbp7sjv" path="res://assets/definitions/projectiles/punch.tres" id="1_ttscc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohbt7"]
+
+[resource]
+script = ExtResource("1_ohbt7")
+sprite_frames = SubResource("SpriteFrames_ohbt7")
+damage_multiplier = 1.2
+fire_rate = 0.7
+recoil = 0.0
+projectile = ExtResource("1_ttscc")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

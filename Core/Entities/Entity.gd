@@ -15,6 +15,8 @@ enum HitResult {
 	REFLECT
 }
 
+const HIT_VFX_SCENE = preload("res://Utils/HitVFX.tscn")
+
 var definition: EntityDefinition
 var controller: Controller
 
@@ -104,6 +106,7 @@ func apply_hit(hit: HitData):
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
 
 func _on_died() -> void:
+	#_spawn_hit_vfx()
 	queue_free()
 
 func get_team():
@@ -156,3 +159,14 @@ func _physics_process(delta: float) -> void:
 	#	grid_position = new_grid
 	
 	animation_component.update_animation()
+
+func _spawn_hit_vfx() -> void:
+	var vfx := HIT_VFX_SCENE.instantiate()
+	get_tree().current_scene.add_child(vfx)
+	vfx.reparent(self)
+	vfx.rotation.y = randf() * TAU
+	
+	#if vfx is Node3D:
+	#	vfx.look_at(pos + normal, Vector3.UP)
+	
+	vfx.play()

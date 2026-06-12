@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://6amefbtc63wd"]
+
+[ext_resource type="PackedScene" uid="uid://cfq72ykuxgslp" path="res://Game/Rooms/arena1.tscn" id="1_7fics"]
+[ext_resource type="Resource" path="res://Core/Room/Rooms/arena1DATA.tres" id="1_gu4t7"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="3_hbvxd"]
+
+[resource]
+script = ExtResource("3_hbvxd")
+scene = ExtResource("1_7fics")
+grid_data = ExtResource("1_gu4t7")
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

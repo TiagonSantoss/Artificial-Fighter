@@ -9,5 +9,5 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 func get_aim_target(_actor: Entity) -> Variant:
 	return null
 
-func update_aim(_actor: Entity) -> void:
-	pass
+func update_aim(actor: Entity) -> void:
+	aim_target = get_aim_target(actor)

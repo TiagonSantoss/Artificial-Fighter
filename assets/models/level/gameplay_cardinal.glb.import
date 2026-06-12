@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://i5tufgt5ijuh"
-path="res://.godot/imported/first_level_cardinal.glb-b118d1cc4d705b497aca4899149725f3.scn"
+uid="uid://cfboimi0xm0aa"
+path="res://.godot/imported/gameplay_cardinal.glb-3d865c76919ce562ad232b8fcdb1369b.scn"
 
 [deps]
 
-source_file="res://assets/models/level/first_level_cardinal.glb"
-dest_files=["res://.godot/imported/first_level_cardinal.glb-b118d1cc4d705b497aca4899149725f3.scn"]
+source_file="res://assets/models/level/gameplay_cardinal.glb"
+dest_files=["res://.godot/imported/gameplay_cardinal.glb-3d865c76919ce562ad232b8fcdb1369b.scn"]
 
 [params]
 

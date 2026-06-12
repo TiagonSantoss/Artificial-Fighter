@@ -160,7 +160,7 @@ func _physics_process(delta):
 			if collider.has_method("apply_hit"):
 				collider.apply_hit(hit_data)
 				
-				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
+				#_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				
 				already_hit[collider] = true
 				remaining_pierce -= 1
@@ -168,6 +168,14 @@ func _physics_process(delta):
 				if remaining_pierce <= 0:
 					queue_free()
 					return
+			#TO DO, PARRIES
+			#if collider is Projectile:
+			#	#if collider == self:
+			#	#	continue
+			#	
+			#	collider.queue_free()
+			#	queue_free()
+			#	return
 	
 	
 	if is_queued_for_deletion():
@@ -193,12 +201,12 @@ func _apply_visuals():
 	sprite.scale = definition.sprite_scale
 	sprite.play(definition.default_animation)
 
-func _spawn_hit_vfx(pos: Vector3, normal: Vector3, damage: float) -> void:
+func _spawn_hit_vfx(pos: Vector3, normal: Vector3, _damage: float) -> void:
 	var vfx := HIT_VFX_SCENE.instantiate()
 	get_tree().current_scene.add_child(vfx)
 	
 	vfx.global_position = pos
-	vfx.scale = Vector3.ONE * clamp(damage * 0.08 * damage_multiplier, 0.5, damage * 0.08 * damage_multiplier)
+	#vfx.scale = Vector3.ONE * clamp(damage * 0.08 * damage_multiplier, 0.5, damage * 0.08 * damage_multiplier)
 	vfx.rotation.y = randf() * TAU
 	
 	# optional: face surface direction

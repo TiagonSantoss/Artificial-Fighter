@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ProjectileDefinition" format=3 uid="uid://84ma0fbp7sjv"]
+
+[ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Core/Combat/Projectile/projectile_definition.gd" id="1_do6wr"]
+[ext_resource type="Texture2D" uid="uid://ceqviuj6dns6a" path="res://assets/sprites/combat/CrosshairsOutline20.png" id="2_lwx38"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lwx38"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lwx38")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_do6wr")
+sprite_frames = SubResource("SpriteFrames_lwx38")
+sprite_scale = Vector3(5, 5, 5)
+speed = 1.0
+drag = 20.0
+bounce_factor = 0.0
+lifetime = 0.2
+damage = 15
+knockback = 5.0
+radius = 0.5
+metadata/_custom_type_script = "uid://dgoeygudsoucv"

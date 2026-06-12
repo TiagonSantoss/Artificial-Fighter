@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bk5ynb2583nmv"]
+
+[ext_resource type="Resource" uid="uid://csebym7jqvd3r" path="res://assets/definitions/projectiles/bullet.tres" id="1_iw2s6"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_m1kux"]
+[ext_resource type="Texture2D" uid="uid://d2v80n2nnfn1f" path="res://assets/sprites/combat/weapons/Revolver.png" id="3_avdkl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55gr2"]
+atlas = ExtResource("3_avdkl")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5cd7"]
+atlas = ExtResource("3_avdkl")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jb85x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55gr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5cd7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_m1kux")
+sprite_frames = SubResource("SpriteFrames_jb85x")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+damage_multiplier = 1.3
+fire_rate = 1.3
+pierce_multiplier = 5.0
+recoil = 2.0
+spread = 2.0
+projectile = ExtResource("1_iw2s6")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

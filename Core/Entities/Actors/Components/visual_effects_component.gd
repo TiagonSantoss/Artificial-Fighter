@@ -19,9 +19,18 @@ func flash_red(duration: float = 0.1) -> void:
 	
 	is_flashing = true
 	
-	sprite.modulate = Color(1, 0.3, 0.3, 1)
+	var original_modulate := sprite.modulate
+	
+	sprite.modulate = Color(
+		1.0,
+		0.3,
+		0.3,
+		original_modulate.a
+	)
 	
 	await get_tree().create_timer(duration).timeout
 	
-	sprite.modulate = Color(1, 1, 1, 1)
+	if is_instance_valid(sprite):
+		sprite.modulate = original_modulate
+	
 	is_flashing = false

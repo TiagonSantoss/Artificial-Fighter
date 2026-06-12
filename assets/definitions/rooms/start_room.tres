@@ -1,118 +1,12 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://bjyq57nj3ajj"]
 
-[ext_resource type="Resource" uid="uid://1crpor0ebos7" path="res://assets/definitions/cells/floor.tres" id="1_llp0p"]
+[ext_resource type="Resource" path="res://Core/Room/Rooms/startDATA.tres" id="1_46gxy"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="1_wevgu"]
-[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://start.tscn" id="2_46gxy"]
-[ext_resource type="Resource" uid="uid://beyntim73f1j7" path="res://assets/definitions/cells/door_north.tres" id="2_rlood"]
-[ext_resource type="Resource" uid="uid://krg8ntsd6wc2" path="res://assets/definitions/cells/door_south.tres" id="3_sbu0p"]
-[ext_resource type="Resource" uid="uid://cddr1uhibx7xs" path="res://assets/definitions/cells/door_east.tres" id="4_bjxu2"]
-[ext_resource type="Script" uid="uid://dvkdj3l7aft1p" path="res://Core/Room/Grid/grid_data.gd" id="5_iwd3f"]
-
-[sub_resource type="Resource" id="Resource_nhu0j"]
-script = ExtResource("5_iwd3f")
-grid = {
-Vector3i(-12, 7, 0): ExtResource("1_llp0p"),
-Vector3i(-11, 6, 0): ExtResource("1_llp0p"),
-Vector3i(-10, 5, 0): ExtResource("1_llp0p"),
-Vector3i(-9, 4, 0): ExtResource("1_llp0p"),
-Vector3i(-8, 3, 0): ExtResource("1_llp0p"),
-Vector3i(-7, 2, 0): ExtResource("1_llp0p"),
-Vector3i(-6, 1, 0): ExtResource("1_llp0p"),
-Vector3i(-5, 0, 0): ExtResource("1_llp0p"),
-Vector3i(-4, 0, -4): ExtResource("1_llp0p"),
-Vector3i(-4, 0, -3): ExtResource("1_llp0p"),
-Vector3i(-4, 0, -2): ExtResource("1_llp0p"),
-Vector3i(-4, 0, -1): ExtResource("1_llp0p"),
-Vector3i(-4, 0, 0): ExtResource("1_llp0p"),
-Vector3i(-4, 0, 1): ExtResource("1_llp0p"),
-Vector3i(-4, 0, 2): ExtResource("1_llp0p"),
-Vector3i(-4, 0, 3): ExtResource("1_llp0p"),
-Vector3i(-3, 0, -4): ExtResource("1_llp0p"),
-Vector3i(-3, 0, -3): ExtResource("1_llp0p"),
-Vector3i(-3, 0, -2): ExtResource("1_llp0p"),
-Vector3i(-3, 0, -1): ExtResource("1_llp0p"),
-Vector3i(-3, 0, 0): ExtResource("1_llp0p"),
-Vector3i(-3, 0, 1): ExtResource("1_llp0p"),
-Vector3i(-3, 0, 2): ExtResource("1_llp0p"),
-Vector3i(-3, 0, 3): ExtResource("1_llp0p"),
-Vector3i(-2, 0, -4): ExtResource("1_llp0p"),
-Vector3i(-2, 0, -3): ExtResource("1_llp0p"),
-Vector3i(-2, 0, -2): ExtResource("1_llp0p"),
-Vector3i(-2, 0, -1): ExtResource("1_llp0p"),
-Vector3i(-2, 0, 0): ExtResource("1_llp0p"),
-Vector3i(-2, 0, 1): ExtResource("1_llp0p"),
-Vector3i(-2, 0, 2): ExtResource("1_llp0p"),
-Vector3i(-2, 0, 3): ExtResource("1_llp0p"),
-Vector3i(-1, 0, -4): ExtResource("1_llp0p"),
-Vector3i(-1, 0, -3): ExtResource("1_llp0p"),
-Vector3i(-1, 0, -2): ExtResource("1_llp0p"),
-Vector3i(-1, 0, -1): ExtResource("1_llp0p"),
-Vector3i(-1, 0, 0): ExtResource("1_llp0p"),
-Vector3i(-1, 0, 1): ExtResource("1_llp0p"),
-Vector3i(-1, 0, 2): ExtResource("1_llp0p"),
-Vector3i(-1, 0, 3): ExtResource("1_llp0p"),
-Vector3i(-1, 1, 0): ExtResource("1_llp0p"),
-Vector3i(-1, 1, 1): ExtResource("1_llp0p"),
-Vector3i(-1, 2, 0): ExtResource("1_llp0p"),
-Vector3i(-1, 2, 1): ExtResource("1_llp0p"),
-Vector3i(0, 0, -5): ExtResource("2_rlood"),
-Vector3i(0, 0, -4): ExtResource("1_llp0p"),
-Vector3i(0, 0, -3): ExtResource("1_llp0p"),
-Vector3i(0, 0, -2): ExtResource("1_llp0p"),
-Vector3i(0, 0, -1): ExtResource("1_llp0p"),
-Vector3i(0, 0, 0): ExtResource("1_llp0p"),
-Vector3i(0, 0, 1): ExtResource("1_llp0p"),
-Vector3i(0, 0, 2): ExtResource("1_llp0p"),
-Vector3i(0, 0, 3): ExtResource("1_llp0p"),
-Vector3i(0, 0, 4): ExtResource("3_sbu0p"),
-Vector3i(0, 1, -2): ExtResource("1_llp0p"),
-Vector3i(0, 1, -1): ExtResource("1_llp0p"),
-Vector3i(0, 1, 0): ExtResource("1_llp0p"),
-Vector3i(0, 1, 1): ExtResource("1_llp0p"),
-Vector3i(0, 2, 0): ExtResource("1_llp0p"),
-Vector3i(0, 2, 1): ExtResource("1_llp0p"),
-Vector3i(1, 0, -4): ExtResource("1_llp0p"),
-Vector3i(1, 0, -3): ExtResource("1_llp0p"),
-Vector3i(1, 0, -2): ExtResource("1_llp0p"),
-Vector3i(1, 0, -1): ExtResource("1_llp0p"),
-Vector3i(1, 0, 0): ExtResource("1_llp0p"),
-Vector3i(1, 0, 1): ExtResource("1_llp0p"),
-Vector3i(1, 0, 2): ExtResource("1_llp0p"),
-Vector3i(1, 0, 3): ExtResource("1_llp0p"),
-Vector3i(1, 1, -2): ExtResource("1_llp0p"),
-Vector3i(1, 1, -1): ExtResource("1_llp0p"),
-Vector3i(1, 1, 0): ExtResource("1_llp0p"),
-Vector3i(2, 0, -4): ExtResource("1_llp0p"),
-Vector3i(2, 0, -3): ExtResource("1_llp0p"),
-Vector3i(2, 0, -2): ExtResource("1_llp0p"),
-Vector3i(2, 0, -1): ExtResource("1_llp0p"),
-Vector3i(2, 0, 0): ExtResource("1_llp0p"),
-Vector3i(2, 0, 1): ExtResource("1_llp0p"),
-Vector3i(2, 0, 2): ExtResource("1_llp0p"),
-Vector3i(2, 0, 3): ExtResource("1_llp0p"),
-Vector3i(3, 0, -4): ExtResource("1_llp0p"),
-Vector3i(3, 0, -3): ExtResource("1_llp0p"),
-Vector3i(3, 0, -2): ExtResource("1_llp0p"),
-Vector3i(3, 0, -1): ExtResource("1_llp0p"),
-Vector3i(3, 0, 0): ExtResource("1_llp0p"),
-Vector3i(3, 0, 1): ExtResource("1_llp0p"),
-Vector3i(3, 0, 2): ExtResource("1_llp0p"),
-Vector3i(3, 0, 3): ExtResource("1_llp0p"),
-Vector3i(4, 0, 0): ExtResource("4_bjxu2")
-}
-doors = Array[Dictionary]([{
-"dir": Vector3i(0, -1, 0),
-"pos": Vector3i(0, 0, 4)
-}, {
-"dir": Vector3i(0, 1, 0),
-"pos": Vector3i(0, 0, -5)
-}, {
-"dir": Vector3i(-1, 0, 0),
-"pos": Vector3i(4, 0, 0)
-}])
+[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/start.tscn" id="2_46gxy"]
 
 [resource]
 script = ExtResource("1_wevgu")
 scene = ExtResource("2_46gxy")
-grid_data = SubResource("Resource_nhu0j")
+grid_data = ExtResource("1_46gxy")
+has_encounter = false
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"
