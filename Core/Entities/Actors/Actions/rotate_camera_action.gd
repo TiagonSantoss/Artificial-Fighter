@@ -2,9 +2,9 @@ class_name RotateCameraAction
 extends Action
 
 var degrees: float
-var target_camera: RotateCameraPivot
+var target_camera: DynamicRotatingCameraPivot
 
-func _init(rot_degrees: float, camera: RotateCameraPivot):
+func _init(rot_degrees: float, camera: DynamicRotatingCameraPivot):
 	degrees = rot_degrees
 	target_camera = camera
 

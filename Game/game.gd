@@ -31,11 +31,42 @@ var entity_camera_pivot: Marker3D
 @export var enemy_pool: Array[EntityDefinition]
 @export var npc_pool: Array[EntityDefinition]
 @export var companion_pool: Array[EntityDefinition]
+@export var chunk_manager: ChunkManager
 
 @onready var marker = $PlayerSpawn
 
 func _ready():
 	instance = self
+	if chunk_manager:
+		chunk_manager.active_room_changed.connect(_on_active_room_changed)
+
+func _on_active_room_changed(room_data: Variant) -> void:
+	if room_data == null:
+		return
+	
+	# 1. Extract the physical 3D node from your RoomInstance data container
+	# Replace '.scene_node' with whatever variable name your RoomInstance uses to hold the spawned Node3D
+	var physical_room_node: Node3D = null
+	
+	if room_data is Node3D:
+		physical_room_node = room_data
+	elif "scene_node" in room_data: 
+		physical_room_node = room_data.scene_node
+	elif "node" in room_data:
+		physical_room_node = room_data.node
+	
+	# 2. Safety check: did we successfully find a valid 3D scene node?
+	if not is_instance_valid(physical_room_node):
+		push_warning("Camera could not find a physical 3D scene node for this room data!")
+		return
+	
+	# 3. Handle the camera attachment safely inside the live 3D node
+	if physical_room_node.has_node("CameraPivot"):
+		var room_pivot = physical_room_node.get_node("CameraPivot")
+		camera_rig.reparent(room_pivot, false)
+		print("Camera successfully attached to active room: ", room_data)
+	else:
+		push_warning("Active room 3D scene is missing a 'CameraPivot' node!")
 
 func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	if definition == null:

@@ -13,9 +13,9 @@ func create_graph(start_definition: RoomDefinition) -> RoomGraph:
 
 func add_room(graph: RoomGraph, id: String, def: RoomDefinition) -> void:
 	print("ADD ROOM:", id)
-	print("BEFORE:", graph.connections.keys())
+	#print("BEFORE:", graph.connections.keys())
 	graph.add_room(id, def)
-	print("AFTER:", graph.connections.keys())
+	#print("AFTER:", graph.connections.keys())
 
 
 func connect_rooms(

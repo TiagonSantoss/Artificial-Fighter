@@ -2,6 +2,7 @@ class_name DungeonGenerator
 extends RefCounted
 
 var rng := RandomNumberGenerator.new()
+var visited_edges := {}
 
 func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition) -> RoomGraph:
 	rng.seed = _seed
@@ -22,6 +23,7 @@ func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_ro
 		if not graph.nodes.has(current):
 			push_error("Missing node in graph: " + current)
 			continue
+			
 		
 		var current_def: RoomDefinition = graph.nodes[current]
 		var available_dirs := _get_free_doors(current_def, used_doors.get(current, []))
@@ -41,6 +43,13 @@ func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_ro
 			
 			var room_id := "room_%d" % id_counter
 			id_counter += 1
+			
+			var edge_key := "%s->%s" % [current, room_id]
+			
+			if visited_edges.has(edge_key):
+				continue
+			
+			visited_edges[edge_key] = true
 			
 			builder.add_room(graph, room_id, room_def)
 			builder.connect_rooms(graph, current, room_id, dir)

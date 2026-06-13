@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_j5xdy"]
 [ext_resource type="MeshLibrary" uid="uid://b5ifyyyxklbky" path="res://assets/models/level/flevel_library.tres" id="2_s6o8b"]
 [ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_yehmp"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_yehmp"]
 
 [sub_resource type="GDScript" id="GDScript_g3gis"]
 script/source = "@tool
@@ -234,7 +235,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1n0d2")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3gis"]
-size = Vector3(52.726265, 7.409668, 50.718582)
+size = Vector3(27.26317, 7.409668, 26.659748)
 
 [node name="Start" type="Node3D" unique_id=251378112]
 script = SubResource("GDScript_g3gis")
@@ -250,13 +251,13 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_qn1rc")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.630693, -5.6996946, 0.65878433, -1.1161348, -5.645349, 1.3784428, -0.33394805, -8.916343, -1.2938182, 0, 1.6989145, -0.8869953)
+transform = Transform3D(0.80791235, -3.4305887, 0.13628624, -0.14382087, -2.4912388, -0.8968774, 0.5714821, 4.222916, -0.41837865, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=1450872082]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99570847, 3.2866325, -1.9440384)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9892454, 3.2866325, -0.8011761)
 shape = SubResource("BoxShape3D_g3gis")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]
@@ -283,3 +284,7 @@ direction = 1
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=113840430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=2015351271]
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
+script = ExtResource("4_yehmp")

@@ -15,23 +15,17 @@ var current_room: RoomInstance
 var previous_room: RoomInstance
 var is_generating := false
 
-var generate_count := 0
-
 signal room_entered(room: RoomInstance)
 signal room_exited(room: RoomInstance)
 
 
 func generate() -> void:
-	generate_count += 1
-	print("DUNGEON GENERATE CALL #", generate_count)
 	if is_generating:
 		print("GENERATION BLOCKED (already running)")
 		return
 	
 	is_generating = true
 	
-	print("GENERATE CALLED")
-	print("CALLER:")
 	print_stack()
 	chunk_manager.clear()
 	clear()

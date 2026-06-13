@@ -11,8 +11,9 @@
 [ext_resource type="Resource" uid="uid://dx6yj5jr2qwa2" path="res://assets/definitions/entities/actors/companion_entity_definition.tres" id="7_bc84e"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/effects_bar.gd" id="10_wse8f"]
+[ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="12_ikiii"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
-[ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="14_hiqwa"]
+[ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="Resource" uid="uid://t515j84m0gqe" path="res://assets/definitions/rooms/Arena 2.tres" id="15_ikiii"]
 [ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start.tres" id="15_udxuc"]
@@ -115,12 +116,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y5hus")
 
-[node name="Game" type="Node3D" unique_id=1397934900]
+[node name="Game" type="Node3D" unique_id=1397934900 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("2_fj7yv")
 player_definition = ExtResource("2_2u3nc")
 enemy_pool = Array[ExtResource("3_udxuc")]([ExtResource("4_ikiii"), ExtResource("5_cbp6q"), ExtResource("6_ikiii")])
 npc_pool = Array[ExtResource("3_udxuc")]([ExtResource("6_26xuy")])
 companion_pool = Array[ExtResource("3_udxuc")]([ExtResource("7_bc84e")])
+chunk_manager = NodePath("Dungeon/DungeonManager/ChunkManager")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
 transform = Transform3D(-0.90412116, -0.41353, -0.10750823, -0.057911098, -0.13069305, 0.9897301, -0.42333364, 0.9010617, 0.09421434, 0, 0.29394203, 0)
@@ -173,15 +175,41 @@ offset_top = -47.0
 offset_right = 47.0
 offset_bottom = -7.0
 
+[node name="Minimap" parent="UI" unique_id=806877094 instance=ExtResource("12_ikiii")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -577.0
+offset_right = 560.5
+offset_bottom = 357.0
+grow_horizontal = 2
+
+[node name="MinimapFrame" type="PanelContainer" parent="UI/Minimap" unique_id=2070747487]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.5
+offset_right = 170.5
+offset_bottom = 163.00003
+grow_horizontal = 2
+
+[node name="Minimap" parent="UI/Minimap/MinimapFrame" unique_id=910392165 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("12_ikiii")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("13_cbp6q")
+chunk_manager = NodePath("../../../../Dungeon/DungeonManager/ChunkManager")
+minimap_scale = 1.5
+
 [node name="Dungeon" type="Node3D" parent="." unique_id=1969989031]
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("14_hiqwa"), ExtResource("15_ikiii")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("15_ikiii")])
 start_room = ExtResource("15_udxuc")
-room_count = 50
+_seed = 7278367136712366080
+room_count = 250
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
-chunk_size = 3
-room_scene_size = 6.0
+load_radius = 6
