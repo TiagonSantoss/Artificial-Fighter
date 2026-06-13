@@ -46,9 +46,12 @@ func generate() -> void:
 	graph = chunk_manager.graph
 	layout = chunk_manager.layout
 	
+	_spawn_player_at_start()
+	
 	is_generating = false
 
 func _ready() -> void:
+	await get_tree().process_frame
 	chunk_manager.room_loaded.connect(_on_room_loaded)
 	chunk_manager.room_unloaded.connect(_on_room_unloaded)
 	
@@ -111,6 +114,29 @@ func _on_player_exited_room(
 		return
 	
 	print("Exited:", room.room_id)
+
+func _spawn_player_at_start() -> void:
+	if Game.instance == null:
+		push_error("Game.instance not ready yet")
+		return
+	var chunk_manager_a := get_node("./ChunkManager")
+	
+	var start_room_a = chunk_manager_a.loaded_rooms.get("start")
+	
+	if start_room_a == null:
+		push_error("Start room not loaded yet")
+		return
+	
+	var room_node: Node3D = start_room_a.node
+	var spawn_point := room_node.find_child("SpawnPoint", true, false)
+	
+	if spawn_point == null:
+		push_error("SpawnPoint not found in start room")
+		return
+	
+	Game.instance.spawn_player(spawn_point.global_position)
+	#await get_tree().create_timer(2.0).timeout
+	#chunk_manager.update_stream(Game.player.global_position)
 
 func register_room(room: RoomInstance) -> void:
 	var runtime := room.node.find_child(

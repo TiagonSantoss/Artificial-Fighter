@@ -7,6 +7,7 @@ signal player_exited(room: RoomInstance)
 var room_instance: RoomInstance
 
 @onready var room_area: Area3D = $"../RoomArea"
+@onready var spawn_point: Marker3D = $"../SpawnPoint"
 
 func _ready() -> void:
 	room_area.body_entered.connect(_on_body_entered)

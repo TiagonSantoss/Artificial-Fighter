@@ -32,6 +32,8 @@ var entity_camera_pivot: Marker3D
 @export var npc_pool: Array[EntityDefinition]
 @export var companion_pool: Array[EntityDefinition]
 
+@onready var marker = $PlayerSpawn
+
 func _ready():
 	instance = self
 

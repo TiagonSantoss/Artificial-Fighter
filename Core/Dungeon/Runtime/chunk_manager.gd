@@ -21,6 +21,7 @@ var connector := RoomConnector.new()
 var room_spawner: RoomSpawner
 
 var chunk_index := {}
+var start_room_instance: RoomInstance
 
 # --------------------------------------------------
 # INIT PIPELINE
@@ -50,6 +51,7 @@ func update_stream(player_global_pos: Vector3) -> void:
 # CORE STREAMING LOGIC
 # --------------------------------------------------
 func _update_streaming(center_chunk: Vector2i) -> void:
+	print("CENTER CHUNK:", center_chunk)
 	var needed := {}
 	var chunk_was_loaded := false
 	
@@ -59,19 +61,24 @@ func _update_streaming(center_chunk: Vector2i) -> void:
 			var chunk := center_chunk + Vector2i(x, y)
 			needed[chunk] = true
 	
+	print("NEEDED CHUNKS:", needed.keys())
+	
 	# 2. Unload old chunks
-	for chunk in active_chunks.keys():
+	for chunk in active_chunks.keys().duplicate():
 		if not needed.has(chunk):
+			print("UNLOAD:", chunk)
 			_unload_chunk(chunk)
 	
 	# 3. Load new chunks
 	for chunk in needed.keys():
 		if not active_chunks.has(chunk):
+			print("LOAD:", chunk)
 			_load_chunk(chunk)
 			chunk_was_loaded = true
 			
 	# 4. If a chunk was introduced, safely bind sockets once
 	if chunk_was_loaded:
+		print("CONNECTING CHUNKS")
 		_connect_chunk()
 
 # --------------------------------------------------
@@ -99,6 +106,9 @@ func _load_chunk(chunk: Vector2i) -> Dictionary:
 			def,
 			grid_pos # Passed as Vector2i to satisfy spawn_room()
 		)
+		
+		if id == "start":
+			start_room_instance = room
 		
 		room_loaded.emit(room)
 		
@@ -170,3 +180,6 @@ func clear() -> void:
 	
 	graph = null
 	layout.clear()
+
+func get_start_room_instance() -> RoomInstance:
+	return start_room_instance

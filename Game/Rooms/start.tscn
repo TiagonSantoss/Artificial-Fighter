@@ -250,7 +250,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_qn1rc")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.2222593, -8.559796, 0.6826237, -1.1822999, -1.3935653, 1.609451, -1.0615965, -8.289553, -0.975779, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.630693, -5.6996946, 0.65878433, -1.1161348, -5.645349, 1.3784428, -0.33394805, -8.916343, -1.2938182, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
@@ -280,3 +280,6 @@ direction = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.918087)
 script = ExtResource("3_yehmp")
 direction = 1
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=113840430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
