@@ -26,7 +26,6 @@ var chunk_index := {}
 # INIT PIPELINE
 # --------------------------------------------------
 func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition) -> void:
-	
 	var gen := DungeonGenerator.new()
 	generator = gen
 	
@@ -34,9 +33,7 @@ func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_ro
 	layout = LayoutSolver.new().solve(graph)
 	
 	_build_chunk_index()
-	
 	_update_streaming(Vector2i.ZERO)
-	#connector.connect_room(graph, layout, graph.nodes) # FULL SET ONLY ONCE
 
 func _ready() -> void:
 	room_spawner = RoomSpawner.new()
@@ -47,33 +44,35 @@ func _ready() -> void:
 # --------------------------------------------------
 func update_stream(player_global_pos: Vector3) -> void:
 	var current_chunk := world_to_chunk(player_global_pos)
-	
 	_update_streaming(current_chunk)
-
 
 # --------------------------------------------------
 # CORE STREAMING LOGIC
 # --------------------------------------------------
 func _update_streaming(center_chunk: Vector2i) -> void:
 	var needed := {}
+	var chunk_was_loaded := false
 	
-	# 1. determine chunks to keep
+	# 1. Determine chunks to keep
 	for x in range(-load_radius, load_radius + 1):
 		for y in range(-load_radius, load_radius + 1):
 			var chunk := center_chunk + Vector2i(x, y)
 			needed[chunk] = true
 	
-	# 2. unload old chunks
+	# 2. Unload old chunks
 	for chunk in active_chunks.keys():
 		if not needed.has(chunk):
 			_unload_chunk(chunk)
 	
-	# 3. load new chunks
+	# 3. Load new chunks
 	for chunk in needed.keys():
 		if not active_chunks.has(chunk):
 			_load_chunk(chunk)
-			_connect_chunk()
-	
+			chunk_was_loaded = true
+			
+	# 4. If a chunk was introduced, safely bind sockets once
+	if chunk_was_loaded:
+		_connect_chunk()
 
 # --------------------------------------------------
 # LOAD CHUNK
@@ -86,14 +85,19 @@ func _load_chunk(chunk: Vector2i) -> Dictionary:
 		if loaded_rooms.has(id):
 			continue
 		
-		var pos: Vector2i = layout.get(id)
-		
+		var pos_v3: Vector3 = layout.get(id)
 		var def: RoomDefinition = graph.nodes[id]
+		
+		# Convert the physical 3D position back to an integer grid coordinate for RoomSpawner
+		var grid_pos := Vector2i(
+			roundi(pos_v3.x / room_scene_size),
+			roundi(pos_v3.z / room_scene_size)
+		)
 		
 		var room := room_spawner.spawn_room(
 			id,
 			def,
-			pos
+			grid_pos # Passed as Vector2i to satisfy spawn_room()
 		)
 		
 		room_loaded.emit(room)
@@ -102,9 +106,7 @@ func _load_chunk(chunk: Vector2i) -> Dictionary:
 		loaded_rooms[id] = room
 		
 	active_chunks[chunk] = chunk_rooms
-	
 	return chunk_rooms
-
 
 # --------------------------------------------------
 # BUILD CHUNK INDEX
@@ -128,20 +130,18 @@ func _unload_chunk(chunk: Vector2i) -> void:
 		return
 	
 	for id in active_chunks[chunk].keys():
-		room_spawner.despawn_room(id)
-		loaded_rooms.erase(id)
-		
 		var room: RoomInstance = active_chunks[chunk][id]
 		
 		room_unloaded.emit(room)
 		room_spawner.despawn_room(id)
+		loaded_rooms.erase(id)
+
 	active_chunks.erase(chunk)
 
 # --------------------------------------------------
 # CONNECT CHUNK
 # --------------------------------------------------
 func _connect_chunk() -> void:
-	print("CONNECTING WHOLE DUNGEON")
 	connector.connect_room(graph, layout, loaded_rooms)
 
 # --------------------------------------------------
@@ -153,11 +153,11 @@ func world_to_chunk(world: Vector3) -> Vector2i:
 		floor(world.z / (chunk_size * room_scene_size))
 	)
 
-
-func world_to_chunk_pos(grid_pos: Vector2i) -> Vector2i:
+## Fixed: Takes the computed Vector3 position data and translates it to chunk grids
+func world_to_chunk_pos(room_pos: Vector3) -> Vector2i:
 	return Vector2i(
-		floor(grid_pos.x / chunk_size),
-		floor(grid_pos.y / chunk_size)
+		floor(room_pos.x / (chunk_size * room_scene_size)),
+		floor(room_pos.z / (chunk_size * room_scene_size))
 	)
 
 func clear() -> void:

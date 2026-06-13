@@ -179,7 +179,7 @@ offset_bottom = -7.0
 script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("14_hiqwa"), ExtResource("15_ikiii")])
 start_room = ExtResource("15_udxuc")
-_seed = 359
+_seed = 188
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
