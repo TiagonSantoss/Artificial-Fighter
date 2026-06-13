@@ -1,0 +1,13 @@
+class_name RoomDefinition
+extends Resource
+
+@export var id: String
+@export var scene: PackedScene
+
+@export var tags: Array[String] = []
+@export var size: Vector2i = Vector2i(1,1)
+
+@export var available_doors: Array[DoorSocket.Direction]
+
+func has_door(dir: DoorSocket.Direction) -> bool:
+	return available_doors.has(dir)

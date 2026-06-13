@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5t0a1ucjxofw"]
 
-[ext_resource type="Script" uid="uid://cl5rfcmrn81uw" path="res://Core/Room/Grid/grid_test.gd" id="1_8uh7m"]
+[ext_resource type="Script" uid="uid://cl5rfcmrn81uw" path="res://Core/Room/Core/grid_test.gd" id="1_8uh7m"]
 [ext_resource type="MeshLibrary" path="res://example_meshlibrary.tres" id="1_37kl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_37kl0"]

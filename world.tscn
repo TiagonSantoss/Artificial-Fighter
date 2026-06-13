@@ -9,18 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Core/Entities/Entity.tscn" id="6_gbfbk"]
 [ext_resource type="Resource" uid="uid://gxp2qhdh2sat" path="res://assets/definitions/entities/actors/ranged_Revolver_enemy_entity_definition.tres" id="6_ikiii"]
 [ext_resource type="Resource" uid="uid://dx6yj5jr2qwa2" path="res://assets/definitions/entities/actors/companion_entity_definition.tres" id="7_bc84e"]
-[ext_resource type="Script" uid="uid://ds2qhli7fnq8f" path="res://Core/Room/room_renderer.gd" id="7_pkg7o"]
-[ext_resource type="Script" uid="uid://chf8ya3atxdj1" path="res://Core/Room/room_generator.gd" id="8_ic0uy"]
-[ext_resource type="Resource" uid="uid://bjyq57nj3ajj" path="res://assets/definitions/rooms/start_room.tres" id="9_k3n1d"]
-[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Room/room_definition.gd" id="10_2o6r5"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/effects_bar.gd" id="10_wse8f"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
-[ext_resource type="Resource" uid="uid://6amefbtc63wd" path="res://assets/definitions/rooms/arena1.tres" id="14_udxuc"]
-[ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Game/Dungeon/dungeon_manager.gd" id="17_udxuc"]
-
-[sub_resource type="Resource" id="Resource_hiqwa"]
-script = ExtResource("8_ic0uy")
-metadata/_custom_type_script = "uid://chf8ya3atxdj1"
+[ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="14_hiqwa"]
+[ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
+[ext_resource type="Resource" uid="uid://t515j84m0gqe" path="res://assets/definitions/rooms/Arena 2.tres" id="15_ikiii"]
+[ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start.tres" id="15_udxuc"]
+[ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -139,13 +135,6 @@ transform = Transform3D(1.538, 0, 0, 0, 1, 0, 0, 0, 198.5, 0, 0.13700104, 0.0035
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2857666, 0)
 visible = false
 
-[node name="Room" type="Node3D" parent="." unique_id=1054715471 groups=["world"]]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2, 0)
-script = ExtResource("7_pkg7o")
-generator = SubResource("Resource_hiqwa")
-start_room = ExtResource("9_k3n1d")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("14_udxuc")])
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
 environment = SubResource("Environment_k3n1d")
 
@@ -156,8 +145,8 @@ size = 4.622
 near = 0.001
 far = 54.16
 script = ExtResource("12_k3n1d")
-start_size = 50.0
-target_size = 10.0
+start_size = 130.0
+target_size = 130.0
 zoom_duration = 0.5
 
 [node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
@@ -184,6 +173,13 @@ offset_top = -47.0
 offset_right = 47.0
 offset_bottom = -7.0
 
-[node name="DungeonManager" type="Node" parent="." unique_id=882153731 node_paths=PackedStringArray("room_renderer")]
+[node name="Dungeon" type="Node3D" parent="." unique_id=1969989031]
+
+[node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_renderer = NodePath("../Room")
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("14_hiqwa"), ExtResource("15_ikiii")])
+start_room = ExtResource("15_udxuc")
+_seed = 359
+
+[node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
+script = ExtResource("15_2u3nc")

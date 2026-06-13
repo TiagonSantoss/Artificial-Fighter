@@ -56,6 +56,8 @@ func spawn_player(pos: Vector3) -> Entity:
 	
 	controlled_entity = player
 	
+	player.add_to_group("player")
+	
 	camera_rig.reparent(player.camera_pivot, false)  # false = don't keep global transform
 	#camera_rig.position = Vector3.ZERO  # reset local position to be safe
 	#camera_rig.rotation = Vector3.ZERO  # reset local rotation to be safe

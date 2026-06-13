@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://co0oeij5iesqk"]
+
+[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/start.tscn" id="1_hjey3"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_wlb8p"]
+
+[resource]
+script = ExtResource("2_wlb8p")
+id = "0"
+scene = ExtResource("1_hjey3")
+available_doors = Array[int]([0, 1, 2, 3])
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

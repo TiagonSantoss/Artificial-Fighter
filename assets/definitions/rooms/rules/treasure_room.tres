@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RoomRule" format=3 uid="uid://bjgh5vijhwnw6"]
+
+[ext_resource type="Script" uid="uid://srcswdl60dqg" path="res://Core/Dungeon/Data/room_rule_definition.gd" id="1_hgtdp"]
+
+[resource]
+script = ExtResource("1_hgtdp")
+metadata/_custom_type_script = "uid://srcswdl60dqg"
