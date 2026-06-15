@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="Resource" uid="uid://t515j84m0gqe" path="res://assets/definitions/rooms/Arena 2.tres" id="15_ikiii"]
 [ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start.tres" id="15_udxuc"]
+[ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
@@ -118,6 +119,7 @@ shadow_mesh = SubResource("ArrayMesh_y5hus")
 
 [node name="Game" type="Node3D" unique_id=1397934900 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("2_fj7yv")
+rotation_speed = 20.0
 player_definition = ExtResource("2_2u3nc")
 enemy_pool = Array[ExtResource("3_udxuc")]([ExtResource("4_ikiii"), ExtResource("5_cbp6q"), ExtResource("6_ikiii")])
 npc_pool = Array[ExtResource("3_udxuc")]([ExtResource("6_26xuy")])
@@ -141,14 +143,13 @@ visible = false
 environment = SubResource("Environment_k3n1d")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 10.343246, 9.15621)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
 projection = 1
-size = 4.622
+size = 25.0
 near = 0.001
-far = 54.16
 script = ExtResource("12_k3n1d")
 start_size = 150.0
-target_size = 20.0
+target_size = 50.0
 zoom_duration = 0.5
 
 [node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
@@ -205,11 +206,10 @@ minimap_scale = 1.5
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("15_ikiii")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("15_ikiii"), ExtResource("17_cbp6q")])
 start_room = ExtResource("15_udxuc")
-_seed = 7278367136712366080
-room_count = 250
+_seed = 810
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
-load_radius = 6
+load_radius = 3

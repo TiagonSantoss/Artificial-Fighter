@@ -235,7 +235,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1n0d2")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g3gis"]
-size = Vector3(27.26317, 7.409668, 26.659748)
+size = Vector3(46.81982, 7.409668, 47.986835)
 
 [node name="Start" type="Node3D" unique_id=251378112]
 script = SubResource("GDScript_g3gis")
@@ -251,13 +251,13 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_qn1rc")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.80791235, -3.4305887, 0.13628624, -0.14382087, -2.4912388, -0.8968774, 0.5714821, 4.222916, -0.41837865, 0, 1.6989145, -0.8869953)
+transform = Transform3D(0.010038979, -3.5549033, 0.80284137, -0.46918252, -4.2627006, -0.5208521, 0.8824474, -2.2247841, -0.285371, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=1450872082]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9892454, 3.2866325, -0.8011761)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7604842, 3.2866325, -2.0006275)
 shape = SubResource("BoxShape3D_g3gis")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]

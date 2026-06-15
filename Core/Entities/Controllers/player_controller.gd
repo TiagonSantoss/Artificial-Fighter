@@ -14,29 +14,35 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
 	
 	var input := Vector2.ZERO
-	
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input.y = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
 	
 	var cam := _actor.get_viewport().get_camera_3d()
-	var pivot := cam.get_parent() as DynamicRotatingCameraPivot
+	
+	# Safety check to make sure the camera actually exists before accessing its transform
+	if cam == null:
+		return actions
 	
 	if input != Vector2.ZERO:
 		if input != previous_input:
-			var forward = -pivot.global_transform.basis.z
-			var right = pivot.global_transform.basis.x
+			# 1. READ DIRECTION DIRECTLY FROM THE ACTIVE CAMERA LENS
+			var forward: Vector3 = -cam.global_transform.basis.z
+			var right: Vector3 = cam.global_transform.basis.x
 			
+			# Flatten the vectors onto the floor grid (ignore height/pitch tilts)
 			forward.y = 0
 			right.y = 0
 			
 			forward = forward.normalized()
 			right = right.normalized()
 			
+			# 2. CALCULATE CAMERA-RELATIVE DIRECTIONAL INPUTS
 			locked_direction = (
 				right * input.x +
 				forward * input.y
 			).normalized()
 			previous_input = input
+			
 		actions.append(MovementAction.new(locked_direction))
 	else:
 		previous_input = Vector2.ZERO
@@ -45,15 +51,14 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append(EscapeAction.new())
 	
 	if Input.is_action_pressed("fire"):
-		#var target = get_aim_target(_actor)
-		#if target != null:
 		actions.append(FireAction.new())
 	
+	# 3. CLEAN ROTATION DISPATCH (No Pivot Argument Required!)
 	if Input.is_action_just_pressed("rotate_camera_right"):
-		actions.append(RotateCameraAction.new(90, pivot))
+		actions.append(RotateCameraAction.new(90))
 	
 	if Input.is_action_just_pressed("rotate_camera_left"):
-		actions.append(RotateCameraAction.new(-90, pivot))
+		actions.append(RotateCameraAction.new(-90))
 	
 	if Input.is_action_just_pressed("jump"):
 		actions.append(JumpAction.new())

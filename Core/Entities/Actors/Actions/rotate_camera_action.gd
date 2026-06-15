@@ -2,12 +2,18 @@ class_name RotateCameraAction
 extends Action
 
 var degrees: float
-var target_camera: DynamicRotatingCameraPivot
 
-func _init(rot_degrees: float, camera: DynamicRotatingCameraPivot):
+func _init(rot_degrees: float) -> void:
 	degrees = rot_degrees
-	target_camera = camera
+
 
 func execute(_actor: Entity, _delta: float) -> void:
-	if target_camera:
-		target_camera.rotate_by(degrees)
+	if GameAutoLoad.instance:
+		# 1. Rotate the global camera orbit system inside Game.gd
+		GameAutoLoad.instance.rotate_by(degrees)
+		
+		# 2. Automatically sync the Minimap rotation if it exists in your UI
+		if GameAutoLoad.instance.has_node("UI/Minimap"):
+			var minimap = GameAutoLoad.instance.get_node("UI/Minimap")
+			if minimap.has_method("rotate_map_to"):
+				minimap.rotate_map_to(rad_to_deg(GameAutoLoad.instance.target_rotation_y))

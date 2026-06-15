@@ -1,3 +1,4 @@
+#@tool
 class_name ChunkManager
 extends Node3D
 

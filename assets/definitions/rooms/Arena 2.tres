@@ -7,5 +7,5 @@
 script = ExtResource("2_qm87o")
 id = "2"
 scene = ExtResource("1_4j2xk")
-available_doors = Array[int]([0, 1, 2, 3])
+available_doors = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

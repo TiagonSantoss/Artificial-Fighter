@@ -5,6 +5,7 @@ extends Camera3D
 @export var target_size := 8.0
 @export var zoom_duration := 2.0
 @export var wait_time := 1.5
+@export var camera_offset := Vector3(0, 40, 40)
 
 func _ready():
 	size = start_size

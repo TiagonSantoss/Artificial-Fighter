@@ -1,3 +1,4 @@
+#@tool
 class_name DungeonManager
 extends Node3D
 
