@@ -9,6 +9,7 @@ var movement_locked := false
 
 var previous_input := Vector2.ZERO
 var locked_direction := Vector3.ZERO
+var previous_camera_rotation_y := 0.0
 
 func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
@@ -18,34 +19,20 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	input.y = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
 	
 	var cam := _actor.get_viewport().get_camera_3d()
-	
-	# Safety check to make sure the camera actually exists before accessing its transform
 	if cam == null:
 		return actions
 	
-	if input != Vector2.ZERO:
-		if input != previous_input:
-			# 1. READ DIRECTION DIRECTLY FROM THE ACTIVE CAMERA LENS
-			var forward: Vector3 = -cam.global_transform.basis.z
-			var right: Vector3 = cam.global_transform.basis.x
-			
-			# Flatten the vectors onto the floor grid (ignore height/pitch tilts)
-			forward.y = 0
-			right.y = 0
-			
-			forward = forward.normalized()
-			right = right.normalized()
-			
-			# 2. CALCULATE CAMERA-RELATIVE DIRECTIONAL INPUTS
-			locked_direction = (
-				right * input.x +
-				forward * input.y
-			).normalized()
+	if input.length() > 0.01:
+		if not input.is_equal_approx(previous_input) or locked_direction == Vector3.ZERO:
+			var forward := Game.instance.get_camera_forward()
+			var right := Game.instance.get_camera_right()
+			locked_direction = (right * input.x + forward * input.y).normalized()
 			previous_input = input
-			
+		
 		actions.append(MovementAction.new(locked_direction))
 	else:
 		previous_input = Vector2.ZERO
+		locked_direction = Vector3.ZERO
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		actions.append(EscapeAction.new())
@@ -53,7 +40,6 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_pressed("fire"):
 		actions.append(FireAction.new())
 	
-	# 3. CLEAN ROTATION DISPATCH (No Pivot Argument Required!)
 	if Input.is_action_just_pressed("rotate_camera_right"):
 		actions.append(RotateCameraAction.new(90))
 	

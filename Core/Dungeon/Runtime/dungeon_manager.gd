@@ -2,6 +2,7 @@
 class_name DungeonManager
 extends Node3D
 
+@export_category("Room Generation")
 @export var room_pool: Array[RoomDefinition]
 @export var start_room: RoomDefinition
 @export var _seed := 1234
@@ -27,7 +28,7 @@ func generate() -> void:
 	
 	is_generating = true
 	
-	print_stack()
+	#print_stack()
 	chunk_manager.clear()
 	clear()
 	
@@ -41,7 +42,11 @@ func generate() -> void:
 	graph = chunk_manager.graph
 	layout = chunk_manager.layout
 	
-	_spawn_player_at_start()
+	var start_room_instance := _spawn_player_at_start()
+	
+	if start_room_instance:
+		current_room = start_room_instance
+		chunk_manager.set_current_room(start_room_instance)
 	
 	is_generating = false
 
@@ -55,12 +60,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Game.player == null:
 		return
-	
-	chunk_manager.update_stream(
-		Game.player.global_position
-	)
 
 func _on_room_loaded(room: RoomInstance) -> void:
+	print("ROOM LOADED:", room.room_id)
 	register_room(room)
 
 func _on_room_unloaded(room: RoomInstance) -> void:
@@ -74,7 +76,7 @@ func _on_room_entered(room: RoomInstance) -> void:
 	if room.cleared:
 		return
 	
-	if not room.has_encounter:
+	if not room.encounter_enabled:
 		return
 	
 	print("Starting encounter in:", room.room_id)
@@ -84,9 +86,7 @@ func _on_room_entered(room: RoomInstance) -> void:
 	# Lock doors
 	# Play music
 
-func _on_player_entered_room(
-	room: RoomInstance
-) -> void:
+func _on_player_entered_room(room: RoomInstance) -> void:
 	if current_room == room:
 		return
 	
@@ -96,44 +96,46 @@ func _on_player_entered_room(
 	previous_room = current_room
 	current_room = room
 	
+	chunk_manager.set_current_room(room)
+	
 	room_entered.emit(room)
 	
 	print("Entered:", room.room_id)
 	
 	_on_room_entered(room)
 
-func _on_player_exited_room(
-	room: RoomInstance
-) -> void:
+func _on_player_exited_room(room: RoomInstance) -> void:
 	if current_room != room:
 		return
 	
 	print("Exited:", room.room_id)
 
-func _spawn_player_at_start() -> void:
+func _spawn_player_at_start() -> RoomInstance:
 	if Game.instance == null:
-		push_error("Game.instance not ready yet")
-		return
-	var chunk_manager_a := get_node("./ChunkManager")
+		return null
 	
-	var start_room_a = chunk_manager_a.loaded_rooms.get("start")
+	var start_room_a: RoomInstance = chunk_manager.loaded_rooms.get("start")
 	
 	if start_room_a == null:
-		push_error("Start room not loaded yet")
-		return
+		return null
 	
-	var room_node: Node3D = start_room_a.node
-	var spawn_point := room_node.find_child("SpawnPoint", true, false)
+	var spawn_point := start_room_a.node.find_child(
+		"SpawnPoint",
+		true,
+		false
+	)
 	
 	if spawn_point == null:
-		push_error("SpawnPoint not found in start room")
-		return
+		return null
 	
-	Game.instance.spawn_player(spawn_point.global_position)
-	#await get_tree().create_timer(2.0).timeout
-	#chunk_manager.update_stream(Game.player.global_position)
+	Game.instance.spawn_player(
+		spawn_point.global_position
+	)
+	
+	return start_room_a
 
 func register_room(room: RoomInstance) -> void:
+	print("REGISTER:", room.room_id)
 	var runtime := room.node.find_child(
 		"RoomRuntime",
 		true,

@@ -11,7 +11,8 @@ var instances: Dictionary = {} # room_id -> RoomInstance
 func spawn_room(
 	room_id: String,
 	definition: RoomDefinition,
-	layout_pos: Vector2i
+	layout_pos: Vector2i,
+	world_pos: Vector3 # Added exact world vector parameter
 ) -> RoomInstance:
 	if instances.has(room_id):
 		return instances[room_id]
@@ -35,11 +36,8 @@ func spawn_room(
 	if runtime:
 		runtime.room_instance = room
 	
-	room.node.global_position = Vector3(
-		layout_pos.x * room_scene_size,
-		0.0,
-		layout_pos.y * room_scene_size
-	)
+	# Use the exact un-rounded layout calculation directly
+	room.node.global_position = world_pos
 	
 	room.world_origin = room.node.global_position
 	room.spawned = true

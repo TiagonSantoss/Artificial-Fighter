@@ -9,11 +9,31 @@ var world_origin: Vector3
 
 var node: Node3D
 
+# Runtime
 var spawned := false
 var cleared := false
-
-var player_spawns: Array[Vector3i]
-var enemy_spawns: Array[Vector3i]
-var enemies: Array[Entity]
-
+var encounter_started := false
 var encounter_enabled := true
+
+# Spawn points
+var player_spawns: Array[Marker3D] = []
+
+# Group name -> Array[Marker3D]
+var spawn_groups: Dictionary = {}
+
+# Active enemies
+var enemies: Array[Entity] = []
+
+func get_spawn_group(group_name: String) -> Array:
+	return spawn_groups.get(
+		group_name.to_lower(),
+		[]
+	)
+
+func get_random_spawn(group_name: String) -> Marker3D:
+	var group := get_spawn_group(group_name)
+	
+	if group.is_empty():
+		return null
+	
+	return group.pick_random()

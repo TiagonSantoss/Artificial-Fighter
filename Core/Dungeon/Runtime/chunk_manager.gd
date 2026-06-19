@@ -18,25 +18,39 @@ var connector := RoomConnector.new()
 var room_spawner: RoomSpawner
 
 var loaded_rooms := {}
-var current_room_id := ""
-var last_room_id := ""
 
-var visited_rooms := {} # String -> bool
-
+var current_room: RoomInstance
 var start_room_instance: RoomInstance
+
+var visited_rooms := {} # room_id -> bool
+
 
 # --------------------------------------------------
 # INIT PIPELINE
 # --------------------------------------------------
-func generate(_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition) -> void:
+
+func generate(
+	_seed: int,
+	room_pool: Array[RoomDefinition],
+	count: int,
+	start_room: RoomDefinition
+) -> void:
+	
 	var gen := DungeonGenerator.new()
 	generator = gen
 	
-	graph = generator.generate(_seed, room_pool, count, start_room)
+	graph = generator.generate(
+		_seed,
+		room_pool,
+		count,
+		start_room
+	)
+	
 	layout = LayoutSolver.new().solve(graph)
 	
 	loaded_rooms.clear()
-	current_room_id = ""
+	current_room = null
+	visited_rooms.clear()
 	
 	_update_room_streaming("start")
 
@@ -47,118 +61,115 @@ func _ready() -> void:
 
 
 # --------------------------------------------------
-# UPDATE STREAM AROUND PLAYER
+# ACTIVE ROOM MANAGEMENT
 # --------------------------------------------------
-func update_stream(player_global_pos: Vector3) -> void:
-	if player_global_pos.y < -2.0:
+
+func set_current_room(room: RoomInstance) -> void:
+	if room == null:
 		return
-		
-	var closest_room_id := _get_closest_room_id(player_global_pos)
 	
-	if closest_room_id != current_room_id and closest_room_id != "":
-		visited_rooms[closest_room_id] = true
-		current_room_id = closest_room_id
-		_update_room_streaming(current_room_id)
-		if loaded_rooms.has(current_room_id):
-			active_room_changed.emit(loaded_rooms[current_room_id])
+	if current_room == room:
+		return
+	
+	current_room = room
+	
+	visited_rooms[room.room_id] = true
+	
+	_update_room_streaming(room.room_id)
+	
+	active_room_changed.emit(room)
 
 
 # --------------------------------------------------
 # CORE ROOM STREAMING LOGIC
 # --------------------------------------------------
-func _update_room_streaming(center_room: String) -> void:
-	var needed_rooms := {}
-	needed_rooms[center_room] = true
+
+func _update_room_streaming(current_room_id: String) -> void:
+	# 1. Always keep the room the player is standing in active
+	var active_room_ids : Array[String] = [current_room_id]
 	
-	if load_radius > 0 and graph.connections.has(center_room):
-		for connection in graph.connections[center_room]:
-			needed_rooms[connection.target_id] = true
+	# 2. Query your layout graph structure directly for immediate neighbor rooms
+	if graph.nodes.has(current_room_id):
+		# Replace '.get_neighbors' with your actual graph layout connectivity function
+		for neighbor_id in graph.get_neighbors(current_room_id):
+			active_room_ids.append(neighbor_id)
 			
-	# 1. Unload old rooms safely
-	for id in loaded_rooms.keys().duplicate():
-		if not needed_rooms.has(id):
-			_unload_room(id)
+	# 3. Unload any rooms that are no longer immediate neighbors
+	for id in loaded_rooms.keys():
+		if not id in active_room_ids:
+			_unload_room(id) # Or your custom function that removes/hides the room node
 			
-	# 2. Load incoming rooms
-	var physics_changed := false
-	for id in needed_rooms.keys():
+	# 4. Load or show rooms that are direct structural neighbors
+	for id in active_room_ids:
 		if not loaded_rooms.has(id):
 			_load_room(id)
-			physics_changed = true
-			
-	# 3. Synchronize entry thresholds
-	if physics_changed:
-		connector.connect_room(graph, layout, loaded_rooms)
-
 
 # --------------------------------------------------
 # INTERNAL ENGINE OPERATIONS
 # --------------------------------------------------
+
 func _load_room(id: String) -> void:
 	var pos_v3: Vector3 = layout.get(id, Vector3.ZERO)
+	var depth_axis = pos_v3.z if pos_v3.z != 0.0 else pos_v3.y
+	
 	var def: RoomDefinition = graph.nodes[id]
 	
 	var grid_pos := Vector2i(
 		roundi(pos_v3.x / room_scene_size),
-		roundi(pos_v3.z / room_scene_size)
+		roundi(depth_axis / room_scene_size)
 	)
 	
-	var room := room_spawner.spawn_room(id, def, grid_pos)
+	var room := room_spawner.spawn_room(
+		id,
+		def,
+		grid_pos,
+		pos_v3
+	)
 	
 	if id == "start":
 		start_room_instance = room
-		
+	
 	loaded_rooms[id] = room
+	
 	room_loaded.emit(room)
 
 
 func _unload_room(id: String) -> void:
 	if not loaded_rooms.has(id):
 		return
-		
+	
 	var room: RoomInstance = loaded_rooms[id]
+	
 	room_unloaded.emit(room)
 	
 	room_spawner.despawn_room(id)
+	
 	loaded_rooms.erase(id)
 
 
 # --------------------------------------------------
-# GRAPH-AWARE MATCH CHECKING
+# CLEANUP
 # --------------------------------------------------
-func _get_closest_room_id(world_pos: Vector3) -> String:
-	# Fallback initialization to the start node
-	if current_room_id == "":
-		current_room_id = "start"
-		
-	var closest_id := current_room_id
-	var closest_dist := world_pos.distance_to(layout.get(current_room_id, Vector3.ZERO)) - 5.0
-	
-	# ONLY check the current room's direct structural graph neighbors
-	if graph.connections.has(current_room_id):
-		for connection in graph.connections[current_room_id]:
-			var n_id = connection.target_id
-			if not layout.has(n_id): 
-				continue
-				
-			var dist := world_pos.distance_to(layout[n_id])
-			if dist < closest_dist:
-				closest_dist = dist
-				closest_id = n_id
-	
-	# Snug collision bounds limit checks to half the scene dimension width
-	var max_allowed_distance := room_scene_size * 0.75
-	return closest_id if closest_dist < max_allowed_distance else current_room_id
-
 
 func clear() -> void:
 	for id in loaded_rooms.keys().duplicate():
 		_unload_room(id)
+	
 	loaded_rooms.clear()
+	
 	layout.clear()
+	
 	graph = null
-	current_room_id = ""
+	
+	current_room = null
+	start_room_instance = null
+	
+	visited_rooms.clear()
 
+
+# --------------------------------------------------
+# HELPERS
+# --------------------------------------------------
 
 func get_start_room_instance() -> RoomInstance:
 	return start_room_instance

@@ -60,10 +60,18 @@ func solve(graph: RoomGraph) -> Dictionary:
 
 ## Uses room sizing data from your resources to establish step lengths
 func _calculate_distance_offset(_from_room: RoomDefinition, _to_room: RoomDefinition, dir: DoorSocket.Direction) -> Vector3:
-	var step_distance := 20.0 
+	var room_unit_size := 40.0 # Must match your ChunkManager's room_scene_size
+	var step_cells := 0.0
 	
-	# If your RoomDefinition resource holds a custom size property, use this instead:
-	# var step_distance = (from_room.room_size + to_room.room_size) / 2.0
+	# Extract the correct dimension based on the door direction
+	match dir:
+		DoorSocket.Direction.NORTH, DoorSocket.Direction.SOUTH:
+			step_cells = (_from_room.size.y + _to_room.size.y) / 2.0
+		DoorSocket.Direction.EAST, DoorSocket.Direction.WEST:
+			step_cells = (_from_room.size.x + _to_room.size.x) / 2.0
+	
+	# Total physical distance to push the room forward
+	var step_distance = step_cells * room_unit_size
 	
 	var dir_unit := _dir_to_vec3(dir)
 	return dir_unit * step_distance

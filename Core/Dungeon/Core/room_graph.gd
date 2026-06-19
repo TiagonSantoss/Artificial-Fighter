@@ -45,3 +45,13 @@ func _opposite(
 			return DoorSocket.Direction.EAST
 			
 	return dir
+
+func get_neighbors(room_id: String) -> Array[String]:
+	var neighbor_ids: Array[String] = []
+	
+	if connections.has(room_id):
+		for connection in connections[room_id]:
+			# Cast to RoomConnection if necessary, or access target_id directly
+			neighbor_ids.append(connection.target_id)
+			
+	return neighbor_ids
