@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
-[ext_resource type="Resource" uid="uid://t515j84m0gqe" path="res://assets/definitions/rooms/Arena 2.tres" id="15_ikiii"]
 [ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start.tres" id="15_udxuc"]
 [ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
@@ -206,10 +205,11 @@ minimap_scale = 1.0
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("15_ikiii"), ExtResource("17_cbp6q"), ExtResource("18_26xuy")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("17_cbp6q"), ExtResource("18_26xuy")])
 start_room = ExtResource("15_udxuc")
-_seed = 2
-room_count = 20
+_seed = 1
+room_count = 5
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
+load_radius = 2

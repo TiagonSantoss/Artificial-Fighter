@@ -85,22 +85,20 @@ func set_current_room(room: RoomInstance) -> void:
 # --------------------------------------------------
 
 func _update_room_streaming(current_room_id: String) -> void:
-	# 1. Always keep the room the player is standing in active
-	var active_room_ids : Array[String] = [current_room_id]
+	var rooms_to_load: Array[String] = [current_room_id]
 	
-	# 2. Query your layout graph structure directly for immediate neighbor rooms
+	# Always preload direct neighbors so player can walk into them
 	if graph.nodes.has(current_room_id):
-		# Replace '.get_neighbors' with your actual graph layout connectivity function
 		for neighbor_id in graph.get_neighbors(current_room_id):
-			active_room_ids.append(neighbor_id)
-			
-	# 3. Unload any rooms that are no longer immediate neighbors
-	for id in loaded_rooms.keys():
-		if not id in active_room_ids:
-			_unload_room(id) # Or your custom function that removes/hides the room node
-			
-	# 4. Load or show rooms that are direct structural neighbors
-	for id in active_room_ids:
+			rooms_to_load.append(neighbor_id)
+	
+	# Unload anything not in the list
+	for id in loaded_rooms.keys().duplicate():
+		if not id in rooms_to_load:
+			_unload_room(id)
+	
+	# Load anything missing
+	for id in rooms_to_load:
 		if not loaded_rooms.has(id):
 			_load_room(id)
 
@@ -119,20 +117,21 @@ func _load_room(id: String) -> void:
 		roundi(depth_axis / room_scene_size)
 	)
 	
-	var room := room_spawner.spawn_room(
-		id,
-		def,
-		grid_pos,
-		pos_v3
-	)
+	var room := room_spawner.spawn_room(id, def, grid_pos, pos_v3)
 	
 	if id == "start":
 		start_room_instance = room
 	
 	loaded_rooms[id] = room
 	
+	# Wire up room detection to chunk manager
+	var runtime := room.node.find_child("RoomRuntime", true, false) as RoomRuntime
+	if runtime:
+		runtime.room_instance = room
+		if not runtime.player_entered.is_connected(set_current_room):
+			runtime.player_entered.connect(set_current_room)
+	
 	room_loaded.emit(room)
-
 
 func _unload_room(id: String) -> void:
 	if not loaded_rooms.has(id):
