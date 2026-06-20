@@ -129,6 +129,8 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	var enemy := spawn_entity(definition, pos)
 	enemy.controller.target = player
 	enemy.add_to_group("enemies")
+	
+	enemy.collision_layer = 2
 	return enemy
 
 

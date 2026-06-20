@@ -82,16 +82,18 @@ func move(direction: Vector3, delta: float) -> void:
 func apply_impulse(force: Vector3):
 	external_velocity += force
 
-func update(_delta: float):
+func update(delta: float):
 	entity.velocity.x = movement_velocity.x + external_velocity.x
 	entity.velocity.z = movement_velocity.z + external_velocity.z
 	
-	entity.velocity.x = (
-		movement_velocity.x
-		+ external_velocity.x
+	external_velocity.x = move_toward(
+		external_velocity.x,
+		0.0,
+		friction * delta
 	)
-	
-	entity.velocity.z = (
-		movement_velocity.z
-		+ external_velocity.z
+
+	external_velocity.z = move_toward(
+		external_velocity.z,
+		0.0,
+		friction * delta
 	)

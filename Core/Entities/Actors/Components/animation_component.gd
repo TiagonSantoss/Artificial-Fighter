@@ -13,14 +13,23 @@ enum AnimDirState {
 	DOWN
 }
 
+enum AirState {
+	GROUNDED,
+	RISING,
+	FALLING
+}
+
 var sprite: AnimatedSprite3D
 
 var move_state: AnimMoveState = AnimMoveState.IDLE
+var air_state: AirState = AirState.GROUNDED
 var dir_state: AnimDirState = AnimDirState.DOWN
 var facing_left := false
 var facing_direction: Vector3 = Vector3.FORWARD
 
 var warned_missing_anims: Dictionary = {}
+
+var jump_phase := 0  # 1 = rising, -1 = falling, 0 = grounded
 
 func set_sprite(entity_sprite: AnimatedSprite3D) -> void:
 	sprite = entity_sprite
@@ -37,8 +46,14 @@ func update_animation() -> void:
 	if entity == null or sprite == null:
 		return
 	
-	var vertical_velocity := entity.movement_component.movement_velocity.y
-	var is_airborne: bool = abs(vertical_velocity) > 0.1
+	var vy := entity.movement_component.entity.velocity.y
+	
+	if entity.is_on_floor():
+		air_state = AirState.GROUNDED
+	elif vy > 0.1:
+		air_state = AirState.RISING
+	else:
+		air_state = AirState.FALLING
 	
 	var velocity := entity.movement_component.movement_velocity
 	
@@ -110,14 +125,20 @@ func update_animation() -> void:
 	if is_moving:
 		facing_direction = entity.movement_component.last_direction.normalized()
 	
-	if is_airborne:
-		prefix = "jump"
-	elif is_moving:
-		prefix = "walk"
-	else:
-		prefix = "idle"
+	match air_state:
+		AirState.GROUNDED:
+			if is_moving:
+				prefix = "walk"
+			else:
+				prefix = "idle"
+		AirState.RISING:
+			prefix = "jump_up"
+		AirState.FALLING:
+			prefix = "jump_down"
 	
 	anim = "%s_%s" % [prefix, get_dir_name()]
+	
+	print(anim)
 	
 	# -------------------------
 	# PLAY SAFELY

@@ -5,7 +5,7 @@ var target: Entity
 
 var desired_distance := 6.0
 var flee_distance := 5.0
-var attack_range := 5.3
+var attack_range := 6.7
 
 
 func get_actions(actor: Entity, _delta: float) -> Array[Action]:

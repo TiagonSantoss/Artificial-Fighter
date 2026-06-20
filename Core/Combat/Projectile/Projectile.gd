@@ -38,6 +38,12 @@ func setup(
 	knock_mult: float
 	
 ):
+	if shape_cast.shape:
+		shape_cast.shape = shape_cast.shape.duplicate(true)
+	
+	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
+	if area_shape and area_shape.shape:
+		area_shape.shape = area_shape.shape.duplicate(true)
 	definition = projectile_definition
 	
 	damage_multiplier = dmg_mult

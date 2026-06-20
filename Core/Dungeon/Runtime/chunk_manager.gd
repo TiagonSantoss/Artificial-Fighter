@@ -23,6 +23,8 @@ var start_room_instance: RoomInstance
 
 var visited_rooms := {} # room_id -> bool
 
+var active_room: RoomRuntime
+
 
 # --------------------------------------------------
 # INIT PIPELINE
@@ -171,3 +173,12 @@ func clear() -> void:
 
 func get_start_room_instance() -> RoomInstance:
 	return start_room_instance
+
+func set_active_room(room: RoomRuntime):
+	if active_room == room:
+		return
+	
+	active_room = room
+	
+	for r in get_tree().get_nodes_in_group("rooms"):
+		r.set_active(r == room)
