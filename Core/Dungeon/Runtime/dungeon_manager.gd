@@ -1,4 +1,3 @@
-#@tool
 class_name DungeonManager
 extends Node3D
 
@@ -81,8 +80,9 @@ func _on_room_entered(room: RoomInstance) -> void:
 	
 	print("Starting encounter in:", room.room_id)
 	
+	start_encounter(room)
+	
 	# TODO:
-	# Spawn enemies
 	# Lock doors
 	# Play music
 
@@ -134,6 +134,8 @@ func _spawn_player_at_start() -> RoomInstance:
 	
 	return start_room_a
 
+# ROOM
+
 func register_room(room: RoomInstance) -> void:
 	print("REGISTER:", room.room_id)
 	var runtime := room.node.find_child(
@@ -166,3 +168,62 @@ func clear() -> void:
 		chunk_manager.clear()
 	
 	#room_cleared.emit() NEED ROOM
+
+# ENEMY
+
+func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> void:
+	var marker := room.get_random_spawn(definition.get_spawn_group_name())
+	
+	if marker == null:
+		push_warning(
+			"No spawn found for %s" %
+			definition.spawn_group
+		)
+		return
+	
+	var enemy := Game.instance.spawn_enemy(
+		marker.global_position,
+		definition
+	)
+	
+	room.enemies.append(enemy)
+	
+	enemy.tree_exited.connect(
+		func():
+			room.enemies.erase(enemy)
+		
+			if room.enemies.is_empty():
+				_on_room_cleared(room)
+	)
+
+func _on_room_cleared(room: RoomInstance) -> void:
+	room.cleared = true
+	
+	print("ROOM CLEARED:", room.room_id)
+	
+	# unlock doors
+	# give rewards
+	# open next rooms
+
+func start_encounter(room: RoomInstance) -> void:
+	if room == null:
+		return
+	
+	if room.encounter_started:
+		return
+	
+	if not room.definition.has_encounter:
+		return
+	
+	var encounter := room.definition.get_random_encounter()
+	
+	if encounter == null:
+		return
+	
+	room.encounter_started = true
+	
+	for enemy_def in encounter.enemies:
+		_spawn_enemy_for_room(
+			room,
+			enemy_def
+		)

@@ -25,6 +25,8 @@ func spawn_room(
 	
 	room.node = definition.scene.instantiate()
 	
+	_scan_spawn_groups(room)
+	
 	add_child(room.node)
 	
 	var runtime := room.node.find_child(
@@ -35,6 +37,7 @@ func spawn_room(
 	
 	if runtime:
 		runtime.room_instance = room
+		_cache_spawn_groups(room)
 	
 	# Use the exact un-rounded layout calculation directly
 	room.node.global_position = world_pos
@@ -45,6 +48,30 @@ func spawn_room(
 	instances[room_id] = room
 	
 	return room
+
+func _scan_spawn_groups(room: RoomInstance) -> void:
+	var root := room.node.find_child(
+		"SpawnGroups",
+		true,
+		false
+	)
+	
+	if root == null:
+		return
+	
+	for group_node in root.get_children():
+		var group_name := (
+			group_node.name
+			.to_lower()
+		)
+		
+		room.spawn_groups[group_name] = []
+		
+		for child in group_node.get_children():
+			if child is Marker3D:
+				room.spawn_groups[group_name].append(
+					child
+				)
 
 # --------------------------------------------------
 # DESPAWN ONE ROOM
@@ -75,3 +102,24 @@ func clear() -> void:
 			room.node.queue_free()
 	
 	instances.clear()
+
+func _cache_spawn_groups(room: RoomInstance) -> void:
+	var root := room.node.find_child(
+		"EnemySpawns",
+		true,
+		false
+	)
+	
+	if root == null:
+		return
+	
+	for group_node in root.get_children():
+		var markers: Array[Marker3D] = []
+		
+		for child in group_node.get_children():
+			if child is Marker3D:
+				markers.append(child)
+		
+		room.spawn_groups[
+			group_node.name.to_lower()
+		] = markers

@@ -1,6 +1,12 @@
 class_name EntityDefinition
 extends Resource
 
+enum SpawnGroup {
+	MELEE,
+	RANGED,
+	BOSS
+}
+
 @export_category("Visual")
 @export var sprite_frames: SpriteFrames
 @export var default_animation: String = "idle"
@@ -25,3 +31,15 @@ extends Resource
 #@export var light: bool LATER
 @export var starting_weapon: WeaponDefinition
 @export var team: Entity.Team
+@export var spawn_group := SpawnGroup.MELEE
+
+func get_spawn_group_name() -> String:
+	match spawn_group:
+		SpawnGroup.MELEE:
+			return "melee"
+		SpawnGroup.RANGED:
+			return "ranged"
+		SpawnGroup.BOSS:
+			return "boss"
+	
+	return "melee"

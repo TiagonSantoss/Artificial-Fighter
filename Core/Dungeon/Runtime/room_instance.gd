@@ -37,3 +37,14 @@ func get_random_spawn(group_name: String) -> Marker3D:
 		return null
 	
 	return group.pick_random()
+
+
+func get_random_spawn_for_group(group: EntityDefinition.SpawnGroup) -> Marker3D:
+	var name = (
+		EntityDefinition
+		.SpawnGroup
+		.keys()[group]
+		.to_lower()
+	)
+	
+	return get_random_spawn(name)
