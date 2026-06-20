@@ -13,7 +13,7 @@ GAMEPLAY STEPS TO FIRST REVEAL:
 - [x] Level Generation
 - [x] Pathfinding
 - [x] Combat
-- [ ] Inventory
+- [x] Inventory
 - [ ] Drop
 - [ ] Items
 - [ ] Cards
@@ -26,3 +26,4 @@ GAMEPLAY STEPS TO FIRST REVEAL:
 - [ ] Cross platform (maybe)
 
 ![Obsidian canvas explaining currently game's architecture](./Canvas.png)
+
