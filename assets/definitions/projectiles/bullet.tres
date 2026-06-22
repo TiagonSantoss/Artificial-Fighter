@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Core/Combat/Projectile/projectile_definition.gd" id="1_00wyo"]
 [ext_resource type="Texture2D" uid="uid://csl7hatjb0t2d" path="res://assets/sprites/combat/projectiles/bullet.png" id="2_abtai"]
+[ext_resource type="Texture2D" uid="uid://c0o3cnw2yyy8w" path="res://assets/sprites/combat/projectiles/proj.png" id="3_5xhjc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xhjc"]
 atlas = ExtResource("2_abtai")
@@ -23,6 +24,10 @@ region = Rect2(48, 0, 16, 16)
 atlas = ExtResource("2_abtai")
 region = Rect2(64, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_shqwk"]
+atlas = ExtResource("3_5xhjc")
+region = Rect2(0, 0, 200, 200)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_5xhjc"]
 animations = [{
 "frames": [{
@@ -42,18 +47,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_rig7u")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"a",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shqwk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
 }]
 
 [resource]
 script = ExtResource("1_00wyo")
 sprite_frames = SubResource("SpriteFrames_5xhjc")
 billboard = 2
-sprite_scale = Vector3(5, 5, 5)
-speed = 8.2
+texture_filter = 3
+sprite_scale = Vector3(3, 3, 3)
+speed = 1.0
 bounce_count = 15
-lifetime = 1.0
-knockback = 5.0
+lifetime = 5.0
+knockback = 3.0
 radius = 0.1
 metadata/_custom_type_script = "uid://dgoeygudsoucv"

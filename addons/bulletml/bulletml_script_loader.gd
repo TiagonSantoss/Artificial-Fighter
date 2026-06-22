@@ -314,7 +314,8 @@ static func create_term(xml : XMLParser) -> BulletMLTermASTNode:
 
 # Check whether the current XML element is a closing tag for the given name.
 static func is_closing(name : String, xml : XMLParser) -> bool:
-	return xml.get_node_name() == name and xml.get_node_type() == XMLParser.NODE_ELEMENT_END
+	# Check the node type FIRST to short-circuit and protect get_node_name()
+	return xml.get_node_type() == XMLParser.NODE_ELEMENT_END and xml.get_node_name() == name
 
 # Skips the parser position to the next closing tag for the given name.
 # Used at the end of some element parsing functions.

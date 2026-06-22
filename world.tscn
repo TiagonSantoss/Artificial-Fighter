@@ -164,6 +164,23 @@ lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_ioo17")
 draw_pass_1 = SubResource("ArrayMesh_wse8f")
 
+[node name="Camera3D" type="Camera3D" parent="Camera3D" unique_id=163926221]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
+projection = 1
+size = 25.0
+near = 0.001
+script = ExtResource("12_k3n1d")
+start_size = 150.0
+target_size = 150
+zoom_duration = 0.5
+
+[node name="BlueCubes" type="GPUParticles3D" parent="Camera3D/Camera3D" unique_id=1736797762]
+transform = Transform3D(8.717856, 0, 0, 0, 2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, -0.038464546, -0.8393612, -13.7882)
+amount = 18
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_ioo17")
+draw_pass_1 = SubResource("ArrayMesh_wse8f")
+
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
 
 [node name="EffectsBar" type="Control" parent="UI" unique_id=30913204]

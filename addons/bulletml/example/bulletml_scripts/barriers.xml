@@ -1,16 +1,16 @@
 <action label="top">
 	<repeat><times>-1</times>
 		<action>
-            <fire>
-                <direction type="absolute">lerp(0, 6, randf())</direction>
-                <speed type="absolute">100</speed>
-                <bulletRef label="faith" />
-            </fire>
-            <fire>
-                <direction type="sequence">360/60</direction>
-                <speed type="absolute">100</speed>
-                <bulletRef label="faith2" />
-            </fire>
+			<fire>
+				<direction type="absolute">lerp(0, 6, randf())</direction>
+				<speed type="absolute">100</speed>
+				<bulletRef label="faith" />
+			</fire>
+			<fire>
+				<direction type="sequence">360/60</direction>
+				<speed type="absolute">100</speed>
+				<bulletRef label="faith2" />
+			</fire>
 			<repeat><times>59</times>
 				<action>
 					<fireRef label="faith" />

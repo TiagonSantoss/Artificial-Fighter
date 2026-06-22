@@ -24,7 +24,7 @@ func _ready() -> void:
 	if spawn_parent and spawn_parent.has_meta("wielder"):
 		wielder_entity = spawn_parent.get_meta("wielder") as Entity
 		
-	var spawn_pos_3d := Vector3(global_position.x, 0.5, global_position.y)
+	var spawn_pos_3d := Vector3(global_position.x, 0, global_position.y)
 	var travel_direction_3d := Vector3(velocity.x, 0, velocity.y).normalized()
 	if travel_direction_3d == Vector3.ZERO:
 		travel_direction_3d = Vector3.FORWARD
@@ -70,20 +70,17 @@ func _ready() -> void:
 		)
 
 func _physics_process(delta: float) -> void:
-	# 1. Let the base plugin calculate move_and_slide() on the 2D grid plane first
 	super._physics_process(delta)
 	
-	# 2. If our real 3D projectile is valid and flying, update its position to match the ghost
-	if is_instance_valid(real_3d_projectile) and real_3d_projectile.is_active:
-		real_3d_projectile.global_position.x = global_position.x
-		real_3d_projectile.global_position.z = global_position.y
-		
-		# Match visual billboard rolling using the internal _angle variable
-		if rotates:
-			# The plugin's calculation adds an angular offset (-90 deg), so we read the true _angle
-			real_3d_projectile.sprite.rotation.z = _angle
+	if is_instance_valid(real_3d_projectile):
+		if not real_3d_projectile.is_active:
+			# The 3D bullet left the screen and deactivated, so kill this ghost tracker!
+			destroy()
+		else:
+			# Normal tracking update
+			real_3d_projectile.global_position.x = global_position.x
+			real_3d_projectile.global_position.z = global_position.y
 	else:
-		# If the 3D projectile hit something in the 3D world and deactivated, kill the ghost
 		destroy()
 
 # Triggered when the BulletML runner finishes or runs a vanish action

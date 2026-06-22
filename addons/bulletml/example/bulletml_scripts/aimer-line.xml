@@ -1,9 +1,9 @@
 <action label="top">
-    <wait>lerp(0.5, 3, randf())</wait>
-    <fire>
-        <direction type="aim">0</direction>
-        <speed type="absolute">200</speed>
-        <bullet type="example"/>
+	<wait>lerp(0.5, 3, randf())</wait>
+	<fire>
+		<direction type="aim">0</direction>
+		<speed type="absolute">200</speed>
+		<bullet type="example"/>
 	</fire>
 	<repeat><times>5</times>
 		<action>
