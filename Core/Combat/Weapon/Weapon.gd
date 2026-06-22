@@ -29,6 +29,7 @@ func _apply_visuals():
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
 	sprite.scale = definition.sprite_scale
+	sprite.position = definition.sprite_offset
 	sprite.play(definition.default_animation)
 
 func fire(direction: Vector3):
@@ -62,9 +63,9 @@ func fire(direction: Vector3):
 	can_fire = true
 
 func update_visual_aim(dir: Vector3) -> void:
-	sprite.rotation.z = atan2(
-		dir.z,
-		dir.x
-	)
+	# Rotate the weapon root node on the floor plane
+	var angle_y := atan2(-dir.z, dir.x)
+	global_rotation.y = angle_y
 	
+	# Prevent the 2D sprite from flipping upside down when aiming left
 	sprite.flip_v = dir.x < 0

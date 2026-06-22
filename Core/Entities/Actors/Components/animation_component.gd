@@ -138,8 +138,6 @@ func update_animation() -> void:
 	
 	anim = "%s_%s" % [prefix, get_dir_name()]
 	
-	print(anim)
-	
 	# -------------------------
 	# PLAY SAFELY
 	# -------------------------

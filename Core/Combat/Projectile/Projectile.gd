@@ -70,6 +70,9 @@ func setup(
 			if child is CollisionObject3D:
 				shape_cast.add_exception(child)
 	
+	var angle := atan2(dir.x, dir.z)
+	global_rotation.y = angle
+	
 	_apply_visuals()
 
 func build_hit_data() -> HitData:
@@ -166,7 +169,9 @@ func _physics_process(delta):
 			if collider.has_method("apply_hit"):
 				collider.apply_hit(hit_data)
 				
-				#_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
+				trigger_hitstop(0.06) # 60 milliseconds freeze
+				
+				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				
 				already_hit[collider] = true
 				remaining_pierce -= 1
@@ -192,12 +197,21 @@ func _physics_process(delta):
 	if velocity.length_squared() > 0.01:
 		var dir := velocity.normalized()
 		
-		var up := Vector3.UP
+		# Calculate the angle on the horizontal XZ plane
+		var angle := atan2(dir.x, dir.z)
 		
-		if abs(dir.dot(up)) > 0.99:
-			up = Vector3.FORWARD
-			
-			sprite.rotation.y = atan2(dir.x,dir.z)
+		# Rotate the entire projectile to face the target
+		global_rotation.y = angle
+		
+		# If the punch is moving left relative to the screen/world,
+		# you can flip the sprite or change the animation variant here
+		if dir.x < 0:
+			#sprite.flip_h = true
+			# Or if you have explicit string names:
+			sprite.play("punch_left")
+		else:
+			#sprite.flip_h = false
+			sprite.play("punch_right")
 
 func _apply_visuals():
 	sprite.sprite_frames = definition.sprite_frames
@@ -220,3 +234,19 @@ func _spawn_hit_vfx(pos: Vector3, normal: Vector3, _damage: float) -> void:
 		vfx.look_at(pos + normal, Vector3.UP)
 	
 	vfx.play()
+
+var next_allowed_hitstop_time := 0.0
+
+func trigger_hitstop(duration_seconds: float) -> void:
+	var current_time := Time.get_unix_time_from_system()
+	
+	if current_time < next_allowed_hitstop_time:
+		return
+		
+	next_allowed_hitstop_time = current_time + duration_seconds
+	
+	# Convert seconds (e.g. 0.06) to milliseconds (60)
+	var duration_ms := int(duration_seconds * 1000.0)
+	
+	# This halts the engine execution entirely for a crisp frame freeze
+	OS.delay_msec(duration_ms)

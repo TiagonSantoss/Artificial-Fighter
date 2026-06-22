@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://trvpmwnapc7o"]
 
+[ext_resource type="Resource" uid="uid://c6ttcn6s3gd7e" path="res://assets/definitions/entities/actors/player_entity_definition.tres" id="2_26xuy"]
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="3_udxuc"]
 [ext_resource type="Resource" uid="uid://bbomo87c2vdl8" path="res://assets/definitions/entities/actors/melee_enemy_entity_definition.tres" id="4_ikiii"]
@@ -18,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="18_26xuy"]
+[ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -116,9 +118,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y5hus")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
+size = Vector3(857.11304, 5, 1027.1716)
+
 [node name="Game" type="Node3D" unique_id=1397934900 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("2_fj7yv")
-player_definition = ExtResource("7_bc84e")
+player_definition = ExtResource("2_26xuy")
 enemy_pool = Array[ExtResource("3_udxuc")]([ExtResource("4_ikiii"), ExtResource("5_cbp6q"), ExtResource("6_ikiii")])
 npc_pool = Array[ExtResource("3_udxuc")]([ExtResource("6_26xuy")])
 companion_pool = Array[ExtResource("3_udxuc")]([ExtResource("7_bc84e")])
@@ -210,4 +215,10 @@ room_count = 20
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
-load_radius = 0
+
+[node name="KillVolume" type="Area3D" parent="." unique_id=1905107147]
+script = ExtResource("19_cbp6q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillVolume" unique_id=467478771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8370972, -35.875244, -38.025146)
+shape = SubResource("BoxShape3D_2bgwa")

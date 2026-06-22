@@ -8,6 +8,13 @@ signal room_loaded(room: RoomInstance)
 signal room_unloaded(room: RoomInstance)
 signal active_room_changed(room_instance: RoomInstance)
 
+enum StreamingMode {
+	EXPLORATION,
+	COMBAT
+}
+
+var streaming_mode := StreamingMode.EXPLORATION
+
 var graph: RoomGraph
 var layout: Dictionary
 
@@ -86,12 +93,10 @@ func set_current_room(room: RoomInstance) -> void:
 # --------------------------------------------------
 
 func _update_room_streaming(current_room_id: String) -> void:
-	var rooms_to_load: Array[String] = [current_room_id]
-	
-	# Always preload direct neighbors so player can walk into them
-	if graph.nodes.has(current_room_id):
-		for neighbor_id in graph.get_neighbors(current_room_id):
-			rooms_to_load.append(neighbor_id)
+	var rooms_to_load: Array[String] = _get_rooms_in_radius(
+		current_room_id,
+		_get_radius()
+	)
 	
 	# Unload anything not in the list
 	for id in loaded_rooms.keys().duplicate():
@@ -146,6 +151,38 @@ func _unload_room(id: String) -> void:
 	
 	loaded_rooms.erase(id)
 
+func _get_rooms_in_radius(start_id: String, radius: int) -> Array[String]:
+	var result: Array[String] = []
+	var visited := {}
+	var queue: Array = [[start_id, 0]]
+	
+	while queue.size() > 0:
+		var item = queue.pop_front()
+		var id: String = item[0]
+		var depth: int = item[1]
+		
+		if visited.has(id):
+			continue
+		
+		visited[id] = true
+		result.append(id)
+		
+		if depth >= radius:
+			continue
+		
+		if graph.nodes.has(id):
+			for neighbor in graph.get_neighbors(id):
+				queue.append([neighbor, depth + 1])
+	
+	return result
+
+func _get_radius() -> int:
+	match streaming_mode:
+		StreamingMode.COMBAT:
+			return 0
+		StreamingMode.EXPLORATION:
+			return load_radius
+	return load_radius
 
 # --------------------------------------------------
 # CLEANUP
@@ -182,3 +219,8 @@ func set_active_room(room: RoomRuntime):
 	
 	for r in get_tree().get_nodes_in_group("rooms"):
 		r.set_active(r == room)
+
+func set_streaming_mode(mode: StreamingMode, room_id: String = "") -> void:
+	streaming_mode = mode
+	if room_id != "":
+		_update_room_streaming(room_id)
