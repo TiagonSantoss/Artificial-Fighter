@@ -206,7 +206,7 @@ func _physics_process(delta):
 		# If the punch is moving left relative to the screen/world,
 		# you can flip the sprite or change the animation variant here
 		if dir.x < 0:
-			#sprite.flip_h = true
+			sprite.flip_h = true
 			# Or if you have explicit string names:
 			sprite.play("punch_left")
 		else:
