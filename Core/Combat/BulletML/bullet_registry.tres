@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BulletMLBulletRegistry" format=3 uid="uid://djphxhc71f2po"]
+
+[ext_resource type="Script" uid="uid://j1ri786dxgg8" path="res://addons/bulletml/bulletml_bullet_registry.gd" id="1_u4li8"]
+[ext_resource type="PackedScene" uid="uid://b5dqmurvk8y1h" path="res://Utils/BulletML/ghost_bullet.tscn" id="1_xdhgl"]
+
+[resource]
+script = ExtResource("1_u4li8")
+entries = Dictionary[String, PackedScene]({
+"default": ExtResource("1_xdhgl")
+})
+metadata/_custom_type_script = "uid://j1ri786dxgg8"

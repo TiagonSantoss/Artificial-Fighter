@@ -37,6 +37,7 @@ var grid_position: Vector3i
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
 @onready var orbit_socket: Marker3D = $OrbitSocket
 @onready var fake_shadow: Sprite3D = $FakeShadow
+@onready var bulletml_emitter = $BulletMLBulletEmitter
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent
@@ -44,7 +45,6 @@ var grid_position: Vector3i
 @onready var weapon_component: WeaponComponent = $Components/WeaponComponent
 @onready var visual_effects_component: VisualEffectsComponent = $Components/VisualEffectsComponent
 @onready var effects_component: EffectsComponent = $Components/EffectsComponent
-
 
 func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
@@ -87,6 +87,9 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 		)
 	
 	health_component.died.connect(_on_died)
+	
+	#if is_instance_valid(bulletml_emitter):
+	#	fire_bulletml_pattern()
 
 func is_friendly_to(other_team: Team) -> bool:
 	if team == Team.ENEMY:
@@ -117,6 +120,12 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var had_movement := false
+	
+	if is_instance_valid(bulletml_emitter):
+		bulletml_emitter.global_position = Vector2(
+			global_position.x,
+			global_position.z
+		)
 	
 	if controller:
 		var actions = controller.get_actions(
@@ -170,3 +179,19 @@ func _spawn_hit_vfx() -> void:
 	#	vfx.look_at(pos + normal, Vector3.UP)
 	
 	vfx.play()
+
+func fire_bulletml_pattern():
+	# Store a reference to the 3D entity directly on the emitter node's metadata
+	$BulletMLBulletEmitter.set_meta("wielder", self)
+	$BulletMLBulletEmitter.start()
+
+func get_current_projectile_definition() -> ProjectileDefinition:
+	# Ensure the weapon component is valid and initialized
+	if is_instance_valid(weapon_component):
+		# Look for the active weapon child or reference inside your weapon component
+		var current_weapon = weapon_component.equipped_weapon if "equipped_weapon" in weapon_component else weapon_component.get_node_or_null("Weapon")
+		
+		if is_instance_valid(current_weapon) and current_weapon.definition:
+			return current_weapon.definition.projectile
+			
+	return null

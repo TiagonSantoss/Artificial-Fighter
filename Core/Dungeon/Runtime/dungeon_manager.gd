@@ -69,21 +69,16 @@ func _on_room_unloaded(room: RoomInstance) -> void:
 		current_room = null
 
 func _on_room_entered(room: RoomInstance) -> void:
-	if room == null:
-		return
-	
 	if room.cleared:
 		return
 	
 	if not room.encounter_enabled:
 		return
 	
-	print("Starting encounter in:", room.room_id)
-	
+	room.lock_room()
 	start_encounter(room)
 	
 	# TODO:
-	# Lock doors
 	# Play music
 
 func _on_player_entered_room(room: RoomInstance) -> void:
@@ -144,6 +139,10 @@ func register_room(room: RoomInstance) -> void:
 		false
 	) as RoomRuntime
 	
+	var barrier := room.node.find_child("ArenaBarrierRoot", true, false)
+	if barrier:
+		room.barrier_root = barrier
+	
 	if runtime == null:
 		return
 	
@@ -199,11 +198,12 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
 	
+	chunk_manager.set_streaming_mode(
+		ChunkManager.StreamingMode.EXPLORATION,
+		room.room_id
+	)
+	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
-	
-	# unlock doors
-	# give rewards
-	# open next rooms
 
 func start_encounter(room: RoomInstance) -> void:
 	if room == null:
@@ -221,6 +221,11 @@ func start_encounter(room: RoomInstance) -> void:
 		return
 	
 	room.encounter_started = true
+	
+	chunk_manager.set_streaming_mode(
+		ChunkManager.StreamingMode.COMBAT,
+		room.room_id
+	)
 	
 	for enemy_def in encounter.enemies:
 		_spawn_enemy_for_room(

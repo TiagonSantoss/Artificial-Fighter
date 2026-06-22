@@ -80,10 +80,10 @@ func _physics_process(delta: float) -> void:
 		follow_speed * delta
 	)
 	
-	# 5. LOOK AT smoothed target
-	global_camera.look_at(smoothed_look_target, Vector3.UP)
-	global_camera.rotation.x = clamp(global_camera.rotation.x, -PI/2, 0.0)
-	global_camera.rotation.z = 0.0
+	var pitch := -atan2(local_offset.y, local_offset.z)
+	global_camera.rotation.y = rotation.y       # match pivot yaw
+	global_camera.rotation.x = pitch            # fixed downward tilt (~49.6°)
+	global_camera.rotation.z = 0.0             # never any roll
 
 
 func activate(room_size: Vector2) -> void:

@@ -8,6 +8,7 @@ extends Resource
 @export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
 @export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 @export var sprite_scale := Vector3.ONE
+@export var sprite_offset := Vector3.ZERO
 
 @export_category("Stats")
 @export var damage_multiplier := 1.0

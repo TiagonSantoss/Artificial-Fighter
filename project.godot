@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Artifical Fighting 1st"
+config/name="Artifical Fighting 1st BULLETML"
 run/main_scene="uid://trvpmwnapc7o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
@@ -18,10 +18,19 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameAutoLoad="*uid://bqb78gjgjfjxs"
+BulletMLContext="*uid://dvxj33d0rj0g6"
+BulletMLScriptRepository="*uid://cdnmw6op1jbd4"
+BulletMLSpawnManager="*uid://dh11ijo1rjl5h"
+ProjectilePool="*uid://okanuxtqot8t"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/bulletml/plugin.cfg")
 
 [global_group]
 
@@ -99,7 +108,7 @@ remove_item={
 [physics]
 
 3d/physics_engine="Jolt Physics"
-3d/default_gravity=30.0
+3d/default_gravity=0.0
 
 [rendering]
 

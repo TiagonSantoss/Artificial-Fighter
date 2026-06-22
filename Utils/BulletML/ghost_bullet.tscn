@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b5dqmurvk8y1h"]
+
+[ext_resource type="Script" uid="uid://cov18pqdaejek" path="res://Utils/BulletML/ghost_bullet.gd" id="1_yw5mb"]
+
+[node name="BulletMLBulletInstance" type="CharacterBody2D" unique_id=386147120]
+script = ExtResource("1_yw5mb")
+metadata/_custom_type_script = "uid://b5fuevogii76t"

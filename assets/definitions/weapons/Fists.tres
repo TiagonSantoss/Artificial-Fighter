@@ -8,8 +8,9 @@
 [resource]
 script = ExtResource("1_ohbt7")
 sprite_frames = SubResource("SpriteFrames_ohbt7")
-damage_multiplier = 1.2
-fire_rate = 0.7
+damage_multiplier = 1.6
+knockback_multiplier = 1.6
+fire_rate = 1.7
 recoil = 0.0
 projectile = ExtResource("1_ttscc")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"

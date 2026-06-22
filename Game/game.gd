@@ -2,6 +2,8 @@ class_name Game
 extends Node3D
 
 const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
+const SCRIPTS_PATH = "res://Core/Combat/BulletML/Scripts/"
+const REGISTRY_PATH = "res://Core/Combat/BulletML/bullet_registry.tres"
 
 const LAYER_WORLD := 1
 const LAYER_ENTITY := 3
@@ -25,7 +27,6 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
 
-# Change the type cast here to match your custom pivot class name!
 @onready var camera_rig: Camera3D = $Camera3D
 
 @export var player_definition: EntityDefinition
@@ -42,6 +43,22 @@ func _ready() -> void:
 	call_deferred("_init_camera")
 	if chunk_manager:
 		chunk_manager.active_room_changed.connect(_on_active_room_changed)
+	
+	# Force the setup to wait until the scene tree is fully built and bound
+	await get_tree().process_frame
+	
+	# 1. Index XML folder
+	BulletMLScriptRepository.load_scripts(SCRIPTS_PATH)
+	
+	# 2. Assign your registry resource tracking GhostBullet.tscn
+	BulletMLSpawnManager.bullet_registry = load(REGISTRY_PATH)
+	
+	# 3. Dedicated 2D node tracking hierarchy group (Safe Check Lookup)
+	var target_group = get_node_or_null("Entities/BulletMLGroup")
+	if is_instance_valid(target_group):
+		BulletMLContext.spawn_parent = target_group.get_path()
+	else:
+		push_error("CRITICAL: BulletMLGroup node could not be found under Entities!")
 
 
 func _process(_delta: float) -> void:
@@ -50,6 +67,13 @@ func _process(_delta: float) -> void:
 	if not is_instance_valid(camera_rig):
 		return
 
+func _physics_process(_delta: float) -> void:
+	if is_instance_valid(player):
+		# Map 3D X to 2D X, and 3D Z to 2D Y
+		BulletMLContext.player_position = Vector2(
+			player.global_position.x,
+			player.global_position.z
+		)
 
 func _on_active_room_changed(room_data: Variant) -> void:
 	if room_data == null or not is_instance_valid(camera_rig):

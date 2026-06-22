@@ -24,6 +24,8 @@ var source_team
 var source_entity: Entity
 var already_hit := {}
 
+var is_active := true
+
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var hitbox: Area3D = $Area3D
 @onready var shape_cast: ShapeCast3D = $ShapeCast3D
@@ -38,12 +40,18 @@ func setup(
 	knock_mult: float
 	
 ):
+	is_active = true
 	if shape_cast.shape:
 		shape_cast.shape = shape_cast.shape.duplicate(true)
 	
 	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
 	if area_shape and area_shape.shape:
 		area_shape.shape = area_shape.shape.duplicate(true)
+		
+	#if projectile_definition == null:
+	#	push_warning("Projectile setup was passed a null definition! Loading default config asset.")
+	#	definition = load("res://assets/definitions/projectiles/bullet.tres")
+	#else:
 	definition = projectile_definition
 	
 	damage_multiplier = dmg_mult
@@ -59,16 +67,31 @@ func setup(
 	
 	source_entity = source
 	source_team = source_t
+	if source != null:
+		source_team = source_t
+		shape_cast.add_exception(source)
+		
+		for child in source.get_children():
+			if child is CollisionObject3D:
+				shape_cast.add_exception(child)
+	else:
+		# Fallback team allocation if no wielder exists (e.g. environmental hazard)
+		source_team = source_t #if source_t != null else 0
 	
 	var sphere := shape_cast.shape as SphereShape3D
 	
 	if sphere:
 		sphere.radius = definition.radius
 	
-	shape_cast.add_exception(source)
-	for child in source.get_children():
-			if child is CollisionObject3D:
-				shape_cast.add_exception(child)
+	print(source_entity)
+	
+	#shape_cast.add_exception(source)
+	#for child in source.get_children():
+	#		if child is CollisionObject3D:
+	#			shape_cast.add_exception(child)
+	
+	var angle := atan2(dir.x, dir.z)
+	global_rotation.y = angle
 	
 	_apply_visuals()
 
@@ -92,13 +115,16 @@ func build_hit_data() -> HitData:
 	return hit
 
 func _physics_process(delta):
+	if definition == null:
+		return
 	velocity.y -= (
 		definition.gravity * delta
 	)
 	lifetime_left -= delta
 	
 	if lifetime_left <= 0.0:
-		queue_free()
+		#queue_free()
+		deactivate()
 		return
 	
 	# drag should not affect gravity
@@ -140,9 +166,9 @@ func _physics_process(delta):
 				continue
 			
 			# team filtering
-			if collider.has_method("get_team"):
-				if source_entity.is_friendly_to(collider.team):
-					continue
+			#if collider.has_method("get_team"):
+				#if source_entity.is_friendly_to(collider.team):
+					#continue
 			
 			var hit_data := build_hit_data()
 			
@@ -159,20 +185,22 @@ func _physics_process(delta):
 					_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 					return
 				
-				queue_free()
+				deactivate()
 				return
 			
 			# DAMAGEABLE
 			if collider.has_method("apply_hit"):
 				collider.apply_hit(hit_data)
 				
-				#_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
+				trigger_hitstop(0.06) # 60 milliseconds freeze
+				
+				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				
 				already_hit[collider] = true
 				remaining_pierce -= 1
 				
 				if remaining_pierce <= 0:
-					queue_free()
+					deactivate()
 					return
 			#TO DO, PARRIES
 			#if collider is Projectile:
@@ -192,12 +220,20 @@ func _physics_process(delta):
 	if velocity.length_squared() > 0.01:
 		var dir := velocity.normalized()
 		
-		var up := Vector3.UP
+		# Calculate the angle on the horizontal XZ plane
+		var angle := atan2(dir.x, dir.z)
 		
-		if abs(dir.dot(up)) > 0.99:
-			up = Vector3.FORWARD
-			
-			sprite.rotation.y = atan2(dir.x,dir.z)
+		# Rotate the entire projectile to face the target
+		global_rotation.y = angle
+		
+		# If the punch is moving left relative to the screen/world,
+		# you can flip the sprite or change the animation variant here
+		if dir.x < 0:
+			sprite.flip_h = true
+			#sprite.play("punch_left")
+		else:
+			sprite.flip_h = false
+			#sprite.play("punch_right")
 
 func _apply_visuals():
 	sprite.sprite_frames = definition.sprite_frames
@@ -220,3 +256,31 @@ func _spawn_hit_vfx(pos: Vector3, normal: Vector3, _damage: float) -> void:
 		vfx.look_at(pos + normal, Vector3.UP)
 	
 	vfx.play()
+
+var next_allowed_hitstop_time := 0.0
+
+func trigger_hitstop(duration_seconds: float) -> void:
+	var current_time := Time.get_unix_time_from_system()
+	
+	if current_time < next_allowed_hitstop_time:
+		return
+		
+	next_allowed_hitstop_time = current_time + duration_seconds
+	
+	# Convert seconds (e.g. 0.06) to milliseconds (60)
+	var duration_ms := int(duration_seconds * 1000.0)
+	
+	# This halts the engine execution entirely for a crisp frame freeze
+	OS.delay_msec(duration_ms)
+
+func deactivate() -> void:
+	is_active = false
+	# Teleport the bullet far away out of the player's view while it sleeps
+	global_position = Vector3(9999, -9999, 9999)
+
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	if not is_active:
+		return
+		
+	deactivate()
