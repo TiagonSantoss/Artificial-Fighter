@@ -119,7 +119,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y5hus")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
-size = Vector3(857.11304, 5, 1027.1716)
+size = Vector3(857.11304, 16.582031, 1027.1716)
 
 [node name="Game" type="Node3D" unique_id=1397934900 node_paths=PackedStringArray("chunk_manager")]
 script = ExtResource("2_fj7yv")
@@ -220,5 +220,5 @@ script = ExtResource("15_2u3nc")
 script = ExtResource("19_cbp6q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KillVolume" unique_id=467478771]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8370972, -35.875244, -38.025146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8370972, -41.66626, -38.025146)
 shape = SubResource("BoxShape3D_2bgwa")
