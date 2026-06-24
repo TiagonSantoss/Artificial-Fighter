@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dyieywy1g6qbn"]
+
+[ext_resource type="Script" uid="uid://bbc0jlt6csh36" path="res://Core/Combat/Projectile/Melee/Melee.gd" id="1_xgkkl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l3gon"]
+
+[node name="Node3D" type="Node3D" unique_id=938238066]
+script = ExtResource("1_xgkkl")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=779966733]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=322356012]
+visible = false
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=8330310]
+visible = false
+shape = SubResource("SphereShape3D_l3gon")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

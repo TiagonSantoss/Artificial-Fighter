@@ -25,7 +25,7 @@ var source_entity: Entity
 var already_hit := {}
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
-@onready var hitbox: Area3D = $Area3D
+@onready var hitbox: Area3D = $ProjectileHurtbox
 @onready var shape_cast: ShapeCast3D = $ShapeCast3D
 
 func setup(
@@ -44,6 +44,7 @@ func setup(
 	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
 	if area_shape and area_shape.shape:
 		area_shape.shape = area_shape.shape.duplicate(true)
+	
 	definition = projectile_definition
 	
 	damage_multiplier = dmg_mult
@@ -118,8 +119,10 @@ func _physics_process(delta):
 	
 	var motion: Vector3 = velocity * delta
 	
-	shape_cast.global_position = global_position
-	shape_cast.target_position = motion #Vector3.FORWARD * motion.length()
+	global_position += motion
+	
+	shape_cast.global_position = global_position - motion
+	shape_cast.target_position = motion # Vector3.FORWARD * motion.length()
 	
 	shape_cast.force_shapecast_update()
 	
@@ -169,7 +172,7 @@ func _physics_process(delta):
 			if collider.has_method("apply_hit"):
 				collider.apply_hit(hit_data)
 				
-				trigger_hitstop(0.06) # 60 milliseconds freeze
+				#trigger_hitstop(0.06) # 60 milliseconds freeze
 				
 				_spawn_hit_vfx(hit_data.hit_position, hit_data.hit_normal, hit_data.damage)
 				
@@ -179,39 +182,11 @@ func _physics_process(delta):
 				if remaining_pierce <= 0:
 					queue_free()
 					return
-			#TO DO, PARRIES
-			#if collider is Projectile:
-			#	#if collider == self:
-			#	#	continue
-			#	
-			#	collider.queue_free()
-			#	queue_free()
-			#	return
+				
 	
 	
 	if is_queued_for_deletion():
 		return
-	
-	global_position += motion
-	# rotate to movement
-	if velocity.length_squared() > 0.01:
-		var dir := velocity.normalized()
-		
-		# Calculate the angle on the horizontal XZ plane
-		var angle := atan2(dir.x, dir.z)
-		
-		# Rotate the entire projectile to face the target
-		global_rotation.y = angle
-		
-		# If the punch is moving left relative to the screen/world,
-		# you can flip the sprite or change the animation variant here
-		if dir.x < 0:
-			#sprite.flip_h = true
-			# Or if you have explicit string names:
-			sprite.play("punch_left")
-		else:
-			#sprite.flip_h = false
-			sprite.play("punch_right")
 
 func _apply_visuals():
 	sprite.sprite_frames = definition.sprite_frames
@@ -235,18 +210,18 @@ func _spawn_hit_vfx(pos: Vector3, normal: Vector3, _damage: float) -> void:
 	
 	vfx.play()
 
-var next_allowed_hitstop_time := 0.0
+#var next_allowed_hitstop_time := 0.0
 
-func trigger_hitstop(duration_seconds: float) -> void:
-	var current_time := Time.get_unix_time_from_system()
-	
-	if current_time < next_allowed_hitstop_time:
-		return
-		
-	next_allowed_hitstop_time = current_time + duration_seconds
-	
-	# Convert seconds (e.g. 0.06) to milliseconds (60)
-	var duration_ms := int(duration_seconds * 1000.0)
-	
-	# This halts the engine execution entirely for a crisp frame freeze
-	OS.delay_msec(duration_ms)
+#func trigger_hitstop(duration_seconds: float) -> void:
+#	var current_time := Time.get_unix_time_from_system()
+#	
+#	if current_time < next_allowed_hitstop_time:
+#		return
+#		
+#	next_allowed_hitstop_time = current_time + duration_seconds
+#	
+#	# Convert seconds (e.g. 0.06) to milliseconds (60)
+#	var duration_ms := int(duration_seconds * 1000.0)
+#	
+#	# This halts the engine execution entirely for a crisp frame freeze
+#	OS.delay_msec(duration_ms)

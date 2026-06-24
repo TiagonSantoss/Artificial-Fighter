@@ -5,8 +5,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_4mawt"]
 radius = 0.01
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pxyg4"]
-size = Vector3(0.025390625, 0.027366638, 0.125)
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ghdp"]
 
 [node name="Projectile" type="Node3D" unique_id=1039168439]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -16,6 +15,7 @@ script = ExtResource("1_4mawt")
 shape = SubResource("SphereShape3D_4mawt")
 target_position = Vector3(0, 0, 0)
 collision_mask = 7
+collide_with_areas = true
 debug_shape_custom_color = Color(0, 0.0333333, 1, 1)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1049357351]
@@ -23,11 +23,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0014637783, 0, 0)
 double_sided = false
 render_priority = 2
 
-[node name="Area3D" type="Area3D" parent="." unique_id=2067710752]
-visible = false
+[node name="ProjectileHurtbox" type="Area3D" parent="." unique_id=2067710752]
+collision_layer = 8
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=644330748]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005833298, -0.0019105226, 0)
-visible = false
-shape = SubResource("BoxShape3D_pxyg4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProjectileHurtbox" unique_id=644330748]
+shape = SubResource("SphereShape3D_6ghdp")
 disabled = true

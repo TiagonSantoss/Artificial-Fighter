@@ -1,4 +1,4 @@
-class_name FireAction
+class_name AttackAction
 extends Action
 
 #var direction: Vector3
@@ -7,6 +7,6 @@ extends Action
 #	direction = dir
 
 func execute(entity, _delta):
-	entity.weapon_component.equipped_weapon.fire(
+	entity.weapon_component.equipped_weapon.use_weapon(
 		entity.weapon_component.aim_direction
 	)

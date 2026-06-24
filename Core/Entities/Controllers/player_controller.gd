@@ -38,7 +38,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append(EscapeAction.new())
 	
 	if Input.is_action_pressed("fire"):
-		actions.append(FireAction.new())
+		actions.append(AttackAction.new())
 	
 	if Input.is_action_just_pressed("rotate_camera_right"):
 		actions.append(RotateCameraAction.new(90))

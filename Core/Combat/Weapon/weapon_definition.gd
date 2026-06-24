@@ -19,5 +19,8 @@ extends Resource
 @export var spread := 1.0
 @export var projectile_count := 1
 
-@export_category("Misc")
+@export_category("Combat")
+@export var is_melee: bool = false
+@export_group("Attack Types")
 @export var projectile: ProjectileDefinition
+@export var melee: MeleeDefinition

@@ -47,7 +47,7 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 	# Attack
 	if dist <= attack_range:
 		actions.append(
-			FireAction.new()
+			AttackAction.new()
 		)
 	
 	return actions
