@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_pgm35"]
 [ext_resource type="Script" uid="uid://cimsyt5r5fen4" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierRoot.gd" id="5_02uke"]
 [ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="6_pgm35"]
+[ext_resource type="Texture2D" uid="uid://c7rlsujup5xtn" path="res://assets/sprites/combat/fire.png" id="7_lsp4y"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
 agent_height = 2.0
@@ -13,6 +14,49 @@ agent_radius = 1.0
 agent_max_slope = 90.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mafb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thxs5"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(0, 0, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlnh4"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(300, 0, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_du6da"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(0, 400, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wrge"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(300, 400, 300, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2djid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thxs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlnh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_du6da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wrge")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"null",
+"speed": 5.0
+}]
 
 [node name="Arena 2" type="Node3D" unique_id=2117219993]
 
@@ -75,6 +119,19 @@ script = ExtResource("5_02uke")
 
 [node name="EastBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=2001058041]
 script = ExtResource("6_pgm35")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ArenaBarrierRoot/EastBarrier" unique_id=1273678740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6992798, 0, 0)
+
+[node name="1" type="CollisionShape3D" parent="ArenaBarrierRoot/EastBarrier/StaticBody3D" unique_id=287860264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0991244, 3.450304, -16.310776)
+shape = SubResource("BoxShape3D_8mafb")
+disabled = true
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ArenaBarrierRoot/EastBarrier" unique_id=1671022344]
+transform = Transform3D(-8.224248e-08, 0, 1.0000013, 0, 1, 0, -1.8814899, 0, -4.3711452e-08, -9.721797, 3.9824562, -7.371767)
+visible = false
+sprite_frames = SubResource("SpriteFrames_2djid")
 
 [node name="SouthBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=52078228]
 script = ExtResource("6_pgm35")
