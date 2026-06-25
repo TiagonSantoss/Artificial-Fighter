@@ -1,6 +1,6 @@
 class_name EffectsBar
 extends Control
-
+#comentario
 var observed_entity: Entity
 
 @onready var container: HBoxContainer = $HBoxContainer

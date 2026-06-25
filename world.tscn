@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="18_26xuy"]
+[ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
@@ -164,6 +165,7 @@ draw_pass_1 = SubResource("ArrayMesh_wse8f")
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
 
 [node name="EffectsBar" type="Control" parent="UI" unique_id=30913204]
+visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -208,7 +210,7 @@ minimap_scale = 1.0
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("17_cbp6q"), ExtResource("18_26xuy")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("17_cbp6q"), ExtResource("18_26xuy"), ExtResource("18_bc84e")])
 start_room = ExtResource("15_udxuc")
 _seed = 231241245
 room_count = 20

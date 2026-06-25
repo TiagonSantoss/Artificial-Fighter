@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://dhawow5m3qi45"]
+
+[ext_resource type="MeshLibrary" uid="uid://b5ifyyyxklbky" path="res://assets/models/level/flevel_library.tres" id="1_uwnim"]
+[ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_ocdxv"]
+[ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_02uke"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_pgm35"]
+[ext_resource type="Script" uid="uid://cimsyt5r5fen4" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierRoot.gd" id="5_02uke"]
+[ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="6_pgm35"]
+[ext_resource type="Texture2D" uid="uid://c7rlsujup5xtn" path="res://assets/sprites/combat/fire.png" id="7_lsp4y"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
+agent_height = 2.0
+agent_radius = 1.0
+agent_max_slope = 90.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8mafb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thxs5"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(0, 0, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlnh4"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(300, 0, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_du6da"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(0, 400, 300, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wrge"]
+atlas = ExtResource("7_lsp4y")
+region = Rect2(300, 400, 300, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2djid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thxs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlnh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_du6da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wrge")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"null",
+"speed": 5.0
+}]
+
+[node name="Arena 2" type="Node3D" unique_id=2117219993]
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1043112167 groups=["world"]]
+mesh_library = ExtResource("1_uwnim")
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1726899022]
+navigation_mesh = SubResource("NavigationMesh_6xxrv")
+
+[node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
+shape = SubResource("BoxShape3D_dt1lj")
+
+[node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
+script = ExtResource("2_ocdxv")
+
+[node name="DoorSouth" type="Node3D" parent="." unique_id=1527234231]
+script = ExtResource("3_02uke")
+direction = 1
+
+[node name="DoorNorth" type="Node3D" parent="." unique_id=1831427571]
+script = ExtResource("3_02uke")
+direction = 1
+
+[node name="DoorEast" type="Node3D" parent="." unique_id=2024252254]
+script = ExtResource("3_02uke")
+direction = 3
+
+[node name="DoorWest" type="Node3D" parent="." unique_id=554325233]
+script = ExtResource("3_02uke")
+direction = 3
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=519788099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 1.7743073, 0)
+script = ExtResource("4_pgm35")
+
+[node name="SpawnGroups" type="Node3D" parent="." unique_id=692537820]
+
+[node name="Melee" type="Node3D" parent="SpawnGroups" unique_id=1655583180]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnGroups/Melee" unique_id=320246658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6867018, 3.0902996, 0)
+
+[node name="Ranged" type="Node3D" parent="SpawnGroups" unique_id=1586928808]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnGroups/Ranged" unique_id=1485474794]
+
+[node name="ArenaBarrierRoot" type="Node3D" parent="." unique_id=1360703208]
+script = ExtResource("5_02uke")
+
+[node name="EastBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=2001058041]
+script = ExtResource("6_pgm35")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ArenaBarrierRoot/EastBarrier" unique_id=1273678740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6992798, 0, 0)
+
+[node name="1" type="CollisionShape3D" parent="ArenaBarrierRoot/EastBarrier/StaticBody3D" unique_id=287860264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0991244, 3.450304, -16.310776)
+shape = SubResource("BoxShape3D_8mafb")
+disabled = true
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ArenaBarrierRoot/EastBarrier" unique_id=1671022344]
+transform = Transform3D(-8.224248e-08, 0, 1.0000013, 0, 1, 0, -1.8814899, 0, -4.3711452e-08, -9.721797, 3.9824562, -7.371767)
+visible = false
+sprite_frames = SubResource("SpriteFrames_2djid")
+
+[node name="SouthBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=52078228]
+script = ExtResource("6_pgm35")
+
+[node name="Links" type="Node3D" parent="." unique_id=502974924]
