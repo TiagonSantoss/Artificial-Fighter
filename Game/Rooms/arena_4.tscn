@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://b6o0ot4oafhsr"]
+
+[ext_resource type="MeshLibrary" uid="uid://b5ifyyyxklbky" path="res://assets/models/level/flevel_library.tres" id="1_qe0um"]
+[ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_1pkyn"]
+[ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_y5v8f"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_ups1s"]
+[ext_resource type="Script" uid="uid://cimsyt5r5fen4" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierRoot.gd" id="5_fo2dy"]
+[ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="6_1b2gp"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
+agent_height = 2.0
+agent_radius = 1.0
+agent_max_slope = 90.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
+
+[node name="Arena 1" type="Node3D" unique_id=2117219993]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 6.274254)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1043112167 groups=["world"]]
+mesh_library = ExtResource("1_qe0um")
+metadata/_editor_floor_ = Vector3(0, 5, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1726899022]
+navigation_mesh = SubResource("NavigationMesh_6xxrv")
+
+[node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8098345, 5.3153687, -8.337923)
+shape = SubResource("BoxShape3D_dt1lj")
+
+[node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
+script = ExtResource("2_1pkyn")
+
+[node name="DoorSouth" type="Node3D" parent="." unique_id=1527234231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.792963)
+script = ExtResource("3_y5v8f")
+direction = 1
+
+[node name="DoorNorth" type="Node3D" parent="." unique_id=1831427571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15.792963)
+script = ExtResource("3_y5v8f")
+direction = 1
+
+[node name="DoorEast" type="Node3D" parent="." unique_id=2024252254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.93371, 0, -6.1132793)
+script = ExtResource("3_y5v8f")
+direction = 3
+
+[node name="DoorWest" type="Node3D" parent="." unique_id=554325233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.93371, 0, -6.1132793)
+script = ExtResource("3_y5v8f")
+direction = 3
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=519788099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
+script = ExtResource("4_ups1s")
+
+[node name="SpawnGroups" type="Node3D" parent="." unique_id=692537820]
+
+[node name="Melee" type="Node3D" parent="SpawnGroups" unique_id=1655583180]
+
+[node name="Ranged" type="Node3D" parent="SpawnGroups" unique_id=1586928808]
+
+[node name="ArenaBarrierRoot" type="Node3D" parent="." unique_id=1360703208]
+script = ExtResource("5_fo2dy")
+
+[node name="EastBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=2001058041]
+script = ExtResource("6_1b2gp")
+
+[node name="SouthBarrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=52078228]
+script = ExtResource("6_1b2gp")
+
+[node name="Links" type="Node3D" parent="." unique_id=502974924]

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bs8beltsryn0b"]
 
-[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/start.tscn" id="1_wi0rs"]
+[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/start_room.tscn" id="1_wi0rs"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_brcqa"]
-[ext_resource type="PackedScene" uid="uid://cwmxap0hqtmqw" path="res://Game/Rooms/boss.tscn" id="3_p1rem"]
+[ext_resource type="PackedScene" path="res://Game/Rooms/boss.tscn" id="3_p1rem"]
 [ext_resource type="Script" uid="uid://b54ag2n20epkj" path="res://camera_3d.gd" id="6_65mac"]
 
 [sub_resource type="GDScript" id="GDScript_hiqwa"]

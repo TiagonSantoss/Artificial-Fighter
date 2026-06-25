@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://t515j84m0gqe"]
 
-[ext_resource type="PackedScene" uid="uid://d3l4xkeyhmv2o" path="res://Game/Rooms/arena_2.tscn" id="1_4j2xk"]
+[ext_resource type="PackedScene" uid="uid://d3l4xkeyhmv2o" path="res://Game/Rooms/Template.tscn" id="1_4j2xk"]
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_qm87o"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_qm87o"]
 
