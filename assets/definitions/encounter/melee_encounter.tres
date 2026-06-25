@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://bnfbbxqryqn7h"]
+
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_21xav"]
+[ext_resource type="Resource" uid="uid://bbomo87c2vdl8" path="res://assets/definitions/entities/actors/melee_enemy_entity_definition.tres" id="2_3qhon"]
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="2_314do"]
+
+[resource]
+script = ExtResource("2_314do")
+enemies = Array[ExtResource("1_21xav")]([ExtResource("2_3qhon")])
+metadata/_custom_type_script = "uid://cbwqmhh6ormqo"
