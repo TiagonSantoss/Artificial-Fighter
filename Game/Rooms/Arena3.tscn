@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dq23ji4m6pbbu"]
+[gd_scene format=3 uid="uid://d3bnmly7gyv2h"]
 
 [ext_resource type="MeshLibrary" uid="uid://b5ifyyyxklbky" path="res://assets/models/level/flevel_library.tres" id="1_dhnfd"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_cw371"]

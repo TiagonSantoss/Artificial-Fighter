@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
-[ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start.tres" id="15_udxuc"]
+[ext_resource type="Resource" uid="uid://co0oeij5iesqk" path="res://assets/definitions/rooms/Start Room.tres" id="15_udxuc"]
 [ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="18_26xuy"]
