@@ -16,6 +16,8 @@ var current_room: RoomInstance
 var previous_room: RoomInstance
 var is_generating := false
 
+var cleared_rooms := {} # room_id (String) -> bool
+
 signal room_entered(room: RoomInstance)
 signal room_exited(room: RoomInstance)
 
@@ -62,6 +64,13 @@ func _process(_delta: float) -> void:
 
 func _on_room_loaded(room: RoomInstance) -> void:
 	print("ROOM LOADED:", room.room_id)
+	
+	# If this room ID is marked as permanently cleared, update the fresh instance
+	if cleared_rooms.get(room.room_id, false):
+		room.cleared = true
+		room.encounter_started = true
+		# Optional: Ensure any visual barriers/gates default to opened here if needed
+		
 	register_room(room)
 
 func _on_room_unloaded(room: RoomInstance) -> void:
@@ -158,15 +167,12 @@ func register_room(room: RoomInstance) -> void:
 
 func clear() -> void:
 	current_room = null
-	
 	graph = null
-	
 	layout.clear()
+	cleared_rooms.clear() # Completely wipe the tracking dictionary for new floor generations
 	
 	if chunk_manager:
 		chunk_manager.clear()
-	
-	#room_cleared.emit() NEED ROOM
 
 # ENEMY
 
@@ -197,6 +203,7 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
+	cleared_rooms[room.room_id] = true # Cache this ID permanently
 	
 	chunk_manager.set_streaming_mode(
 		ChunkManager.StreamingMode.EXPLORATION,

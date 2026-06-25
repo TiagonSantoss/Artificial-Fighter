@@ -86,7 +86,11 @@ func build_hit_data() -> HitData:
 	
 	hit.direction = velocity.normalized()
 	
-	hit.source_entity = source_entity
+	if is_instance_valid(source_entity):
+		hit.source_entity = source_entity
+	else:
+		hit.source_entity = null
+	
 	hit.source_team = source_team
 	
 	hit.projectile = self
@@ -147,8 +151,12 @@ func _physics_process(delta):
 			
 			# team filtering
 			if collider.has_method("get_team"):
-				if source_entity.is_friendly_to(collider.team):
-					continue
+				if is_instance_valid(source_entity):
+					if source_entity.is_friendly_to(collider.get_team()):
+						continue
+				else:
+					if source_team == collider.get_team():
+						continue
 			
 			var hit_data := build_hit_data()
 			
