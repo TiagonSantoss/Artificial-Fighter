@@ -1,15 +1,12 @@
-<<<<<<< HEAD
-[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://hdqgba86mj1m"]
-=======
-[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://co0oeij5iesqk"]
->>>>>>> newrooms
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://xlnd062r674x"]
 
-[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/start_room.tscn" id="1_hjey3"]
-[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_wlb8p"]
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_l38xh"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_3xq8t"]
+[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/Start_Room.tscn" id="2_ihd7j"]
 
 [resource]
-script = ExtResource("2_wlb8p")
+script = ExtResource("2_3xq8t")
 id = "0"
-scene = ExtResource("1_hjey3")
+scene = ExtResource("2_ihd7j")
 available_doors = Array[int]([0, 1, 2, 3])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"
