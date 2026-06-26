@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_2g2fc"]
 [ext_resource type="Resource" uid="uid://ti7d8lw4awrb" path="res://assets/definitions/encounter/normal_encounter.tres" id="2_68ee8"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_nt0rr"]
-[ext_resource type="PackedScene" uid="uid://b6o0ot4oafhsr" path="res://Game/Rooms/arena_4.tscn" id="3_0dli2"]
+[ext_resource type="PackedScene" uid="uid://d07jyexxo4mhy" path="res://Game/Rooms/arena_4.tscn" id="3_0dli2"]
 
 [resource]
 script = ExtResource("2_nt0rr")

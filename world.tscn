@@ -15,11 +15,13 @@
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
-[ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="17_cbp6q"]
+[ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
+[ext_resource type="Resource" uid="uid://t515j84m0gqe" path="res://assets/definitions/rooms/Arena 2.tres" id="17_wukud"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="18_26xuy"]
 [ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
+[ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -147,9 +149,11 @@ environment = SubResource("Environment_k3n1d")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
+visible = false
 projection = 1
-size = 25.0
+size = 96.179
 near = 0.001
+far = 150.0
 script = ExtResource("12_k3n1d")
 start_size = 150.0
 zoom_duration = 0.5
@@ -209,8 +213,8 @@ minimap_scale = 1.0
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_bc84e"), ExtResource("18_26xuy"), ExtResource("18_bc84e")])
-start_room = ExtResource("17_cbp6q")
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("17_cbp6q"), ExtResource("17_wukud"), ExtResource("18_26xuy"), ExtResource("18_bc84e")])
+start_room = ExtResource("20_il2jm")
 _seed = 231241245
 room_count = 20
 

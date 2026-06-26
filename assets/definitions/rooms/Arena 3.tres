@@ -1,15 +1,10 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://jsq57wm6wtdv"]
 
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_5l11f"]
-[ext_resource type="PackedScene" uid="uid://dq23ji4m6pbbu" path="res://Game/Rooms/arena_2.tscn" id="1_cvdqj"]
-[ext_resource type="Resource" uid="uid://ti7d8lw4awrb" path="res://assets/definitions/encounter/normal_encounter.tres" id="2_cmuhn"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_p43ar"]
 
 [resource]
 script = ExtResource("2_p43ar")
-id = "1"
-scene = ExtResource("1_cvdqj")
-available_doors = Array[int]([1, 2])
-has_encounter = true
-encounter_pool = Array[ExtResource("1_5l11f")]([ExtResource("2_cmuhn")])
+id = "3"
+category = 1
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"
