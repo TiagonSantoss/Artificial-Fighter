@@ -217,6 +217,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.970236, 0)
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 2, 0)
 script = ExtResource("4_oitnh")
+base_zoom_distance = 35.0
+max_extra_zoom = 30.0
 
 [node name="SpawnGroups" type="Node3D" parent="." unique_id=692537820]
 
