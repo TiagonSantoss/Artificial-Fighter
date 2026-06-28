@@ -53,8 +53,12 @@ shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
+simplify_path = true
+radius = 0.01
 debug_enabled = true
+debug_use_custom = true
 debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
+debug_path_custom_point_size = 6.45
 
 [node name="OrbitSocket" type="Marker3D" parent="." unique_id=1022858180]
 

@@ -91,7 +91,7 @@ func update(delta: float):
 		0.0,
 		friction * delta
 	)
-
+	
 	external_velocity.z = move_toward(
 		external_velocity.z,
 		0.0,

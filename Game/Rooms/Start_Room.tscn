@@ -326,7 +326,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.1117759, -4.4349174, 0.65272135, -0.8657797, 1.4573411, 0.42418236, -0.47794485, -3.6967652, -0.61627257, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-0.22759977, 0.08575963, -0.9660474, -0.92339486, 1.769389, 0.22087336, 0.2925537, 5.6822796, -0.05389434, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
@@ -349,16 +349,16 @@ shape = SubResource("BoxShape3D_g3gis")
 script = ExtResource("2_j5xdy")
 
 [node name="DoorNorth" type="Node3D" parent="." unique_id=1664608487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.64336)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 35.8211)
 script = ExtResource("3_yehmp")
 
 [node name="DoorWest" type="Node3D" parent="." unique_id=750373809]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.95823, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.775795, 0, 0)
 script = ExtResource("3_yehmp")
 direction = 3
 
 [node name="DoorEast" type="Node3D" parent="." unique_id=603956708]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.708473, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.330593, 0, 0)
 script = ExtResource("3_yehmp")
 direction = 2
 

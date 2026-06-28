@@ -104,9 +104,8 @@ func swing(direction: Vector3):
 	)
 	
 	# 4. Optional: Give the player a little Soul Knight-style forward lunge impulse instead of recoil
-	var lunge_dir := direction.normalized()
-	if wielder.has_method("movement_component"): # Check if your entity layout supports this
-		wielder.movement_component.apply_impulse(lunge_dir * definition.recoil)
+	var lunge_dir := -direction.normalized()
+	wielder.movement_component.apply_impulse(lunge_dir * definition.recoil)
 	
 	# 5. Cooldown block matching your firearm logic
 	await get_tree().create_timer(definition.fire_rate).timeout

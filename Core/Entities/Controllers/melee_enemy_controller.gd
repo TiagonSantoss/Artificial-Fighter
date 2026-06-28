@@ -1,10 +1,12 @@
 class_name MeleeEnemyController
 extends Controller
 
+const AXIS_THRESHOLD := 0.2
+
 var follow_target: Entity
 var follow_distance := 0.1
 var target: Entity
-var attack_range := 0.7
+var attack_range := 1.6
 
 
 func get_actions(actor: Entity, _delta: float) -> Array[Action]:
@@ -25,15 +27,19 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 		
 		var next_point := nav.get_next_path_position()
 		
-		var move_dir := (
-			next_point - actor.global_position
-		)
+		var move_dir := (next_point - actor.global_position)
 		
-		var flat_dir := Vector3(
-			move_dir.x,
-			0.0,
-			move_dir.z
-		).normalized()
+		var dx := move_dir.x
+		var dz := move_dir.z
+		
+		var flat_dir := Vector3.ZERO
+		
+		if abs(dx) > abs(dz) + AXIS_THRESHOLD:
+			flat_dir.x = sign(dx)
+		elif abs(dz) > abs(dx) + AXIS_THRESHOLD:
+			flat_dir.z = sign(dz)
+		else:
+			flat_dir.x = sign(dx)
 		
 		actions.append(
 			MovementAction.new(flat_dir)

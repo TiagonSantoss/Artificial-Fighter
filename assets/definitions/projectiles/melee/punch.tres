@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MeleeDefinition" format=3 uid="uid://bsm73tcejpaye"]
+
+[ext_resource type="Script" uid="uid://dev14jj2vupbx" path="res://Core/Combat/Projectile/Melee/melee_definition.gd" id="1_iwvw7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47cdw"]
+
+[resource]
+script = ExtResource("1_iwvw7")
+sprite_frames = SubResource("SpriteFrames_47cdw")
+damage = 15
+knockback = 35.0
+radius = 2.0
+metadata/_custom_type_script = "uid://dev14jj2vupbx"
