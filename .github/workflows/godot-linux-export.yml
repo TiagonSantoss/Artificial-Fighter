@@ -25,15 +25,15 @@ jobs:
             exit 1
           fi
           unzip -q godot.zip -d $HOME/godot
-          echo "$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux_x86_64" >> $GITHUB_PATH
+          echo "$HOME/godot/Godot_v4.7-stable_linux_x86_64" >> $GITHUB_PATH
 
       - name: Export project for Linux
         env:
           EXPORT_PRESET: "Linux" 
         run: |
-          GODOT_BIN="$(ls -d $HOME/godot/Godot_v${GODOT_VERSION}-stable_linux_x86_64/* 2>/dev/null | head -n 1)"
+          GODOT_BIN="$(ls -d $HOME/godot/Godot_v4.7-stable_linux_x86_64/* 2>/dev/null | head -n 1)"
           # fallback: tenta usar bin direto
-          GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux_x86_64/Godot_v${GODOT_VERSION}-stable_linux_x86_64"
+          GODOT_BIN="$HOME/godot/Godot_v4.7-stable_linux_x86_64/Godot_v4.7-stable_linux_x86_64"
           mkdir -p out
           xvfb-run -a "$GODOT_BIN" --headless --export-release "$EXPORT_PRESET" "out/game_linux.x86_64.zip"
 
