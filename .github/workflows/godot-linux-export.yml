@@ -55,8 +55,8 @@ jobs:
           echo "Templates installed."
       
       - name: Show template layout
-       run: |
-         find "$HOME/.local/share/godot/export_templates" -maxdepth 3 -type find
+        run: |
+          find "$HOME/.local/share/godot/export_templates" -maxdepth 3 -type find
 
       - name: Export project (Linux)
         env:
