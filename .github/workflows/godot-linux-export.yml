@@ -19,47 +19,54 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip xvfb
-          wget -q https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip -O godot.zip || true
+
+          wget -q \
+            https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip \
+            -O godot.zip
+
           if [ ! -s godot.zip ]; then
-            echo "Falha ao baixar Godot. Ajuste URL/arquivo para sua versão/pacote."
+            echo "Failed to download Godot."
             exit 1
           fi
-          unzip -q godot.zip -d $HOME/godot
-          echo "$HOME/godot/Godot_v4.7-stable_linux_x86_64" >> $GITHUB_PATH
+
+          unzip -q godot.zip -d "$HOME/godot"
+          echo "$HOME/godot/Godot_v4.7-stable_linux.x86_64" >> "$GITHUB_PATH"
 
       - name: Download Godot export templates
         env:
           GODOT_VERSION: "4.7"
         run: |
           set -e
-          mkdir -p "$HOME/.local/share/godot/export_templates"
 
-          # Templates pack for 4.7 stable (Linux)
-          # If this URL changes, paste the Godot 4.7 stable templates link you see and I’ll adjust.
-          wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" -O templates.tpz || true
+          wget -q \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
+            -O templates.tpz
 
-          if [ ! -s templates.tpz ]; then
-            echo "Could not download export templates tpz. Fix the URL/filename."
-            exit 1
-          fi
+          mkdir extracted
+          unzip -q templates.tpz -d extracted
 
-          # Extract tpz
-          unzip -q templates.tpz -d "$HOME/.local/share/godot/export_templates"
+          mkdir -p "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
 
-          echo "Templates installed."
-      
-      - name: Show template layout
-        run: |
-          ls "$HOME/.local/share/godot/export_templates"
-          
+          cp extracted/templates/* \
+            "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
+
+          echo "Installed templates:"
+          ls -R "$HOME/.local/share/godot/export_templates"
+
       - name: Export project (Linux)
         env:
           EXPORT_PRESET: "Linux"
         run: |
           set -e
+
           GODOT_BIN="$(find "$HOME/godot/Godot_v4.7-stable_linux.x86_64" -type f -maxdepth 2 -iname "Godot*" | head -n 1)"
+
           mkdir -p out
-          xvfb-run -a "$GODOT_BIN" --headless --export-release "$EXPORT_PRESET" "out/game_linux.x86_64.zip"
+
+          xvfb-run -a "$GODOT_BIN" \
+            --headless \
+            --export-release "$EXPORT_PRESET" \
+            "out/game_linux.x86_64.zip"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
