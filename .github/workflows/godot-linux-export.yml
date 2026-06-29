@@ -19,7 +19,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip xvfb
-          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_linux_x86_64.zip -O godot.zip || true
+          wget -q https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip -O godot.zip || true
           if [ ! -s godot.zip ]; then
             echo "Falha ao baixar Godot. Ajuste URL/arquivo para sua versão/pacote."
             exit 1
@@ -43,4 +43,3 @@ jobs:
           name: godot-linux-${{ github.sha }}
           path: out/game_linux.x86_64.zip
           if-no-files-found: error
-
