@@ -1,43 +1,39 @@
-name: Godot Export (Linux)
+name: Godot Export & Release
 
 on:
   push:
-    branches:
-      - gameplay
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
-  export-linux:
+  export:
     runs-on: ubuntu-latest
+
+    env:
+      GODOT_VERSION: "4.7"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Godot
-        env:
-          GODOT_VERSION: "4.7"
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip xvfb
 
+      - name: Download Godot
+        run: |
           wget -q \
-            https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" \
             -O godot.zip
 
-          if [ ! -s godot.zip ]; then
-            echo "Failed to download Godot."
-            exit 1
-          fi
-
           unzip -q godot.zip -d "$HOME/godot"
-          echo "$HOME/godot/Godot_v4.7-stable_linux.x86_64" >> "$GITHUB_PATH"
 
-      - name: Download Godot export templates
-        env:
-          GODOT_VERSION: "4.7"
+      - name: Download export templates
         run: |
-          set -e
-
           wget -q \
             "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
             -O templates.tpz
@@ -50,27 +46,38 @@ jobs:
           cp extracted/templates/* \
             "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
 
-          echo "Installed templates:"
-          ls -R "$HOME/.local/share/godot/export_templates"
-
-      - name: Export project (Linux)
-        env:
-          EXPORT_PRESET: "Linux"
+      - name: Export builds
         run: |
           set -e
 
-          GODOT_BIN="$(find "$HOME/godot/Godot_v4.7-stable_linux.x86_64" -type f -maxdepth 2 -iname "Godot*" | head -n 1)"
+          GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
 
           mkdir -p out
 
+          echo "=== Exporting Linux ==="
           xvfb-run -a "$GODOT_BIN" \
             --headless \
-            --export-release "$EXPORT_PRESET" \
-            "out/game_linux.x86_64.zip"
+            --verbose \
+            --export-release "Linux" \
+            "out/Artificial-Fighter-Linux.x86_64"
 
-      - name: Upload artifact
+          echo "=== Exporting Windows ==="
+          xvfb-run -a "$GODOT_BIN" \
+            --headless \
+            --verbose \
+            --export-release "Windows Desktop" \
+            "out/Artificial-Fighter-Windows.exe"
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: godot-linux-${{ github.sha }}
-          path: out/game_linux.x86_64.zip
-          if-no-files-found: error
+          name: Artificial-Fighter-${{ github.ref_name }}
+          path: out/*
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Artificial Fighter ${{ github.ref_name }}"
+          body_path: RELEASE.md
+          generate_release_notes: true
+          files: out/*
