@@ -2,7 +2,7 @@
 
 Obrigado Por baixar!
 
-## Instalação
+## Installation
 
 - Linux: Extraia e execute o executável.
 - Windows: rode `Artificial Fighter.exe`.
