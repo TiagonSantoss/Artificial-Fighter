@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="12_ikiii"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
+[ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="Resource" uid="uid://cmvu1fh61gaag" path="res://assets/definitions/rooms/Arena 1.tres" id="17_cbp6q"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
@@ -150,7 +151,7 @@ transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.70710
 projection = 1
 size = 96.179
 near = 0.001
-far = 150.0
+far = 100.0
 script = ExtResource("12_k3n1d")
 start_size = 150.0
 zoom_duration = 0.5
@@ -165,7 +166,6 @@ draw_pass_1 = SubResource("ArrayMesh_wse8f")
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
 
 [node name="EffectsBar" type="Control" parent="UI" unique_id=30913204]
-visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -206,13 +206,34 @@ script = ExtResource("13_cbp6q")
 chunk_manager = NodePath("../../../../Dungeon/DungeonManager/ChunkManager")
 minimap_scale = 1.0
 
+[node name="SeedIndicator" type="Control" parent="UI" unique_id=138866117]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("14_bc84e")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/SeedIndicator" unique_id=215793002]
+layout_mode = 0
+offset_left = -126.0
+offset_top = 14.0
+offset_right = 39.0
+offset_bottom = 41.0
+bbcode_enabled = true
+
 [node name="Dungeon" type="Node3D" parent="." unique_id=1969989031]
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("17_cbp6q"), ExtResource("18_bc84e")])
 start_room = ExtResource("20_il2jm")
-_seed = 767108
+_seed = 0
 room_count = 20
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
@@ -223,5 +244,5 @@ collision_mask = 7
 script = ExtResource("19_cbp6q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KillVolume" unique_id=467478771]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8370972, -41.66626, -38.025146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8370972, -25.822662, -38.025146)
 shape = SubResource("BoxShape3D_2bgwa")

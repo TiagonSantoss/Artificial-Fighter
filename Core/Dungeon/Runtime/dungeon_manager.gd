@@ -4,10 +4,13 @@ extends Node3D
 @export_category("Room Generation")
 @export var room_pool: Array[RoomDefinition]
 @export var start_room: RoomDefinition
+@export var generate_random_seed: bool = true
 @export var _seed := 1234
 @export var room_count := 12
 
 @onready var chunk_manager: ChunkManager = $ChunkManager
+
+signal seed_changed(new_seed)
 
 var graph: RoomGraph
 var layout: Dictionary = {}
@@ -28,6 +31,16 @@ func generate() -> void:
 		return
 	
 	is_generating = true
+	
+	if generate_random_seed:
+		randomize()
+		_seed = randi()
+	
+	print("DungeonManager generating layout with seed: ", _seed)
+	
+	seed(_seed)
+	
+	seed_changed.emit(_seed)
 	
 	#print_stack()
 	chunk_manager.clear()
@@ -65,11 +78,9 @@ func _process(_delta: float) -> void:
 func _on_room_loaded(room: RoomInstance) -> void:
 	print("ROOM LOADED:", room.room_id)
 	
-	# If this room ID is marked as permanently cleared, update the fresh instance
 	if cleared_rooms.get(room.room_id, false):
 		room.cleared = true
 		room.encounter_started = true
-		# Optional: Ensure any visual barriers/gates default to opened here if needed
 		
 	register_room(room)
 
@@ -169,7 +180,7 @@ func clear() -> void:
 	current_room = null
 	graph = null
 	layout.clear()
-	cleared_rooms.clear() # Completely wipe the tracking dictionary for new floor generations
+	cleared_rooms.clear()
 	
 	if chunk_manager:
 		chunk_manager.clear()
@@ -196,7 +207,7 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 	enemy.tree_exited.connect(
 		func():
 			room.enemies.erase(enemy)
-		
+			
 			if room.enemies.is_empty():
 				_on_room_cleared(room)
 	)

@@ -45,8 +45,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# Game.gd no longer manually positions or moves the camera_rig here.
-	# The DynamicRotatingCameraPivot handles its own math inside its own script!
 	if not is_instance_valid(camera_rig):
 		return
 
@@ -76,7 +74,6 @@ func _on_active_room_changed(room_data: Variant) -> void:
 	if not is_instance_valid(new_pivot):
 		return
 	
-	# Transfer rotation state before switching
 	if is_instance_valid(active_room_pivot):
 		new_pivot.rotation.y = active_room_pivot.rotation.y
 		new_pivot.target_rotation_y = active_room_pivot.target_rotation_y
@@ -98,7 +95,6 @@ func _init_camera() -> void:
 		camera_rig.global_position = player_spawn.global_position
 
 
-## Public input hook for your Action classes to spin the camera
 func rotate_by(degrees: float) -> void:
 	if is_instance_valid(active_room_pivot):
 		active_room_pivot.rotate_by(degrees)
@@ -113,7 +109,7 @@ func get_camera_right() -> Vector3:
 		return Vector3(1, 0, 0)
 	return Vector3(1, 0, 0).rotated(Vector3.UP, active_room_pivot.rotation.y)
 
-# --- Spawning Ecosystem Pipeline Methods ---
+
 
 func spawn_player(pos: Vector3) -> Entity:
 	player = spawn_entity(player_definition, pos)
