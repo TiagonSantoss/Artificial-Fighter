@@ -3,7 +3,7 @@ name: Godot Export (Linux)
 on:
   push:
     branches:
-      - gameplay # <- troque pelo nome da branch
+      - gameplay
 
 jobs:
   export-linux:
@@ -33,18 +33,37 @@ jobs:
           find "$HOME/godot" -maxdepth 3 -type f -iname "*godot*" -o -type f -maxdepth 3
           ls -R "$HOME/godot" | head -n 200
 
+      - name: Download Godot export templates
+        env:
+          GODOT_VERSION: "4.7"
+        run: |
+          set -e
+          mkdir -p "$HOME/.local/share/godot/export_templates"
+
+          # Templates pack for 4.7 stable (Linux)
+          # If this URL changes, paste the Godot 4.7 stable templates link you see and I’ll adjust.
+          wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" -O templates.tpz || true
+
+          if [ ! -s templates.tpz ]; then
+            echo "Could not download export templates tpz. Fix the URL/filename."
+            exit 1
+          fi
+
+          # Extract tpz
+          unzip -q templates.tpz -d "$HOME/.local/share/godot/export_templates"
+
+          echo "Templates installed."
+      
+      - name: Show template layout
+       run: |
+         find "$HOME/.local/share/godot/export_templates" -maxdepth 3 -type find
+
       - name: Export project (Linux)
         env:
           EXPORT_PRESET: "Linux"
         run: |
           set -e
-
           GODOT_BIN="$(find "$HOME/godot/Godot_v4.7-stable_linux.x86_64" -type f -maxdepth 2 -iname "Godot*" | head -n 1)"
-          if [ -z "$GODOT_BIN" ]; then
-            echo "Could not find Godot executable under extracted folder."
-            exit 1
-          fi
-
           mkdir -p out
           xvfb-run -a "$GODOT_BIN" --headless --export-release "$EXPORT_PRESET" "out/game_linux.x86_64.zip"
 
