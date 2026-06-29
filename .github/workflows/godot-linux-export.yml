@@ -3,7 +3,7 @@ name: Godot Export (Linux)
 on:
   push:
     branches:
-      - gameplay   # <- troque pelo nome da branch
+      - gameplay # <- troque pelo nome da branch
 
 jobs:
   export-linux:
@@ -33,7 +33,7 @@ jobs:
           find "$HOME/godot" -maxdepth 3 -type f -iname "*godot*" -o -type f -maxdepth 3
           ls -R "$HOME/godot" | head -n 200
 
-     - name: Export project (Linux)
+      - name: Export project (Linux)
         env:
           EXPORT_PRESET: "Linux"
         run: |
