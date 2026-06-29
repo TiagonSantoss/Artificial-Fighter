@@ -39,9 +39,9 @@ jobs:
         run: |
           set -e
 
-          GODOT_BIN="$(find "$HOME/godot" -type f -maxdepth 4 -iname "Godot_v4.7-stable_linux_x86_64" | head -n 1)"
+          GODOT_BIN="$(find "$HOME/godot/Godot_v4.7-stable_linux.x86_64" -type f -maxdepth 2 -iname "Godot*" | head -n 1)"
           if [ -z "$GODOT_BIN" ]; then
-            echo "Could not find Godot executable. Check debug output."
+            echo "Could not find Godot executable under extracted folder."
             exit 1
           fi
 
