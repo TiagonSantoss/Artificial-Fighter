@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://fbs03a08aq7g"]
 
 [ext_resource type="Script" uid="uid://dgr2xo03h8xl2" path="res://Core/Combat/Weapon/Weapon.gd" id="1_r5pab"]
+[ext_resource type="Script" uid="uid://lpktc81kgujb" path="res://Core/Combat/Weapon/weapon_component.gd" id="2_5cgqc"]
+[ext_resource type="Script" uid="uid://bxdmampk1j3yt" path="res://Core/Combat/Weapon/Components/attack_component.gd" id="2_hyswg"]
+[ext_resource type="Script" uid="uid://6p7rtmkralpr" path="res://Core/Combat/Weapon/Components/visual_component.gd" id="3_5cgqc"]
+[ext_resource type="Script" uid="uid://c0msgnov6qvum" path="res://Core/Combat/Weapon/Components/behavior_component.gd" id="4_25kff"]
 
 [node name="Weapon" type="Node3D" unique_id=103886595]
 script = ExtResource("1_r5pab")
@@ -12,3 +16,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013594005, 0.08743036, 0)
 billboard = 1
 alpha_cut = 1
 render_priority = 3
+
+[node name="WeaponComponent" type="Node" parent="." unique_id=86399417]
+script = ExtResource("2_5cgqc")
+
+[node name="AttackComponent" type="Node" parent="WeaponComponent" unique_id=741918040]
+script = ExtResource("2_hyswg")
+
+[node name="VisualComponent" type="Node" parent="WeaponComponent" unique_id=1958784539]
+script = ExtResource("3_5cgqc")
+
+[node name="BehaviorComponent" type="Node" parent="WeaponComponent" unique_id=416181594]
+script = ExtResource("4_25kff")

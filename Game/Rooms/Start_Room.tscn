@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_52hv5"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_yehmp"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_oqk6f"]
+[ext_resource type="PackedScene" uid="uid://co464qq4ci6c7" path="res://Game/Debugging Machine.tscn" id="6_oqk6f"]
 
 [sub_resource type="GDScript" id="GDScript_g3gis"]
 script/source = "@tool
@@ -326,7 +327,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(-0.22759977, 0.08575963, -0.9660474, -0.92339486, 1.769389, 0.22087336, 0.2925537, 5.6822796, -0.05389434, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.2441176, 1.9966198, -0.16995546, -0.21951984, 1.0109149, -1.265372, -0.30421114, 7.443373, 0.2173731, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
@@ -379,6 +380,9 @@ script = ExtResource("4_52hv5")
 local_map_file = "uid://b7ahs0oc4jgh7"
 map_settings = ExtResource("5_oqk6f")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="DebuggingMachine" parent="." unique_id=900501115 instance=ExtResource("6_oqk6f")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.4890614, 4.047142, -12.44721)
 
 [connection signal="body_entered" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_entered"]
 [connection signal="body_exited" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_exited"]

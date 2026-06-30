@@ -32,6 +32,8 @@ var initialized := false
 
 var grid_position: Vector3i
 
+var current_interactable: Node = null
+
 @onready var camera_pivot: Marker3D = $CameraPivot
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
@@ -41,7 +43,7 @@ var grid_position: Vector3i
 @onready var health_component: HealthComponent = $Components/HealthComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent
 @onready var animation_component: AnimationComponent = $Components/AnimationComponent
-@onready var weapon_component: WeaponComponent = $Components/WeaponComponent
+@onready var weapon_component: EntityWeaponComponent = $Components/WeaponComponent
 @onready var visual_effects_component: VisualEffectsComponent = $Components/VisualEffectsComponent
 @onready var effects_component: EffectsComponent = $Components/EffectsComponent
 
@@ -111,6 +113,18 @@ func _on_died() -> void:
 
 func get_team():
 	return team
+
+func _ready():
+	$InteractionArea.area_entered.connect(_on_interaction_entered)
+	$InteractionArea.area_exited.connect(_on_interaction_exited)
+
+func _on_interaction_entered(area: Area3D) -> void:
+	if area.has_method("interact"):
+		current_interactable = area
+
+func _on_interaction_exited(area: Area3D) -> void:
+	if area == current_interactable:
+		current_interactable = null
 
 func _physics_process(delta: float) -> void:
 	if not initialized:

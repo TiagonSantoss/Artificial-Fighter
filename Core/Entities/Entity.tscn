@@ -1,16 +1,18 @@
 [gd_scene format=3 uid="uid://buba6lphfkr02"]
 
 [ext_resource type="Script" uid="uid://b1r71x68en1dj" path="res://Core/Entities/Entity.gd" id="1_0p8jp"]
-[ext_resource type="Texture2D" uid="uid://dbwfiog43j6q7" path="res://assets/sprites/fake_shadow.png" id="2_4mw2e"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="3_8xvi6"]
 [ext_resource type="Texture2D" uid="uid://pgfwcda8i4u" path="res://assets/sprites/characters/enemy.png" id="3_uvqxc"]
 [ext_resource type="Script" uid="uid://bm14sbbdlmu3u" path="res://Core/Entities/Actors/entity_component.gd" id="4_pxkd2"]
 [ext_resource type="Script" uid="uid://ubllp3x1v5hq" path="res://Core/Entities/Actors/Components/health_component.gd" id="5_eivxr"]
 [ext_resource type="Script" uid="uid://b6tbg4krpsruy" path="res://Core/Entities/Actors/Components/animation_component.gd" id="6_3hqy6"]
 [ext_resource type="Script" uid="uid://cr7fju12dylcr" path="res://Core/Entities/Actors/Components/movement_component.gd" id="6_4mw2e"]
-[ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Core/Entities/Actors/Components/weapon_component.gd" id="7_4mw2e"]
+[ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Core/Entities/Actors/Components/entity_weapon_component.gd" id="7_4mw2e"]
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvqxc"]
+load_path = "res://.godot/imported/fake_shadow.png-81efc19e0587259f2ffe89bb31d611a6.s3tc.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -30,6 +32,9 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
 size = Vector3(0.14453125, 0.2231369, 0.14355469)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
+size = Vector3(1.2338867, 1, 1.0771484)
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
 collision_layer = 4
@@ -39,7 +44,7 @@ script = ExtResource("1_0p8jp")
 [node name="FakeShadow" type="Sprite3D" parent="." unique_id=1034137781]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11212444, 0)
 visible = false
-texture = ExtResource("2_4mw2e")
+texture = SubResource("CompressedTexture2D_uvqxc")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)
@@ -51,6 +56,14 @@ animation = &"new_animation"
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.00028108805, 0.0073155165, 0)
 shape = SubResource("BoxShape3D_0p8jp")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1280813439]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1850055982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0056152344, 0, 0.03857422)
+shape = SubResource("BoxShape3D_2bgwa")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
 simplify_path = true

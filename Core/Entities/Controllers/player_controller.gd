@@ -34,6 +34,8 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		previous_input = Vector2.ZERO
 		locked_direction = Vector3.ZERO
 	
+	
+	
 	if Input.is_action_just_pressed("ui_cancel"):
 		actions.append(EscapeAction.new())
 	
@@ -54,6 +56,10 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	
 	if Input.is_action_just_pressed("remove_item"):
 		actions.append(RemoveItemAction.new(BURN_EFFECT, _actor.effects_component.effects))
+	
+	if Input.is_action_just_pressed("interact"):
+		if _actor.current_interactable != null:
+			actions.append(InteractAction.new(_actor, _actor.current_interactable))
 	
 	return actions
 

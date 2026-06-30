@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ExtraSpreadBehavior" format=3 uid="uid://cxlh1b3e38c"]
+
+[ext_resource type="Texture2D" uid="uid://dx6il2buamo6n" path="res://textures/T_VFX_exp_dissapear.png" id="1_yusel"]
+[ext_resource type="Script" uid="uid://b8pgr16ryfe6s" path="res://Core/Container/Components/Behaviors/extra_spread_behavior.gd" id="2_a65if"]
+
+[resource]
+script = ExtResource("2_a65if")
+spread = 30.0
+id = &"Jac3000"
+display_name = "JACARINDO 3000"
+description = "!!!!"
+icon = ExtResource("1_yusel")
+metadata/_custom_type_script = "uid://b8pgr16ryfe6s"

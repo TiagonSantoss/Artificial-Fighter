@@ -1,4 +1,4 @@
-class_name WeaponComponent
+class_name EntityWeaponComponent
 extends EntityComponent
 
 class OrbitSlot:

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d1vhtvo21oq15"]
+
+[ext_resource type="Script" uid="uid://dwavvnbeoi8xu" path="res://Game/World/world_item.gd" id="1_cqf1a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
+
+[node name="WorldItem" type="RigidBody3D" unique_id=288205523]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_cqf1a")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1599289762]
+collision_layer = 5
+collision_mask = 7
+
+[node name="Sprite3D" type="Sprite3D" parent="Area3D" unique_id=1522469830]
+
+[node name="Spark" type="GPUParticles3D" parent="Area3D" unique_id=1969337544]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=725304237]
+shape = SubResource("BoxShape3D_2bgwa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=10334470]
+shape = SubResource("BoxShape3D_3ir6a")

@@ -1,5 +1,6 @@
 class_name CollectibleContainer
 extends RefCounted
+##Base Class for the Container Sytem.
 
 signal added(instance: ItemInstance)
 signal removed(instance: ItemInstance)

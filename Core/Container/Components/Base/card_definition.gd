@@ -1,5 +1,5 @@
 class_name CardDefinition
 extends ItemDefinition
 
-func play(caster: Entity, target: Entity):
+func play(_caster: Entity, _target: Entity):
 	pass
