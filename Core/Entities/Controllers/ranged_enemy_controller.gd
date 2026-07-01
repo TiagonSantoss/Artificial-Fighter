@@ -5,7 +5,7 @@ const AXIS_THRESHOLD := 0.2
 
 var target: Entity
 
-var desired_distance := 8.0
+var desired_distance := 45.0
 var flee_distance := 5.0
 var attack_range := 50.0
 

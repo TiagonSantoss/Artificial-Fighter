@@ -15,12 +15,8 @@ extends Resource
 @export var radius: float = 0.2
 
 @export_category("Rendering (Atlas)")
-## The width and height of an individual frame in pixels (e.g., Vector2i(100, 60))
 @export var frame_size := Vector2i(100, 60)
-@export var frames_per_row := 8
-@export var total_frames := 8
-@export var animation_fps := 12.0
-## The index row in the master atlas sheet this projectile style belongs to (0 to 9)
+@export var atlas_column := 0
 @export var atlas_row := 0  
 
 @export_category("Visual")

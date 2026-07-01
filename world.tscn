@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
+[ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="20_wjb0r"]
@@ -232,9 +233,10 @@ bbcode_enabled = true
 
 [node name="DungeonManager" type="Node3D" parent="Dungeon" unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("18_bc84e")])
 start_room = ExtResource("20_il2jm")
-_seed = 0
+generate_random_seed = false
+_seed = 2
 room_count = 20
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
