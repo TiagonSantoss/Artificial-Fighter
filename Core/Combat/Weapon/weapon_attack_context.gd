@@ -19,6 +19,7 @@ var attack_type: AttackType
 var damage_multiplier: float
 var knockback_multiplier: float
 var pierce_multiplier: float
+var speed_multiplier: float
 
 var shots: Array[AttackShot] = []
 

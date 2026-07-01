@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_7bpbv")
+angle = 20.0
 display_name = "DUPLICATE"
 description = "BULLETS²"
 icon = ExtResource("1_reu2m")

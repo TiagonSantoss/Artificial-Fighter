@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://buph25i8bifq7"]
 
-[ext_resource type="MeshLibrary" uid="uid://b5ifyyyxklbky" path="res://assets/models/level/flevel_library.tres" id="1_y8t0i"]
+[ext_resource type="Script" uid="uid://dl6dlxd3c7q5f" path="res://Game/Rooms/boss_pattern.gd" id="1_ocdxv"]
+[ext_resource type="MeshLibrary" uid="uid://dw34jy7wqmbvx" path="res://assets/models/level/flevel_library.tres" id="1_y8t0i"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_fihgr"]
 [ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_uk782"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_12ct0"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
+vertices = PackedVector3Array(-7, 2.5, -31.5, 9.25, 2.5, -31.5, 9.25, 2.5, -53, -7, 2.5, -53, 9.25, 2.5, -29.75, -7, 2.5, -29.75, 39, 2.5, 37, 39, 2.5, -29, 10, 2.5, -29, -7.75, 2.5, -29, -41, 2.5, 37, -41, 2.5, -29)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 0, 4), PackedInt32Array(4, 0, 1), PackedInt32Array(8, 7, 6), PackedInt32Array(4, 8, 5), PackedInt32Array(5, 8, 9), PackedInt32Array(9, 8, 6), PackedInt32Array(9, 6, 10), PackedInt32Array(10, 11, 9)]
 agent_height = 2.0
 agent_radius = 1.0
 agent_max_slope = 90.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hokgo"]
-size = Vector3(39.4021, 5, 71.38541)
+size = Vector3(79.73389, 5, 71.38541)
 
 [node name="Arena 1" type="Node3D" unique_id=2117219993]
+script = ExtResource("1_ocdxv")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=1043112167 groups=["world"]]
 mesh_library = ExtResource("1_y8t0i")
@@ -30,7 +34,7 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.098155975, 3.4128723, 1.6532364)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40831375, 3.4128723, 1.6532364)
 shape = SubResource("BoxShape3D_hokgo")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
@@ -45,5 +49,15 @@ direction = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1526429313]
-transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 0)
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 2.2515182)
 script = ExtResource("4_12ct0")
+base_zoom_distance = 50.0
+max_extra_zoom = 80.0
+zoom_sensitivity = 30.0
+
+[node name="SpawnGroups" type="Node3D" parent="." unique_id=251294894]
+
+[node name="Boss" type="Node3D" parent="SpawnGroups" unique_id=1538346634]
+
+[node name="M1" type="Marker3D" parent="SpawnGroups/Boss" unique_id=1697421521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1972656, -29.044098)

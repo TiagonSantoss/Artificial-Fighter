@@ -1,10 +1,15 @@
 class_name WeaponAttackComponent
 extends WeaponComponent
 
-const PROJECTILE_SCENE = preload("res://Core/Combat/Projectile/Projectile.tscn")
+#const PROJECTILE_SCENE = preload("res://Core/Combat/Projectile/Projectile.tscn")
 const MELEE_SCENE = preload("res://Core/Combat/Projectile/Melee/Melee.tscn")
 
 var can_fire := true
+var fire_cooldown := 0.0
+
+func _physics_process(delta: float) -> void:
+	if fire_cooldown > 0.0:
+		fire_cooldown -= delta
 
 func _create_attack_context(direction: Vector3) -> WeaponAttackContext:
 	var context := WeaponAttackContext.new()
@@ -27,6 +32,7 @@ func _create_attack_context(direction: Vector3) -> WeaponAttackContext:
 		shot.damage_multiplier = weapon.damage_multiplier
 		shot.knockback_multiplier = weapon.knockback_multiplier
 		shot.pierce_multiplier = weapon.pierce_multiplier
+		shot.speed_multiplier = weapon.speed_multiplier if "speed_multiplier" in weapon else 1.0
 		shot.melee = weapon.definition.melee
 		
 		context.add_shot(shot)
@@ -45,6 +51,7 @@ func _create_attack_context(direction: Vector3) -> WeaponAttackContext:
 			shot.damage_multiplier = weapon.damage_multiplier
 			shot.knockback_multiplier = weapon.knockback_multiplier
 			shot.pierce_multiplier = weapon.pierce_multiplier
+			shot.speed_multiplier = weapon.speed_multiplier
 			shot.projectile = weapon.definition.projectile
 			
 			context.add_shot(shot)
@@ -81,10 +88,11 @@ func fire(direction: Vector3):
 		push_error("Weapon fired without wielder (setup missing)")
 		return
 	
-	if not can_fire:
+	if fire_cooldown > 0.0 or not can_fire:
 		return
 	
 	can_fire = false
+	fire_cooldown = weapon.definition.fire_rate
 	
 	var context := _create_attack_context(direction)
 	
@@ -95,19 +103,23 @@ func fire(direction: Vector3):
 		return
 	
 	for shot in context.shots:
-		var projectile: Projectile = PROJECTILE_SCENE.instantiate()
+		var request := ProjectileRequest.new()
 		
-		get_tree().current_scene.add_child(projectile)
+		request.position = weapon.visual_component.muzzle.global_position
+		request.direction = shot.direction
 		
-		projectile.setup(
-			context.origin,
-			shot.direction,
-			shot.projectile,
-			context.wielder,
-			context.wielder.team,
-			shot.damage_multiplier,
-			shot.knockback_multiplier
-		)
+		request.definition = weapon.definition.projectile
+		request.source_entity = weapon.wielder
+		request.source_team = weapon.wielder.team
+		
+		
+		request.damage_multiplier = shot.damage_multiplier
+		request.knockback_multiplier = shot.knockback_multiplier
+		
+		if "speed_multiplier" in request:
+			request.speed_multiplier = shot.speed_multiplier
+		
+		var projectile = AutoProjectileSystem.spawn(request)
 		
 		weapon.behavior_component.on_projectile_spawned(context, shot, projectile)
 	
@@ -126,10 +138,11 @@ func swing(direction: Vector3):
 		push_error("Weapon swung without wielder (setup missing)")
 		return
 	
-	if not can_fire:
+	if fire_cooldown > 0.0 or not can_fire:
 		return
 	
 	can_fire = false
+	fire_cooldown = weapon.definition.fire_rate
 	
 	var context := _create_attack_context(direction)
 	
@@ -153,6 +166,9 @@ func swing(direction: Vector3):
 			shot.damage_multiplier,
 			shot.knockback_multiplier
 		)
+		
+		if "speed_multiplier" in melee_strike:
+			melee_strike.speed_multiplier = shot.speed_multiplier
 		
 		weapon.behavior_component.on_melee_spawned(
 			context,

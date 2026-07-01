@@ -7,6 +7,8 @@ var wielder: Entity
 var damage_multiplier := 1.0
 var knockback_multiplier := 1.0
 var pierce_multiplier := 1.0
+var speed_multiplier := 1.0
+var default_behaviors : BehaviorDefinition
 
 @onready var visual_component: WeaponVisualComponent = $WeaponComponent/VisualComponent
 @onready var attack_component: WeaponAttackComponent = $WeaponComponent/AttackComponent
@@ -35,9 +37,18 @@ func setup(weapon_definition, owner_entity):
 	damage_multiplier = definition.damage_multiplier
 	knockback_multiplier = definition.knockback_multiplier
 	pierce_multiplier = definition.pierce_multiplier
+	speed_multiplier = definition.speed_multiplier
+	
+	default_behaviors = definition.default_behaviors
 	
 	visual_component.setup(self)
 	attack_component.setup(self)
+	
+	if default_behaviors:
+		var instance := ItemInstance.new()
+		instance.definition = default_behaviors
+		
+		equip_behavior(instance)
 	
 	visual_component.apply_definition()
 	

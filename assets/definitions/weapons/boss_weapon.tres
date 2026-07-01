@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bnsk1034kn6o6"]
+
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="1_1ea78"]
+[ext_resource type="Resource" uid="uid://3cpkxgwk2jhu" path="res://assets/items/behaviors/bullet_duplicator.tres" id="1_26nc8"]
+[ext_resource type="Resource" uid="uid://by7chnn13mrlr" path="res://assets/definitions/projectiles/boss_bullet.tres" id="2_26nc8"]
+
+[resource]
+script = ExtResource("1_1ea78")
+fire_rate = 0.0
+recoil = 0.0
+default_behaviors = ExtResource("1_26nc8")
+projectile = ExtResource("2_26nc8")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

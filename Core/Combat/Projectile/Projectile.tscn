@@ -1,32 +1,4 @@
 [gd_scene format=3 uid="uid://bwsd8bs2svql5"]
 
-[ext_resource type="Script" uid="uid://bj4pjumgqq66k" path="res://Core/Combat/Projectile/Projectile.gd" id="1_4mawt"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_4mawt"]
-radius = 0.01
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_6ghdp"]
-
 [node name="Projectile" type="Node3D" unique_id=1039168439]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-script = ExtResource("1_4mawt")
-
-[node name="ShapeCast3D" type="ShapeCast3D" parent="." unique_id=290374684]
-shape = SubResource("SphereShape3D_4mawt")
-target_position = Vector3(0, 0, 0)
-collision_mask = 7
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 0.0333333, 1, 1)
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1049357351]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0014637783, 0, 0)
-double_sided = false
-render_priority = 2
-
-[node name="ProjectileHurtbox" type="Area3D" parent="." unique_id=2067710752]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ProjectileHurtbox" unique_id=644330748]
-shape = SubResource("SphereShape3D_6ghdp")
-disabled = true

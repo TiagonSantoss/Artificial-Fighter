@@ -5,9 +5,9 @@ const AXIS_THRESHOLD := 0.2
 
 var target: Entity
 
-var desired_distance := 6.0
+var desired_distance := 8.0
 var flee_distance := 5.0
-var attack_range := 6.7
+var attack_range := 50.0
 
 
 func get_actions(actor: Entity, _delta: float) -> Array[Action]:

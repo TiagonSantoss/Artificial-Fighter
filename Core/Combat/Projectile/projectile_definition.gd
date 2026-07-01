@@ -1,30 +1,34 @@
 class_name ProjectileDefinition
 extends Resource
 
-@export_category("Visuals")
-@export var sprite_frames: SpriteFrames
-@export var default_animation := "default"
-@export var modulate := Color.WHITE
-@export var billboard := BaseMaterial3D.BILLBOARD_ENABLED
-@export var texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-@export var sprite_scale := Vector3.ONE
-
 @export_category("Movement")
-@export var speed := 10.0
-@export var gravity := 0.0
-@export var drag := 0.0
-@export var bounce_count := 0
-@export var bounce_factor := 0.7
-@export var homing := false
-@export var homing_strength := 0.0
-@export var lifetime := 0.5
+@export var speed: float = 25.0
+@export var gravity: float = 0.0
+@export var drag: float = 0.0
+@export var lifetime: float = 3.0
 
 @export_category("Combat")
-@export var damage := 10
-@export var knockback := 1.0
-@export var pierce := 0
-@export var explosive_radius := 0.0
-@export var status_effect: EffectDefinition
+@export var damage: float = 10.0
+@export var knockback: float = 1.0
+@export var pierce: int = 0
+@export var bounce_count: int = 0
+@export var radius: float = 0.2
 
-@export_category("Collision")
-@export var radius := 0.2
+@export_category("Rendering (Atlas)")
+## The width and height of an individual frame in pixels (e.g., Vector2i(100, 60))
+@export var frame_size := Vector2i(100, 60)
+@export var frames_per_row := 8
+@export var total_frames := 8
+@export var animation_fps := 12.0
+## The index row in the master atlas sheet this projectile style belongs to (0 to 9)
+@export var atlas_row := 0  
+
+@export_category("Visual")
+@export var scale: Vector3 = Vector3.ONE
+@export var color: Color = Color.WHITE
+@export var emissive_strength: float = 1.0
+@export var billboard := true
+
+@export_category("Behavior Flags")
+@export var rotates_to_velocity := false
+@export var additive_blend := true

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ProjectileDefinition" format=3 uid="uid://by7chnn13mrlr"]
+
+[ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Core/Combat/Projectile/projectile_definition.gd" id="1_brnwq"]
+
+[resource]
+script = ExtResource("1_brnwq")
+speed = 10.0
+drag = 1.0
+knockback = 5.0
+bounce_count = 15
+radius = 0.1
+frame_size = Vector2i(0, 0)
+frames_per_row = 4
+total_frames = 0
+atlas_row = 1
+rotates_to_velocity = true
+metadata/_custom_type_script = "uid://dgoeygudsoucv"

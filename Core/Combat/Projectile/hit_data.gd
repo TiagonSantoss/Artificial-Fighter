@@ -11,7 +11,7 @@ var knockback_multiplier := 1.0
 var source_entity: Entity
 var source_team
 
-var projectile: Node3D
+var projectile: RefCounted
 
 var hit_position := Vector3.ZERO
 var hit_normal := Vector3.UP

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bj0u72m1rk745"]
+
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_mbynb"]
+[ext_resource type="Resource" uid="uid://dy246kg3pwlhq" path="res://assets/definitions/entities/controllers/ranged_enemy_controller.tres" id="1_nmiqq"]
+[ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="3_m7uhh"]
+[ext_resource type="Resource" uid="uid://bnsk1034kn6o6" path="res://assets/definitions/weapons/boss_weapon.tres" id="4_7mhvr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuwqd"]
+atlas = ExtResource("3_m7uhh")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tkibd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuwqd")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_mbynb")
+sprite_frames = SubResource("SpriteFrames_tkibd")
+default_animation = "default"
+max_health = 850
+move_speed = 6.0
+max_speed = 6.0
+acceleration = 20.0
+friction = 6.0
+controller = ExtResource("1_nmiqq")
+entity_id = 5
+starting_weapon = ExtResource("4_7mhvr")
+team = 2
+spawn_group = 2
+metadata/_custom_type_script = "uid://dll1idsl2062t"

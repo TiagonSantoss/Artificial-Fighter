@@ -1,59 +1,16 @@
 [gd_resource type="Resource" script_class="ProjectileDefinition" format=3 uid="uid://csebym7jqvd3r"]
 
 [ext_resource type="Script" uid="uid://dgoeygudsoucv" path="res://Core/Combat/Projectile/projectile_definition.gd" id="1_00wyo"]
-[ext_resource type="Texture2D" uid="uid://csl7hatjb0t2d" path="res://assets/sprites/combat/projectiles/bullet.png" id="2_abtai"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5xhjc"]
-atlas = ExtResource("2_abtai")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8v3n7"]
-atlas = ExtResource("2_abtai")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_riwdt"]
-atlas = ExtResource("2_abtai")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpi5g"]
-atlas = ExtResource("2_abtai")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rig7u"]
-atlas = ExtResource("2_abtai")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5xhjc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5xhjc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8v3n7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_riwdt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tpi5g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rig7u")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 10.0
-}]
 
 [resource]
 script = ExtResource("1_00wyo")
-sprite_frames = SubResource("SpriteFrames_5xhjc")
-billboard = 2
-sprite_scale = Vector3(5, 5, 5)
-speed = 8.2
-bounce_count = 15
+speed = 30.0
+drag = 1.0
 lifetime = 1.0
 knockback = 5.0
+bounce_count = 15
 radius = 0.1
+frame_size = Vector2i(0, 0)
+frames_per_row = 4
+total_frames = 0
 metadata/_custom_type_script = "uid://dgoeygudsoucv"
