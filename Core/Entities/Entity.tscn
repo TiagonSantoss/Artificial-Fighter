@@ -11,9 +11,6 @@
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvqxc"]
-load_path = "res://.godot/imported/fake_shadow.png-81efc19e0587259f2ffe89bb31d611a6.s3tc.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
 region = Rect2(0, 0, 256, 256)
@@ -40,11 +37,6 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_0p8jp")
-
-[node name="FakeShadow" type="Sprite3D" parent="." unique_id=1034137781]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11212444, 0)
-visible = false
-texture = SubResource("CompressedTexture2D_uvqxc")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)

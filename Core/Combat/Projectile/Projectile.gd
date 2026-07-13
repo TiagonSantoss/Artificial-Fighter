@@ -31,26 +31,26 @@ var exclude: Array[RID] = []
 func setup(request: ProjectileRequest) -> void:
 	definition = request.definition
 	position = request.position
-	
+
 	direction = request.direction.normalized()
 	velocity = direction * definition.speed
-	
+
 	damage_multiplier = request.damage_multiplier
 	knockback_multiplier = request.knockback_multiplier
-	
+
 	remaining_pierce = int((definition.pierce + 1) * request.pierce_multiplier)
 	remaining_bounces = definition.bounce_count
 	lifetime_left = definition.lifetime
-	
+
 	drag_factor = definition.drag
-	
+
 	source_entity = request.source_entity
 	source_team = request.source_team
-	
+
 	already_hit.clear()
 	collision_shape.radius = definition.radius
 	exclude.clear()
-	
+
 	if source_entity:
 		exclude.append(source_entity.get_rid())
 		for child in source_entity.get_children():

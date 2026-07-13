@@ -17,9 +17,14 @@
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
+[ext_resource type="Script" uid="uid://drbtkp8yma336" path="res://Game/UI/axis_arrow_ui.gd" id="16_4h6ng"]
+[ext_resource type="Texture2D" uid="uid://balnorp8faafi" path="res://assets/sprites/Sprite-0001.png" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
+[ext_resource type="Texture2D" uid="uid://fkwg108sr0ug" path="res://assets/sprites/Sprite-0002.png" id="18_k83mh"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
+[ext_resource type="Texture2D" uid="uid://cm42a5fa5cy8c" path="res://assets/sprites/Sprite-0004.png" id="19_qktwf"]
+[ext_resource type="Texture2D" uid="uid://bca7fqv4uue46" path="res://assets/sprites/Sprite-0003.png" id="20_bh8nc"]
 [ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="20_wjb0r"]
 
@@ -152,8 +157,8 @@ environment = SubResource("Environment_k3n1d")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
 projection = 1
-size = 49.254
-far = 180.0
+size = 0.001
+far = 150.0
 script = ExtResource("12_k3n1d")
 start_size = 150.0
 zoom_duration = 0.5
@@ -183,23 +188,30 @@ offset_right = 47.0
 offset_bottom = -7.0
 
 [node name="Minimap" parent="UI" unique_id=806877094 instance=ExtResource("12_ikiii")]
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -577.0
-offset_right = 560.5
-offset_bottom = 357.0
+anchor_bottom = 1.0
+offset_left = -568.75
+offset_top = -357.0
+offset_right = 568.75
+offset_bottom = 0.0
 grow_horizontal = 2
+grow_vertical = 0
 
 [node name="MinimapFrame" type="PanelContainer" parent="UI/Minimap" unique_id=2070747487]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -170.5
-offset_right = 172.25
-offset_bottom = 131.0
+anchor_bottom = 1.0
+offset_left = -171.375
+offset_top = -131.0
+offset_right = 171.375
 grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Minimap" parent="UI/Minimap/MinimapFrame" unique_id=910392165 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("12_ikiii")]
 clip_contents = true
@@ -228,6 +240,67 @@ offset_top = 14.0
 offset_right = 39.0
 offset_bottom = 41.0
 bbcode_enabled = true
+
+[node name="ArrowIndicator" type="Control" parent="UI" unique_id=1125274345]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -212.5
+offset_right = 212.5
+offset_bottom = 200.0
+grow_horizontal = 2
+script = ExtResource("16_4h6ng")
+
+[node name="ArrowZN" type="TextureRect" parent="UI/ArrowIndicator" unique_id=1762000006]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("17_o3ebs")
+
+[node name="ArrowZP" type="TextureRect" parent="UI/ArrowIndicator" unique_id=43050200]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("18_k83mh")
+
+[node name="ArrowXP" type="TextureRect" parent="UI/ArrowIndicator" unique_id=631044437]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -19.0
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("19_qktwf")
+
+[node name="ArrowXN" type="TextureRect" parent="UI/ArrowIndicator" unique_id=1754141769]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("20_bh8nc")
 
 [node name="Dungeon" type="Node3D" parent="." unique_id=1969989031]
 

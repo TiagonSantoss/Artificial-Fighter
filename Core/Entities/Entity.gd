@@ -72,7 +72,7 @@ func setup(start_position: Vector3,entity_definition: EntityDefinition) -> void:
 	animation_component.configure_visuals(definition)
 	
 	weapon_component.setup(self)
-	weapon_socket.position = Vector3.ZERO
+	#weapon_socket.position = Vector3.ZERO
 	orbit_socket.position = Vector3.ZERO
 	weapon_component.set_sockets(weapon_socket, orbit_socket)
 	

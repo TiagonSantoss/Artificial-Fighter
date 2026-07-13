@@ -2,18 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cq8uixb3eesrc" path="res://Core/Combat/Projectile/Renderer/projectile_renderer.gd" id="1_cc3gi"]
 [ext_resource type="Shader" uid="uid://crmtc0ldm7vlq" path="res://assets/shaders/multi_mesh_shader.gdshader" id="2_gjwsb"]
-[ext_resource type="Texture2D" uid="uid://c0o3cnw2yyy8w" path="res://assets/sprites/combat/projectiles/proj.png" id="3_os1fn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdoe1"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vdoe1"]
+load_path = "res://.godot/imported/proj.png-fdc61f0f301e1d3a96abf47fc5b98e87.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gjwsb"]
 render_priority = 0
 shader = ExtResource("2_gjwsb")
-shader_parameter/atlas = ExtResource("3_os1fn")
+shader_parameter/atlas = SubResource("CompressedTexture2D_vdoe1")
 shader_parameter/frame_size = Vector2(200, 200)
 shader_parameter/atlas_size = Vector2(800, 600)
 
 [sub_resource type="QuadMesh" id="QuadMesh_cc3gi"]
-material = SubResource("ShaderMaterial_vdoe1")
-size = Vector2(3, 3)
+material = SubResource("ShaderMaterial_gjwsb")
+size = Vector2(1.5, 1.5)
 
 [sub_resource type="MultiMesh" id="MultiMesh_2bgwa"]
 transform_format = 1

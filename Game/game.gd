@@ -25,7 +25,6 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
 
-# Change the type cast here to match your custom pivot class name!
 @onready var camera_rig: Camera3D = $Camera3D
 
 @export var player_definition: EntityDefinition
@@ -36,6 +35,7 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 @export var chunk_manager: ChunkManager
 
 @onready var marker = $PlayerSpawn
+
 
 func _ready() -> void:
 	instance = self
@@ -52,10 +52,10 @@ func _process(_delta: float) -> void:
 func _on_active_room_changed(room_data: Variant) -> void:
 	if room_data == null or not is_instance_valid(camera_rig):
 		return
-	
+
 	var physical_room_node: Node3D = null
 	var room_def: RoomDefinition = null
-	
+
 	if room_data is RoomInstance:
 		physical_room_node = room_data.node
 		room_def = room_data.definition
@@ -63,29 +63,29 @@ func _on_active_room_changed(room_data: Variant) -> void:
 		physical_room_node = room_data.node
 		if "definition" in room_data:
 			room_def = room_data.definition
-	
+
 	if not is_instance_valid(physical_room_node):
 		return
-	
-	var new_pivot := physical_room_node.find_child(
-		"CameraPivot", true, false
-	) as DynamicRotatingCameraPivot
-	
+
+	var new_pivot := (
+		physical_room_node.find_child("CameraPivot", true, false) as DynamicRotatingCameraPivot
+	)
+
 	if not is_instance_valid(new_pivot):
 		return
-	
+
 	if is_instance_valid(active_room_pivot):
 		new_pivot.rotation.y = active_room_pivot.rotation.y
 		new_pivot.target_rotation_y = active_room_pivot.target_rotation_y
 		new_pivot.is_rotating = active_room_pivot.is_rotating
 		active_room_pivot.deactivate()
-	
+
 	active_room_pivot = new_pivot
-	
+
 	var target_size := Vector2(40.0, 40.0)
 	if room_def:
 		target_size = Vector2(room_def.size) * 40.0
-	
+
 	active_room_pivot.set_room(room_data)
 	active_room_pivot.activate(target_size)
 
@@ -99,16 +99,17 @@ func rotate_by(degrees: float) -> void:
 	if is_instance_valid(active_room_pivot):
 		active_room_pivot.rotate_by(degrees)
 
+
 func get_camera_forward() -> Vector3:
 	if not is_instance_valid(active_room_pivot):
 		return Vector3(0, 0, -1)
 	return Vector3(0, 0, -1).rotated(Vector3.UP, active_room_pivot.rotation.y)
 
+
 func get_camera_right() -> Vector3:
 	if not is_instance_valid(active_room_pivot):
 		return Vector3(1, 0, 0)
 	return Vector3(1, 0, 0).rotated(Vector3.UP, active_room_pivot.rotation.y)
-
 
 
 func spawn_player(pos: Vector3) -> Entity:
@@ -121,11 +122,11 @@ func spawn_player(pos: Vector3) -> Entity:
 func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	if definition == null:
 		definition = enemy_pool.pick_random()
-	
+
 	var enemy := spawn_entity(definition, pos)
 	enemy.controller.target = player
 	enemy.add_to_group("enemies")
-	
+
 	enemy.collision_layer = 2
 	return enemy
 

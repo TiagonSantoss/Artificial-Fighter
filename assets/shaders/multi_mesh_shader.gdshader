@@ -6,29 +6,38 @@ uniform vec2 frame_size;
 uniform vec2 atlas_size;
 
 void vertex() {
-	// 1. Extract scale mechanics from the matrix transform pipeline
+	// 1. Calculate scale from the model matrix before we overwrite it
 	vec3 scale = vec3(
 		length(MODEL_MATRIX[0].xyz),
 		length(MODEL_MATRIX[1].xyz),
 		length(MODEL_MATRIX[2].xyz)
 	);
 	
-	// 2. Clear rotation matrices to run perfect Camera Billboarding
+	// 2. Retrieve individual instance rotation angle from custom data buffer
+	float sprite_rotation = INSTANCE_CUSTOM.z;
+	
+	float cos_r = cos(sprite_rotation);
+	float sin_r = sin(sprite_rotation);
+	mat2 rot_matrix = mat2(vec2(cos_r, -sin_r), vec2(sin_r, cos_r));
+	
+	// Apply scale and 2D rotation to the local vertex positions
+	VERTEX.xy = rot_matrix * (VERTEX.xy * scale.xy);
+	
+	// 3. Apply the billboard matrix (retaining position, stripping 3D rotation)
 	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
-		vec4(scale.x, 0.0, 0.0, 0.0),
-		vec4(0.0, scale.y, 0.0, 0.0),
-		vec4(0.0, 0.0, scale.z, 0.0),
-		MODEL_MATRIX[3]
-	);
-
-	// 3. Decode direct column and row tracks from custom data layout channels
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+	
+	// 4. UV handling
 	float col_coord = round(INSTANCE_CUSTOM.x * 255.0);
 	float row_coord = round(INSTANCE_CUSTOM.y * 255.0);
-
-	// 4. Calculate direct matching UV scales and offsets without grids/loops
+	
 	vec2 uv_scale = frame_size / atlas_size;
 	vec2 uv_offset = vec2(col_coord, row_coord) * frame_size / atlas_size;
-
+	
 	UV = UV * uv_scale + uv_offset;
 }
 

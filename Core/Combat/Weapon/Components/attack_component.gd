@@ -87,10 +87,10 @@ func fire(direction: Vector3):
 	if weapon.wielder == null:
 		push_error("Weapon fired without wielder (setup missing)")
 		return
-	
+		
 	if fire_cooldown > 0.0 or not can_fire:
 		return
-	
+		
 	can_fire = false
 	fire_cooldown = weapon.definition.fire_rate
 	
@@ -101,7 +101,7 @@ func fire(direction: Vector3):
 	if context.cancelled:
 		can_fire = true
 		return
-	
+		
 	for shot in context.shots:
 		var request := ProjectileRequest.new()
 		
@@ -112,17 +112,28 @@ func fire(direction: Vector3):
 		request.source_entity = weapon.wielder
 		request.source_team = weapon.wielder.team
 		
-		
 		request.damage_multiplier = shot.damage_multiplier
 		request.knockback_multiplier = shot.knockback_multiplier
 		
+		# 🟢 SAFE PASSING: Check if your custom Request resource handles properties dynamically
 		if "speed_multiplier" in request:
 			request.speed_multiplier = shot.speed_multiplier
-		
+		if "projectile_size_multiplier" in request and "projectile_size_multiplier" in weapon.definition:
+			request.projectile_size_multiplier = weapon.definition.projectile_size_multiplier
+			
+		# Spawn the resource container via your system
 		var projectile = AutoProjectileSystem.spawn(request)
 		
+		# 🟢 SAFE FALLBACK: If your returned data object holds a reference to the 3D scene instance 
+		# (commonly named 'node', 'instance', or 'scene_node'), scale that instead!
+		if projectile != null:
+			if "node" in projectile and projectile.node != null:
+				projectile.node.scale *= weapon.definition.projectile_size_multiplier
+			elif "instance" in projectile and projectile.instance != null:
+				projectile.instance.scale *= weapon.definition.projectile_size_multiplier
+		
 		weapon.behavior_component.on_projectile_spawned(context, shot, projectile)
-	
+		
 	var recoil_dir := -direction.normalized()
 	context.wielder.movement_component.apply_impulse(
 		recoil_dir * context.recoil

@@ -94,7 +94,7 @@ shape = SubResource("ConvexPolygonShape3D_fk3jr")
 shape = SubResource("ConvexPolygonShape3D_24g0j")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
-collision_layer = 5
+collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
@@ -115,9 +115,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=1526429313]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 0, 118.53126)
 script = ExtResource("4_12ct0")
-base_camera_size = 80.0
-max_extra_size = 20.0
-room_size_units = Vector2(80, 80)
+tracking_weight_factor = 1.0
+max_extra_size = 30.0
 
 [node name="SpawnGroups" type="Node3D" parent="." unique_id=251294894]
 
