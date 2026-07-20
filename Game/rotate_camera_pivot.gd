@@ -160,6 +160,9 @@ func _update_perspective() -> void:
 		return
 
 	current_axis = axis
+
+	# var _snapshotAA = CameraPerspectiveState.new(current_axis)
+
 	GState.perspective_updated.emit(axis)
 
 

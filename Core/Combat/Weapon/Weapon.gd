@@ -14,6 +14,7 @@ var default_behaviors: Array[BehaviorDefinition]
 @onready var visual_component: WeaponVisualComponent = $WeaponComponent/VisualComponent
 @onready var attack_component: WeaponAttackComponent = $WeaponComponent/AttackComponent
 @onready var behavior_component: WeaponBehaviorComponent = $WeaponComponent/BehaviorComponent
+@onready var audio_component: WeaponAudioComponent = $WeaponComponent/AudioComponent
 
 
 func _process(delta: float) -> void:

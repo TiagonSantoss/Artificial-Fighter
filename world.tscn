@@ -18,10 +18,13 @@
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="Script" uid="uid://drbtkp8yma336" path="res://Game/UI/axis_arrow_ui.gd" id="16_4h6ng"]
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
+[ext_resource type="Texture2D" uid="uid://bnfs0cr86fae4" path="res://assets/sprites/combat/weapons/TMP automatic machine pistol.png" id="17_k83mh"]
 [ext_resource type="Texture2D" uid="uid://balnorp8faafi" path="res://assets/sprites/Sprite-0001.png" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Texture2D" uid="uid://fkwg108sr0ug" path="res://assets/sprites/Sprite-0002.png" id="18_k83mh"]
+[ext_resource type="Texture2D" uid="uid://vf0cfai7ksag" path="res://assets/sprites/combat/weapons/chippa rhino.png" id="18_qktwf"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://cm42a5fa5cy8c" path="res://assets/sprites/Sprite-0004.png" id="19_qktwf"]
 [ext_resource type="Texture2D" uid="uid://bca7fqv4uue46" path="res://assets/sprites/Sprite-0003.png" id="20_bh8nc"]
@@ -188,30 +191,23 @@ offset_right = 47.0
 offset_bottom = -7.0
 
 [node name="Minimap" parent="UI" unique_id=806877094 instance=ExtResource("12_ikiii")]
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -568.75
-offset_top = -357.0
 offset_right = 568.75
-offset_bottom = 0.0
+offset_bottom = 357.0
 grow_horizontal = 2
-grow_vertical = 0
 
 [node name="MinimapFrame" type="PanelContainer" parent="UI/Minimap" unique_id=2070747487]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -171.375
-offset_top = -131.0
 offset_right = 171.375
+offset_bottom = 131.0
 grow_horizontal = 2
-grow_vertical = 0
 
 [node name="Minimap" parent="UI/Minimap/MinimapFrame" unique_id=910392165 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("12_ikiii")]
 clip_contents = true
@@ -235,22 +231,29 @@ script = ExtResource("14_bc84e")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/SeedIndicator" unique_id=215793002]
 layout_mode = 0
-offset_left = -126.0
-offset_top = 14.0
-offset_right = 39.0
-offset_bottom = 41.0
+offset_left = -202.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 46.0
+theme_override_fonts/normal_font = ExtResource("16_qktwf")
+theme_override_font_sizes/normal_font_size = 4
 bbcode_enabled = true
 
 [node name="ArrowIndicator" type="Control" parent="UI" unique_id=1125274345]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -212.5
-offset_right = 212.5
-offset_bottom = 200.0
-grow_horizontal = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 119.0
+offset_right = -216.0
+offset_bottom = 119.0
+grow_horizontal = 0
 script = ExtResource("16_4h6ng")
+texture_x_positive = ExtResource("17_k83mh")
+texture_x_negative = ExtResource("17_k83mh")
+texture_z_positive = ExtResource("18_qktwf")
+texture_z_negative = ExtResource("18_qktwf")
 
 [node name="ArrowZN" type="TextureRect" parent="UI/ArrowIndicator" unique_id=1762000006]
 layout_mode = 1
@@ -308,7 +311,6 @@ texture = ExtResource("20_bh8nc")
 script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("18_bc84e")])
 start_room = ExtResource("20_il2jm")
-generate_random_seed = false
 _seed = 2
 room_count = 20
 

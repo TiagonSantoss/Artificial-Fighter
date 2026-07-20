@@ -2,8 +2,10 @@
 
 [ext_resource type="Resource" uid="uid://csebym7jqvd3r" path="res://assets/definitions/projectiles/bullet.tres" id="1_iw2s6"]
 [ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_m1kux"]
+[ext_resource type="Resource" uid="uid://b7exh8h1e6le2" path="res://assets/items/behaviors/Natural_Acceleration.tres" id="2_55gr2"]
 [ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_m1kux"]
 [ext_resource type="Texture2D" uid="uid://d2v80n2nnfn1f" path="res://assets/sprites/combat/weapons/Revolver.png" id="3_avdkl"]
+[ext_resource type="AudioStream" uid="uid://cm5upsn32h0of" path="res://assets/audio/SFX/gunshotW_A8.wav" id="4_avdkl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55gr2"]
 atlas = ExtResource("3_avdkl")
@@ -37,5 +39,7 @@ fire_rate = 2.6
 pierce_multiplier = 5.0
 recoil = 18.0
 spread = 2.0
+shoot_sound = ExtResource("4_avdkl")
+default_behaviors = Array[ExtResource("1_m1kux")]([ExtResource("2_55gr2")])
 projectile = ExtResource("1_iw2s6")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"

@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://bfqxrjpyunpf7" path="res://Core/Entities/Actors/Components/entity_weapon_component.gd" id="7_4mw2e"]
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
+[ext_resource type="Script" uid="uid://chj8ria1rtion" path="res://Core/Entities/Actors/Components/entity_audio_component.gd" id="11_mpqfi"]
+[ext_resource type="AudioStream" uid="uid://coh5jsdhkqr0t" path="res://assets/audio/SFX/hit_A3.wav" id="12_mpqfi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -94,3 +96,9 @@ script = ExtResource("9_jh0cy")
 
 [node name="EffectsComponent" type="Node" parent="Components" unique_id=630491130]
 script = ExtResource("11_avlqe")
+
+[node name="AudioComponent" type="Node" parent="Components" unique_id=1287276624]
+script = ExtResource("11_mpqfi")
+sfx_library = Dictionary[String, AudioStream]({
+"hit1": ExtResource("12_mpqfi")
+})

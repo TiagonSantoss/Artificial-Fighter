@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NaturalAccelerationBehavior" format=3 uid="uid://b7exh8h1e6le2"]
+
+[ext_resource type="Script" uid="uid://b342ccs8u50wt" path="res://Core/Container/Components/Behaviors/accelaration.gd" id="1_0gn7p"]
+[ext_resource type="Texture2D" uid="uid://tccsa6xbghgu" path="res://textures/T_Windstreak3.png" id="1_abd2c"]
+
+[resource]
+script = ExtResource("1_0gn7p")
+initial_speed_mult = 1.0
+max_speed_mult = 3.0
+id = &"NA"
+display_name = "Natural Accelaration"
+description = "the name is self descriptive"
+icon = ExtResource("1_abd2c")
+metadata/_custom_type_script = "uid://b342ccs8u50wt"

@@ -21,6 +21,11 @@ extends Resource
 @export var spread := 1.0
 @export var projectile_count := 1
 
+@export_category("Audio")
+@export var shoot_sound: AudioStream
+@export var reload_sound: AudioStream
+#@export var empty_sound: AudioStream MAYBE
+
 @export_category("Combat")
 @export var is_melee: bool = false
 @export var default_behaviors: Array[BehaviorDefinition]
