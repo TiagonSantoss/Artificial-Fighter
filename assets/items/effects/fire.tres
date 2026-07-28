@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="DamageOverTimeEffect" format=3 uid="uid://nwvkxtek20js"]
 
 [ext_resource type="Script" uid="uid://bk2darla0r3vp" path="res://Core/Container/Components/Effects/damage_over_time.gd" id="1_fa3w5"]
-[ext_resource type="Texture2D" uid="uid://bfkvfr4qipt21" path="res://textures/T_Cracks336.png" id="1_q7yjo"]
+[ext_resource type="Texture2D" uid="uid://b5nk7dyifhi4b" path="res://textures/T_VFX_Ex1d.jpg" id="1_q7yjo"]
 
 [resource]
 script = ExtResource("1_fa3w5")

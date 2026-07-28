@@ -14,7 +14,7 @@ var controlled_entity: Entity:
 		return _controlled_entity
 	set(value):
 		_controlled_entity = value
-		controlled_entity_changed.emit(value)
+		GState.controlled_entity_changed.emit(controlled_entity)
 
 static var player: Entity
 static var instance: Game
@@ -93,6 +93,27 @@ func _on_active_room_changed(room_data: Variant) -> void:
 func _init_camera() -> void:
 	if is_instance_valid(camera_rig) and is_instance_valid(player_spawn):
 		camera_rig.global_position = player_spawn.global_position
+
+
+func flash_screen_overlay(color: Color, duration: float) -> void:
+	# 1. Create a top-level CanvasLayer so it covers the whole screen
+	var canvas_layer := CanvasLayer.new()
+	canvas_layer.layer = 100  # Render on top of all HUD/UI elements
+	add_child(canvas_layer)
+
+	# 2. Create the full-screen color tint
+	var overlay := ColorRect.new()
+	overlay.color = color
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE  # Don't block gameplay input
+	canvas_layer.add_child(overlay)
+
+	# 3. Tween the overlay alpha from initial color down to completely invisible
+	var tween := create_tween()
+	tween.tween_property(overlay, "color:a", 0.0, duration)
+
+	# 4. Clean up nodes when the animation completes
+	tween.finished.connect(canvas_layer.queue_free)
 
 
 func rotate_by(degrees: float) -> void:

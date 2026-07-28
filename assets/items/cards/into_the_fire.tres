@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://c1mrer2qiyi3a"]
+
+[ext_resource type="Texture2D" uid="uid://cbcjge7pevctq" path="res://assets/sprites/UI/cardscardernointothefire.png" id="1_igr3f"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="1_x5eak"]
+
+[resource]
+script = ExtResource("1_x5eak")
+id = &"ITF"
+display_name = "Into The Fire"
+description = "You entered the fire"
+icon = ExtResource("1_igr3f")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

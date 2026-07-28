@@ -86,7 +86,7 @@ func release(projectile: Projectile) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	print("Active Projectiles:", active_projectiles.size())
+	# print("Active Projectiles:", active_projectiles.size())
 	for i in range(active_projectiles.size() - 1, -1, -1):
 		_update_projectile(active_projectiles[i], delta)
 

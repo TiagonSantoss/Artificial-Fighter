@@ -1,8 +1,7 @@
 class_name Weapon
 extends Node3D
 
-var definition: WeaponDefinition  # ye
-
+var definition: WeaponDefinition
 var wielder: Entity
 
 var damage_multiplier := 1.0
@@ -21,7 +20,6 @@ func _process(delta: float) -> void:
 	if wielder == null:
 		return
 
-	_update_aim()
 	visual_component.update(delta)
 	attack_component.update(delta)
 	behavior_component.update(delta)
@@ -71,29 +69,6 @@ func unequip_behavior(instance: ItemInstance) -> bool:
 	return behavior_component.remove_behavior(instance)
 
 
-func _update_aim() -> void:
-	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam == null:
-		return
-
-	var mouse := get_viewport().get_mouse_position()
-	var screen_pos := cam.unproject_position(global_position)
-	var screen_dir := mouse - screen_pos
-
-	if screen_dir.length() < 0.001:
-		return
-
-	screen_dir = screen_dir.normalized()
-
-	var cam_forward := -cam.global_transform.basis.z
-	var cam_right := cam.global_transform.basis.x
-
-	cam_forward.y = 0
-	cam_right.y = 0
-
-	cam_forward = cam_forward.normalized()
-	cam_right = cam_right.normalized()
-
-	var world_dir := (cam_right * screen_dir.x + cam_forward * -screen_dir.y).normalized()
-
-	visual_component.update_aim(world_dir)
+func update_aim(dir: Vector3) -> void:
+	if visual_component:
+		visual_component.update_aim(dir)

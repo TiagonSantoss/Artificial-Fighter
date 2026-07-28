@@ -32,6 +32,7 @@ var current_interactable: Node = null
 @onready var visual_effects_component: VisualEffectsComponent = $Components/VisualEffectsComponent
 @onready var effects_component: EffectsComponent = $Components/EffectsComponent
 @onready var audio_component: EntityAudioComponent = $Components/AudioComponent
+@onready var cards_component: CardsComponent = $Components/CardsComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:

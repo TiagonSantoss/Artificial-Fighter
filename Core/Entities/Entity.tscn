@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
 [ext_resource type="Script" uid="uid://chj8ria1rtion" path="res://Core/Entities/Actors/Components/entity_audio_component.gd" id="11_mpqfi"]
 [ext_resource type="AudioStream" uid="uid://coh5jsdhkqr0t" path="res://assets/audio/SFX/hit_A3.wav" id="12_mpqfi"]
+[ext_resource type="Script" uid="uid://dqygi3xwh5g36" path="res://Core/Entities/Actors/Components/cards_component.gd" id="13_vuvms"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -102,3 +103,6 @@ script = ExtResource("11_mpqfi")
 sfx_library = Dictionary[String, AudioStream]({
 "hit1": ExtResource("12_mpqfi")
 })
+
+[node name="CardsComponent" type="Node" parent="Components" unique_id=915054007]
+script = ExtResource("13_vuvms")

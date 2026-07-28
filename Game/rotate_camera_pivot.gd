@@ -168,7 +168,7 @@ func _update_perspective() -> void:
 
 func _get_current_axis() -> CameraPerspectiveState.Axis:
 	var rot := wrapf(rad_to_deg(target_rotation_y), 0.0, 360.0)
-	print(rot)
+	# print(rot)
 
 	match int(round(rot)):
 		0:

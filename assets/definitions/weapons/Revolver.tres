@@ -32,7 +32,6 @@ animations = [{
 [resource]
 script = ExtResource("2_m1kux")
 sprite_frames = SubResource("SpriteFrames_jb85x")
-sprite_offset = Vector3(-1, 1, 0)
 damage_multiplier = 5.0
 knockback_multiplier = 1.5
 fire_rate = 2.6

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/gunshotW_A4.wav-e22fa2cc94c0a7d552b0938beb260
 
 [params]
 
-force/8_bit=false
-force/mono=false
+force/8_bit=true
+force/mono=true
 force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false

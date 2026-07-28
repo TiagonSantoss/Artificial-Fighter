@@ -24,6 +24,7 @@ AutoHitVFXPool="*uid://fyxgiec54811"
 EntityGrid="*uid://bua7dfmbiq86u"
 ProjectileRenderer="uid://cq8uixb3eesrc"
 GState="*uid://cq81nx0uqw3ns"
+DebugConsoleScene="*uid://cpxgwl0jy8ijg"
 
 [display]
 

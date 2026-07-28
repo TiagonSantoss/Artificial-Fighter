@@ -54,14 +54,19 @@ func update_aim(target: Vector3) -> void:
 	if weapon_socket == null:
 		return
 
-	aim_direction = (target - weapon_socket.global_position).normalized()
+	var dir := target - weapon_socket.global_position
+	if dir.length_squared() > 0.001:
+		aim_direction = dir.normalized()
+
+	if equipped_weapon and equipped_weapon.has_method("update_aim"):
+		equipped_weapon.update_aim(aim_direction)
 
 
 func update(delta: float) -> void:
 	if orbit_socket == null:
 		return
 
-	var right := Vector3(aim_direction.z, 0, -aim_direction.x).normalized()
+	var right := Vector3(aim_direction.z, 0.0, -aim_direction.x).normalized()
 
 	var target_pos := aim_direction * forward_offset + right * side_offset
 	target_pos.y = orbit_height
