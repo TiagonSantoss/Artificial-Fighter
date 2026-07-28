@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BossEnemyController" format=3 uid="uid://c8u6ltlxbs4n8"]
+
+[ext_resource type="Script" uid="uid://dxuobg4cqrefq" path="res://Core/Entities/Controllers/boss_controller.gd" id="1_4aujy"]
+
+[resource]
+script = ExtResource("1_4aujy")
+metadata/_custom_type_script = "uid://dxuobg4cqrefq"

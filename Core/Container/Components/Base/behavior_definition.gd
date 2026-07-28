@@ -15,6 +15,13 @@ func on_projectile_spawned(
 ) -> void:
 	pass
 
+func update_live_projectile(
+	_projectile: Projectile,
+	_delta: float,
+	_instance: ItemInstance
+) -> void:
+	pass
+
 func on_melee_spawned(
 	_context: WeaponAttackContext,
 	_shot: AttackShot,
@@ -34,4 +41,3 @@ func on_equipped(
 	_instance: ItemInstance
 ) -> void:
 	pass
-	

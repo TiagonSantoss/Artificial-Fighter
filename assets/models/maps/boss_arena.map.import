@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://k0guhjpcj2a"
+path="res://.godot/imported/boss_arena.map-386c75f8629548a60b8c67da72c613e8.tres"
+
+[deps]
+
+source_file="res://assets/models/maps/boss_arena.map"
+dest_files=["res://.godot/imported/boss_arena.map-386c75f8629548a60b8c67da72c613e8.tres"]
+
+[params]
+

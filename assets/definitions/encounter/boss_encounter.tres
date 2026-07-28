@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://b4s483ba56y0t"]
+
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_gqjeu"]
+[ext_resource type="Resource" uid="uid://bj0u72m1rk745" path="res://assets/definitions/entities/actors/boss.tres" id="2_53o5x"]
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="2_i26fr"]
+
+[resource]
+script = ExtResource("2_i26fr")
+enemies = Array[ExtResource("1_gqjeu")]([ExtResource("2_53o5x")])
+metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

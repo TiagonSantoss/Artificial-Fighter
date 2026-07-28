@@ -327,7 +327,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.2441176, 1.9966198, -0.16995546, -0.21951984, 1.0109149, -1.265372, -0.30421114, 7.443373, 0.2173731, 0, 1.6989145, -0.8869953)
+transform = Transform3D(0.25961486, 6.4945164, -0.6627056, -0.81265867, -2.2782974, -0.93656844, -0.9801668, 3.611444, 0.6007862, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
@@ -374,6 +374,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2524972, 2.7426062, -0.7027
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=2015351271]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 1.1490021, 0, -0.116494656)
 script = ExtResource("4_yehmp")
+base_camera_size = 25.0
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1648080924]
 script = ExtResource("4_52hv5")

@@ -18,15 +18,23 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameAutoLoad="*uid://bqb78gjgjfjxs"
+AutoProjectilePool="*uid://c2e72u3gusbkh"
+AutoProjectileSystem="*uid://dtf077dwg3ikk"
+AutoHitVFXPool="*uid://fyxgiec54811"
+EntityGrid="*uid://bua7dfmbiq86u"
+ProjectileRenderer="uid://cq8uixb3eesrc"
+GState="*uid://cq81nx0uqw3ns"
+DebugConsoleScene="*uid://cpxgwl0jy8ijg"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
+enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/texture_fonts/plugin.cfg")
 
 [global_group]
 
@@ -108,7 +116,6 @@ interact={
 
 [physics]
 
-3d/physics_engine="Jolt Physics"
 3d/default_gravity=30.0
 
 [rendering]

@@ -99,9 +99,7 @@ func _on_hitbox_area_entered(area: Area3D) -> void:
 	print(area)
 	
 	# Look for the Projectile script on the parent node (since the child is the Area3D)
-	var incoming_projectile: Projectile = null
-	if area.get_parent() is Projectile:
-		incoming_projectile = area.get_parent() as Projectile
+	var incoming_projectile: Projectile = area.get_meta("projectile", null)
 	
 	# --- PARRYING A PROJECTILE ---
 	if incoming_projectile != null:
