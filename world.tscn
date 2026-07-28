@@ -11,17 +11,25 @@
 [ext_resource type="Resource" uid="uid://dx6yj5jr2qwa2" path="res://assets/definitions/entities/actors/companion_entity_definition.tres" id="7_bc84e"]
 [ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="9_wukud"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
-[ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/effects_bar.gd" id="10_wse8f"]
+[ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/cards_bar.gd" id="10_wse8f"]
 [ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="12_ikiii"]
 [ext_resource type="Script" uid="uid://cank5r6bxmisx" path="res://Game/game_camera.gd" id="12_k3n1d"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
+[ext_resource type="Script" uid="uid://drbtkp8yma336" path="res://Game/UI/axis_arrow_ui.gd" id="16_4h6ng"]
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
+[ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
+[ext_resource type="Texture2D" uid="uid://dx46trsl14lsk" path="res://assets/sprites/UI/zicon.png" id="20_bh8nc"]
 [ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="20_wjb0r"]
+[ext_resource type="Texture2D" uid="uid://dpjc1v3mljlp0" path="res://assets/sprites/UI/xicon.png" id="21_jjr1n"]
+[ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
+[ext_resource type="AudioStream" uid="uid://xrwk8ksqg2j1" path="res://assets/audio/SFX/POP.wav" id="22_qktwf"]
+[ext_resource type="AudioStream" uid="uid://bfxlu1unts8fq" path="res://assets/audio/SFX/WHOOOSH.wav" id="23_bh8nc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -152,8 +160,8 @@ environment = SubResource("Environment_k3n1d")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
 projection = 1
-size = 49.254
-far = 180.0
+size = 0.001
+far = 150.0
 script = ExtResource("12_k3n1d")
 start_size = 150.0
 zoom_duration = 0.5
@@ -167,27 +175,12 @@ draw_pass_1 = SubResource("ArrayMesh_wse8f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
 
-[node name="EffectsBar" type="Control" parent="UI" unique_id=30913204]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-script = ExtResource("10_wse8f")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/EffectsBar" unique_id=727630296]
-layout_mode = 0
-offset_left = 7.0
-offset_top = -47.0
-offset_right = 47.0
-offset_bottom = -7.0
-
 [node name="Minimap" parent="UI" unique_id=806877094 instance=ExtResource("12_ikiii")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -577.0
-offset_right = 560.5
+offset_left = -568.75
+offset_right = 568.75
 offset_bottom = 357.0
 grow_horizontal = 2
 
@@ -196,8 +189,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -170.5
-offset_right = 172.25
+offset_left = -171.375
+offset_right = 171.375
 offset_bottom = 131.0
 grow_horizontal = 2
 
@@ -223,11 +216,98 @@ script = ExtResource("14_bc84e")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/SeedIndicator" unique_id=215793002]
 layout_mode = 0
-offset_left = -126.0
-offset_top = 14.0
-offset_right = 39.0
-offset_bottom = 41.0
+offset_left = -202.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 46.0
+theme_override_fonts/normal_font = ExtResource("16_qktwf")
+theme_override_font_sizes/normal_font_size = 4
 bbcode_enabled = true
+
+[node name="ArrowIndicator" type="Control" parent="UI" unique_id=1125274345]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 119.0
+offset_right = -216.0
+offset_bottom = 119.0
+grow_horizontal = 0
+script = ExtResource("16_4h6ng")
+texture_x_positive = ExtResource("22_gggvi")
+texture_x_negative = ExtResource("21_jjr1n")
+texture_z_positive = ExtResource("20_bh8nc")
+texture_z_negative = ExtResource("19_qktwf")
+
+[node name="ArrowZN" type="TextureRect" parent="UI/ArrowIndicator" unique_id=1762000006]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("19_qktwf")
+expand_mode = 2
+
+[node name="ArrowZP" type="TextureRect" parent="UI/ArrowIndicator" unique_id=43050200]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("20_bh8nc")
+expand_mode = 2
+
+[node name="ArrowXP" type="TextureRect" parent="UI/ArrowIndicator" unique_id=631044437]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -19.0
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("21_jjr1n")
+expand_mode = 2
+
+[node name="ArrowXN" type="TextureRect" parent="UI/ArrowIndicator" unique_id=1754141769]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("22_gggvi")
+expand_mode = 2
+
+[node name="CardsBar" type="Control" parent="UI" unique_id=30913204]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("10_wse8f")
+hover_sound = ExtResource("22_qktwf")
+play_sound = ExtResource("23_bh8nc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CardsBar" unique_id=727630296]
+layout_mode = 1
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 753.0
+offset_bottom = 188.0
+offset_transform_enabled = true
 
 [node name="Dungeon" type="Node3D" parent="." unique_id=1969989031]
 
@@ -235,7 +315,6 @@ bbcode_enabled = true
 script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("18_bc84e")])
 start_room = ExtResource("20_il2jm")
-generate_random_seed = false
 _seed = 2
 room_count = 20
 

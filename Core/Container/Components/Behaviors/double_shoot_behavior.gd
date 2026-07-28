@@ -1,52 +1,82 @@
-class_name FlowerShotBehavior
+class_name VortexHelixBehavior
 extends BehaviorDefinition
 
-@export var points_per_layer: int = 6 # 🟢 Reduced from 8 to 6 for larger physical gaps
-@export var spin_speed: float = 2.0 # 🟢 Slowed down rotation by half to make tracking easier
-@export var layer_radius_spacing: float = 1.5 # 🟢 Pushes the spawn points outward from the center
+@export_category("Helix Layout")
+@export var strands: int = 3
+@export var rotation_speed := 0.08
 
-func before_attack(context: WeaponAttackContext, _instance: ItemInstance):
+@export_category("Pacing & Fairness")
+## How slow the bullets start out relative to their normal speed (e.g., 0.2 = 20% speed)
+@export var initial_speed_mult := 0.2
+## How fast they accelerate per second
+@export var acceleration_rate := 2.5
+## The absolute maximum speed multiplier they can scale up to
+@export var max_speed_mult := 1.8
+@export var bullet_spacing_delay := 3
+
+var shot_counter: int = 0
+
+
+func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> void:
 	if context.shots.is_empty():
 		return
-		
+
+	if shot_counter % bullet_spacing_delay != 0:
+		context.shots.clear()
+		shot_counter += 1
+		return
+
 	var base_shot = context.shots[0]
 	var extra: Array[AttackShot] = []
-	var angle_step := (2.0 * PI) / float(points_per_layer)
-	
-	# Get a global time offset to animate the spin over time
-	var time_offset = Time.get_ticks_msec() / 1000.0 * spin_speed
-	
-	# Layer 1: Clockwise Ring
-	for i in range(points_per_layer):
+	var angle_step := (2.0 * PI) / float(strands)
+
+	var base_offset = shot_counter * rotation_speed
+	shot_counter += 1
+
+	for i in range(strands):
 		var clone = base_shot.clone()
-		var current_angle = (angle_step * i) + time_offset
-		
+		var current_angle = (angle_step * i) + base_offset
+
+		# 1. Establish the base direction path
 		var target_dir = base_shot.direction.rotated(Vector3.UP, current_angle).normalized()
 		clone.direction = target_dir
-		clone.speed_multiplier = base_shot.speed_multiplier * 0.75 # 🟢 25% slower base speed
-		
-		# If your AttackShot setup has a position or offset property, use it here:
-		if "spawn_offset" in clone:
-			clone.spawn_offset = target_dir * layer_radius_spacing
-			
+
+		# 2. Inject the slow starting multiplier straight into the creation context
+		clone.speed_multiplier = initial_speed_mult
+
 		extra.append(clone)
-		
-	# Layer 2: Counter-Clockwise Ring
-	var half_step := angle_step / 2.0
-	for i in range(points_per_layer):
-		var clone = base_shot.clone()
-		var current_angle = (angle_step * i) + half_step - time_offset
-		
-		var target_dir = base_shot.direction.rotated(Vector3.UP, current_angle).normalized()
-		clone.direction = target_dir
-		clone.speed_multiplier = base_shot.speed_multiplier * 0.5 # 🟢 50% slower tracking layer
-		
-		# Pushes layer 2 even further out so they don't block the same lane instantly
-		if "spawn_offset" in clone:
-			clone.spawn_offset = target_dir * (layer_radius_spacing * 1.8)
-			
-		extra.append(clone)
-		
+
 	context.shots.clear()
 	for shot in extra:
 		context.add_shot(shot)
+
+
+func on_projectile_spawned(
+	_context: WeaponAttackContext,
+	_shot: AttackShot,
+	projectile: Projectile,
+	_instance: ItemInstance
+) -> void:
+	if is_instance_valid(projectile):
+		projectile.set_meta("current_mult", initial_speed_mult)
+
+
+# 🟢 Called every frame via your central processing update loop
+func update_live_projectile(projectile: Projectile, delta: float, _instance: ItemInstance) -> void:
+	if not is_instance_valid(projectile):
+		return
+
+	# Retrieve current working speed multiplier tracker from meta storage safely
+	var current_mult: float = projectile.get_meta("current_mult", initial_speed_mult)
+
+	if current_mult < max_speed_mult:
+		# Gradually step the modifier values upwards over delta frame timings
+		current_mult = move_toward(current_mult, max_speed_mult, acceleration_rate * delta)
+		projectile.set_meta("current_mult", current_mult)
+
+		# Directly modify the live velocity property vector since your architecture allows it
+		var move_dir := projectile.velocity.normalized()
+		var base_speed := projectile.definition.speed
+
+		# Reconstruct velocity instantly on the fly
+		projectile.velocity = move_dir * (base_speed * current_mult)

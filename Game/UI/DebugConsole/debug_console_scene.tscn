@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cpxgwl0jy8ijg"]
+
+[ext_resource type="Script" uid="uid://b5o571u6r4jd2" path="res://Game/UI/DebugConsole/debug_console.gd" id="1_b2uk6"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1732987237]
+script = ExtResource("1_b2uk6")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1083449325]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -225.0
+offset_right = 400.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=176200027]
+layout_mode = 2
+alignment = 2
+
+[node name="LogOutput" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=2054893780]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="CommandInput" type="LineEdit" parent="PanelContainer/VBoxContainer" unique_id=1971642585]
+layout_mode = 2

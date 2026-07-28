@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bj0u72m1rk745"]
 
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_mbynb"]
-[ext_resource type="Resource" uid="uid://dy246kg3pwlhq" path="res://assets/definitions/entities/controllers/ranged_enemy_controller.tres" id="1_nmiqq"]
+[ext_resource type="Resource" uid="uid://c8u6ltlxbs4n8" path="res://assets/definitions/entities/controllers/boss_controller.tres" id="1_nmiqq"]
 [ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="3_m7uhh"]
 [ext_resource type="Resource" uid="uid://bnsk1034kn6o6" path="res://assets/definitions/weapons/boss_weapon.tres" id="4_7mhvr"]
 

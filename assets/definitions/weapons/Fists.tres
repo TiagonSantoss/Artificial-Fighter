@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://3i1oi7ojlqlp"]
 
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_43hti"]
 [ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="1_ohbt7"]
 [ext_resource type="Resource" uid="uid://bsm73tcejpaye" path="res://assets/definitions/projectiles/melee/punch.tres" id="1_tf4rw"]
 [ext_resource type="Texture2D" uid="uid://c0o3cnw2yyy8w" path="res://assets/sprites/combat/projectiles/proj.png" id="3_43hti"]

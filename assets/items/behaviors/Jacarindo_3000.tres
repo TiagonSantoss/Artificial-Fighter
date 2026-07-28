@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("2_a65if")
-spread = 30.0
 id = &"Jac3000"
 display_name = "JACARINDO 3000"
 description = "!!!!"

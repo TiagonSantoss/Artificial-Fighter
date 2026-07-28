@@ -18,6 +18,8 @@ animations = [{
 [resource]
 script = ExtResource("1_xwv50")
 sprite_frames = SubResource("SpriteFrames_l3gon")
+billboard = 0
+sprite_offset = Vector3(1, 0, 1)
 is_melee = true
 melee = ExtResource("1_hlgdu")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"
