@@ -90,7 +90,7 @@ func apply_hit(hit: HitData):
 	if health_component:
 		health_component.damage(hit.get_final_damage())
 		visual_effects_component.flash_red(0.1)
-		audio_component.play_sfx("hit1")
+		# audio_component.play_sfx("hit1")
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
