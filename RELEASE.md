@@ -1,12 +1,15 @@
 # Artificial Fighter
 
-Obrigado Por baixar!
+Thanks for downloading!!
 
 ## Installation
 
-- Linux: Extraia e execute o executável.
-- Windows: rode `Artificial Fighter.exe`.
+- Linux: Extract and run `Artificial Fighter.x86_64`.
+- Windows: extract and run `Artificial Fighter.exe`.
+
+_naming can vary depending on version_
 
 ## Known Issues
 
-- Nenhum por enquanto.
+- Camera Weird Rotation.
+- Game crashing when Melee Entity hits something.
