@@ -327,7 +327,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.2611798, 6.7751136, 0.57850516, -1.2200375, 0.32403815, 0.4421141, 0.36275375, -3.794071, 1.0709293, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.2348288, 1.1071903, -0.35780415, 0.19280176, -7.685697, -0.00013218657, -0.35516998, -0.31697538, -1.2445121, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
