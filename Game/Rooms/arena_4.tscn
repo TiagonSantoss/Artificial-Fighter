@@ -180,7 +180,7 @@ shape = SubResource("ConvexPolygonShape3D_drg3a")
 shape = SubResource("ConvexPolygonShape3D_ujt2d")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
-collision_layer = 5
+collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
@@ -217,8 +217,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.970236, 0)
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 2, 0)
 script = ExtResource("4_oitnh")
-base_zoom_distance = 35.0
-max_extra_zoom = 30.0
 
 [node name="SpawnGroups" type="Node3D" parent="." unique_id=692537820]
 
@@ -257,11 +255,10 @@ script = ExtResource("6_264k8")
 script = ExtResource("6_264k8")
 
 [node name="Links" type="Node3D" parent="." unique_id=502974924]
-visible = false
 
 [node name="1" type="NavigationLink3D" parent="Links" unique_id=1004169170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.204386, 10.156266, -2.321796)
-end_position = Vector3(0, -1.92, 1.117)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.420414, 9.999996, -4.17893)
+end_position = Vector3(1.364, -7.895, 0)
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=657610491]
 script = ExtResource("7_ups1s")

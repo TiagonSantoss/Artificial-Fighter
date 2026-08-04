@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_00wyo")
-speed = 30.0
+speed = 50.0
 drag = 1.0
 lifetime = 5.0
 knockback = 5.0
 radius = 0.1
 frame_size = Vector2i(0, 0)
+scale = Vector3(4, 2, 4)
 rotates_to_velocity = true
 metadata/_custom_type_script = "uid://dgoeygudsoucv"

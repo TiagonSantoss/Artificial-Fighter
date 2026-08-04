@@ -29,6 +29,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 			previous_input = input
 
 		actions.append(MovementAction.new(locked_direction))
+		_actor.audio_component.play_sfx("PlayerFootSteps")
 	else:
 		previous_input = Vector2.ZERO
 		locked_direction = Vector3.ZERO
