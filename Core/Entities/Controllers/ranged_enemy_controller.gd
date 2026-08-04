@@ -31,6 +31,7 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 			var flat_dir := Vector3(move_dir.x, 0.0, move_dir.z).normalized()
 
 			actions.append(MovementAction.new(flat_dir))
+			actor.audio_component.play_sfx("EnemyFootSteps")
 
 			if move_dir.y > 0.3:
 				actions.append(JumpAction.new())

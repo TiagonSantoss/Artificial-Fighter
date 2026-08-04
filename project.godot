@@ -8,6 +8,10 @@
 
 config_version=5
 
+[Fmod]
+
+General/banks_path="res://assets/banks/Desktop"
+
 [application]
 
 config/name="Artifical Fighting 1st"
@@ -25,6 +29,7 @@ EntityGrid="*uid://bua7dfmbiq86u"
 ProjectileRenderer="uid://cq8uixb3eesrc"
 GState="*uid://cq81nx0uqw3ns"
 DebugConsoleScene="*uid://cpxgwl0jy8ijg"
+FmodManager="*uid://cds10pm7hwn3p"
 
 [display]
 
@@ -34,7 +39,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/texture_fonts/plugin.cfg")
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/func_godot/plugin.cfg", "res://addons/texture_fonts/plugin.cfg")
 
 [global_group]
 

@@ -22,8 +22,8 @@ extends Resource
 @export var projectile_count := 1
 
 @export_category("Audio")
-@export var shoot_sound: AudioStream
-@export var reload_sound: AudioStream
+@export var shoot_sound: String
+@export var reload_sound: String
 #@export var empty_sound: AudioStream MAYBE
 
 @export_category("Combat")

@@ -11,6 +11,7 @@
 script = ExtResource("1_r5pab")
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=190607701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.006241098, 0)
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1060400207]
 billboard = 1
