@@ -40,8 +40,6 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_0p8jp")
 
-[node name="FmodListener3D" type="FmodListener3D" parent="." unique_id=1543690263]
-
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=825831252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21807271, 0)
 alpha_cut = 1

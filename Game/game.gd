@@ -40,8 +40,16 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 func _ready() -> void:
 	instance = self
 	call_deferred("_init_camera")
+
+	GState.fmod.connect(_boss_music)
+
 	if chunk_manager:
 		chunk_manager.active_room_changed.connect(_on_active_room_changed)
+
+
+func _boss_music():
+	print("SETTING GLOBAL PARAMETER")
+	FmodServer.set_global_parameter_by_name("Set", 2.0)
 
 
 func _process(_delta: float) -> void:
@@ -134,9 +142,11 @@ func get_camera_right() -> Vector3:
 
 
 func spawn_player(pos: Vector3) -> Entity:
+	var listener3D = FmodListener3D.new()
 	player = spawn_entity(player_definition, pos)
 	controlled_entity = player
 	player.add_to_group("player")
+	player.add_child(listener3D)
 	return player
 
 

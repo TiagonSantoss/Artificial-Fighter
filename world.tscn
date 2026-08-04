@@ -599,4 +599,4 @@ bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Deskt
 event_name = "event:/Music/Level 1"
 event_guid = "{84a8462e-32df-4dca-8d8e-f94ae6c09306}"
 autoplay = true
-volume = 0.2
+volume = 0.0

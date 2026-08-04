@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://buph25i8bifq7"]
 
-[ext_resource type="Script" uid="uid://dl6dlxd3c7q5f" path="res://Game/Rooms/boss_pattern.gd" id="1_ocdxv"]
+[ext_resource type="Script" uid="uid://cxluiyl2otli5" path="res://Game/Rooms/arena_3.gd" id="1_pgm35"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_fihgr"]
 [ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_uk782"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_12ct0"]
@@ -60,7 +60,7 @@ points = PackedVector3Array(9.084937, 2, 8.415065, 9.084937, 0.5, 8.415065, 13.4
 size = Vector3(29.417725, 5, 68.34782)
 
 [node name="Arena 1" type="Node3D" unique_id=2117219993]
-script = ExtResource("1_ocdxv")
+script = ExtResource("1_pgm35")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1726899022]
 navigation_mesh = SubResource("NavigationMesh_6xxrv")
