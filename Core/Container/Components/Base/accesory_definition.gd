@@ -5,7 +5,7 @@ extends ItemDefinition
 
 
 func on_equip(entity: Entity, instance: ItemInstance) -> void:
-	var effects_comp: EffectsComponent = entity.get_node_or_null("EffectsComponent")
+	var effects_comp: EffectsComponent = entity.get_node_or_null("Components/EffectsComponent")
 	if effects_comp == null:
 		return
 
@@ -20,7 +20,7 @@ func on_equip(entity: Entity, instance: ItemInstance) -> void:
 
 
 func on_unequip(entity: Entity, instance: ItemInstance) -> void:
-	var effects_comp: EffectsComponent = entity.get_node_or_null("EffectsComponent")
+	var effects_comp: EffectsComponent = entity.get_node_or_null("Components/EffectsComponent")
 	if effects_comp == null:
 		return
 

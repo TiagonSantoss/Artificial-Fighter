@@ -433,6 +433,8 @@ curve = SubResource("Curve_eedu3")
 [node name="WorldItem" type="Area3D" unique_id=402724537]
 collision_layer = 8
 collision_mask = 7
+gravity_point = true
+gravity_point_unit_distance = 15.412
 script = ExtResource("1_cqf1a")
 lifetime = 1.0
 

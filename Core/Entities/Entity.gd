@@ -34,6 +34,7 @@ var current_interactable: Node = null
 @onready var effects_component: EffectsComponent = $Components/EffectsComponent
 @onready var audio_component: EntityAudioComponent = $Components/AudioComponent
 @onready var cards_component: CardsComponent = $Components/CardsComponent
+@onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -68,6 +69,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	visual_effects_component.set_sprite(sprite)
 
 	effects_component.setup(self)
+	accessories_component.setup(self)
 
 	audio_component.setup(self)
 

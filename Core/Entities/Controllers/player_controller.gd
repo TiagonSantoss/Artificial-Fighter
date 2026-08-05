@@ -98,7 +98,6 @@ func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
 
 	var space_state := actor.get_world_3d().direct_space_state
 
-	# 1. Cast forward at foot level to detect the front face of the cube
 	var origin_feet := actor.global_position + Vector3(0, 0.2, 0)
 	var target_feet := origin_feet + move_dir * 0.8
 	var query_feet := PhysicsRayQueryParameters3D.create(origin_feet, target_feet)
@@ -106,9 +105,8 @@ func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
 
 	var hit_feet := space_state.intersect_ray(query_feet)
 	if hit_feet.is_empty():
-		return false  # No wall in front
+		return false
 
-	# 2. Check if the obstacle is jumpable by probing above the cube's height limit (e.g. 1.5 units up)
 	var step_height := 3.0
 	var origin_clearance := actor.global_position + Vector3(0, step_height, 0)
 	var target_clearance := origin_clearance + move_dir * 0.8
@@ -116,8 +114,4 @@ func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
 	query_clearance.exclude = [actor]
 
 	var hit_clearance := space_state.intersect_ray(query_clearance)
-
-	print(hit_clearance.is_empty())
-
-	# Jump if the feet hit the cube, but the space above the cube is clear
 	return hit_clearance.is_empty()

@@ -90,7 +90,7 @@ func _process_magnet(delta: float) -> void:
 			trail.emitting = false
 		return
 
-	var target_pos := target_entity.global_position + Vector3(0, 0.8, 0)
+	var target_pos := target_entity.global_position + Vector3(0, 3.0, 0)
 	var total_dist := magnet_start_pos.distance_to(target_pos)
 
 	# Increment progress along path
@@ -142,20 +142,32 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _collect_item(body: Entity) -> void:
-	# Attempt equipping to weapon component first
-	if body.weapon_component != null:
+	if instance == null or instance.definition == null:
+		return
+
+	# 1. Handle Status Effects / Accessories
+	if instance.definition is EffectDefinition or AccessoryDefinition:
+		if "effects_component" in body and body.effects_component != null:
+			if body.accessories_component.accessories.add(instance):
+				_finalize_pickup()
+				return
+
+	# 2. Handle Weapon Behaviors
+	if body.weapon_component != null and body.weapon_component.equipped_weapon != null:
 		if body.weapon_component.equipped_weapon.equip_behavior(instance):
 			_finalize_pickup()
 			return
 
-	# Fallback to general inventory
-	if body.has_method("inventory") or "inventory" in body:
+	# 3. Fallback General Inventory
+	if ("inventory" in body) and body.inventory != null:
 		if body.inventory.add(instance):
 			_finalize_pickup()
 			return
 
-	# If inventory full, abort magnet phase
+	# If no component accepted the item (or container is full), reset magnet state
 	state = State.IDLE
+	if sprite:
+		sprite.scale = Vector3.ONE * 0.5
 	if trail:
 		trail.emitting = false
 

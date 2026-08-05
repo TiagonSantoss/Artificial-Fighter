@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
 [ext_resource type="Script" uid="uid://chj8ria1rtion" path="res://Core/Entities/Actors/Components/entity_audio_component.gd" id="11_mpqfi"]
+[ext_resource type="Script" uid="uid://7k3rw2jwh6e3" path="res://Core/Entities/Actors/Components/accessories_component.gd" id="13_mdepg"]
 [ext_resource type="Script" uid="uid://dqygi3xwh5g36" path="res://Core/Entities/Actors/Components/cards_component.gd" id="13_vuvms"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
@@ -102,6 +103,9 @@ script = ExtResource("11_mpqfi")
 
 [node name="CardsComponent" type="Node" parent="Components" unique_id=915054007]
 script = ExtResource("13_vuvms")
+
+[node name="AccessoriesComponent" type="Node" parent="Components" unique_id=729275711]
+script = ExtResource("13_mdepg")
 
 [node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
 event_name = "event:/SFX/Entity/EntityHurt"
