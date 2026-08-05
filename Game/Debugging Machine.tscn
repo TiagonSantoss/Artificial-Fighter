@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dntmpua2ckcek" path="res://assets/models/VendingMachine-Bullets_0.png" id="1_ny8fi"]
 [ext_resource type="Script" uid="uid://k41208yft4r0" path="res://Game/vending_machine.gd" id="2_ny8fi"]
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="3_4g8oi"]
+[ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="3_5ycup"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
 size = Vector3(5.347065, 4.7276, 5.153145)
@@ -51,8 +52,8 @@ shadow_mesh = SubResource("ArrayMesh_awi05")
 
 [node name="Area3D" type="Area3D" unique_id=1467611116]
 script = ExtResource("2_ny8fi")
-possible_items = Array[ExtResource("3_4g8oi")]([null])
-drop_force = 200.0
+possible_items = Array[ExtResource("3_4g8oi")]([ExtResource("3_5ycup")])
+drop_force = 15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031825982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5676098, 2.4239807, 0.09598923)

@@ -6,15 +6,17 @@ extends Resource
 @export var description: String
 @export var icon: Texture2D
 
+
 func create_instance() -> ItemInstance:
 	var instance := ItemInstance.new()
 	instance.definition = self
 	return instance
 
+
 func create_world_item(parent: Node, pos: Vector3) -> WorldItem:
 	var item := preload("res://Game/World/WorldItem.tscn").instantiate()
 	item.instance = create_instance()
-	
+
 	parent.add_child(item)
 	item.global_position = pos
 	return item

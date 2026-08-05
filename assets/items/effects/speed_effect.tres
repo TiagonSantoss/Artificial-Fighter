@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SpeedEffect" format=3 uid="uid://b8ftkxrovtfhw"]
+
+[ext_resource type="Script" uid="uid://c3l5r34fgp8g7" path="res://Core/Container/Components/Effects/speed_effect.gd" id="1_co5ve"]
+
+[resource]
+script = ExtResource("1_co5ve")
+metadata/_custom_type_script = "uid://c3l5r34fgp8g7"
