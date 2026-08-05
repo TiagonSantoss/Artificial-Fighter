@@ -29,6 +29,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 			previous_input = input
 
 		actions.append(MovementAction.new(locked_direction))
+		_actor.audio_component.play_sfx("PlayerFootSteps")
 	else:
 		previous_input = Vector2.ZERO
 		locked_direction = Vector3.ZERO
@@ -45,7 +46,7 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_just_pressed("rotate_camera_left"):
 		actions.append(RotateCameraAction.new(-90))
 
-	if Input.is_action_just_pressed("jump"):
+	if input.length() > 0.01 and should_auto_jump(_actor, locked_direction):
 		actions.append(JumpAction.new())
 
 	if Input.is_action_just_pressed("interact"):
@@ -89,3 +90,28 @@ func get_aim_target(actor: Entity) -> Vector3:
 
 func update_aim(actor: Entity) -> void:
 	aim_target = get_aim_target(actor)
+
+
+func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
+	if not actor.is_on_floor():
+		return false
+
+	var space_state := actor.get_world_3d().direct_space_state
+
+	var origin_feet := actor.global_position + Vector3(0, 0.2, 0)
+	var target_feet := origin_feet + move_dir * 0.8
+	var query_feet := PhysicsRayQueryParameters3D.create(origin_feet, target_feet)
+	query_feet.exclude = [actor]
+
+	var hit_feet := space_state.intersect_ray(query_feet)
+	if hit_feet.is_empty():
+		return false
+
+	var step_height := 3.0
+	var origin_clearance := actor.global_position + Vector3(0, step_height, 0)
+	var target_clearance := origin_clearance + move_dir * 0.8
+	var query_clearance := PhysicsRayQueryParameters3D.create(origin_clearance, target_clearance)
+	query_clearance.exclude = [actor]
+
+	var hit_clearance := space_state.intersect_ray(query_clearance)
+	return hit_clearance.is_empty()

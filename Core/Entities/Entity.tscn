@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://c05f33kr0j8q5" path="res://Core/Entities/Actors/Components/visual_effects_component.gd" id="9_jh0cy"]
 [ext_resource type="Script" uid="uid://ny5ybdvcq1te" path="res://Core/Entities/Actors/Components/effects_component.gd" id="11_avlqe"]
 [ext_resource type="Script" uid="uid://chj8ria1rtion" path="res://Core/Entities/Actors/Components/entity_audio_component.gd" id="11_mpqfi"]
-[ext_resource type="AudioStream" uid="uid://coh5jsdhkqr0t" path="res://assets/audio/SFX/hit_A3.wav" id="12_mpqfi"]
+[ext_resource type="Script" uid="uid://7k3rw2jwh6e3" path="res://Core/Entities/Actors/Components/accessories_component.gd" id="13_mdepg"]
 [ext_resource type="Script" uid="uid://dqygi3xwh5g36" path="res://Core/Entities/Actors/Components/cards_component.gd" id="13_vuvms"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
@@ -57,7 +57,7 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1850055982]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0056152344, 0, 0.03857422)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.0056152344, 0, 0.03857422)
 shape = SubResource("BoxShape3D_2bgwa")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
@@ -100,9 +100,14 @@ script = ExtResource("11_avlqe")
 
 [node name="AudioComponent" type="Node" parent="Components" unique_id=1287276624]
 script = ExtResource("11_mpqfi")
-sfx_library = Dictionary[String, AudioStream]({
-"hit1": ExtResource("12_mpqfi")
-})
 
 [node name="CardsComponent" type="Node" parent="Components" unique_id=915054007]
 script = ExtResource("13_vuvms")
+
+[node name="AccessoriesComponent" type="Node" parent="Components" unique_id=729275711]
+script = ExtResource("13_mdepg")
+
+[node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
+event_name = "event:/SFX/Entity/EntityHurt"
+event_guid = "{cf68e701-3dcd-41e0-95a7-8d2c90e9b5e4}"
+volume = 1.5

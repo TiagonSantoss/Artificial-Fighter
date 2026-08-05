@@ -24,6 +24,7 @@ var current_interactable: Node = null
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
 @onready var orbit_socket: Marker3D = $OrbitSocket
+@onready var emitter: FmodEventEmitter3D = $Emitter
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent
@@ -33,6 +34,7 @@ var current_interactable: Node = null
 @onready var effects_component: EffectsComponent = $Components/EffectsComponent
 @onready var audio_component: EntityAudioComponent = $Components/AudioComponent
 @onready var cards_component: CardsComponent = $Components/CardsComponent
+@onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -67,6 +69,9 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	visual_effects_component.set_sprite(sprite)
 
 	effects_component.setup(self)
+	accessories_component.setup(self)
+
+	audio_component.setup(self)
 
 	initialized = true
 
@@ -90,7 +95,8 @@ func apply_hit(hit: HitData):
 	if health_component:
 		health_component.damage(hit.get_final_damage())
 		visual_effects_component.flash_red(0.1)
-		audio_component.play_sfx("hit1")
+		audio_component.play_sfx("EntityHurt")
+		# audio_component.play_sfx("hit1")
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())

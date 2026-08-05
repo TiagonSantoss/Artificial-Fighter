@@ -111,7 +111,6 @@ func fire(direction: Vector3):
 		request.damage_multiplier = shot.damage_multiplier
 		request.knockback_multiplier = shot.knockback_multiplier
 
-		# 🟢 SAFE PASSING: Check if your custom Request resource handles properties dynamically
 		if "speed_multiplier" in request:
 			request.speed_multiplier = shot.speed_multiplier
 		if (
@@ -120,11 +119,8 @@ func fire(direction: Vector3):
 		):
 			request.projectile_size_multiplier = weapon.definition.projectile_size_multiplier
 
-		# Spawn the resource container via your system
 		var projectile = AutoProjectileSystem.spawn(request)
 
-		# 🟢 SAFE FALLBACK: If your returned data object holds a reference to the 3D scene instance
-		# (commonly named 'node', 'instance', or 'scene_node'), scale that instead!
 		if projectile != null:
 			if "node" in projectile and projectile.node != null:
 				projectile.node.scale *= weapon.definition.projectile_size_multiplier
@@ -138,7 +134,7 @@ func fire(direction: Vector3):
 
 	weapon.behavior_component.after_attack(context)
 
-	weapon.audio_component.play_shoot(weapon.definition.shoot_sound)
+	weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
 	can_fire = true

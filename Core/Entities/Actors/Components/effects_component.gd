@@ -1,7 +1,7 @@
 class_name EffectsComponent
 extends EntityComponent
 
-var effects = CollectibleContainer.new(10)  # Set capacity to desired max active status effects
+var effects = CollectibleContainer.new(10)
 
 
 func _ready() -> void:
@@ -34,7 +34,7 @@ func update(delta: float) -> void:
 		effect.update(entity, instance, delta)
 
 
-func add_effect(effect_def: EffectDefinition, _duration: float = 0.0) -> void:
+func add_effect(effect_def: EffectDefinition, _duration: float = 0.0) -> ItemInstance:
 	if effect_def == null:
 		return
 
@@ -42,3 +42,11 @@ func add_effect(effect_def: EffectDefinition, _duration: float = 0.0) -> void:
 	instance.definition = effect_def
 
 	effects.add(instance)
+
+	return null
+
+
+func remove_effect_instance(instance: ItemInstance) -> void:
+	if instance == null:
+		return
+	effects.remove(instance)

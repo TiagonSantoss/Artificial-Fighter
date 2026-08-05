@@ -327,22 +327,14 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.25961486, 6.4945164, -0.6627056, -0.81265867, -2.2782974, -0.93656844, -0.9801668, 3.611444, 0.6007862, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.2348288, 1.1071903, -0.35780415, 0.19280176, -7.685697, -0.00013218657, -0.35516998, -0.31697538, -1.2445121, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
-collision_layer = 5
+collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=1450872082]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7604842, 3.2866325, -2.0006275)
-shape = SubResource("BoxShape3D_g3gis")
-
-[node name="RoomArea2" type="Area3D" parent="." unique_id=1679802026]
-collision_layer = 5
-collision_mask = 5
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea2" unique_id=298848867]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7604842, 3.2866325, -2.0006275)
 shape = SubResource("BoxShape3D_g3gis")
 
@@ -374,7 +366,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2524972, 2.7426062, -0.7027
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=2015351271]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 1.1490021, 0, -0.116494656)
 script = ExtResource("4_yehmp")
-base_camera_size = 25.0
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1648080924]
 script = ExtResource("4_52hv5")
@@ -387,5 +378,3 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.48
 
 [connection signal="body_entered" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_entered"]
 [connection signal="body_exited" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_exited"]
-[connection signal="body_entered" from="RoomArea2" to="RoomRuntime" method="_on_room_area_body_entered"]
-[connection signal="body_exited" from="RoomArea2" to="RoomRuntime" method="_on_room_area_body_exited"]

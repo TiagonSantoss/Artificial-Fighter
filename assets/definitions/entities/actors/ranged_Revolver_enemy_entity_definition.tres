@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://dy246kg3pwlhq" path="res://assets/definitions/entities/controllers/ranged_enemy_controller.tres" id="1_84lci"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="2_nbfka"]
 [ext_resource type="Texture2D" uid="uid://pgfwcda8i4u" path="res://assets/sprites/characters/enemy.png" id="3_xaoej"]
-[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/Revolver.tres" id="4_84lci"]
+[ext_resource type="Resource" uid="uid://d2gm8bx1hwe4o" path="res://assets/definitions/weapons/EnemyRevolver.tres" id="4_84lci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f8fcw"]
 atlas = ExtResource("3_xaoej")

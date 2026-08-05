@@ -1,6 +1,8 @@
 class_name WeaponBehaviorComponent
 extends WeaponComponent
 
+const WorldItemScene := preload("res://Game/World/WorldItem.tscn")
+
 var behaviors := CollectibleContainer.new()
 
 
@@ -51,7 +53,6 @@ func add_behavior(instance: ItemInstance) -> bool:
 	if behaviors.is_full():
 		return false
 
-	# 🟢 FIX: Duplicate the underlying resource definition so the state variables (like shot_counter) aren't shared globally
 	var unique_behavior = instance.definition.duplicate(true) as BehaviorDefinition
 	instance.definition = unique_behavior
 
@@ -77,4 +78,6 @@ func remove_behavior(instance: ItemInstance) -> bool:
 
 func drop_behavior(instance: ItemInstance) -> void:
 	if behaviors.remove(instance):
-		WorldItemSpawner.drop(instance, weapon.global_position, get_tree().current_scene)
+		var drop_pos := weapon.wielder.global_position + Vector3(0, 0.5, 0)
+		var drop_impulse := -weapon.wielder.global_transform.basis.z * 2.0 + Vector3(0, 3.0, 0)
+		WorldItemSpawner.drop(instance, drop_pos, weapon.wielder.get_parent(), drop_impulse)

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AccessoryDefinition" format=3 uid="uid://bpcqyqbt5hm1v"]
+
+[ext_resource type="Script" uid="uid://buwgoy4alc6x8" path="res://Core/Container/Components/Base/effect_definition.gd" id="1_63up2"]
+[ext_resource type="Texture2D" uid="uid://dx46trsl14lsk" path="res://assets/sprites/UI/zicon.png" id="1_iv6do"]
+[ext_resource type="Script" uid="uid://d1yxs4jy1rari" path="res://Core/Container/Components/Base/accesory_definition.gd" id="2_iv6do"]
+[ext_resource type="Resource" uid="uid://b8ftkxrovtfhw" path="res://assets/items/effects/speed_effect.tres" id="3_t6exu"]
+
+[resource]
+script = ExtResource("2_iv6do")
+passive_effects = Array[ExtResource("1_63up2")]([ExtResource("3_t6exu")])
+id = &"SB"
+display_name = "Speed Bolt"
+description = "Speedy Boi"
+icon = ExtResource("1_iv6do")
+metadata/_custom_type_script = "uid://d1yxs4jy1rari"

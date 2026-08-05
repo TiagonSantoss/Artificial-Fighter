@@ -10,6 +10,7 @@ script = ExtResource("1_1ea78")
 speed_multiplier = 200.0
 fire_rate = 0.0
 recoil = 0.0
+shoot_sound = "EnemyRevolver"
 default_behaviors = Array[ExtResource("1_vm8lk")]([ExtResource("1_26nc8")])
 projectile_size_multiplier = 2.0
 projectile = ExtResource("2_26nc8")
