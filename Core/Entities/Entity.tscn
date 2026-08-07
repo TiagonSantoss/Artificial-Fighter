@@ -111,3 +111,5 @@ script = ExtResource("13_mdepg")
 event_name = "event:/SFX/Entity/EntityHurt"
 event_guid = "{cf68e701-3dcd-41e0-95a7-8d2c90e9b5e4}"
 volume = 1.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1117050899]

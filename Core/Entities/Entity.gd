@@ -21,9 +21,14 @@ var grid_position: Vector3i
 var current_interactable: Node = null
 
 @onready var camera_pivot: Marker3D = $CameraPivot
+
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
+@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
 @onready var orbit_socket: Marker3D = $OrbitSocket
+@onready var hit_box_shape: CollisionShape3D = get_node_or_null("hitbox")
+
 @onready var emitter: FmodEventEmitter3D = $Emitter
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
@@ -39,16 +44,32 @@ var current_interactable: Node = null
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
-
 	global_position = start_position
 
 	entity_id = definition.entity_id
 	team = definition.team
-
 	grid_position = Grid.world_to_grid(global_position)
 
 	if definition.controller:
 		controller = definition.controller.duplicate()
+
+	animation_component.setup(self)
+	animation_component.set_visual_nodes(sprite, mesh_instance)
+	var active_visuals := animation_component.configure_visuals(definition)
+
+	# hitbox shenaningans
+	if is_instance_valid(hit_box_shape):
+		hit_box_shape.position = definition.hitbox_offset
+
+		if definition.hitbox_shape_override:
+			hit_box_shape.shape = definition.hitbox_shape_override.duplicate()
+		else:
+			var box_shape := BoxShape3D.new()
+			box_shape.size = definition.hitbox_size
+			hit_box_shape.shape = box_shape
+
+	visual_effects_component.setup(self)
+	visual_effects_component.setup_visuals(active_visuals)
 
 	health_component.setup(self)
 	health_component.configure(definition.max_health)
@@ -56,21 +77,12 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	movement_component.setup(self)
 	movement_component.configure(definition)
 
-	animation_component.setup(self)
-	animation_component.set_sprite(sprite)
-	animation_component.configure_visuals(definition)
-
 	weapon_component.setup(self)
-	#weapon_socket.position = Vector3.ZERO
 	orbit_socket.position = Vector3.ZERO
 	weapon_component.set_sockets(weapon_socket, orbit_socket)
 
-	visual_effects_component.setup(self)
-	visual_effects_component.set_sprite(sprite)
-
 	effects_component.setup(self)
 	accessories_component.setup(self)
-
 	audio_component.setup(self)
 
 	initialized = true
@@ -167,6 +179,9 @@ func _physics_process(delta: float) -> void:
 
 	#if new_grid != grid_position:
 	#	grid_position = new_grid
+
+	if is_instance_valid(mesh_instance) and mesh_instance.visible:
+		animation_component.rotate_mesh_towards_velocity(mesh_instance, velocity, delta)
 
 	animation_component.update_animation()
 

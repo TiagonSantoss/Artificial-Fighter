@@ -13,4 +13,3 @@ func _init(dir: Vector3) -> void:
 
 func execute(actor: Entity, _delta: float) -> void:
 	actor.movement_component.apply_movement(direction, _delta)
-	# actor.audio_component.play_sfx("FootSteps")

@@ -8,7 +8,7 @@ extends Node3D
 @export var follow_speed := 4.0
 @export var tracking_weight_factor := 0.4
 
-@export_category("Orthographic Size Configurations")
+@export_category("Size Configurations")
 ## The base orthographic view size of the camera.
 @export var base_camera_size := 25.0
 ## How much the camera size expands when running out to room bounds.
@@ -28,27 +28,23 @@ var is_active_pivot := false
 var smoothed_look_target := Vector3.ZERO
 var _look_target_initialized := false
 
+# Cached Camera Reference
+var _cached_camera: Camera3D = null
+
 
 func _physics_process(delta: float) -> void:
 	if not is_active_pivot or not Game.player:
 		return
 
+	print(room_size_units)
+
 	var global_camera_rig = Game.instance.camera_rig
 	if not is_instance_valid(global_camera_rig):
 		return
 
-	# 🟢 Find the actual Camera3D node inside or on your rig to change its .size property
-	var actual_camera: Camera3D = null
-	if global_camera_rig is Camera3D:
-		actual_camera = global_camera_rig
-	else:
-		actual_camera = global_camera_rig.get_node_or_null("Camera3D") as Camera3D
-		if actual_camera == null:
-			# Fallback if it's named differently, find first camera child
-			for child in global_camera_rig.get_children():
-				if child is Camera3D:
-					actual_camera = child
-					break
+	# Cache camera reference if not found yet or invalid
+	if not is_instance_valid(_cached_camera):
+		_cached_camera = _find_camera_node(global_camera_rig)
 
 	# 1. SMOOTH ROTATION
 	_update_perspective()
@@ -81,15 +77,18 @@ func _physics_process(delta: float) -> void:
 		smoothed_look_target = look_target
 		_look_target_initialized = true
 
+		# Immediately set camera size on room enter so it doesn't lerp from old scale
+		if is_instance_valid(_cached_camera):
+			_cached_camera.size = base_camera_size + (zoom_t * max_extra_size)
+
 	smoothed_look_target = smoothed_look_target.lerp(look_target, follow_speed * delta)
 
-	# 3. DYNAMIC ORTHOGRAPHIC SIZE (🟢 Changes camera frame size instead of physical distance)
-	if is_instance_valid(actual_camera):
+	# 3. DYNAMIC ORTHOGRAPHIC SIZE
+	if is_instance_valid(_cached_camera):
 		var target_size := base_camera_size + (zoom_t * max_extra_size)
-		actual_camera.size = lerp(actual_camera.size, target_size, follow_speed * delta)
+		_cached_camera.size = lerp(_cached_camera.size, target_size, follow_speed * delta)
 
 	# 4. POSITION CAMERA RIG
-	# Keep physical distance constant since size handles the zooming layout frame now
 	var constant_distance := 30.0
 	var local_offset := Vector3(0.0, constant_distance, constant_distance * 0.85)
 	var global_offset := local_offset.rotated(Vector3.UP, rotation.y)
@@ -104,14 +103,10 @@ func _physics_process(delta: float) -> void:
 	global_camera_rig.rotation.z = 0.0
 
 
-func activate(room_size: Vector2) -> void:
-	if room_size != Vector2.ZERO:
-		room_size_units = room_size
+func activate(room_size: Vector2 = Vector2.ZERO) -> void:
+	# if room_size != Vector2.ZERO:
+	# 	room_size_units = room_size
 	is_active_pivot = true
-
-
-func deactivate() -> void:
-	is_active_pivot = false
 
 
 func set_room(room: RoomInstance) -> void:
@@ -126,13 +121,14 @@ func set_room(room: RoomInstance) -> void:
 	rotation.y = old_rot
 	current_room_base_pos = target_pos
 
-	if room.definition and room.definition.size != Vector2i.ZERO:
-		room_size_units = Vector2(room.definition.size) * 40.0
-	else:
-		if room_size_units == Vector2(40.0, 40.0) or room_size_units == Vector2.ZERO:
-			room_size_units = Vector2(40.0, 40.0)
+	if room.definition and room.definition.size.x > 10 and room.definition.size.y > 10:
+		room_size_units = Vector2(room.definition.size)
 
 	_look_target_initialized = false
+
+
+func deactivate() -> void:
+	is_active_pivot = false
 
 
 func rotate_by(degrees: float) -> void:
@@ -160,32 +156,39 @@ func _update_perspective() -> void:
 		return
 
 	current_axis = axis
-
-	# var _snapshotAA = CameraPerspectiveState.new(current_axis)
-
 	GState.perspective_updated.emit(axis)
 
 
 func _get_current_axis() -> CameraPerspectiveState.Axis:
 	var rot := wrapf(rad_to_deg(target_rotation_y), 0.0, 360.0)
-	# print(rot)
 
 	match int(round(rot)):
 		0:
 			return CameraPerspectiveState.Axis.Z_NEGATIVE
-
 		90:
 			return CameraPerspectiveState.Axis.X_POSITIVE
-
 		180:
 			return CameraPerspectiveState.Axis.Z_POSITIVE
-
 		270:
 			return CameraPerspectiveState.Axis.X_NEGATIVE
 
 	return CameraPerspectiveState.Axis.Z_NEGATIVE
 
 
-#public
 func get_current_axis() -> CameraPerspectiveState.Axis:
 	return _get_current_axis()
+
+
+func _find_camera_node(rig: Node3D) -> Camera3D:
+	if rig is Camera3D:
+		return rig as Camera3D
+
+	var cam := rig.get_node_or_null("Camera3D") as Camera3D
+	if cam:
+		return cam
+
+	for child in rig.get_children():
+		if child is Camera3D:
+			return child as Camera3D
+
+	return null

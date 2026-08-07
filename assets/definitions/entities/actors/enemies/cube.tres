@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://bblsf1insg13l"]
+
+[ext_resource type="ArrayMesh" uid="uid://c2jktqpv31bq5" path="res://assets/models/Enemies/meshes/enemies_Cube_001.res" id="1_vcvvv"]
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_wjno2"]
+
+[resource]
+script = ExtResource("1_wjno2")
+visual_type = 1
+mesh = ExtResource("1_vcvvv")
+hitbox_size = Vector3(0.1, 0.3, 0.1)
+metadata/_custom_type_script = "uid://dll1idsl2062t"

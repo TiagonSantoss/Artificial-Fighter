@@ -86,13 +86,18 @@ func _on_active_room_changed(room_data: Variant) -> void:
 		new_pivot.rotation.y = active_room_pivot.rotation.y
 		new_pivot.target_rotation_y = active_room_pivot.target_rotation_y
 		new_pivot.is_rotating = active_room_pivot.is_rotating
+
+		new_pivot.base_camera_size = active_room_pivot.base_camera_size
+		new_pivot.max_extra_size = active_room_pivot.max_extra_size
+		new_pivot.follow_speed = active_room_pivot.follow_speed
+
 		active_room_pivot.deactivate()
 
 	active_room_pivot = new_pivot
 
 	var target_size := Vector2(40.0, 40.0)
-	if room_def:
-		target_size = Vector2(room_def.size) * 40.0
+	# if room_def and room_def.size != Vector2i.ZERO:
+	# 	target_size = Vector2(room_def.size)
 
 	active_room_pivot.set_room(room_data)
 	active_room_pivot.activate(target_size)
