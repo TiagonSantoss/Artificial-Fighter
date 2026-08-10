@@ -307,7 +307,7 @@ room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource
 start_room = ExtResource("20_il2jm")
 generate_random_seed = false
 _seed = 2
-room_count = 20
+room_count = 50
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
@@ -325,7 +325,10 @@ bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Deskt
 
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=825175438]
 event_name = "event:/Music/Level 1"
-event_guid = "{84a8462e-32df-4dca-8d8e-f94ae6c09306}"
+event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
 autoplay = true
 auto_release = true
-volume = 0.0
+volume = 0.7
+fmod_parameters/Set/id = -7549801265799066034
+fmod_parameters/Set = 0
+fmod_parameters/Set/variant_type = 2

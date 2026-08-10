@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://cwup2i2hn5383" path="res://assets/definitions/entities/controllers/enemies/ball_controller_resource.tres" id="1_v88cg"]
 [ext_resource type="ArrayMesh" uid="uid://cinvkqqxfpufo" path="res://assets/models/Enemies/meshes/enemies_Icosphere.res" id="2_tec3e"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="3_wwmrl"]
-[ext_resource type="Resource" uid="uid://d2gm8bx1hwe4o" path="res://assets/definitions/weapons/EnemyRevolver.tres" id="4_vp131"]
+[ext_resource type="Resource" uid="uid://b4gq2hcikl5af" path="res://assets/definitions/weapons/enemies/ball_weapon.tres" id="4_v88cg"]
 
 [resource]
 script = ExtResource("3_wwmrl")
@@ -17,6 +17,6 @@ friction = 60.0
 jump_force = 11.0
 hitbox_size = Vector3(0.2, 0.2, 0.2)
 controller = ExtResource("1_v88cg")
-starting_weapon = ExtResource("4_vp131")
+starting_weapon = ExtResource("4_v88cg")
 team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"

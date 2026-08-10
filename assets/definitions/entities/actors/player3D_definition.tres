@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="2_a4pqy"]
 [ext_resource type="ArrayMesh" uid="uid://bkvfnpxsrikq6" path="res://assets/models/Enemies/meshes/enemies_Plane_005.res" id="2_hi036"]
 [ext_resource type="Texture2D" uid="uid://md7h6yphgc0c" path="res://assets/sprites/characters/Spritesheet_pin.png" id="3_hi036"]
-[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/Revolver.tres" id="4_rtngl"]
+[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/ranged/Revolver.tres" id="4_rtngl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhbll"]
 atlas = ExtResource("3_hi036")

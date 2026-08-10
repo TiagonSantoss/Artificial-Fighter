@@ -134,6 +134,19 @@ func _update_projectile(projectile: Projectile, delta: float) -> void:
 			if was_deleted:
 				return
 
+		var parent_node: Node3D = collider.get_parent()
+
+		if parent_node is Melee:
+			var guard_area := parent_node as Melee
+			var total_incoming_dmg := projectile.definition.damage * projectile.damage_multiplier
+			if guard_area.source_team != projectile.source_team:
+				var _was_parried := guard_area.process_projectile_impact(
+					hit.position, projectile.source_entity, total_incoming_dmg
+				)
+
+				release(projectile)
+				return
+
 		# If it didn't hit a damageable target, or had pierce leftover, execute bounce/wall code
 		if projectile.remaining_bounces > 0:
 			projectile.velocity = projectile.velocity.bounce(hit.normal)

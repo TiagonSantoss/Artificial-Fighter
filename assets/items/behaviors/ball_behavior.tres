@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WielderPropulsionBehavior" format=3 uid="uid://c3pdbjtvgxbry"]
+
+[ext_resource type="Script" uid="uid://h1lmmb7gyq7r" path="res://Core/Container/Components/Behaviors/ball_behavior.gd" id="1_jsjfu"]
+
+[resource]
+script = ExtResource("1_jsjfu")
+metadata/_custom_type_script = "uid://h1lmmb7gyq7r"

@@ -24,6 +24,7 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 
 @onready var entities: Node3D = $Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
+@onready var emitter: FmodEventEmitter3D = $FmodEventEmitter3D
 
 @onready var camera_rig: Camera3D = $Camera3D
 

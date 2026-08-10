@@ -36,8 +36,6 @@ func _physics_process(delta: float) -> void:
 	if not is_active_pivot or not Game.player:
 		return
 
-	print(room_size_units)
-
 	var global_camera_rig = Game.instance.camera_rig
 	if not is_instance_valid(global_camera_rig):
 		return

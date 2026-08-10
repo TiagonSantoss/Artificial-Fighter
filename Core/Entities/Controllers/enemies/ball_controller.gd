@@ -1,9 +1,9 @@
-class_name CubeController
+class_name BallController
 extends Controller
 
 const AXIS_THRESHOLD := 0.2
 const CARDINAL_DIRECTIONS: Array[Vector3] = [
-	Vector3(0, 0, -1), Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(1, 0, 0)  # Forward  # Back  # Left  # Right
+	Vector3(0, 0, -1), Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(1, 0, 0)
 ]
 
 @export var separation_radius: float = 3.0
@@ -13,7 +13,7 @@ const CARDINAL_DIRECTIONS: Array[Vector3] = [
 var follow_target: Entity
 var follow_distance := 0.1
 var target: Entity
-var attack_range := 1.6
+var attack_range := 10.0
 
 
 func get_actions(actor: Entity, _delta: float) -> Array[Action]:
@@ -27,7 +27,6 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 
 	var dist := actor.global_position.distance_to(target.global_position)
 
-	# Movement
 	if dist > follow_distance:
 		# 1. Determine base target point (via NavigationAgent3D if available)
 		var nav: NavigationAgent3D = actor.get_node_or_null("NavigationAgent3D")
@@ -35,16 +34,16 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 
 		if is_instance_valid(nav):
 			nav.target_position = target_pos
-			target_pos = nav.get_next_path_position()
+			if not nav.is_navigation_finished() and nav.is_target_reachable():
+				var next_pos := nav.get_next_path_position()
+				if next_pos != Vector3.ZERO or target_pos.length_squared() < 1.0:
+					target_pos = next_pos
 
-		# 2. Pick best unblocked Pac-Man cardinal direction towards target_pos
 		var move_dir := _choose_direction(actor, target_pos)
 
-		# 3. Blend with separation steering force
 		var separation := _get_separation_vector(actor)
 		var combined_dir := move_dir + (separation * separation_weight)
 
-		# 4. Snap combined vector to 4-directional grid axis
 		var dx := combined_dir.x
 		var dz := combined_dir.z
 		var flat_dir := Vector3.ZERO

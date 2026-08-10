@@ -85,6 +85,8 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	accessories_component.setup(self)
 	audio_component.setup(self)
 
+	await get_tree().physics_frame
+
 	initialized = true
 
 	if definition.starting_weapon:

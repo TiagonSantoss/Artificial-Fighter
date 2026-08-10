@@ -10,6 +10,8 @@ extends Node3D
 
 @onready var chunk_manager: ChunkManager = $ChunkManager
 
+var emitter: FmodEventEmitter3D
+
 var graph: RoomGraph
 var layout: Dictionary = {}
 
@@ -61,6 +63,9 @@ func _ready() -> void:
 	await get_tree().process_frame
 	chunk_manager.room_loaded.connect(_on_room_loaded)
 	chunk_manager.room_unloaded.connect(_on_room_unloaded)
+
+	if is_instance_valid(GameAutoLoad.instance):
+		emitter = GameAutoLoad.instance.emitter
 
 	generate()
 
@@ -115,6 +120,9 @@ func _on_player_entered_room(room: RoomInstance) -> void:
 
 	print("Entered:", room.room_id)
 
+	if emitter:
+		emitter.set_parameter("Set", 0)
+
 	_on_room_entered(room)
 
 
@@ -138,6 +146,10 @@ func _spawn_player_at_start() -> RoomInstance:
 
 	if spawn_point == null:
 		return null
+
+	if emitter:
+		emitter.set_parameter("Set", 5)
+		print("EMITTER SET TO 5")
 
 	Game.instance.spawn_player(spawn_point.global_position)
 
@@ -189,9 +201,21 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 	room.enemies.append(enemy)
 
+	if emitter:
+		match room.enemies.size():
+			5:
+				emitter.set_parameter("Set", 2)
+			2:
+				emitter.set_parameter("Set", 4)
+			1:
+				emitter.set_parameter("Set", 0)
+
 	enemy.tree_exited.connect(
 		func():
 			room.enemies.erase(enemy)
+
+			if emitter:
+				print(emitter.get_parameter("Set"))
 
 			if room.enemies.is_empty():
 				_on_room_cleared(room)
@@ -200,11 +224,13 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
-	cleared_rooms[room.room_id] = true  # Cache this ID permanently
+	cleared_rooms[room.room_id] = true
 
 	chunk_manager.set_streaming_mode(ChunkManager.StreamingMode.EXPLORATION, room.room_id)
 	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
+
+	# emitter.set_parameter("Set", 6)
 
 
 func start_encounter(room: RoomInstance) -> void:
