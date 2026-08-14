@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2nytfcu5r7u0"
-path.s3tc="res://.godot/imported/248138c3-816f-400e-b52a-3a0875186dac.jpeg-1abb9fc2f2646493cdc2643ee9a2c1e6.s3tc.ctex"
+uid="uid://ck1ydkaei0uq6"
+path.s3tc="res://.godot/imported/1nuvens.png-074d443131430562663c0affa250d628.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/248138c3-816f-400e-b52a-3a0875186dac.jpeg"
-dest_files=["res://.godot/imported/248138c3-816f-400e-b52a-3a0875186dac.jpeg-1abb9fc2f2646493cdc2643ee9a2c1e6.s3tc.ctex"]
+source_file="res://assets/images/shaders/1nuvens.png"
+dest_files=["res://.godot/imported/1nuvens.png-074d443131430562663c0affa250d628.s3tc.ctex"]
 
 [params]
 

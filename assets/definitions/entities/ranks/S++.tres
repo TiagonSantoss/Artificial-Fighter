@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://ddyp5ihlibbfl"]
+
+[ext_resource type="Texture2D" uid="uid://tyu0ua1ju38l" path="res://demo/assets/logo.png" id="1_kmrup"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="2_cupah"]
+
+[resource]
+script = ExtResource("2_cupah")
+tier = 8
+display_name = "S++"
+rank_image = ExtResource("1_kmrup")
+score_threshold = 600.0
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

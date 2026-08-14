@@ -49,6 +49,7 @@ var is_dashing := false
 @onready var audio_component: EntityAudioComponent = $Components/AudioComponent
 @onready var cards_component: CardsComponent = $Components/CardsComponent
 @onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
+@onready var rank_component: RankComponent = $Components/RankComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -94,6 +95,8 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	accessories_component.setup(self)
 	audio_component.setup(self)
 
+	rank_component.setup(self)
+
 	await get_tree().physics_frame
 
 	initialized = true
@@ -130,7 +133,9 @@ func apply_hit(hit: HitData):
 			audio_component.play_sfx("ParrySound")
 			visual_effects_component.flash_blue(0.1)
 			_trigger_hitstop(0.1)
-			return HitResult.REFLECT
+
+			GState.enemy_parried.emit(25.0)
+			return HitResult.CONSUME
 
 		else:
 			print("ENTITY BLOCKED!")
@@ -168,6 +173,21 @@ func get_team():
 func _ready():
 	$InteractionArea.area_entered.connect(_on_interaction_entered)
 	$InteractionArea.area_exited.connect(_on_interaction_exited)
+
+	GState.enemy_damaged.connect(_on_enemy_damaged)
+	GState.enemy_parried.connect(_on_enemy_parried)
+
+
+func _on_enemy_damaged(points: float):
+	add_style_points(points)
+
+
+func _on_enemy_parried(points: float):
+	add_style_points(points)
+
+
+func add_style_points(points: float):
+	rank_component.add_points(points)
 
 
 func _on_interaction_entered(area: Area3D) -> void:

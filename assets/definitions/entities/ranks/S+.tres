@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://bkkv1vtx56yws"]
+
+[ext_resource type="Texture2D" uid="uid://bdusy0qqtw0th" path="res://demo/assets/smoke.png" id="1_qphrr"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="2_b8tag"]
+
+[resource]
+script = ExtResource("2_b8tag")
+tier = 7
+display_name = "S+"
+rank_image = ExtResource("1_qphrr")
+score_threshold = 575.0
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

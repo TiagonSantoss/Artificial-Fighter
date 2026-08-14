@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://cegg5rochdr6r"]
+
+[ext_resource type="Texture2D" uid="uid://i476iia1ua8q" path="res://demo/assets/env_gong.png" id="1_exnhl"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="2_jf2fv"]
+
+[resource]
+script = ExtResource("2_jf2fv")
+tier = 5
+display_name = "A++"
+rank_image = ExtResource("1_exnhl")
+score_threshold = 320.0
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

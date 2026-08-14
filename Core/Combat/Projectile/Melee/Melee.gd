@@ -104,6 +104,9 @@ func _on_hitbox_body_entered(body: Node3D) -> void:
 		_register_hit([body])
 		var hit_data := create_hit_data(body.global_position)
 		body.apply_hit(hit_data)
+
+		if body.is_in_group("enemies"):
+			GState.enemy_damaged.emit(23.0)
 		return
 
 	if body.is_in_group("world"):

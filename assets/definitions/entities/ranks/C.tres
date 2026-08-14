@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://w1f58sddkt0k"]
+
+[ext_resource type="Texture2D" uid="uid://balnorp8faafi" path="res://assets/sprites/Sprite-0001.png" id="1_gl5ru"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="2_uowl2"]
+
+[resource]
+script = ExtResource("2_uowl2")
+tier = 1
+display_name = "C"
+rank_image = ExtResource("1_gl5ru")
+point_multiplier = 5.0
+score_threshold = 30.0
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

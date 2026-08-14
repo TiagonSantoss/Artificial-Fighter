@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://ia26s324ccyj"]
+
+[ext_resource type="Texture2D" uid="uid://tccsa6xbghgu" path="res://textures/T_Windstreak3.png" id="1_26gyl"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="2_xs5ge"]
+
+[resource]
+script = ExtResource("2_xs5ge")
+tier = 2
+display_name = "B"
+rank_image = ExtResource("1_26gyl")
+score_threshold = 120.0
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

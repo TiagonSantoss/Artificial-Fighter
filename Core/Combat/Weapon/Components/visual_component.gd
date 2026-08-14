@@ -16,6 +16,8 @@ func apply_definition() -> void:
 	sprite.modulate = definition.modulate
 	sprite.scale = definition.sprite_scale
 
+	GState.weapon_changed.emit(WeaponState.new(weapon.wielder, sprite))
+
 	if sprite.sprite_frames:
 		sprite.play(definition.default_animation)
 
