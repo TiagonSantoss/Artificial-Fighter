@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d0t8swi1175b" path="res://assets/images/UI/placeholder.png" id="1_ge5d7"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="1_x72qx"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/cards_bar.gd" id="3_gjfdq"]
+[ext_resource type="Script" uid="uid://mgv4db0kq6ed" path="res://Game/UI/health.gd" id="3_poaiy"]
 [ext_resource type="Texture2D" uid="uid://cbcjge7pevctq" path="res://assets/sprites/UI/cardscardernointothefire.png" id="4_tvm4q"]
 [ext_resource type="Script" uid="uid://c1xfew0gfsp1i" path="res://Game/UI/rank_bar.gd" id="5_lx3dl"]
 
@@ -133,6 +134,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_x72qx")
 theme_override_font_sizes/font_size = 8
 text = "500"
+script = ExtResource("3_poaiy")
 metadata/_edit_lock_ = true
 
 [node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
