@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_hnj2p"]
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="2_07to5"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="2_wo4ft"]
+[ext_resource type="Resource" uid="uid://bblsf1insg13l" path="res://assets/definitions/entities/actors/enemies/cube.tres" id="3_wo4ft"]
 
 [resource]
 script = ExtResource("2_07to5")
-enemies = Array[ExtResource("1_hnj2p")]([ExtResource("2_wo4ft"), ExtResource("2_wo4ft"), ExtResource("2_wo4ft"), ExtResource("2_wo4ft")])
+enemies = Array[ExtResource("1_hnj2p")]([ExtResource("2_wo4ft"), ExtResource("2_wo4ft"), ExtResource("2_wo4ft"), ExtResource("2_wo4ft"), ExtResource("3_wo4ft")])
 metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

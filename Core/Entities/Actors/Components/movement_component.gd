@@ -1,6 +1,8 @@
 class_name MovementComponent
 extends EntityComponent
 
+const BLOCK_SPEED_MULTIPLIER := 0.4
+
 var move_speed: float
 var max_speed: float
 var acceleration: float
@@ -21,19 +23,27 @@ func configure(definition: EntityDefinition):
 
 
 func apply_movement(direction: Vector3, delta: float) -> void:
+	if entity.get("is_dashing"):
+		return
+
+	var current_max_speed = max_speed
+	var current_acceleration = acceleration
+
+	if entity.get("is_blocking"):
+		current_max_speed *= BLOCK_SPEED_MULTIPLIER
+		current_acceleration *= BLOCK_SPEED_MULTIPLIER
+
 	if direction.length() > 0.01:
 		last_direction = direction.normalized()
+
 	var dir := direction.normalized()
 
-	movement_velocity += (direction * acceleration * delta)
-
-	if dir.length() > 0.01:
-		last_direction = dir
+	movement_velocity += (dir * current_acceleration * delta)
 
 	var horizontal := Vector3(movement_velocity.x, 0, movement_velocity.z)
 
-	if horizontal.length() > max_speed:
-		horizontal = (horizontal.normalized() * max_speed)
+	if horizontal.length() > current_max_speed:
+		horizontal = (horizontal.normalized() * current_max_speed)
 
 	movement_velocity.x = horizontal.x
 	movement_velocity.z = horizontal.z
@@ -56,14 +66,6 @@ func jump():
 		entity.velocity.y = jump_force
 
 
-func move(direction: Vector3, delta: float) -> void:
-	var dir := direction.normalized()
-
-	movement_velocity.x = move_toward(entity.velocity.x, dir.x * max_speed, acceleration * delta)
-
-	movement_velocity.z = move_toward(entity.velocity.z, dir.z * max_speed, acceleration * delta)
-
-
 func apply_impulse(force: Vector3):
 	external_velocity += force
 
@@ -73,5 +75,10 @@ func update(delta: float):
 	entity.velocity.z = movement_velocity.z + external_velocity.z
 
 	external_velocity.x = move_toward(external_velocity.x, 0.0, friction * delta)
-
 	external_velocity.z = move_toward(external_velocity.z, 0.0, friction * delta)
+
+
+func apply_dash(direction: Vector3, force: float) -> void:
+	external_velocity = direction * force
+	movement_velocity = Vector3.ZERO
+	last_direction = direction

@@ -6,6 +6,11 @@ enum Team { PLAYER, ALLY, ENEMY }
 enum HitResult { NONE, CONSUME, PIERCE, BOUNCE, REFLECT }
 
 const HIT_VFX_SCENE = preload("res://Utils/HitVFX.tscn")
+const CHIP_DAMAGE_RATIO := 0.25
+const DEFAULT_PARRY_WINDOW := 0.2  # Slightly more forgiving for player bodies than melee clashes
+
+var is_blocking := false
+var parry_window_left := 0.0
 
 var definition: EntityDefinition
 var controller: Controller
@@ -19,6 +24,10 @@ var initialized := false
 var grid_position: Vector3i
 
 var current_interactable: Node = null
+
+var is_in_hitstop := false
+
+var is_dashing := false
 
 @onready var camera_pivot: Marker3D = $CameraPivot
 
@@ -95,6 +104,13 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	health_component.died.connect(_on_died)
 
 
+func start_dodge(duration: float) -> void:
+	is_dashing = true
+	# Wait for the i-frames to finish
+	await get_tree().create_timer(duration, false).timeout
+	is_dashing = false
+
+
 func is_friendly_to(other_team: Team) -> bool:
 	if team == Team.ENEMY:
 		return other_team == Team.ENEMY
@@ -106,14 +122,38 @@ func apply_hit(hit: HitData):
 	if hit.source_team == team:
 		return HitResult.NONE
 
+	if is_dashing:
+		return HitResult.NONE
+
+	if is_blocking:
+		if parry_window_left > 0.0:
+			audio_component.play_sfx("ParrySound")
+			visual_effects_component.flash_blue(0.1)
+			_trigger_hitstop(0.1)
+			return HitResult.REFLECT
+
+		else:
+			print("ENTITY BLOCKED!")
+			var chip_damage = hit.get_final_damage() * CHIP_DAMAGE_RATIO
+
+			if health_component:
+				health_component.damage(chip_damage)
+
+			audio_component.play_sfx("BlockSound")
+			if movement_component:
+				movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
+
+			return HitResult.CONSUME
+
 	if health_component:
 		health_component.damage(hit.get_final_damage())
 		visual_effects_component.flash_red(0.1)
 		audio_component.play_sfx("EntityHurt")
-		# audio_component.play_sfx("hit1")
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
+
+	return HitResult.CONSUME
 
 
 func _on_died() -> void:
@@ -140,34 +180,49 @@ func _on_interaction_exited(area: Area3D) -> void:
 		current_interactable = null
 
 
+func trigger_guard() -> void:
+	is_blocking = true
+
+
 func _physics_process(delta: float) -> void:
 	if not initialized:
 		return
 
 	var had_movement := false
 
+	# 1. Remember if we were blocking last frame before resetting
+	var was_blocking = is_blocking
+	is_blocking = false
+
 	if controller:
 		var actions = controller.get_actions(self, delta)
-
 		for action in actions:
 			if action is MovementAction:
 				had_movement = true
-
-			action.execute(self, delta)
+			action.execute(self, delta)  # <--- This sets is_blocking to true if held
 
 		controller.update_aim(self)
-
 		if controller.aim_target != null:
 			weapon_component.update_aim(controller.aim_target)
+
+	# 2. Start the timer ONLY if we are blocking now, but weren't last frame
+	if is_blocking and not was_blocking:
+		parry_window_left = DEFAULT_PARRY_WINDOW
+		print("PARRY WINDOW STARTED")
+		visual_effects_component.set_blocking_visuals(true)
+
+	# 3. Tick down the parry window (or reset it if we let go of block)
+	if is_blocking and parry_window_left > 0.0:
+		parry_window_left = maxf(0.0, parry_window_left - delta)
+	elif not is_blocking:
+		parry_window_left = 0.0
+		visual_effects_component.set_blocking_visuals(false)
 
 	if not had_movement:
 		movement_component.apply_friction(delta)
 
 	movement_component.update(delta)
-
-	#visual_effects_component.update(delta)
 	effects_component.update(delta)
-
 	weapon_component.update(delta)
 
 	if not is_on_floor():
@@ -175,26 +230,24 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	#var new_grid := Grid.world_to_grid(
-	#	global_position
-	#)
-
-	#if new_grid != grid_position:
-	#	grid_position = new_grid
-
 	if is_instance_valid(mesh_instance) and mesh_instance.visible:
 		animation_component.rotate_mesh_towards_velocity(mesh_instance, velocity, delta)
 
 	animation_component.update_animation()
 
 
-func _spawn_hit_vfx() -> void:
-	var vfx := HIT_VFX_SCENE.instantiate()
-	get_tree().current_scene.add_child(vfx)
-	vfx.reparent(self)
-	vfx.rotation.y = randf() * TAU
+func _trigger_hitstop(duration_seconds: float) -> void:
+	# Prevent overlapping hitstops from breaking the time scale reset
+	if is_in_hitstop or Engine.time_scale < 1.0:
+		return
 
-	#if vfx is Node3D:
-	#	vfx.look_at(pos + normal, Vector3.UP)
+	is_in_hitstop = true
+	Engine.time_scale = 0.05
 
-	vfx.play()
+	# Real-world timer that ignores Engine.time_scale
+	await get_tree().create_timer(duration_seconds, true, false, true).timeout
+
+	# Only reset if we are still the active hitstop handler
+	if is_in_hitstop:
+		Engine.time_scale = 1.0
+		is_in_hitstop = false

@@ -1,15 +1,19 @@
 class_name MovementAction
 extends Action
 
-static var time_since_last_step: float = 0.0
+const BLOCK_SPEED_MULTIPLIER := 0.4
 
-var direction: Vector3
-var step_cooldown: float = 0.4
+var direction := Vector3.ZERO
 
 
-func _init(dir: Vector3) -> void:
+func _init(dir: Vector3):
 	direction = dir
 
 
-func execute(actor: Entity, _delta: float) -> void:
-	actor.movement_component.apply_movement(direction, _delta)
+func execute(actor: Entity, delta: float) -> void:
+	var final_direction = direction
+
+	if actor.get("is_blocking"):
+		final_direction *= BLOCK_SPEED_MULTIPLIER
+
+	actor.movement_component.apply_movement(final_direction, delta)

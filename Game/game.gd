@@ -4,7 +4,8 @@ extends Node3D
 const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 
 const LAYER_WORLD := 1
-const LAYER_ENTITY := 3
+const LAYER_PLAYER := 2
+const LAYER_ENEMY := 3
 
 signal controlled_entity_changed(entity: Entity)
 
@@ -153,6 +154,8 @@ func spawn_player(pos: Vector3) -> Entity:
 	controlled_entity = player
 	player.add_to_group("player")
 	player.add_child(listener3D)
+
+	player.collision_layer = 1
 	return player
 
 
@@ -164,7 +167,6 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	enemy.controller.target = player
 	enemy.add_to_group("enemies")
 
-	enemy.collision_layer = 2
 	return enemy
 
 
@@ -187,5 +189,17 @@ func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
 
 
 func configure_entity_collision(entity: Entity) -> void:
-	entity.collision_layer = LAYER_ENTITY
-	entity.collision_mask = LAYER_WORLD
+	entity.collision_layer = 0
+	entity.collision_mask = 0
+
+	entity.set_collision_mask_value(LAYER_WORLD, true)
+
+	match entity.team:
+		Entity.Team.PLAYER:
+			entity.set_collision_layer_value(LAYER_PLAYER, true)
+
+		Entity.Team.ENEMY:
+			entity.set_collision_layer_value(LAYER_ENEMY, true)
+
+		Entity.Team.ALLY:
+			entity.set_collision_layer_value(LAYER_PLAYER, true)

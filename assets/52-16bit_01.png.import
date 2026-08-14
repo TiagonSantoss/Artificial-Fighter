@@ -1,0 +1,29 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://ckmxjqafk6b23"
+path.s3tc="res://.godot/imported/52-16bit_01.png-905f055e9caed60fc5973316d08fde56.s3tc.ctex3d"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/52-16bit_01.png"
+dest_files=["res://.godot/imported/52-16bit_01.png-905f055e9caed60fc5973316d08fde56.s3tc.ctex3d"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=52
+slices/vertical=1

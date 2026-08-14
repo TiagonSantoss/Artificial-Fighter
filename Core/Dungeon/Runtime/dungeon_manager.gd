@@ -214,9 +214,6 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 		func():
 			room.enemies.erase(enemy)
 
-			if emitter:
-				print(emitter.get_parameter("Set"))
-
 			if room.enemies.is_empty():
 				_on_room_cleared(room)
 	)
@@ -230,7 +227,7 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
 
-	# emitter.set_parameter("Set", 6)
+	emitter.set_parameter("Set", 6)
 
 
 func start_encounter(room: RoomInstance) -> void:

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CubeController" format=3 uid="uid://up3552p1lign"]
+
+[ext_resource type="Script" uid="uid://ci23v14cu6yar" path="res://Core/Entities/Controllers/enemies/cube_controller.gd" id="1_bciaw"]
+
+[resource]
+script = ExtResource("1_bciaw")
+metadata/_custom_type_script = "uid://ci23v14cu6yar"

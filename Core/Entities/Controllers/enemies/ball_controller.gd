@@ -13,7 +13,7 @@ const CARDINAL_DIRECTIONS: Array[Vector3] = [
 var follow_target: Entity
 var follow_distance := 0.1
 var target: Entity
-var attack_range := 10.0
+var attack_range := 15.0
 
 
 func get_actions(actor: Entity, _delta: float) -> Array[Action]:

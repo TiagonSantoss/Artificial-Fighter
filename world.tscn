@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Resource" uid="uid://c6ttcn6s3gd7e" path="res://assets/definitions/entities/actors/player_definition.tres" id="2_wjb0r"]
-[ext_resource type="PackedScene" uid="uid://buba6lphfkr02" path="res://Core/Entities/Entity.tscn" id="6_gbfbk"]
+[ext_resource type="CompressedTexture3D" uid="uid://ckmxjqafk6b23" path="res://assets/52-16bit_01.png" id="4_il2jm"]
 [ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="9_wukud"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/cards_bar.gd" id="10_wse8f"]
@@ -24,41 +24,29 @@
 [ext_resource type="AudioStream" uid="uid://xrwk8ksqg2j1" path="res://assets/audio/SFX/POP.wav" id="22_qktwf"]
 [ext_resource type="AudioStream" uid="uid://bfxlu1unts8fq" path="res://assets/audio/SFX/WHOOOSH.wav" id="23_bh8nc"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ic0uy"]
-sky_top_color = Color(0, 0, 0, 1)
-sky_horizon_color = Color(0.32297173, 0.6693039, 0.9092894, 1)
-sky_curve = 2.160075
-use_debanding = false
-
-[sub_resource type="Sky" id="Sky_ct3wn"]
-sky_material = SubResource("ProceduralSkyMaterial_ic0uy")
+[sub_resource type="Sky" id="Sky_il2jm"]
 
 [sub_resource type="Environment" id="Environment_k3n1d"]
-background_color = Color(0.19552848, 0.095178194, 0.25104052, 1)
-background_energy_multiplier = 1.21
-sky = SubResource("Sky_ct3wn")
+background_mode = 2
+background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
+sky = SubResource("Sky_il2jm")
 ambient_light_source = 3
-ambient_light_color = Color(0.8440306, 0.87540805, 0.87537694, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 1.25
-reflected_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.0
 tonemap_mode = 3
-ssao_enabled = true
 ssao_radius = 3.06
 ssao_intensity = 5.32
 ssao_power = 2.568522
-ssil_enabled = true
 sdfgi_read_sky_light = false
 sdfgi_min_cell_size = 0.18085937
 fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
 fog_sun_scatter = 0.16
 fog_density = 0.0
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.0075
 volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
-adjustment_enabled = true
-adjustment_brightness = 0.98
-adjustment_contrast = 1.06
+adjustment_contrast = 0.81
+adjustment_saturation = 1.56
+adjustment_color_correction = ExtResource("4_il2jm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioo17"]
 particle_flag_rotate_y = true
@@ -142,10 +130,6 @@ shadow_enabled = true
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=1854988913]
 transform = Transform3D(1.538, 0, 0, 0, 1, 0, 0, 0, 198.5, 0, 0.13700104, 0.003540039)
-
-[node name="CharacterBody3D" parent="." unique_id=1484144425 instance=ExtResource("6_gbfbk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2857666, 0)
-visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
 environment = SubResource("Environment_k3n1d")
@@ -328,7 +312,7 @@ event_name = "event:/Music/Level 1"
 event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
 autoplay = true
 auto_release = true
-volume = 0.7
+volume = 0.0
 fmod_parameters/Set/id = -7549801265799066034
 fmod_parameters/Set = 0
 fmod_parameters/Set/variant_type = 2

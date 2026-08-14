@@ -1,6 +1,8 @@
 class_name PlayerController
 extends Controller
 
+const DASH_COOLDOWN := 1.2
+
 var locked_forward := Vector3.ZERO
 var locked_right := Vector3.ZERO
 var movement_locked := false
@@ -9,9 +11,14 @@ var previous_input := Vector2.ZERO
 var locked_direction := Vector3.ZERO
 var previous_camera_rotation_y := 0.0
 
+var dodge_cooldown_left := 0.0
+
 
 func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
+
+	if dodge_cooldown_left > 0.0:
+		dodge_cooldown_left -= _delta
 
 	var input := Vector2.ZERO
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -53,6 +60,15 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		if _actor.current_interactable != null:
 			actions.append(InteractAction.new(_actor, _actor.current_interactable))
 
+	if _actor.entity_id == 0:
+		if Input.is_action_pressed("special"):
+			actions.append(ParryAction.new())
+	else:
+		if Input.is_action_just_pressed("special") and dodge_cooldown_left <= 0.0:
+			actions.append(DodgeAction.new(35.0, 0.4))
+			if _actor.entity_id == 1:
+				dodge_cooldown_left = DASH_COOLDOWN
+
 	return actions
 
 
@@ -72,7 +88,6 @@ func get_aim_target(actor: Entity) -> Vector3:
 
 	screen_dir = screen_dir.normalized()
 
-	# camera-relative axes
 	var cam_forward := -cam.global_transform.basis.z
 	var cam_right := cam.global_transform.basis.x
 
@@ -82,7 +97,6 @@ func get_aim_target(actor: Entity) -> Vector3:
 	cam_forward = cam_forward.normalized()
 	cam_right = cam_right.normalized()
 
-	# convert screen direction -> world direction
 	var world_dir := (cam_right * screen_dir.x + cam_forward * -screen_dir.y).normalized()
 
 	return actor.global_position + world_dir * 10.0
@@ -103,6 +117,8 @@ func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
 	var query_feet := PhysicsRayQueryParameters3D.create(origin_feet, target_feet)
 	query_feet.exclude = [actor]
 
+	query_feet.collision_mask = 1
+
 	var hit_feet := space_state.intersect_ray(query_feet)
 	if hit_feet.is_empty():
 		return false
@@ -112,6 +128,8 @@ func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
 	var target_clearance := origin_clearance + move_dir * 0.8
 	var query_clearance := PhysicsRayQueryParameters3D.create(origin_clearance, target_clearance)
 	query_clearance.exclude = [actor]
+
+	query_clearance.collision_mask = 1
 
 	var hit_clearance := space_state.intersect_ray(query_clearance)
 	return hit_clearance.is_empty()

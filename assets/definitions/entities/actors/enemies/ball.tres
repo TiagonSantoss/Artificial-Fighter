@@ -17,6 +17,7 @@ friction = 60.0
 jump_force = 11.0
 hitbox_size = Vector3(0.2, 0.2, 0.2)
 controller = ExtResource("1_v88cg")
+entity_id = 4
 starting_weapon = ExtResource("4_v88cg")
 team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"
