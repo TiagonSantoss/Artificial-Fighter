@@ -25,10 +25,10 @@ func _on_rank_changed(state: RankState) -> void:
 	if new_def.rank_image != null:
 		rank_texture.texture = new_def.rank_image
 
-	play_dmc_slam_animation()
+	slam_animation()
 
 
-func play_dmc_slam_animation() -> void:
+func slam_animation() -> void:
 	rank_texture.pivot_offset = rank_texture.size / 2.0
 
 	var tween = create_tween()

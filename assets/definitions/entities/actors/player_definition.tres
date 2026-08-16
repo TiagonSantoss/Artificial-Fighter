@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_j7dal"]
 [ext_resource type="Resource" uid="uid://5j7qiwjv4cib" path="res://assets/definitions/entities/controllers/player_controller.tres" id="1_xhbll"]
 [ext_resource type="Texture2D" uid="uid://md7h6yphgc0c" path="res://assets/sprites/characters/Spritesheet_pin.png" id="3_eqybp"]
-[ext_resource type="Resource" uid="uid://3i1oi7ojlqlp" path="res://assets/definitions/weapons/melee/Fists.tres" id="4_68au7"]
+[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/ranged/Revolver.tres" id="4_68au7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhbll"]
 atlas = ExtResource("3_eqybp")

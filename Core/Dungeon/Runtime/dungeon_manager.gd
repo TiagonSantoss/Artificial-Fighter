@@ -1,6 +1,9 @@
 class_name DungeonManager
 extends Node3D
 
+signal room_entered(room: RoomInstance)
+signal room_exited(room: RoomInstance)
+
 @export_category("Room Generation")
 @export var room_pool: Array[RoomDefinition]
 @export var start_room: RoomDefinition
@@ -8,7 +11,8 @@ extends Node3D
 @export var _seed := 1234
 @export var room_count := 12
 
-@onready var chunk_manager: ChunkManager = $ChunkManager
+@export_category("Item Drop")
+@export var item_pool: Array[ItemDefinition]
 
 var emitter: FmodEventEmitter3D
 
@@ -21,8 +25,7 @@ var is_generating := false
 
 var cleared_rooms := {}  # room_id (String) -> bool
 
-signal room_entered(room: RoomInstance)
-signal room_exited(room: RoomInstance)
+@onready var chunk_manager: ChunkManager = $ChunkManager
 
 
 func generate() -> void:
@@ -228,6 +231,17 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	print("ROOM CLEARED:", room.room_id)
 
 	emitter.set_parameter("Set", 6)
+
+	if item_pool.size() > 0:
+		var random_accessory_def = item_pool.pick_random()
+
+		var new_item_instance = ItemInstance.new()
+
+		new_item_instance.definition = random_accessory_def
+
+		WorldItemSpawner.drop(
+			new_item_instance, GameAutoLoad.instance.player.position + Vector3(0.0, 2.0, 0.0)
+		)
 
 
 func start_encounter(room: RoomInstance) -> void:

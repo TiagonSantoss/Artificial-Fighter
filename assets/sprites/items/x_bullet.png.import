@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bais678ktir6c"
-path="res://.godot/imported/proj.png-fdc61f0f301e1d3a96abf47fc5b98e87.ctex"
+uid="uid://dbeefyldsq7s7"
+path="res://.godot/imported/x_bullet.png-e04fb118ac5a89259adfbdc4e4ffc09c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/combat/projectiles/proj.png"
-dest_files=["res://.godot/imported/proj.png-fdc61f0f301e1d3a96abf47fc5b98e87.ctex"]
+source_file="res://assets/sprites/items/x_bullet.png"
+dest_files=["res://.godot/imported/x_bullet.png-e04fb118ac5a89259adfbdc4e4ffc09c.ctex"]
 
 [params]
 

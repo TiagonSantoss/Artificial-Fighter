@@ -21,11 +21,13 @@
 [ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
 [ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="20_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://dpjc1v3mljlp0" path="res://assets/sprites/UI/xicon.png" id="21_jjr1n"]
+[ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="21_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
+[ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="22_mc2jv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
 shader = ExtResource("5_wukud")
-shader_parameter/rotation_speed = 0.1
+shader_parameter/rotation_speed = 0.0
 shader_parameter/gradient_texture = ExtResource("6_il2jm")
 
 [sub_resource type="Sky" id="Sky_26xuy"]
@@ -301,6 +303,7 @@ start_room = ExtResource("20_il2jm")
 generate_random_seed = false
 _seed = 2
 room_count = 50
+item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 
 [node name="ChunkManager" type="Node3D" parent="Dungeon/DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")

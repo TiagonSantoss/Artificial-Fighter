@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bais678ktir6c"
-path="res://.godot/imported/proj.png-fdc61f0f301e1d3a96abf47fc5b98e87.ctex"
+uid="uid://bm184fhqab84l"
+path="res://.godot/imported/aguia_do_desert.png-fb3db62f2ba2aeee2fe7ed39c670003a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/combat/projectiles/proj.png"
-dest_files=["res://.godot/imported/proj.png-fdc61f0f301e1d3a96abf47fc5b98e87.ctex"]
+source_file="res://assets/sprites/combat/weapons/aguia_do_desert.png"
+dest_files=["res://.godot/imported/aguia_do_desert.png-fb3db62f2ba2aeee2fe7ed39c670003a.ctex"]
 
 [params]
 

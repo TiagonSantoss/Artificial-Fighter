@@ -14,7 +14,7 @@ void sky() {
 	vec2 uv = SKY_COORDS;
 	
 	//uv.y += TIME;
-	//uv.x = TIME * rotation_speed; 
+	uv.x = TIME * rotation_speed; 
 	
 	vec3 gradient_color = texture(gradient_texture, uv).rgb;
 	

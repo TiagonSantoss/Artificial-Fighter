@@ -8,7 +8,7 @@ var visited_edges := {}
 func generate(
 	_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition
 ) -> RoomGraph:
-	rng.seed = _seed
+	seed(_seed)
 
 	var builder := RoomGraphBuilder.new()
 	var graph := builder.create_graph(start_room)
