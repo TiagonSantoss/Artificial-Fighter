@@ -13,9 +13,10 @@ var melee: MeleeDefinition
 
 var metadata := {}
 
+
 func clone() -> AttackShot:
 	var copy := AttackShot.new()
-	
+
 	copy.direction = direction
 	copy.damage_multiplier = damage_multiplier
 	copy.knockback_multiplier = knockback_multiplier
@@ -23,5 +24,5 @@ func clone() -> AttackShot:
 	copy.speed_multiplier = speed_multiplier
 	copy.projectile = projectile
 	copy.melee = melee
-	
+
 	return copy

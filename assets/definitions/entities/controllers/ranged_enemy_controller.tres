@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="RangedEnemyController" format=3 uid="uid://dy246kg3pwlhq"]
-
-[ext_resource type="Script" uid="uid://421b2xst2yrg" path="res://Core/Entities/Controllers/ranged_enemy_controller.gd" id="1_2ohj3"]
-
-[resource]
-script = ExtResource("1_2ohj3")
-metadata/_custom_type_script = "uid://do5nwha53ks5i"

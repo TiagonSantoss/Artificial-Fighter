@@ -1,0 +1,275 @@
+[gd_scene format=3 uid="uid://0v1b8eyr8r8j"]
+
+[ext_resource type="Texture2D" uid="uid://d0t8swi1175b" path="res://assets/images/UI/placeholder.png" id="1_ge5d7"]
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="1_x72qx"]
+[ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/cards_bar.gd" id="3_gjfdq"]
+[ext_resource type="Script" uid="uid://mgv4db0kq6ed" path="res://Game/UI/health.gd" id="3_poaiy"]
+[ext_resource type="Texture2D" uid="uid://cbcjge7pevctq" path="res://assets/sprites/UI/cardscardernointothefire.png" id="4_tvm4q"]
+[ext_resource type="Script" uid="uid://c1xfew0gfsp1i" path="res://Game/UI/rank_bar.gd" id="5_lx3dl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjfdq"]
+bg_color = Color(0.58265924, 0.74032336, 0.99914604, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.11764706, 0.45490196, 0.99215686, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ge5d7"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(1, 0.8000001, 0, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvm4q"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lx3dl"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_poaiy"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.11764706, 0.45490196, 0.99215686, 1)
+corner_detail = 6
+
+[node name="P1" type="Control" unique_id=131289428]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -1084.0
+offset_right = 614.0
+offset_bottom = 1.0
+grow_vertical = 0
+
+[node name="Health_Display" type="Control" parent="." unique_id=183284139]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 57.0
+offset_top = -344.0
+offset_right = 177.0
+offset_bottom = -224.0
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(60, 120)
+
+[node name="TextureRect" type="TextureRect" parent="Health_Display" unique_id=580088258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.143
+anchor_top = 0.25300002
+anchor_right = 0.79800004
+anchor_bottom = 0.79800004
+offset_left = -25.16
+offset_top = -23.69332
+offset_right = 26.239998
+offset_bottom = 19.906685
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(64.541, 59.326)
+texture = ExtResource("1_ge5d7")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="Health_Display/TextureRect" unique_id=964528921]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16000001
+anchor_top = 0.82800007
+anchor_right = 0.87000006
+anchor_bottom = 1.315
+offset_left = 0.03999901
+offset_top = 0.04862976
+offset_right = 0.02999115
+offset_bottom = -0.044692993
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gjfdq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Health_Display/TextureRect/Panel" unique_id=751203477]
+layout_mode = 0
+offset_left = 6.0
+offset_right = 91.0
+offset_bottom = 50.0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Health_Display/TextureRect/Panel/HBoxContainer" unique_id=1714114020]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_x72qx")
+theme_override_font_sizes/font_size = 8
+text = "500"
+script = ExtResource("3_poaiy")
+metadata/_edit_lock_ = true
+
+[node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -187.0
+offset_right = 156.0
+offset_bottom = -67.0
+grow_vertical = 0
+scale = Vector2(1.3, 1.3)
+pivot_offset = Vector2(0, 120)
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Weapon_Display" unique_id=535590802]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.98300004
+anchor_bottom = 0.9760001
+offset_right = -0.028007507
+offset_bottom = -0.04801178
+theme_override_styles/panel = SubResource("StyleBoxFlat_ge5d7")
+metadata/_edit_lock_ = true
+
+[node name="CardsBar" type="Control" parent="." unique_id=1551712786]
+visible = false
+custom_minimum_size = Vector2(19.763, 0)
+layout_mode = 1
+anchor_left = 0.21800001
+anchor_top = 0.89400005
+anchor_right = 0.21800001
+anchor_bottom = 0.89400005
+offset_left = 0.147995
+offset_top = -51.99005
+offset_right = 376.148
+offset_bottom = 53.00995
+script = ExtResource("3_gjfdq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardsBar" unique_id=512959549]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.62
+anchor_bottom = 0.62
+offset_left = 11.0
+offset_top = -39.885033
+offset_right = 146.0
+offset_bottom = 39.9
+grow_vertical = 0
+pivot_offset = Vector2(0, 40)
+
+[node name="TextureRect" type="TextureRect" parent="CardsBar/HBoxContainer" unique_id=457901624]
+layout_mode = 2
+texture = ExtResource("4_tvm4q")
+expand_mode = 3
+
+[node name="RankBar" type="Control" parent="." unique_id=14119259]
+layout_mode = 1
+anchor_left = 0.12522802
+anchor_top = 0.02764977
+anchor_right = 0.5942737
+anchor_bottom = 0.24726729
+offset_left = 0.10999298
+offset_right = 0.1159668
+offset_bottom = -0.28500366
+script = ExtResource("5_lx3dl")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="RankBar" unique_id=912351364]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11537952
+anchor_top = 0.72887623
+anchor_right = 0.8955807
+anchor_bottom = 0.8718762
+offset_left = 0.039999485
+offset_top = -0.008224487
+offset_right = 0.08908081
+offset_bottom = 0.13647461
+theme_override_styles/panel = SubResource("StyleBoxFlat_tvm4q")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="RankBar/Panel" unique_id=1350969897]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.010651053
+anchor_top = 0.05639247
+anchor_right = 0.98672414
+anchor_bottom = 0.95733964
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -0.037002563
+offset_bottom = -1.0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="RankBar/Panel/MarginContainer" unique_id=2101212801]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_lx3dl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_poaiy")
+value = 49.01
+show_percentage = false
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="RankBar/Panel/MarginContainer/ProgressBar" unique_id=1911327295]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015000001
+anchor_top = 1.4860001
+anchor_right = 1.0890001
+anchor_bottom = 3.272
+offset_left = 0.06691384
+offset_top = 0.0002593994
+offset_right = 51.93489
+offset_bottom = 6.242256
+pivot_offset = Vector2(142, 0)
+theme_override_fonts/font = ExtResource("1_x72qx")
+theme_override_font_sizes/font_size = 9
+text = "max rank"
+
+[node name="RankTexture" type="TextureRect" parent="RankBar" unique_id=1181964408]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19500001
+anchor_top = 0.201
+anchor_right = 0.80200005
+anchor_bottom = 0.67200005
+offset_left = -21.744991
+offset_top = 0.19799805
+offset_right = 26.618011
+offset_bottom = -0.14401245
+texture = ExtResource("1_ge5d7")
+expand_mode = 3
+stretch_mode = 5

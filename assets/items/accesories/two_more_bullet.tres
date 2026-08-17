@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="AccessoryDefinition" format=3 uid="uid://3d0ii533rxy0"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_qls4c"]
+[ext_resource type="Script" uid="uid://b13auupf2pxln" path="res://Core/Container/Components/Behaviors/multishot.gd" id="2_qls4c"]
+[ext_resource type="Texture2D" uid="uid://def5xjfgyqbd8" path="res://assets/sprites/items/two_more_bullet.png" id="3_qls4c"]
+[ext_resource type="Script" uid="uid://buwgoy4alc6x8" path="res://Core/Container/Components/Base/effect_definition.gd" id="4_i7trc"]
+[ext_resource type="Script" uid="uid://d1yxs4jy1rari" path="res://Core/Container/Components/Base/accesory_definition.gd" id="5_k3ke4"]
+
+[sub_resource type="Resource" id="Resource_e0max"]
+script = ExtResource("2_qls4c")
+extra_bullets = 2
+spread_angle = 5.0
+metadata/_custom_type_script = "uid://b13auupf2pxln"
+
+[resource]
+script = ExtResource("5_k3ke4")
+passive_effects = Array[ExtResource("4_i7trc")]([null])
+behaviors = Array[ExtResource("1_qls4c")]([SubResource("Resource_e0max")])
+icon = ExtResource("3_qls4c")
+metadata/_custom_type_script = "uid://d1yxs4jy1rari"

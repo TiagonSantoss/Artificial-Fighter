@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://b4gq2hcikl5af"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_1q7vq"]
+[ext_resource type="Resource" uid="uid://c3pdbjtvgxbry" path="res://assets/items/behaviors/ball_behavior.tres" id="2_0lxvy"]
+[ext_resource type="Resource" uid="uid://0unxa1u8rqx7" path="res://assets/definitions/projectiles/melee/ball.tres" id="3_1q7vq"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="4_m3ulr"]
+
+[resource]
+script = ExtResource("4_m3ulr")
+sprite_scale = Vector3(0.5, 0.5, 0.5)
+fire_rate = 3.2
+pierce_multiplier = 2.0
+spread = 0.0
+shoot_sound = "EnemyRevolver"
+is_melee = true
+default_behaviors = Array[ExtResource("1_1q7vq")]([ExtResource("2_0lxvy")])
+melee = ExtResource("3_1q7vq")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

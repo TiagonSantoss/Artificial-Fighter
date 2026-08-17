@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AccessoryDefinition" format=3 uid="uid://cv8mfj4h0wa16"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_17jj3"]
+[ext_resource type="Script" uid="uid://buwgoy4alc6x8" path="res://Core/Container/Components/Base/effect_definition.gd" id="1_sl5m0"]
+[ext_resource type="Script" uid="uid://d1yxs4jy1rari" path="res://Core/Container/Components/Base/accesory_definition.gd" id="2_17jj3"]
+[ext_resource type="Script" uid="uid://b13auupf2pxln" path="res://Core/Container/Components/Behaviors/multishot.gd" id="2_cxreh"]
+[ext_resource type="Texture2D" uid="uid://cfudypmuq3u78" path="res://assets/sprites/items/one_more_bullet.png" id="3_hgsax"]
+
+[sub_resource type="Resource" id="Resource_hgsax"]
+script = ExtResource("2_cxreh")
+spread_angle = 5.0
+metadata/_custom_type_script = "uid://b13auupf2pxln"
+
+[resource]
+script = ExtResource("2_17jj3")
+passive_effects = Array[ExtResource("1_sl5m0")]([null])
+behaviors = Array[ExtResource("1_17jj3")]([SubResource("Resource_hgsax")])
+icon = ExtResource("3_hgsax")
+metadata/_custom_type_script = "uid://d1yxs4jy1rari"

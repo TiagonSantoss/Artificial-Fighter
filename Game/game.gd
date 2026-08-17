@@ -4,7 +4,8 @@ extends Node3D
 const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 
 const LAYER_WORLD := 1
-const LAYER_ENTITY := 3
+const LAYER_PLAYER := 2
+const LAYER_ENEMY := 3
 
 signal controlled_entity_changed(entity: Entity)
 
@@ -22,16 +23,18 @@ static var instance: Game
 var entity_camera_pivot: Marker3D
 var active_room_pivot: DynamicRotatingCameraPivot = null
 
-@onready var entities: Node3D = $Entities
+@onready var entities: Node3D = $SubViewportContainer/SubViewport/Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
+@onready var emitter: FmodEventEmitter3D = $SubViewportContainer/SubViewport/FmodEventEmitter3D
 
-@onready var camera_rig: Camera3D = $Camera3D
+@onready var camera_rig: Camera3D = $SubViewportContainer/SubViewport/Camera3D
 
 @export var player_definition: EntityDefinition
+@export var companion_definition: EntityDefinition
 
 @export var enemy_pool: Array[EntityDefinition]
 @export var npc_pool: Array[EntityDefinition]
-@export var companion_pool: Array[EntityDefinition]
+
 @export var chunk_manager: ChunkManager
 
 @onready var marker = $PlayerSpawn
@@ -86,13 +89,18 @@ func _on_active_room_changed(room_data: Variant) -> void:
 		new_pivot.rotation.y = active_room_pivot.rotation.y
 		new_pivot.target_rotation_y = active_room_pivot.target_rotation_y
 		new_pivot.is_rotating = active_room_pivot.is_rotating
+
+		new_pivot.base_camera_size = active_room_pivot.base_camera_size
+		new_pivot.max_extra_size = active_room_pivot.max_extra_size
+		new_pivot.follow_speed = active_room_pivot.follow_speed
+
 		active_room_pivot.deactivate()
 
 	active_room_pivot = new_pivot
 
 	var target_size := Vector2(40.0, 40.0)
-	if room_def:
-		target_size = Vector2(room_def.size) * 40.0
+	# if room_def and room_def.size != Vector2i.ZERO:
+	# 	target_size = Vector2(room_def.size)
 
 	active_room_pivot.set_room(room_data)
 	active_room_pivot.activate(target_size)
@@ -147,6 +155,8 @@ func spawn_player(pos: Vector3) -> Entity:
 	controlled_entity = player
 	player.add_to_group("player")
 	player.add_child(listener3D)
+
+	player.collision_layer = 1
 	return player
 
 
@@ -158,12 +168,11 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	enemy.controller.target = player
 	enemy.add_to_group("enemies")
 
-	enemy.collision_layer = 2
 	return enemy
 
 
-func spawn_companion(pos: Vector3, definition: EntityDefinition) -> Entity:
-	var companion := spawn_entity(definition, pos)
+func spawn_companion(pos: Vector3) -> Entity:
+	var companion := spawn_entity(companion_definition, pos)
 	companion.controller.follow_target = player
 	return companion
 
@@ -181,5 +190,17 @@ func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
 
 
 func configure_entity_collision(entity: Entity) -> void:
-	entity.collision_layer = LAYER_ENTITY
-	entity.collision_mask = LAYER_WORLD
+	entity.collision_layer = 0
+	entity.collision_mask = 0
+
+	entity.set_collision_mask_value(LAYER_WORLD, true)
+
+	match entity.team:
+		Entity.Team.PLAYER:
+			entity.set_collision_layer_value(LAYER_PLAYER, true)
+
+		Entity.Team.ENEMY:
+			entity.set_collision_layer_value(LAYER_ENEMY, true)
+
+		Entity.Team.ALLY:
+			entity.set_collision_layer_value(LAYER_PLAYER, true)

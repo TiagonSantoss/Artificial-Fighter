@@ -1,6 +1,9 @@
 class_name DungeonManager
 extends Node3D
 
+signal room_entered(room: RoomInstance)
+signal room_exited(room: RoomInstance)
+
 @export_category("Room Generation")
 @export var room_pool: Array[RoomDefinition]
 @export var start_room: RoomDefinition
@@ -8,7 +11,10 @@ extends Node3D
 @export var _seed := 1234
 @export var room_count := 12
 
-@onready var chunk_manager: ChunkManager = $ChunkManager
+@export_category("Item Drop")
+@export var item_pool: Array[ItemDefinition]
+
+var emitter: FmodEventEmitter3D
 
 var graph: RoomGraph
 var layout: Dictionary = {}
@@ -19,8 +25,7 @@ var is_generating := false
 
 var cleared_rooms := {}  # room_id (String) -> bool
 
-signal room_entered(room: RoomInstance)
-signal room_exited(room: RoomInstance)
+@onready var chunk_manager: ChunkManager = $ChunkManager
 
 
 func generate() -> void:
@@ -61,6 +66,9 @@ func _ready() -> void:
 	await get_tree().process_frame
 	chunk_manager.room_loaded.connect(_on_room_loaded)
 	chunk_manager.room_unloaded.connect(_on_room_unloaded)
+
+	if is_instance_valid(GameAutoLoad.instance):
+		emitter = GameAutoLoad.instance.emitter
 
 	generate()
 
@@ -115,6 +123,9 @@ func _on_player_entered_room(room: RoomInstance) -> void:
 
 	print("Entered:", room.room_id)
 
+	if emitter:
+		emitter.set_parameter("Set", 0)
+
 	_on_room_entered(room)
 
 
@@ -139,7 +150,12 @@ func _spawn_player_at_start() -> RoomInstance:
 	if spawn_point == null:
 		return null
 
+	if emitter:
+		emitter.set_parameter("Set", 5)
+		print("EMITTER SET TO 5")
+
 	Game.instance.spawn_player(spawn_point.global_position)
+	Game.instance.spawn_companion(spawn_point.global_position)
 
 	return start_room_a
 
@@ -189,6 +205,15 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 	room.enemies.append(enemy)
 
+	if emitter:
+		match room.enemies.size():
+			5:
+				emitter.set_parameter("Set", 2)
+			2:
+				emitter.set_parameter("Set", 4)
+			1:
+				emitter.set_parameter("Set", 0)
+
 	enemy.tree_exited.connect(
 		func():
 			room.enemies.erase(enemy)
@@ -200,11 +225,25 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
-	cleared_rooms[room.room_id] = true  # Cache this ID permanently
+	cleared_rooms[room.room_id] = true
 
 	chunk_manager.set_streaming_mode(ChunkManager.StreamingMode.EXPLORATION, room.room_id)
 	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
+
+	emitter.set_parameter("Set", 6)
+
+	if item_pool.size() > 0:
+		var random_accessory_def = item_pool.pick_random()
+
+		var new_item_instance = ItemInstance.new()
+
+		new_item_instance.definition = random_accessory_def
+
+		# 4. Drop the INSTANCE
+		WorldItemSpawner.drop(
+			new_item_instance, GameAutoLoad.instance.player.position + Vector3(0.0, 2.0, 0.0)
+		)
 
 
 func start_encounter(room: RoomInstance) -> void:

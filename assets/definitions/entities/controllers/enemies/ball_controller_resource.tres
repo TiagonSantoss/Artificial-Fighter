@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CubeController" format=3 uid="uid://cwup2i2hn5383"]
+
+[ext_resource type="Script" uid="uid://nd2iy1bf4idp" path="res://Core/Entities/Controllers/enemies/ball_controller.gd" id="1_tus6y"]
+
+[resource]
+script = ExtResource("1_tus6y")
+ray_check_distance = 3.0
+metadata/_custom_type_script = "uid://nd2iy1bf4idp"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RankDefinition" format=3 uid="uid://cx6xqj7t6ewph"]
+
+[ext_resource type="Texture2D" uid="uid://cltutcxjx8jnl" path="res://demo/assets/dummy.png" id="1_45v0k"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="1_vruyr"]
+
+[resource]
+script = ExtResource("1_vruyr")
+rank_image = ExtResource("1_45v0k")
+metadata/_custom_type_script = "uid://bfvmsfxhyydk5"

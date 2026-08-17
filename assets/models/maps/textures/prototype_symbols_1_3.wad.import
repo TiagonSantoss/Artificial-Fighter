@@ -1,0 +1,16 @@
+[remap]
+
+importer="func_godot.wad"
+type="Resource"
+uid="uid://cqp524qet1tt7"
+path="res://.godot/imported/prototype_symbols_1_3.wad-b89b5bc401df67732782c08898db3b6d.res"
+
+[deps]
+
+source_file="res://assets/models/maps/textures/prototype_symbols_1_3.wad"
+dest_files=["res://.godot/imported/prototype_symbols_1_3.wad-b89b5bc401df67732782c08898db3b6d.res"]
+
+[params]
+
+palette_file="res://addons/func_godot/palette.lmp"
+generate_mipmaps=true

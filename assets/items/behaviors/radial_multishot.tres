@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RadialMultishotBehavior" format=3 uid="uid://cebya1qh47ca3"]
+
+[ext_resource type="Script" uid="uid://rds0p1ay5tsn" path="res://Core/Container/Components/Behaviors/radial_multishot.gd" id="1_fbffs"]
+
+[resource]
+script = ExtResource("1_fbffs")
+metadata/_custom_type_script = "uid://rds0p1ay5tsn"

@@ -13,6 +13,18 @@
 [ext_resource type="Script" uid="uid://chj8ria1rtion" path="res://Core/Entities/Actors/Components/entity_audio_component.gd" id="11_mpqfi"]
 [ext_resource type="Script" uid="uid://7k3rw2jwh6e3" path="res://Core/Entities/Actors/Components/accessories_component.gd" id="13_mdepg"]
 [ext_resource type="Script" uid="uid://dqygi3xwh5g36" path="res://Core/Entities/Actors/Components/cards_component.gd" id="13_vuvms"]
+[ext_resource type="Script" uid="uid://3qtwxqcmi0tc" path="res://Core/Entities/Actors/Components/rank_component.gd" id="14_mdepg"]
+[ext_resource type="Script" uid="uid://bfvmsfxhyydk5" path="res://Core/Combat/Rank/rank_definition.gd" id="15_05qbe"]
+[ext_resource type="Resource" uid="uid://cx6xqj7t6ewph" path="res://assets/definitions/entities/ranks/D.tres" id="16_c3x7y"]
+[ext_resource type="Resource" uid="uid://w1f58sddkt0k" path="res://assets/definitions/entities/ranks/C.tres" id="17_jiwjn"]
+[ext_resource type="Resource" uid="uid://ia26s324ccyj" path="res://assets/definitions/entities/ranks/B.tres" id="18_luhad"]
+[ext_resource type="Resource" uid="uid://6a1474rtomqt" path="res://assets/definitions/entities/ranks/A.tres" id="19_b63b6"]
+[ext_resource type="Resource" uid="uid://d3rld0xy2hxw" path="res://assets/definitions/entities/ranks/A+.tres" id="20_i4vqt"]
+[ext_resource type="Resource" uid="uid://cegg5rochdr6r" path="res://assets/definitions/entities/ranks/A++.tres" id="21_rgigk"]
+[ext_resource type="Resource" uid="uid://dg7qrjinpwhj" path="res://assets/definitions/entities/ranks/S.tres" id="22_y1kqs"]
+[ext_resource type="Resource" uid="uid://bkkv1vtx56yws" path="res://assets/definitions/entities/ranks/S+.tres" id="23_nvd46"]
+[ext_resource type="Resource" uid="uid://ddyp5ihlibbfl" path="res://assets/definitions/entities/ranks/S++.tres" id="24_cyrcp"]
+[ext_resource type="Resource" uid="uid://bfrv6otolgyy" path="res://assets/definitions/entities/ranks/GIZMO.tres" id="25_005y8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -34,6 +46,10 @@ size = Vector3(0.14453125, 0.2231369, 0.14355469)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
 size = Vector3(1.2338867, 1, 1.0771484)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b63b6"]
+margin = 0.0
+size = Vector3(5, 5, 5)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
@@ -63,12 +79,13 @@ shape = SubResource("BoxShape3D_2bgwa")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
 simplify_path = true
 radius = 0.01
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
 debug_path_custom_point_size = 6.45
 
-[node name="OrbitSocket" type="Marker3D" parent="." unique_id=1022858180]
+[node name="OrbitSocket" type="SpringArm3D" parent="." unique_id=491707594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09295684, 0)
+shape = SubResource("BoxShape3D_b63b6")
 
 [node name="WeaponSocket" type="Marker3D" parent="OrbitSocket" unique_id=504328398]
 transform = Transform3D(1.0000002, -1.368638e-09, 3.1044087e-10, -1.999221e-09, 0.99999994, -7.761022e-11, 9.313226e-10, -2.3283064e-10, 1, 0, 0, 0)
@@ -107,7 +124,13 @@ script = ExtResource("13_vuvms")
 [node name="AccessoriesComponent" type="Node" parent="Components" unique_id=729275711]
 script = ExtResource("13_mdepg")
 
+[node name="RankComponent" type="Node" parent="Components" unique_id=1163304040]
+script = ExtResource("14_mdepg")
+available_ranks = Array[ExtResource("15_05qbe")]([ExtResource("16_c3x7y"), ExtResource("17_jiwjn"), ExtResource("18_luhad"), ExtResource("19_b63b6"), ExtResource("20_i4vqt"), ExtResource("21_rgigk"), ExtResource("22_y1kqs"), ExtResource("23_nvd46"), ExtResource("24_cyrcp"), ExtResource("25_005y8")])
+decay_rate = 16.0
+
 [node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
 event_name = "event:/SFX/Entity/EntityHurt"
 event_guid = "{cf68e701-3dcd-41e0-95a7-8d2c90e9b5e4}"
-volume = 1.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1117050899]

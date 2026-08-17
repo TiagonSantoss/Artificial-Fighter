@@ -1,0 +1,16 @@
+[remap]
+
+importer="func_godot.wad"
+type="Resource"
+uid="uid://b043ym35jn6oc"
+path="res://.godot/imported/prototype_skies_1_3.wad-38423535663028290603a767c6509b4c.res"
+
+[deps]
+
+source_file="res://assets/models/maps/textures/prototype_skies_1_3.wad"
+dest_files=["res://.godot/imported/prototype_skies_1_3.wad-38423535663028290603a767c6509b4c.res"]
+
+[params]
+
+palette_file="res://addons/func_godot/palette.lmp"
+generate_mipmaps=true

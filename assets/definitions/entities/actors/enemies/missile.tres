@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://cyghgukknecpr"]
+
+[ext_resource type="ArrayMesh" uid="uid://c5jpxemclg0cl" path="res://assets/models/Enemies/meshes/enemies_Cylinder_002.res" id="1_k7tbd"]
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_vtipi"]
+
+[resource]
+script = ExtResource("1_vtipi")
+visual_type = 1
+mesh = ExtResource("1_k7tbd")
+hitbox_size = Vector3(0.3, 0.5, 0.3)
+metadata/_custom_type_script = "uid://dll1idsl2062t"

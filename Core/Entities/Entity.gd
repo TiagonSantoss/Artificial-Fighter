@@ -6,6 +6,11 @@ enum Team { PLAYER, ALLY, ENEMY }
 enum HitResult { NONE, CONSUME, PIERCE, BOUNCE, REFLECT }
 
 const HIT_VFX_SCENE = preload("res://Utils/HitVFX.tscn")
+const CHIP_DAMAGE_RATIO := 0.25
+const DEFAULT_PARRY_WINDOW := 0.2  # Slightly more forgiving for player bodies than melee clashes
+
+var is_blocking := false
+var parry_window_left := 0.0
 
 var definition: EntityDefinition
 var controller: Controller
@@ -20,10 +25,22 @@ var grid_position: Vector3i
 
 var current_interactable: Node = null
 
+var is_in_hitstop := false
+
+var is_dashing := false
+
+var is_invincible: bool = false
+var iframe_duration: float = 1.0
+
 @onready var camera_pivot: Marker3D = $CameraPivot
+
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
+@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
-@onready var orbit_socket: Marker3D = $OrbitSocket
+@onready var orbit_socket: SpringArm3D = $OrbitSocket
+@onready var hit_box_shape: CollisionShape3D = get_node_or_null("hitbox")
+
 @onready var emitter: FmodEventEmitter3D = $Emitter
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
@@ -35,20 +52,37 @@ var current_interactable: Node = null
 @onready var audio_component: EntityAudioComponent = $Components/AudioComponent
 @onready var cards_component: CardsComponent = $Components/CardsComponent
 @onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
+@onready var rank_component: RankComponent = $Components/RankComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
 	definition = entity_definition
-
 	global_position = start_position
 
 	entity_id = definition.entity_id
 	team = definition.team
-
 	grid_position = Grid.world_to_grid(global_position)
 
 	if definition.controller:
 		controller = definition.controller.duplicate()
+
+	animation_component.setup(self)
+	animation_component.set_visual_nodes(sprite, mesh_instance)
+	var active_visuals := animation_component.configure_visuals(definition)
+
+	# hitbox shenaningans
+	if is_instance_valid(hit_box_shape):
+		hit_box_shape.position = definition.hitbox_offset
+
+		if definition.hitbox_shape_override:
+			hit_box_shape.shape = definition.hitbox_shape_override.duplicate()
+		else:
+			var box_shape := BoxShape3D.new()
+			box_shape.size = definition.hitbox_size
+			hit_box_shape.shape = box_shape
+
+	visual_effects_component.setup(self)
+	visual_effects_component.setup_visuals(active_visuals)
 
 	health_component.setup(self)
 	health_component.configure(definition.max_health)
@@ -56,22 +90,17 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	movement_component.setup(self)
 	movement_component.configure(definition)
 
-	animation_component.setup(self)
-	animation_component.set_sprite(sprite)
-	animation_component.configure_visuals(definition)
-
 	weapon_component.setup(self)
-	#weapon_socket.position = Vector3.ZERO
 	orbit_socket.position = Vector3.ZERO
 	weapon_component.set_sockets(weapon_socket, orbit_socket)
 
-	visual_effects_component.setup(self)
-	visual_effects_component.set_sprite(sprite)
-
 	effects_component.setup(self)
 	accessories_component.setup(self)
-
 	audio_component.setup(self)
+
+	rank_component.setup(self)
+
+	await get_tree().physics_frame
 
 	initialized = true
 
@@ -79,6 +108,13 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 		weapon_component.equip_weapon(definition.starting_weapon)
 
 	health_component.died.connect(_on_died)
+
+
+func start_dodge(duration: float) -> void:
+	is_dashing = true
+	# Wait for the i-frames to finish
+	await get_tree().create_timer(duration, false).timeout
+	is_dashing = false
 
 
 func is_friendly_to(other_team: Team) -> bool:
@@ -89,17 +125,62 @@ func is_friendly_to(other_team: Team) -> bool:
 
 
 func apply_hit(hit: HitData):
+	if is_invincible:
+		return HitResult.NONE
+
 	if hit.source_team == team:
 		return HitResult.NONE
 
+	if is_dashing:
+		return HitResult.NONE
+
+	if controller is CompanionController:
+		return HitResult.NONE
+
+	if is_blocking:
+		if parry_window_left > 0.0:
+			audio_component.play_sfx("ParrySound")
+			visual_effects_component.flash_blue()
+			_trigger_hitstop(0.1)
+
+			GState.enemy_parried.emit(25.0)
+			return HitResult.CONSUME
+
+		else:
+			# print("ENTITY BLOCKED!")
+			var chip_damage = hit.get_final_damage() * CHIP_DAMAGE_RATIO
+
+			if health_component:
+				health_component.damage(chip_damage)
+
+			audio_component.play_sfx("BlockSound")
+			visual_effects_component.flash_gray()
+			if movement_component:
+				movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
+
+			return HitResult.CONSUME
+
 	if health_component:
 		health_component.damage(hit.get_final_damage())
-		visual_effects_component.flash_red(0.1)
+		visual_effects_component.flash_red()
 		audio_component.play_sfx("EntityHurt")
-		# audio_component.play_sfx("hit1")
+
+		start_iframes()
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
+
+	return HitResult.CONSUME
+
+
+func start_iframes():
+	is_invincible = true
+
+	visual_effects_component.start_blinking(iframe_duration)
+
+	await get_tree().create_timer(iframe_duration).timeout
+
+	is_invincible = false
 
 
 func _on_died() -> void:
@@ -115,6 +196,21 @@ func _ready():
 	$InteractionArea.area_entered.connect(_on_interaction_entered)
 	$InteractionArea.area_exited.connect(_on_interaction_exited)
 
+	GState.enemy_damaged.connect(_on_enemy_damaged)
+	GState.enemy_parried.connect(_on_enemy_parried)
+
+
+func _on_enemy_damaged(points: float):
+	add_style_points(points)
+
+
+func _on_enemy_parried(points: float):
+	add_style_points(points)
+
+
+func add_style_points(points: float):
+	rank_component.add_points(points)
+
 
 func _on_interaction_entered(area: Area3D) -> void:
 	if area.has_method("interact"):
@@ -126,34 +222,64 @@ func _on_interaction_exited(area: Area3D) -> void:
 		current_interactable = null
 
 
+func trigger_guard() -> void:
+	is_blocking = true
+
+
 func _physics_process(delta: float) -> void:
 	if not initialized:
 		return
 
 	var had_movement := false
 
+	# 1. Remember if we were blocking last frame before resetting
+	var was_blocking = is_blocking
+	is_blocking = false
+
 	if controller:
 		var actions = controller.get_actions(self, delta)
-
 		for action in actions:
 			if action is MovementAction:
 				had_movement = true
-
-			action.execute(self, delta)
+			action.execute(self, delta)  # <--- This sets is_blocking to true if held
 
 		controller.update_aim(self)
-
 		if controller.aim_target != null:
 			weapon_component.update_aim(controller.aim_target)
+
+			# 1. Keep the Y level flat so the arm doesn't tilt into the floor/ceiling
+			var aim_pos = controller.aim_target
+			aim_pos.y = orbit_socket.global_position.y
+
+			# 2. Godot's SpringArm pushes its children outward on its positive Z-axis (+Z).
+			# However, the look_at() function aims the negative Z-axis (-Z) at the target.
+			# So, to make the weapon point AT the cursor, the SpringArm must look AWAY from it!
+			var look_away_pos = (
+				orbit_socket.global_position + (orbit_socket.global_position - aim_pos)
+			)
+
+			# 3. Rotate the SpringArm (preventing a crash if the mouse is exactly on the player)
+			if orbit_socket.global_position.distance_to(look_away_pos) > 0.01:
+				orbit_socket.look_at(look_away_pos, Vector3.UP)
+
+	# 2. Start the timer ONLY if we are blocking now, but weren't last frame
+	if is_blocking and not was_blocking:
+		parry_window_left = DEFAULT_PARRY_WINDOW
+		print("PARRY WINDOW STARTED")
+		visual_effects_component.set_blocking_visuals(true)
+
+	# 3. Tick down the parry window (or reset it if we let go of block)
+	if is_blocking and parry_window_left > 0.0:
+		parry_window_left = maxf(0.0, parry_window_left - delta)
+	elif not is_blocking:
+		parry_window_left = 0.0
+		visual_effects_component.set_blocking_visuals(false)
 
 	if not had_movement:
 		movement_component.apply_friction(delta)
 
 	movement_component.update(delta)
-
-	#visual_effects_component.update(delta)
 	effects_component.update(delta)
-
 	weapon_component.update(delta)
 
 	if not is_on_floor():
@@ -161,23 +287,24 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	#var new_grid := Grid.world_to_grid(
-	#	global_position
-	#)
-
-	#if new_grid != grid_position:
-	#	grid_position = new_grid
+	if is_instance_valid(mesh_instance) and mesh_instance.visible:
+		animation_component.rotate_mesh_towards_velocity(mesh_instance, velocity, delta)
 
 	animation_component.update_animation()
 
 
-func _spawn_hit_vfx() -> void:
-	var vfx := HIT_VFX_SCENE.instantiate()
-	get_tree().current_scene.add_child(vfx)
-	vfx.reparent(self)
-	vfx.rotation.y = randf() * TAU
+func _trigger_hitstop(duration_seconds: float) -> void:
+	# Prevent overlapping hitstops from breaking the time scale reset
+	if is_in_hitstop or Engine.time_scale < 1.0:
+		return
 
-	#if vfx is Node3D:
-	#	vfx.look_at(pos + normal, Vector3.UP)
+	is_in_hitstop = true
+	Engine.time_scale = 0.05
 
-	vfx.play()
+	# Real-world timer that ignores Engine.time_scale
+	await get_tree().create_timer(duration_seconds, true, false, true).timeout
+
+	# Only reset if we are still the active hitstop handler
+	if is_in_hitstop:
+		Engine.time_scale = 1.0
+		is_in_hitstop = false

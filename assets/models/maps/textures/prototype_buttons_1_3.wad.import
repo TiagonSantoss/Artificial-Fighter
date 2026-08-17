@@ -1,0 +1,16 @@
+[remap]
+
+importer="func_godot.wad"
+type="Resource"
+uid="uid://bd7r53413c8v1"
+path="res://.godot/imported/prototype_buttons_1_3.wad-726939f501574b95a824ca2cce1b8d4b.res"
+
+[deps]
+
+source_file="res://assets/models/maps/textures/prototype_buttons_1_3.wad"
+dest_files=["res://.godot/imported/prototype_buttons_1_3.wad-726939f501574b95a824ca2cce1b8d4b.res"]
+
+[params]
+
+palette_file="res://addons/func_godot/palette.lmp"
+generate_mipmaps=true

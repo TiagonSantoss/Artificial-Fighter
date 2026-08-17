@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bscl5f0adwebr"]
+
+[ext_resource type="Resource" uid="uid://bneobpy3wprti" path="res://assets/definitions/projectiles/melee/katana_swing.tres" id="1_hlgdu"]
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_u3r82"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="1_xwv50"]
+[ext_resource type="Texture2D" uid="uid://c6opa7leggjhe" path="res://assets/sprites/combat/weapons/katana.png" id="2_mu4wx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3gon"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mu4wx")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_xwv50")
+sprite_frames = SubResource("SpriteFrames_l3gon")
+billboard = 0
+sprite_offset = Vector3(1, 0, 1)
+is_melee = true
+melee = ExtResource("1_hlgdu")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

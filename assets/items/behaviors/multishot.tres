@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MultishotBehavior" format=3 uid="uid://rtmangqbh3im"]
+
+[ext_resource type="Script" uid="uid://b13auupf2pxln" path="res://Core/Container/Components/Behaviors/multishot.gd" id="1_o1jms"]
+
+[resource]
+script = ExtResource("1_o1jms")
+spread_angle = 5.0
+metadata/_custom_type_script = "uid://b13auupf2pxln"
