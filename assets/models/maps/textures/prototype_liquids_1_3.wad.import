@@ -1,0 +1,16 @@
+[remap]
+
+importer="func_godot.wad"
+type="Resource"
+uid="uid://wesno6t727qw"
+path="res://.godot/imported/prototype_liquids_1_3.wad-3a745a3fc5a4e7a404765fe867e81572.res"
+
+[deps]
+
+source_file="res://assets/models/maps/textures/prototype_liquids_1_3.wad"
+dest_files=["res://.godot/imported/prototype_liquids_1_3.wad-3a745a3fc5a4e7a404765fe867e81572.res"]
+
+[params]
+
+palette_file="res://addons/func_godot/palette.lmp"
+generate_mipmaps=true

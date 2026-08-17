@@ -29,13 +29,16 @@ var is_in_hitstop := false
 
 var is_dashing := false
 
+var is_invincible: bool = false
+var iframe_duration: float = 1.0
+
 @onready var camera_pivot: Marker3D = $CameraPivot
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 
 @onready var weapon_socket: Marker3D = $OrbitSocket/WeaponSocket
-@onready var orbit_socket: Marker3D = $OrbitSocket
+@onready var orbit_socket: SpringArm3D = $OrbitSocket
 @onready var hit_box_shape: CollisionShape3D = get_node_or_null("hitbox")
 
 @onready var emitter: FmodEventEmitter3D = $Emitter
@@ -122,29 +125,36 @@ func is_friendly_to(other_team: Team) -> bool:
 
 
 func apply_hit(hit: HitData):
+	if is_invincible:
+		return HitResult.NONE
+
 	if hit.source_team == team:
 		return HitResult.NONE
 
 	if is_dashing:
 		return HitResult.NONE
 
+	if controller is CompanionController:
+		return HitResult.NONE
+
 	if is_blocking:
 		if parry_window_left > 0.0:
 			audio_component.play_sfx("ParrySound")
-			visual_effects_component.flash_blue(0.1)
+			visual_effects_component.flash_blue()
 			_trigger_hitstop(0.1)
 
 			GState.enemy_parried.emit(25.0)
 			return HitResult.CONSUME
 
 		else:
-			print("ENTITY BLOCKED!")
+			# print("ENTITY BLOCKED!")
 			var chip_damage = hit.get_final_damage() * CHIP_DAMAGE_RATIO
 
 			if health_component:
 				health_component.damage(chip_damage)
 
 			audio_component.play_sfx("BlockSound")
+			visual_effects_component.flash_gray()
 			if movement_component:
 				movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
 
@@ -152,13 +162,25 @@ func apply_hit(hit: HitData):
 
 	if health_component:
 		health_component.damage(hit.get_final_damage())
-		visual_effects_component.flash_red(0.1)
+		visual_effects_component.flash_red()
 		audio_component.play_sfx("EntityHurt")
+
+		start_iframes()
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
 
 	return HitResult.CONSUME
+
+
+func start_iframes():
+	is_invincible = true
+
+	visual_effects_component.start_blinking(iframe_duration)
+
+	await get_tree().create_timer(iframe_duration).timeout
+
+	is_invincible = false
 
 
 func _on_died() -> void:
@@ -224,6 +246,21 @@ func _physics_process(delta: float) -> void:
 		controller.update_aim(self)
 		if controller.aim_target != null:
 			weapon_component.update_aim(controller.aim_target)
+
+			# 1. Keep the Y level flat so the arm doesn't tilt into the floor/ceiling
+			var aim_pos = controller.aim_target
+			aim_pos.y = orbit_socket.global_position.y
+
+			# 2. Godot's SpringArm pushes its children outward on its positive Z-axis (+Z).
+			# However, the look_at() function aims the negative Z-axis (-Z) at the target.
+			# So, to make the weapon point AT the cursor, the SpringArm must look AWAY from it!
+			var look_away_pos = (
+				orbit_socket.global_position + (orbit_socket.global_position - aim_pos)
+			)
+
+			# 3. Rotate the SpringArm (preventing a crash if the mouse is exactly on the player)
+			if orbit_socket.global_position.distance_to(look_away_pos) > 0.01:
+				orbit_socket.look_at(look_away_pos, Vector3.UP)
 
 	# 2. Start the timer ONLY if we are blocking now, but weren't last frame
 	if is_blocking and not was_blocking:

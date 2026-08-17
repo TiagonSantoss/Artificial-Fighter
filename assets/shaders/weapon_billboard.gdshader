@@ -1,5 +1,4 @@
 shader_type spatial;
-// 🟢 FIXED: Added cull_disabled so flipping vertices doesn't make the sprite go dark
 render_mode depth_draw_opaque, cull_disabled, unshaded; 
 
 uniform sampler2D main_texture : filter_nearest, source_color;
@@ -40,6 +39,7 @@ void vertex() {
 	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
 	
 	VERTEX.z -= 0.1;
+	VERTEX.y += 1.5;
 }
 
 void fragment() {

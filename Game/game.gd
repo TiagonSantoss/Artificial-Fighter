@@ -23,17 +23,18 @@ static var instance: Game
 var entity_camera_pivot: Marker3D
 var active_room_pivot: DynamicRotatingCameraPivot = null
 
-@onready var entities: Node3D = $Entities
+@onready var entities: Node3D = $SubViewportContainer/SubViewport/Entities
 @onready var player_spawn: Marker3D = $PlayerSpawn
-@onready var emitter: FmodEventEmitter3D = $FmodEventEmitter3D
+@onready var emitter: FmodEventEmitter3D = $SubViewportContainer/SubViewport/FmodEventEmitter3D
 
-@onready var camera_rig: Camera3D = $Camera3D
+@onready var camera_rig: Camera3D = $SubViewportContainer/SubViewport/Camera3D
 
 @export var player_definition: EntityDefinition
+@export var companion_definition: EntityDefinition
 
 @export var enemy_pool: Array[EntityDefinition]
 @export var npc_pool: Array[EntityDefinition]
-@export var companion_pool: Array[EntityDefinition]
+
 @export var chunk_manager: ChunkManager
 
 @onready var marker = $PlayerSpawn
@@ -170,8 +171,8 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 	return enemy
 
 
-func spawn_companion(pos: Vector3, definition: EntityDefinition) -> Entity:
-	var companion := spawn_entity(definition, pos)
+func spawn_companion(pos: Vector3) -> Entity:
+	var companion := spawn_entity(companion_definition, pos)
 	companion.controller.follow_target = player
 	return companion
 

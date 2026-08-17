@@ -97,7 +97,7 @@ func _physics_process(delta: float) -> void:
 
 	var pitch := -atan2(local_offset.y, local_offset.z)
 	global_camera_rig.rotation.y = rotation.y
-	global_camera_rig.rotation.x = pitch
+	# global_camera_rig.rotation.x = pitch
 	global_camera_rig.rotation.z = 0.0
 
 

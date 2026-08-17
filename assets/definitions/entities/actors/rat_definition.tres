@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://dx6yj5jr2qwa2"]
 
-[ext_resource type="Resource" uid="uid://5j7qiwjv4cib" path="res://assets/definitions/entities/controllers/player_controller.tres" id="1_c6bxy"]
+[ext_resource type="Resource" uid="uid://c780axlwm4kky" path="res://assets/definitions/entities/controllers/player_companion_controller.tres" id="1_5vak3"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="2_swodp"]
 [ext_resource type="Texture2D" uid="uid://cu7vmvw2habwf" path="res://assets/sprites/characters/rat.png" id="3_c6bxy"]
 [ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/ranged/Revolver.tres" id="4_c6bxy"]
@@ -375,8 +375,9 @@ acceleration = 200.0
 friction = 60.0
 jump_force = 11.0
 hitbox_size = Vector3(0.1, 0.2, 0.1)
-controller = ExtResource("1_c6bxy")
+controller = ExtResource("1_5vak3")
 entity_id = 1
 starting_weapon = ExtResource("4_c6bxy")
 team = 1
+spawn_group = 1
 metadata/_custom_type_script = "uid://dll1idsl2062t"

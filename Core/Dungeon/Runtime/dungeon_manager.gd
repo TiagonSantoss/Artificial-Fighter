@@ -155,6 +155,7 @@ func _spawn_player_at_start() -> RoomInstance:
 		print("EMITTER SET TO 5")
 
 	Game.instance.spawn_player(spawn_point.global_position)
+	Game.instance.spawn_companion(spawn_point.global_position)
 
 	return start_room_a
 
@@ -239,6 +240,7 @@ func _on_room_cleared(room: RoomInstance) -> void:
 
 		new_item_instance.definition = random_accessory_def
 
+		# 4. Drop the INSTANCE
 		WorldItemSpawner.drop(
 			new_item_instance, GameAutoLoad.instance.player.position + Vector3(0.0, 2.0, 0.0)
 		)

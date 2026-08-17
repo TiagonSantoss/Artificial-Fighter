@@ -14,7 +14,7 @@ func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> voi
 	var original_shots = context.shots.duplicate()
 	context.shots.clear()
 
-	# 2 * PI is exactly 360 degrees in radians.
+	# 2 * PI is exactly 360 degrees in radians
 	var angle_step = (2.0 * PI) / float(total_directions)
 	var starting_offset = deg_to_rad(offset_degrees)
 

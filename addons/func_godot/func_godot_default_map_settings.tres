@@ -7,3 +7,4 @@
 
 [resource]
 script = ExtResource("1_dlf23")
+base_texture_dir = "res://assets/models/maps/textures"

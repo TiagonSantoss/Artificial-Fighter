@@ -12,6 +12,6 @@ metadata/_custom_type_script = "uid://rds0p1ay5tsn"
 
 [resource]
 script = ExtResource("4_3y0j5")
-behaviors = Array[ExtResource("1_olplq")]([SubResource("Resource_741oa")])
+behaviors = Array[ExtResource("1_olplq")]([SubResource("Resource_741oa"), null, null, null])
 icon = ExtResource("3_3y0j5")
 metadata/_custom_type_script = "uid://d1yxs4jy1rari"

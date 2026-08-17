@@ -21,10 +21,10 @@ var aim_direction := Vector3.FORWARD
 
 var equipped_weapon: Weapon
 var weapon_socket: Marker3D
-var orbit_socket: Marker3D
+var orbit_socket: SpringArm3D
 
 
-func set_sockets(socket: Marker3D, orbit: Marker3D) -> void:
+func set_sockets(socket: Marker3D, orbit: SpringArm3D) -> void:
 	if socket == null:
 		push_error("Weapon socket is null!")
 		return

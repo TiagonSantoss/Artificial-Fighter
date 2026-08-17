@@ -1,0 +1,16 @@
+[remap]
+
+importer="func_godot.wad"
+type="Resource"
+uid="uid://dthcm0rl7rvcp"
+path="res://.godot/imported/prototype_uniform_colors_1_3.wad-56b2d947938a8ce96204f1bdd203f3b0.res"
+
+[deps]
+
+source_file="res://assets/models/maps/textures/prototype_uniform_colors_1_3.wad"
+dest_files=["res://.godot/imported/prototype_uniform_colors_1_3.wad-56b2d947938a8ce96204f1bdd203f3b0.res"]
+
+[params]
+
+palette_file="res://addons/func_godot/palette.lmp"
+generate_mipmaps=true

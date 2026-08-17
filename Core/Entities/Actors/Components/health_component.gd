@@ -17,7 +17,7 @@ func configure(max_hp: int):
 func damage(amount: float):
 	health -= amount
 
-	if entity.entity_id == 0 or entity.entity_id == 1:
+	if entity.entity_id == 0:
 		GState.health_changed.emit(int(health))
 
 	print(health)
