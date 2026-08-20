@@ -41,8 +41,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0p8jp"]
-size = Vector3(0.14453125, 0.2231369, 0.14355469)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_68ee8"]
+radius = 0.09667969
+height = 0.41407776
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
 size = Vector3(1.2338867, 1, 1.0771484)
@@ -64,8 +65,8 @@ sprite_frames = SubResource("SpriteFrames_on4x7")
 animation = &"new_animation"
 
 [node name="hitbox" type="CollisionShape3D" parent="." unique_id=1783856047]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.00028108805, 0.0073155165, 0)
-shape = SubResource("BoxShape3D_0p8jp")
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.00028108805, -0.45123, 0)
+shape = SubResource("CapsuleShape3D_68ee8")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=1280813439]
@@ -79,7 +80,6 @@ shape = SubResource("BoxShape3D_2bgwa")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
 simplify_path = true
 radius = 0.01
-debug_use_custom = true
 debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
 debug_path_custom_point_size = 6.45
 
@@ -127,7 +127,7 @@ script = ExtResource("13_mdepg")
 [node name="RankComponent" type="Node" parent="Components" unique_id=1163304040]
 script = ExtResource("14_mdepg")
 available_ranks = Array[ExtResource("15_05qbe")]([ExtResource("16_c3x7y"), ExtResource("17_jiwjn"), ExtResource("18_luhad"), ExtResource("19_b63b6"), ExtResource("20_i4vqt"), ExtResource("21_rgigk"), ExtResource("22_y1kqs"), ExtResource("23_nvd46"), ExtResource("24_cyrcp"), ExtResource("25_005y8")])
-decay_rate = 16.0
+decay_rate = 8.0
 
 [node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
 event_name = "event:/SFX/Entity/EntityHurt"

@@ -36,7 +36,8 @@ func _physics_process(delta: float) -> void:
 	if not is_active_pivot or not Game.player:
 		return
 
-	var global_camera_rig = Game.instance.camera_rig
+	var global_camera_rig = GameAutoLoad.camera_rig
+
 	if not is_instance_valid(global_camera_rig):
 		return
 
@@ -95,13 +96,13 @@ func _physics_process(delta: float) -> void:
 		smoothed_look_target + global_offset, follow_speed * delta
 	)
 
-	var pitch := -atan2(local_offset.y, local_offset.z)
+	# var pitch := -atan2(local_offset.y, local_offset.z)
 	global_camera_rig.rotation.y = rotation.y
 	# global_camera_rig.rotation.x = pitch
 	global_camera_rig.rotation.z = 0.0
 
 
-func activate(room_size: Vector2 = Vector2.ZERO) -> void:
+func activate(_room_size: Vector2 = Vector2.ZERO) -> void:
 	# if room_size != Vector2.ZERO:
 	# 	room_size_units = room_size
 	is_active_pivot = true
@@ -135,7 +136,7 @@ func rotate_by(degrees: float) -> void:
 
 
 func get_movement_directions() -> Array[Vector3]:
-	var cam := Game.instance.camera_rig
+	var cam := GameAutoLoad.camera_rig
 	var forward := cam.global_basis.z
 	forward.y = 0.0
 	forward = forward.normalized()

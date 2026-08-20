@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://c1srjg1672dbg"
+path="res://.godot/imported/invisible wall.map-ee9b5a76f4a6ad7e970f6f7cf62cd462.tres"
+
+[deps]
+
+source_file="res://assets/models/maps/invisible wall.map"
+dest_files=["res://.godot/imported/invisible wall.map-ee9b5a76f4a6ad7e970f6f7cf62cd462.tres"]
+
+[params]
+

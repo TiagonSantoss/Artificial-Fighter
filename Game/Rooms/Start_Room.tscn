@@ -327,7 +327,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.34248596, -7.373644, -0.22440854, 0.9753482, 0.6885497, 0.84772044, -0.786823, -2.3523626, 0.95270663, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.104284, 1.0327436, -0.65968597, 0.115681395, 7.1274467, 0.5023358, 0.6744331, -2.917495, 0.9945523, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]
@@ -377,6 +377,3 @@ metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
 [node name="DebuggingMachine" parent="." unique_id=900501115 instance=ExtResource("6_oqk6f")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7.4890614, 4.047142, -12.44721)
-
-[connection signal="body_entered" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_entered"]
-[connection signal="body_exited" from="RoomArea" to="RoomRuntime" method="_on_room_area_body_exited"]

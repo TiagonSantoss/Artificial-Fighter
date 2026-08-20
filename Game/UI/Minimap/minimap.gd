@@ -48,8 +48,8 @@ func _draw() -> void:
 
 	var cam_angle := 0.0
 
-	if Game.instance:
-		cam_angle = Game.instance.camera_rig.rotation.y
+	if GameAutoLoad:
+		cam_angle = GameAutoLoad.camera_rig.rotation.y
 
 	# --------------------------------------------------
 	# DRAW CONNECTIONS

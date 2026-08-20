@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cq6o6v7docyq2"]
+
+[ext_resource type="Texture2D" uid="uid://bbmlu5c4l4k54" path="res://assets/models/maps/textures/Prototype_symbol_cross_32x32px.png" id="1_flqwq"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_flqwq")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 2

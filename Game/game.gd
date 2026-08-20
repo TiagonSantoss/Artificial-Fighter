@@ -1,15 +1,26 @@
 class_name Game
 extends Node3D
 
-const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
+# signal controlled_entity_changed(entity: Entity)
 
+const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 const LAYER_WORLD := 1
 const LAYER_PLAYER := 2
 const LAYER_ENEMY := 3
 
-signal controlled_entity_changed(entity: Entity)
+var player_definition: EntityDefinition = preload(
+	"res://assets/definitions/entities/actors/player_definition.tres"
+)
+var companion_definition: EntityDefinition = preload(
+	"res://assets/definitions/entities/actors/rat_definition.tres"
+)
 
-var _controlled_entity: Entity
+@export var enemy_pool: Array[EntityDefinition]
+@export var npc_pool: Array[EntityDefinition]
+
+static var player: Entity
+static var instance: Game
+
 var controlled_entity: Entity:
 	get:
 		return _controlled_entity
@@ -17,27 +28,25 @@ var controlled_entity: Entity:
 		_controlled_entity = value
 		GState.controlled_entity_changed.emit(controlled_entity)
 
-static var player: Entity
-static var instance: Game
+var chunk_manager: ChunkManager:
+	set(value):
+		chunk_manager = value
+		if (
+			chunk_manager != null
+			and not chunk_manager.active_room_changed.is_connected(_on_active_room_changed)
+		):
+			chunk_manager.active_room_changed.connect(_on_active_room_changed)
 
 var entity_camera_pivot: Marker3D
 var active_room_pivot: DynamicRotatingCameraPivot = null
 
-@onready var entities: Node3D = $SubViewportContainer/SubViewport/Entities
-@onready var player_spawn: Marker3D = $PlayerSpawn
-@onready var emitter: FmodEventEmitter3D = $SubViewportContainer/SubViewport/FmodEventEmitter3D
+var entities: Node3D
+var player_spawn: Marker3D
+var emitter: FmodEventEmitter3D
+var camera_rig: Camera3D
+# var marker: Marker3D
 
-@onready var camera_rig: Camera3D = $SubViewportContainer/SubViewport/Camera3D
-
-@export var player_definition: EntityDefinition
-@export var companion_definition: EntityDefinition
-
-@export var enemy_pool: Array[EntityDefinition]
-@export var npc_pool: Array[EntityDefinition]
-
-@export var chunk_manager: ChunkManager
-
-@onready var marker = $PlayerSpawn
+var _controlled_entity: Entity
 
 
 func _ready() -> void:
@@ -45,9 +54,6 @@ func _ready() -> void:
 	call_deferred("_init_camera")
 
 	GState.fmod.connect(_boss_music)
-
-	if chunk_manager:
-		chunk_manager.active_room_changed.connect(_on_active_room_changed)
 
 
 func _boss_music():
@@ -183,9 +189,16 @@ func spawn_npc(pos: Vector3, definition: EntityDefinition) -> Entity:
 
 func spawn_entity(definition: EntityDefinition, pos: Vector3) -> Entity:
 	var entity: Entity = ENTITY_SCENE.instantiate()
-	entities.add_child(entity)
+
+	if entities != null:
+		entities.add_child(entity)
+	else:
+		push_warning("Entities container is missing or not ready! Spawning in current_scene.")
+		get_tree().current_scene.add_child(entity)
+
 	entity.setup(pos, definition)
 	configure_entity_collision(entity)
+
 	return entity
 
 

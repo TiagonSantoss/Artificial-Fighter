@@ -12,11 +12,10 @@ var cleared := false
 
 @onready var room_area: Area3D = $"../RoomArea"
 @onready var spawn_point: Marker3D = $"../SpawnPoint"
-@onready var arena: ArenaBarrierRoot = $ArenaBarrierRoot
+@onready var arena: ArenaBarrierRoot = get_node_or_null("$ArenaBarrierRoot")
 
 
 func _ready() -> void:
-	#print("RoomRuntime ready")
 	room_area.body_entered.connect(_on_room_area_body_entered)
 	room_area.body_exited.connect(_on_room_area_body_exited)
 	add_to_group("rooms")

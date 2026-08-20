@@ -67,8 +67,8 @@ func _ready() -> void:
 	chunk_manager.room_loaded.connect(_on_room_loaded)
 	chunk_manager.room_unloaded.connect(_on_room_unloaded)
 
-	if is_instance_valid(GameAutoLoad.instance):
-		emitter = GameAutoLoad.instance.emitter
+	if is_instance_valid(GameAutoLoad):
+		emitter = GameAutoLoad.emitter
 
 	generate()
 
@@ -137,7 +137,7 @@ func _on_player_exited_room(room: RoomInstance) -> void:
 
 
 func _spawn_player_at_start() -> RoomInstance:
-	if Game.instance == null:
+	if GameAutoLoad == null:
 		return null
 
 	var start_room_a: RoomInstance = chunk_manager.loaded_rooms.get("start")
@@ -154,8 +154,8 @@ func _spawn_player_at_start() -> RoomInstance:
 		emitter.set_parameter("Set", 5)
 		print("EMITTER SET TO 5")
 
-	Game.instance.spawn_player(spawn_point.global_position)
-	Game.instance.spawn_companion(spawn_point.global_position)
+	GameAutoLoad.spawn_player(spawn_point.global_position)
+	GameAutoLoad.spawn_companion(spawn_point.global_position)
 
 	return start_room_a
 
@@ -201,7 +201,7 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 		push_warning("No spawn found for %s" % definition.spawn_group)
 		return
 
-	var enemy := Game.instance.spawn_enemy(marker.global_position, definition)
+	var enemy := GameAutoLoad.spawn_enemy(marker.global_position, definition)
 
 	room.enemies.append(enemy)
 

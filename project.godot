@@ -22,7 +22,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameAutoLoad="*uid://bqb78gjgjfjxs"
-AutoProjectilePool="*uid://c2e72u3gusbkh"
 AutoProjectileSystem="*uid://dtf077dwg3ikk"
 AutoHitVFXPool="*uid://fyxgiec54811"
 EntityGrid="*uid://bua7dfmbiq86u"

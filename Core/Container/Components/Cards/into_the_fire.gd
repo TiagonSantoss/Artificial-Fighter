@@ -48,10 +48,10 @@ func _apply_fire_to_entity(enemy: Entity) -> void:
 
 
 func _trigger_fire_screen_overlay(_caster: Entity, duration: float) -> void:
-	print("Game.instance exists? ", Game.instance != null)
+	print("Game.instance exists? ", GameAutoLoad != null)
 
-	if Game.instance and Game.instance.has_method("flash_screen_overlay"):
+	if GameAutoLoad and GameAutoLoad.has_method("flash_screen_overlay"):
 		print("Calling flash_screen_overlay on Game.instance")
-		Game.instance.flash_screen_overlay(Color(1.0, 0.4, 0.0, 0.5), duration)
+		GameAutoLoad.flash_screen_overlay(Color(1.0, 0.4, 0.0, 0.5), duration)
 	else:
 		print("ERROR: Game.instance is null OR missing flash_screen_overlay method!")

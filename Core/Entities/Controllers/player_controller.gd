@@ -30,8 +30,8 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 
 	if input.length() > 0.01:
 		if not input.is_equal_approx(previous_input) or locked_direction == Vector3.ZERO:
-			var forward := Game.instance.get_camera_forward()
-			var right := Game.instance.get_camera_right()
+			var forward := GameAutoLoad.get_camera_forward()
+			var right := GameAutoLoad.get_camera_right()
 			locked_direction = (right * input.x + forward * input.y).normalized()
 			previous_input = input
 
