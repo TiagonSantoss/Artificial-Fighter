@@ -31,6 +31,7 @@ var is_dashing := false
 
 var is_invincible: bool = false
 var iframe_duration: float = 1.0
+var stun_left := 0.0
 
 @onready var camera_pivot: Marker3D = $CameraPivot
 
@@ -167,6 +168,9 @@ func apply_hit(hit: HitData):
 
 		start_iframes()
 
+		var incoming_stun = hit.stun_duration
+		stun_left = maxf(stun_left, incoming_stun)
+
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
 
@@ -232,7 +236,6 @@ func _physics_process(delta: float) -> void:
 
 	var had_movement := false
 
-	# 1. Remember if we were blocking last frame before resetting
 	var was_blocking = is_blocking
 	is_blocking = false
 
@@ -241,28 +244,22 @@ func _physics_process(delta: float) -> void:
 		for action in actions:
 			if action is MovementAction:
 				had_movement = true
-			action.execute(self, delta)  # <--- This sets is_blocking to true if held
+			action.execute(self, delta)
 
 		controller.update_aim(self)
 		if controller.aim_target != null:
 			weapon_component.update_aim(controller.aim_target)
 
-			# 1. Keep the Y level flat so the arm doesn't tilt into the floor/ceiling
 			var aim_pos = controller.aim_target
 			aim_pos.y = orbit_socket.global_position.y
 
-			# 2. Godot's SpringArm pushes its children outward on its positive Z-axis (+Z).
-			# However, the look_at() function aims the negative Z-axis (-Z) at the target.
-			# So, to make the weapon point AT the cursor, the SpringArm must look AWAY from it!
 			var look_away_pos = (
 				orbit_socket.global_position + (orbit_socket.global_position - aim_pos)
 			)
 
-			# 3. Rotate the SpringArm (preventing a crash if the mouse is exactly on the player)
 			if orbit_socket.global_position.distance_to(look_away_pos) > 0.01:
 				orbit_socket.look_at(look_away_pos, Vector3.UP)
 
-	# 2. Start the timer ONLY if we are blocking now, but weren't last frame
 	if is_blocking and not was_blocking:
 		parry_window_left = DEFAULT_PARRY_WINDOW
 		print("PARRY WINDOW STARTED")

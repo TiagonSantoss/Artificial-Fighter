@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bscl5f0adwebr"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_ji110"]
+[ext_resource type="Resource" uid="uid://bneobpy3wprti" path="res://assets/definitions/projectiles/melee/kokorowatari_swing.tres" id="2_ixxsq"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="3_in3b5"]
+[ext_resource type="Texture2D" uid="uid://dfe6ctmtu27fw" path="res://assets/sprites/combat/weapons/kokorowatari.png" id="4_c741t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3gon"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_c741t")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_in3b5")
+sprite_frames = SubResource("SpriteFrames_l3gon")
+billboard = 0
+texture_filter = 3
+is_melee = true
+melee = ExtResource("2_ixxsq")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

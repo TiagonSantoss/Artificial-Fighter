@@ -38,6 +38,7 @@ func _handle_projectile_hit(
 	hit_data.damage_mult = projectile.damage_multiplier
 	hit_data.knockback = projectile.definition.knockback
 	hit_data.knockback_multiplier = projectile.knockback_multiplier
+	hit_data.stun_duration = projectile.stun_duration
 	hit_data.direction = projectile.velocity.normalized()
 
 	# Since we cleared it above if it was dead, this is now 100% safe to assign

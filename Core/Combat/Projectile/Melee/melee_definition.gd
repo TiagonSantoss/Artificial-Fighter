@@ -17,6 +17,9 @@ extends Resource
 @export var damage := 10
 @export var knockback := 1.0
 @export var status_effect: EffectDefinition
+@export var stun_duration := 0.0
 
-@export_category("Collision")
-@export var radius := 0.2
+@export_category("Hitbox")
+@export var hitbox_size := Vector3(1.0, 1.0, 1.0)
+@export var hitbox_shape_override: Shape3D = null
+@export var hitbox_offset := Vector3.ZERO

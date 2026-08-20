@@ -3,10 +3,12 @@ extends Node
 const MAX_INSTANCES := 3000
 
 var multimesh: MultiMesh
-@onready var mm: MultiMeshInstance3D = $MultiMeshInstance3D
+@onready var mm: MultiMeshInstance3D
 
 
 func _ready() -> void:
+	mm = get_node_or_null("MultiMeshInstance3D") as MultiMeshInstance3D
+
 	if mm == null:
 		push_error("ProjectileRenderer: MultiMeshInstance3D child node not found!")
 		return

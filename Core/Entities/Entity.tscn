@@ -48,10 +48,6 @@ height = 0.41407776
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
 size = Vector3(1.2338867, 1, 1.0771484)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_b63b6"]
-margin = 0.0
-size = Vector3(5, 5, 5)
-
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1484144425]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.97436523, 0)
 collision_layer = 4
@@ -84,8 +80,8 @@ debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
 debug_path_custom_point_size = 6.45
 
 [node name="OrbitSocket" type="SpringArm3D" parent="." unique_id=491707594]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09295684, 0)
-shape = SubResource("BoxShape3D_b63b6")
+transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0)
+margin = 3.0
 
 [node name="WeaponSocket" type="Marker3D" parent="OrbitSocket" unique_id=504328398]
 transform = Transform3D(1.0000002, -1.368638e-09, 3.1044087e-10, -1.999221e-09, 0.99999994, -7.761022e-11, 9.313226e-10, -2.3283064e-10, 1, 0, 0, 0)

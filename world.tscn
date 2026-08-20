@@ -140,7 +140,7 @@ script = ExtResource("8_bo7i5")
 script = ExtResource("9_k83mh")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0.038464546, 40.69438, 39.22912)
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
 projection = 1
 size = 88.954
 far = 150.0
@@ -182,7 +182,7 @@ event_name = "event:/Music/Level 1"
 event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
 autoplay = true
 auto_release = true
-volume = 0.7
+volume = 0.0
 fmod_parameters/Set/id = -7549801265799066034
 fmod_parameters/Set = 0
 fmod_parameters/Set/variant_type = 2

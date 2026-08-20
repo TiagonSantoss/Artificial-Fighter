@@ -10,6 +10,7 @@ extends Resource
 @export var sprite_scale := Vector3.ONE
 @export var sprite_offset := Vector3.ZERO
 @export var sprite_rotation_offset: float = 0.0
+@export var upward_tilt_degrees: float = 45.0
 
 @export_category("Stats")
 @export var damage_multiplier := 1.0
@@ -19,6 +20,7 @@ extends Resource
 @export var pierce_multiplier := 0.0
 @export var recoil := 1.0
 @export var spread := 1.0
+@export var stun_duration := 0.5
 @export var projectile_count := 1
 
 @export_category("Audio")

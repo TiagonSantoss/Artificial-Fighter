@@ -49,9 +49,15 @@ func setup(
 	lifetime_left = definition.lifetime
 
 	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
-	if area_shape and area_shape.shape is SphereShape3D:
-		area_shape.shape = area_shape.shape.duplicate(true)
-		area_shape.shape.radius = definition.radius
+	if is_instance_valid(area_shape):
+		area_shape.position = definition.hitbox_offset
+
+		if definition.hitbox_shape_override:
+			area_shape.shape = definition.hitbox_shape_override.duplicate()
+		else:
+			var box_shape := BoxShape3D.new()
+			box_shape.size = definition.hitbox_size
+			area_shape.shape = box_shape
 
 	global_rotation.y = atan2(strike_direction.x, strike_direction.z)
 	_apply_visuals()
@@ -127,6 +133,7 @@ func create_hit_data(target_pos: Vector3, knockback_scale: float = 1.0) -> HitDa
 	hit.source_entity = source_entity if is_instance_valid(source_entity) else null
 	hit.source_team = source_team
 	hit.attack_source = self
+	hit.stun_duration = definition.stun_duration
 	hit.lifetime = lifetime_left
 	hit.hit_position = target_pos
 	hit.hit_normal = -hit.direction
@@ -154,7 +161,7 @@ func _apply_visuals() -> void:
 	sprite.modulate = definition.modulate
 	sprite.billboard = definition.billboard
 	sprite.scale = definition.sprite_scale
-	sprite.play(definition.default_animation)
+	# sprite.play(definition.default_animation)
 
 
 func _trigger_hitstop(duration_seconds: float) -> void:

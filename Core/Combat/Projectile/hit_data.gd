@@ -7,6 +7,7 @@ var damage_mult := 1.0
 var direction := Vector3.ZERO
 var knockback := 0.0
 var knockback_multiplier := 1.0
+var stun_duration: float = 0.0
 
 var source_entity: Entity
 var source_team

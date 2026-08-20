@@ -40,6 +40,8 @@ func equip_weapon(weapon_definition) -> void:
 
 	weapon_socket.add_child(equipped_weapon)
 
+	equipped_weapon.rotation_degrees.x = weapon_definition.upward_tilt_degrees
+
 	equipped_weapon.setup(weapon_definition, entity)
 
 

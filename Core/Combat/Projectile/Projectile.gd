@@ -20,6 +20,7 @@ var lifetime_left := 0.0
 var damage_multiplier := 1.0
 var knockback_multiplier := 1.0
 var drag_factor := 1.0
+var stun_duration := 1.0
 
 var already_hit := {}
 var active_index := -1
@@ -41,6 +42,7 @@ func setup(request: ProjectileRequest) -> void:
 	remaining_pierce = int((definition.pierce + 1) * request.pierce_multiplier)
 	remaining_bounces = definition.bounce_count
 	lifetime_left = definition.lifetime
+	stun_duration = definition.stun_duration
 
 	drag_factor = definition.drag
 

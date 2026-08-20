@@ -13,11 +13,12 @@ extends Resource
 @export var pierce: int = 0
 @export var bounce_count: int = 0
 @export var radius: float = 0.2
+@export var stun_duration: float = 0.2
 
 @export_category("Rendering (Atlas)")
 @export var frame_size := Vector2i(100, 60)
 @export var atlas_column := 0
-@export var atlas_row := 0  
+@export var atlas_row := 0
 
 @export_category("Visual")
 @export var scale: Vector3 = Vector3.ONE

@@ -71,15 +71,15 @@ func _on_active_room_changed(room_data: Variant) -> void:
 		return
 
 	var physical_room_node: Node3D = null
-	var room_def: RoomDefinition = null
+	var _room_def: RoomDefinition = null
 
 	if room_data is RoomInstance:
 		physical_room_node = room_data.node
-		room_def = room_data.definition
+		_room_def = room_data.definition
 	elif "node" in room_data:
 		physical_room_node = room_data.node
 		if "definition" in room_data:
-			room_def = room_data.definition
+			_room_def = room_data.definition
 
 	if not is_instance_valid(physical_room_node):
 		return
