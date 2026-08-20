@@ -40,7 +40,7 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 
 	actions.append(MovementAction.new(flat_dir))
 
-	if move_dir.y > 0.3:
+	if should_auto_jump(actor, move_dir):
 		actions.append(JumpAction.new())
 
 	return actions
@@ -65,3 +65,32 @@ func get_aim_target(_actor: Entity) -> Variant:
 		return null
 
 	return target.global_position
+
+
+func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
+	if not actor.is_on_floor():
+		return false
+
+	var space_state := actor.get_world_3d().direct_space_state
+
+	var origin_feet := actor.global_position + Vector3(0, 0.2, 0)
+	var target_feet := origin_feet + move_dir * 0.8
+	var query_feet := PhysicsRayQueryParameters3D.create(origin_feet, target_feet)
+	query_feet.exclude = [actor]
+
+	query_feet.collision_mask = 1
+
+	var hit_feet := space_state.intersect_ray(query_feet)
+	if hit_feet.is_empty():
+		return false
+
+	var step_height := 3.0
+	var origin_clearance := actor.global_position + Vector3(0, step_height, 0)
+	var target_clearance := origin_clearance + move_dir * 0.8
+	var query_clearance := PhysicsRayQueryParameters3D.create(origin_clearance, target_clearance)
+	query_clearance.exclude = [actor]
+
+	query_clearance.collision_mask = 1
+
+	var hit_clearance := space_state.intersect_ray(query_clearance)
+	return hit_clearance.is_empty()
