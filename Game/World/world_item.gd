@@ -182,6 +182,8 @@ func _apply_instance() -> void:
 	if def == null:
 		return
 
+	can_despawn = def.auto_despawns
+
 	if def.icon:
 		sprite.texture = def.icon
 

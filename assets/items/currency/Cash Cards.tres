@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CurrencyDefinition" format=3 uid="uid://yuvxs6jgs5k4"]
+
+[ext_resource type="Script" uid="uid://cfidmpil06rit" path="res://Core/Container/Components/Base/currency_definition.gd" id="1_a2hd8"]
+[ext_resource type="Texture2D" uid="uid://vw388lkkfvb4" path="res://assets/images/UI/placeHolder.jpeg" id="1_m6qqu"]
+
+[resource]
+script = ExtResource("1_a2hd8")
+id = &"CC"
+display_name = "Cash Cards"
+description = "MONEY"
+icon = ExtResource("1_m6qqu")
+auto_despawns = false
+metadata/_custom_type_script = "uid://cfidmpil06rit"

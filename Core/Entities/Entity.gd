@@ -54,6 +54,7 @@ var stun_left := 0.0
 @onready var cards_component: CardsComponent = $Components/CardsComponent
 @onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
 @onready var rank_component: RankComponent = $Components/RankComponent
+@onready var currency_component: CurrencyComponent = $Components/CurrencyComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -100,6 +101,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	audio_component.setup(self)
 
 	rank_component.setup(self)
+	currency_component.setup(self)
 
 	await get_tree().physics_frame
 
@@ -188,7 +190,13 @@ func start_iframes():
 
 
 func _on_died() -> void:
-	#_spawn_hit_vfx()
+	var drop_amount = definition.get_randomized_drop()
+
+	if drop_amount > 0 and definition.drop_currency_def:
+		var coin_data = definition.drop_currency_def.create_currency_drop(drop_amount)
+
+		WorldItemSpawner.drop(coin_data, global_position)
+
 	queue_free()
 
 
@@ -219,6 +227,24 @@ func add_style_points(points: float):
 func _on_interaction_entered(area: Area3D) -> void:
 	if area.has_method("interact"):
 		current_interactable = area
+
+	if team != Team.PLAYER or team != Team.ALLY:
+		return
+
+	var world_item = area as WorldItem
+	if not world_item:
+		world_item = area.get_parent() as WorldItem
+
+	if world_item and world_item.instance is CurrencyItemInstance:
+		var coin_data = world_item.instance as CurrencyItemInstance
+		var currency_name = coin_data.get_currency_type()
+
+		GameAutoLoad.add_money(currency_name, coin_data.amount)
+		print(GameAutoLoad.wallet.get_amount("Cash Cards"))
+
+		# audio_component.play_sfx("CoinPickup")
+
+		world_item.queue_free()
 
 
 func _on_interaction_exited(area: Area3D) -> void:

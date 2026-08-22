@@ -5,7 +5,7 @@ extends Node3D
 @export var rotation_speed := 8.0
 
 @export_category("Dynamic Tracking")
-@export var follow_speed := 4.0
+@export var follow_speed := 16.0
 @export var tracking_weight_factor := 0.4
 
 @export_category("Size Configurations")
@@ -59,18 +59,25 @@ func _physics_process(delta: float) -> void:
 
 	var player_offset := player_pos - current_room_base_pos
 
-	var clamped_offset := Vector3(
-		clamp(player_offset.x, -half_width, half_width),
-		player_offset.y,
-		clamp(player_offset.z, -half_depth, half_depth)
+	# 1. Rotate the offset to match the camera's current angle
+	var local_offset := player_offset.rotated(Vector3.UP, -rotation.y)
+
+	# 2. Clamp based on the camera's local screen axes
+	var clamped_local := Vector3(
+		clamp(local_offset.x, -half_width, half_width),
+		local_offset.y,
+		clamp(local_offset.z, -half_depth, half_depth)
 	)
 
-	var nx = abs(player_offset.x) / half_width if half_width > 0 else 0.0
-	var nz = abs(player_offset.z) / half_depth if half_depth > 0 else 0.0
+	var nx = abs(local_offset.x) / half_width if half_width > 0 else 0.0
+	var nz = abs(local_offset.z) / half_depth if half_depth > 0 else 0.0
 	var normalized_dist = clamp(max(nx, nz), 0.0, 1.0)
 	var zoom_t := smoothstep(0.0, 1.0, normalized_dist)
 
-	var look_target := current_room_base_pos + clamped_offset * tracking_weight_factor
+	# 3. Rotate the clamped result back into absolute world space
+	var clamped_world_offset := clamped_local.rotated(Vector3.UP, rotation.y)
+
+	var look_target := current_room_base_pos + clamped_world_offset * tracking_weight_factor
 
 	if not _look_target_initialized:
 		smoothed_look_target = look_target
@@ -88,9 +95,9 @@ func _physics_process(delta: float) -> void:
 		_cached_camera.size = lerp(_cached_camera.size, target_size, follow_speed * delta)
 
 	# 4. POSITION CAMERA RIG
-	var constant_distance := 30.0
-	var local_offset := Vector3(0.0, constant_distance, constant_distance * 0.85)
-	var global_offset := local_offset.rotated(Vector3.UP, rotation.y)
+	var constant_distance := 15.0
+	var camera_local_offset := Vector3(0.0, constant_distance, constant_distance * 0.85)
+	var global_offset := camera_local_offset.rotated(Vector3.UP, rotation.y)
 
 	global_camera_rig.global_position = global_camera_rig.global_position.lerp(
 		smoothed_look_target + global_offset, follow_speed * delta

@@ -5,6 +5,7 @@ extends Resource
 @export var display_name: String
 @export var description: String
 @export var icon: Texture2D
+@export var auto_despawns: bool = true
 
 
 func create_instance() -> ItemInstance:

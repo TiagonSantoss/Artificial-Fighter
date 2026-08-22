@@ -25,6 +25,7 @@
 [ext_resource type="Resource" uid="uid://bkkv1vtx56yws" path="res://assets/definitions/entities/ranks/S+.tres" id="23_nvd46"]
 [ext_resource type="Resource" uid="uid://ddyp5ihlibbfl" path="res://assets/definitions/entities/ranks/S++.tres" id="24_cyrcp"]
 [ext_resource type="Resource" uid="uid://bfrv6otolgyy" path="res://assets/definitions/entities/ranks/GIZMO.tres" id="25_005y8"]
+[ext_resource type="Script" uid="uid://cau1ck3i7d5a4" path="res://Core/Entities/Actors/Components/currency_component.gd" id="26_i4vqt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
 atlas = ExtResource("3_uvqxc")
@@ -76,7 +77,6 @@ shape = SubResource("BoxShape3D_2bgwa")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=807168628]
 simplify_path = true
 radius = 0.01
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.9057489, 7.883817e-05, 0.7030583, 1)
 debug_path_custom_point_size = 19.9
@@ -126,6 +126,9 @@ script = ExtResource("13_mdepg")
 script = ExtResource("14_mdepg")
 available_ranks = Array[ExtResource("15_05qbe")]([ExtResource("16_c3x7y"), ExtResource("17_jiwjn"), ExtResource("18_luhad"), ExtResource("19_b63b6"), ExtResource("20_i4vqt"), ExtResource("21_rgigk"), ExtResource("22_y1kqs"), ExtResource("23_nvd46"), ExtResource("24_cyrcp"), ExtResource("25_005y8")])
 decay_rate = 8.0
+
+[node name="CurrencyComponent" type="Node" parent="Components" unique_id=1244540654]
+script = ExtResource("26_i4vqt")
 
 [node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
 event_name = "event:/SFX/Entity/EntityHurt"

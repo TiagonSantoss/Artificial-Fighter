@@ -18,7 +18,6 @@ func _ready():
 func _handle_projectile_hit(
 	projectile: Projectile, collider: Node, hit_pos: Vector3, hit_norm: Vector3
 ) -> bool:
-	# 🟢 FIXED CRASH CHECK: If the source entity was freed (e.g. boss died), safely clear the reference
 	if not is_instance_valid(projectile.source_entity):
 		projectile.source_entity = null
 

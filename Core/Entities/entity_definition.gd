@@ -40,8 +40,17 @@ enum VisualType { SPRITE_3D, MESH_3D, HYBRID }
 @export_category("Data")
 @export var entity_id: int
 @export var starting_weapon: WeaponDefinition
+@export var drop_currency_def: CurrencyDefinition
 @export var team: Entity.Team
 @export var spawn_group := SpawnGroup.MELEE
+@export var base_currency_drop: int = 50
+@export_range(0.0, 1.0) var drop_variance: float = 0.2
+
+
+func get_randomized_drop() -> int:
+	var min_drop = base_currency_drop * (1.0 - drop_variance)
+	var max_drop = base_currency_drop * (1.0 + drop_variance)
+	return int(randf_range(min_drop, max_drop))
 
 
 func get_spawn_group_name() -> String:

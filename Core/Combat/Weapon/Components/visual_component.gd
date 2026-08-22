@@ -5,7 +5,7 @@ var dynamic_aim_offset_amount: float = 2.0
 var shader_mat: ShaderMaterial
 
 @onready var sprite: AnimatedSprite3D = $"../../AnimatedSprite3D"
-@onready var muzzle: Marker3D = $"../../Muzzle"
+@onready var muzzle: Marker3D = $"../../AnimatedSprite3D/Muzzle"
 
 
 func apply_definition() -> void:

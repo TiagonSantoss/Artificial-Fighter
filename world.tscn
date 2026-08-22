@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="4_bh8nc"]
-[ext_resource type="CompressedTexture3D" uid="uid://dd2ykbm00club" path="res://assets/images/shaders/16-16bit_02.png" id="4_il2jm"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
 [ext_resource type="Texture2D" uid="uid://c2nytfcu5r7u0" path="res://assets/images/shaders/248138c3-816f-400e-b52a-3a0875186dac.jpeg" id="6_il2jm"]
@@ -124,7 +123,6 @@ volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
 volumetric_fog_temporal_reprojection_enabled = false
 volumetric_fog_temporal_reprojection_amount = 0.5
 adjustment_enabled = true
-adjustment_color_correction = ExtResource("4_il2jm")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
 size = Vector3(365.00684, 3.0751953, 370.54346)
@@ -142,8 +140,10 @@ script = ExtResource("9_k83mh")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
 projection = 1
+fov = 147.0
 size = 88.954
-far = 150.0
+near = 0.163
+far = 87.56
 script = ExtResource("18_k83mh")
 
 [node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]

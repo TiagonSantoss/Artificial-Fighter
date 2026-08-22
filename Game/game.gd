@@ -45,6 +45,7 @@ var player_spawn: Marker3D
 var emitter: FmodEventEmitter3D
 var camera_rig: Camera3D
 # var marker: Marker3D
+var wallet := PlayerWallet.new()
 
 var _controlled_entity: Entity
 
@@ -54,6 +55,8 @@ func _ready() -> void:
 	call_deferred("_init_camera")
 
 	GState.fmod.connect(_boss_music)
+
+	add_money("Cash Cards", 1)
 
 
 func _boss_music():
@@ -136,6 +139,14 @@ func flash_screen_overlay(color: Color, duration: float) -> void:
 
 	# 4. Clean up nodes when the animation completes
 	tween.finished.connect(canvas_layer.queue_free)
+
+
+func add_money(currency: StringName, amount: int) -> void:
+	wallet.add(currency, amount)
+
+
+func try_spend(currency: StringName, cost: int) -> bool:
+	return wallet.spend(currency, cost)
 
 
 func rotate_by(degrees: float) -> void:

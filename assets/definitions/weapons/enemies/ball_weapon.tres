@@ -5,8 +5,11 @@
 [ext_resource type="Resource" uid="uid://0unxa1u8rqx7" path="res://assets/definitions/projectiles/melee/ball.tres" id="3_1q7vq"]
 [ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="4_m3ulr"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_25kff"]
+
 [resource]
 script = ExtResource("4_m3ulr")
+sprite_frames = SubResource("SpriteFrames_25kff")
 sprite_scale = Vector3(0.5, 0.5, 0.5)
 fire_rate = 3.2
 pierce_multiplier = 2.0
