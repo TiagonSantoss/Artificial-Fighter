@@ -11,7 +11,7 @@ var is_locked := false
 var cleared := false
 
 @onready var room_area: Area3D = $"../RoomArea"
-@onready var spawn_point: Marker3D = $"../SpawnPoint"
+@onready var spawn_point: Marker3D = get_node_or_null("$../SpawnPoint")
 @onready var arena: ArenaBarrierRoot = get_node_or_null("$ArenaBarrierRoot")
 
 

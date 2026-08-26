@@ -26,34 +26,31 @@ var enemies: Array[Entity] = []
 
 var barrier_root: ArenaBarrierRoot = null
 
+
 func get_spawn_group(group_name: String) -> Array:
-	return spawn_groups.get(
-		group_name.to_lower(),
-		[]
-	)
+	return spawn_groups.get(group_name.to_lower(), [])
+
 
 func get_random_spawn(group_name: String) -> Marker3D:
 	var group := get_spawn_group(group_name)
-	
+
 	if group.is_empty():
 		return null
-	
+
 	return group.pick_random()
 
 
 func get_random_spawn_for_group(group: EntityDefinition.SpawnGroup) -> Marker3D:
-	var name = (
-		EntityDefinition
-		.SpawnGroup
-		.keys()[group]
-		.to_lower()
-	)
-	
+	var name = EntityDefinition.SpawnGroup.keys()[group].to_lower()
+
 	return get_random_spawn(name)
 
+
 func lock_room() -> void:
-	if barrier_root:
-		barrier_root.set_locked(true)
+	if definition.has_encounter:
+		if barrier_root:
+			barrier_root.set_locked(true)
+
 
 func unlock_room() -> void:
 	if barrier_root:

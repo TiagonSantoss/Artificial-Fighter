@@ -11,6 +11,5 @@ id = "3"
 scene = ExtResource("2_5l11f")
 category = 3
 available_doors = Array[int]([0])
-has_encounter = true
 encounter_pool = Array[ExtResource("1_5l11f")]([ExtResource("3_cmuhn")])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cxluiyl2otli5" path="res://Game/Rooms/arena_3.gd" id="1_pgm35"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_fihgr"]
-[ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_uk782"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="4_12ct0"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="5_pgm35"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="6_7e6e6"]
@@ -103,11 +102,6 @@ shape = SubResource("BoxShape3D_hokgo")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
 script = ExtResource("2_fihgr")
-
-[node name="DoorNorth" type="Node3D" parent="." unique_id=1141716002]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1607138, 0, -50.858963)
-script = ExtResource("3_uk782")
-direction = 1
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=1990576406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)

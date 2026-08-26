@@ -1,0 +1,140 @@
+// entity 0
+{
+"classname" "worldspawn"
+// brush 0
+{
+( -208 208 48 ) ( -208 -208 48 ) ( -208 -208 32 ) Prototype_grey_dark_32x32px 16 0 0 1 1
+( -208 -208 48 ) ( 208 -208 48 ) ( 208 -208 32 ) Prototype_grey_dark_32x32px 0 0 0 1 1
+( 208 -208 32 ) ( 208 208 32 ) ( -208 208 32 ) Prototype_grey_dark_32x32px 0 -16 0 1 1
+( -208 208 48 ) ( 208 208 48 ) ( 208 -208 48 ) Prototype_grey_dark_32x32px 0 -16 0 1 1
+( 208 208 32 ) ( 208 208 48 ) ( -208 208 48 ) Prototype_grey_dark_32x32px 0 0 0 1 1
+( 208 -208 48 ) ( 208 208 48 ) ( 208 208 32 ) Prototype_grey_dark_32x32px 16 0 0 1 1
+}
+// brush 1
+{
+( -48 -288 32 ) ( -48 -287 32 ) ( -48 -288 33 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+( -48 -288 32 ) ( -48 -288 33 ) ( -47 -288 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+( -48 -288 32 ) ( -47 -288 32 ) ( -48 -287 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 0 0 1 1
+( -32 -208 48 ) ( -32 -207 48 ) ( -31 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 0 0 1 1
+( -32 -208 48 ) ( -31 -208 48 ) ( -32 -208 49 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+( -32 -208 48 ) ( -32 -208 49 ) ( -32 -207 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+}
+// brush 2
+{
+( 32 -288 32 ) ( 32 -287 32 ) ( 32 -288 33 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+( 32 -288 32 ) ( 32 -288 33 ) ( 33 -288 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -16 -16 0 1 1
+( 32 -288 32 ) ( 33 -288 32 ) ( 32 -287 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -16 0 0 1 1
+( 48 -208 48 ) ( 48 -207 48 ) ( 49 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -16 0 0 1 1
+( 48 -208 48 ) ( 49 -208 48 ) ( 48 -208 49 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -16 -16 0 1 1
+( 48 -208 48 ) ( 48 -208 49 ) ( 48 -207 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 0 -16 0 1 1
+}
+// brush 3
+{
+( -32 -288 32 ) ( -32 -287 32 ) ( -32 -288 33 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 0 0 0 1 1
+( -32 -288 32 ) ( -32 -288 33 ) ( -31 -288 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 0 0 0 1 1
+( -32 -288 32 ) ( -31 -288 32 ) ( -32 -287 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 0 0 0 1 1
+( 32 -208 48 ) ( 32 -207 48 ) ( 33 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 32 32 90 1 1
+( 32 -208 48 ) ( 33 -208 48 ) ( 32 -208 49 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 0 0 0 1 1
+( 32 -208 48 ) ( 32 -208 49 ) ( 32 -207 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C10" 0 0 0 1 1
+}
+// brush 4
+{
+( 48 -208 32 ) ( 48 -208 48 ) ( 48 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( 48 -208 48 ) ( 208 -208 48 ) ( 208 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 -48 90 1 1
+( 208 -224 32 ) ( 208 -208 32 ) ( 48 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 -48 90 1 1
+( 208 -208 32 ) ( 208 -208 48 ) ( 48 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -48 -48 270 1 -1
+( 208 -224 32 ) ( 208 -208 48 ) ( 208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+}
+// brush 5
+{
+( -208 -208 32 ) ( -208 -208 48 ) ( -208 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( -208 -208 48 ) ( -48 -208 48 ) ( -48 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 90 1 1
+( -48 -224 32 ) ( -48 -208 32 ) ( -208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 90 1 1
+( -48 -208 32 ) ( -48 -208 48 ) ( -208 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -48 16 270 1 -1
+( -48 -224 32 ) ( -48 -208 48 ) ( -48 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+}
+// brush 6
+{
+( 208 208 48 ) ( 208 -208 48 ) ( 208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -48 16 270 1 -1
+( 208 -208 48 ) ( 224 -208 32 ) ( 208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 15.999985 47.999996 180 1 1
+( 208 -208 32 ) ( 224 -208 32 ) ( 224 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 180 1 1
+( 208 208 48 ) ( 208 208 32 ) ( 224 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 15.999985 47.999996 180 1 1
+( 224 208 32 ) ( 224 -208 32 ) ( 208 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 180 1 1
+}
+// brush 7
+{
+( -208 208 48 ) ( -224 208 32 ) ( -224 224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 15.999985 47.999996 180 1 1
+( -224 208 48 ) ( 208 208 48 ) ( 208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -48 16 270 1 1
+( 208 208 32 ) ( 208 224 32 ) ( -224 224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 270 1 1
+( -224 224 32 ) ( 208 224 32 ) ( 208 208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 270 1 1
+( 208 208 48 ) ( 208 224 32 ) ( 208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 15.999985 47.999996 180 1 1
+}
+// brush 8
+{
+( -224 -224 32 ) ( -224 -208 32 ) ( -208 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 0 1 1
+( -224 -224 32 ) ( -208 -208 48 ) ( -208 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 -16 90 1 1
+( -208 -208 32 ) ( -224 -208 32 ) ( -224 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 0 1 1
+( -208 -208 48 ) ( -224 -208 32 ) ( -208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( -208 -224 32 ) ( -208 -208 48 ) ( -208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -47.999996 16 270 1 1
+}
+// brush 9
+{
+( 208 -208 48 ) ( 208 -224 32 ) ( 208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( 224 -224 32 ) ( 208 -224 32 ) ( 208 -208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 90 1 1
+( 208 -208 32 ) ( 208 -224 32 ) ( 224 -224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 90 1 1
+( 224 -208 32 ) ( 208 -208 48 ) ( 208 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -47.999996 16 270 1 -1
+( 224 -224 32 ) ( 208 -208 48 ) ( 224 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 -16 180 1 1
+}
+// brush 10
+{
+( 208 224 32 ) ( 208 208 48 ) ( 208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -47.999996 16 270 1 -1
+( 208 208 48 ) ( 224 208 32 ) ( 208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 180 1 1
+( 208 208 32 ) ( 224 208 32 ) ( 224 224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 180 1 1
+( 224 224 32 ) ( 208 208 48 ) ( 208 224 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 48 270 1 1
+( 224 224 32 ) ( 224 208 32 ) ( 208 208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 180 1 1
+}
+// brush 11
+{
+( -224 -208 32 ) ( -224 208 32 ) ( -208 208 48 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 0 1 1
+( -208 -208 48 ) ( -208 -208 32 ) ( -224 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( -208 208 32 ) ( -224 208 32 ) ( -224 -208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 16 0 1 1
+( -208 208 48 ) ( -224 208 32 ) ( -208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" 16 47.999996 0 1 -1
+( -208 -208 48 ) ( -208 208 48 ) ( -208 208 32 ) "Nintendo 64 - Doom 64 - World Textures/Castle/C86" -48 16 270 1 1
+}
+// brush 12
+{
+( -64 112 64 ) ( -64 80 64 ) ( -64 80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( -64 80 64 ) ( 128 80 64 ) ( 128 80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 80 48 ) ( 128 112 48 ) ( -64 112 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( -64 112 64 ) ( 128 112 64 ) ( 128 80 64 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 112 48 ) ( 128 112 64 ) ( -64 112 64 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 80 64 ) ( 128 112 64 ) ( 128 112 48 ) Prototype_purple_32x32px 0 0 0 1 1
+}
+// brush 13
+{
+( 96 80 64 ) ( 96 -80 64 ) ( 96 -80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( 96 -80 64 ) ( 128 -80 64 ) ( 128 -80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 -80 48 ) ( 128 80 48 ) ( 96 80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+( 96 80 64 ) ( 128 80 64 ) ( 128 -80 64 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 80 48 ) ( 128 80 64 ) ( 96 80 64 ) Prototype_purple_32x32px 0 0 0 1 1
+( 128 -80 64 ) ( 128 80 64 ) ( 128 80 48 ) Prototype_purple_32x32px 0 0 0 1 1
+}
+// brush 14
+{
+( -32 48 48 ) ( -32 49 48 ) ( -32 48 49 ) Prototype_red_32x32px 0 0 0 1 1
+( -32 48 48 ) ( -32 48 49 ) ( -31 48 48 ) Prototype_red_32x32px 0 0 0 1 1
+( -32 48 48 ) ( -31 48 48 ) ( -32 49 48 ) Prototype_red_32x32px 0 0 0 1 1
+( 32 80 64 ) ( 32 81 64 ) ( 33 80 64 ) Prototype_red_32x32px 0 0 0 1 1
+( 32 80 64 ) ( 33 80 64 ) ( 32 80 65 ) Prototype_red_32x32px 0 0 0 1 1
+( 32 80 64 ) ( 32 80 65 ) ( 32 81 64 ) Prototype_red_32x32px 0 0 0 1 1
+}
+// brush 15
+{
+( 64 -48 48 ) ( 64 -47 48 ) ( 64 -48 49 ) Prototype_blue_32x32px 0 0 0 1 1
+( 64 -48 48 ) ( 64 -48 49 ) ( 65 -48 48 ) Prototype_blue_32x32px 0 0 0 1 1
+( 64 -48 48 ) ( 65 -48 48 ) ( 64 -47 48 ) Prototype_blue_32x32px 0 0 0 1 1
+( 96 16 64 ) ( 96 17 64 ) ( 97 16 64 ) Prototype_blue_32x32px 0 0 0 1 1
+( 96 16 64 ) ( 97 16 64 ) ( 96 16 65 ) Prototype_blue_32x32px 0 0 0 1 1
+( 96 16 64 ) ( 96 16 65 ) ( 96 17 64 ) Prototype_blue_32x32px 0 0 0 1 1
+}
+}

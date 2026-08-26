@@ -11,7 +11,7 @@ var health_tween: Tween
 var image_tween: Tween
 
 @onready var original_position: Vector2 = position
-@onready var texture: TextureRect = $"../../.."
+@onready var texture := $"../../../"
 
 
 func _ready() -> void:
@@ -40,14 +40,14 @@ func _on_health_changed(new_health: float) -> void:
 
 	(
 		image_tween
-		. tween_property(texture, "scale", Vector2(0.75, 0.6), 0.4)
+		. tween_property(texture, "scale", Vector2(0.75, 1.5), 0.4)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_OUT)
 	)
 
 	(
 		image_tween
-		. tween_property(texture, "scale", Vector2(0.6, 0.6), 0.4)
+		. tween_property(texture, "scale", Vector2(1.5, 1.5), 0.4)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_OUT)
 	)

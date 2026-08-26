@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b1otgjtb2kmtf"]
+
+[ext_resource type="Texture2D" uid="uid://d2meltxc4yqpt" path="res://assets/models/maps/textures/Nintendo 64 - Doom 64 - World Textures/Castle/C10.png" id="1_gxr7b"]
+
+[resource]
+albedo_texture = ExtResource("1_gxr7b")
+metallic_specular = 0.0
+texture_filter = 2

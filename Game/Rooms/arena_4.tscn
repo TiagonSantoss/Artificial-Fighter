@@ -157,6 +157,7 @@ map_settings = ExtResource("8_fo2dy")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1726899022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01, 0)
 navigation_mesh = SubResource("NavigationMesh_6xxrv")
 
 [node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=1103608477]
