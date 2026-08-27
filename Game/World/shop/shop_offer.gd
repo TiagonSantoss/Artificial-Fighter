@@ -3,4 +3,4 @@ extends Resource
 
 @export var item_to_sell: ItemDefinition
 @export var price: int = 100
-@export var currency_required: StringName = &"Cash Cards"
+@export var currency_required: StringName = &"cc"

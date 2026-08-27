@@ -17,6 +17,9 @@ General/banks_path="res://assets/banks/Desktop"
 config/name="Artifical Fighting 1st"
 run/main_scene="uid://trvpmwnapc7o"
 config/features=PackedStringArray("4.7", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/stretch_mode=0
+boot_splash/image="uid://bpc1da8i0qxmi"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -44,6 +47,26 @@ window/vsync/vsync_mode=0
 
 enabled=PackedStringArray("res://addons/fmod/plugin.cfg", "res://addons/func_godot/plugin.cfg", "res://addons/project-time-tracker/plugin.cfg", "res://addons/texture_fonts/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Core/": "red",
+"res://Core/Combat/": "gray",
+"res://Core/Container/": "pink",
+"res://Core/Dungeon/": "blue",
+"res://Core/Entities/": "orange",
+"res://Game/": "orange",
+"res://Game/Calls/": "red",
+"res://Game/Player/": "purple",
+"res://Game/Rooms/": "blue",
+"res://Game/UI/": "green",
+"res://Game/World/": "gray",
+"res://Utils/": "green",
+"res://assets/": "yellow",
+"res://assets/definitions/": "teal",
+"res://assets/items/": "red"
+}
+
 [global_group]
 
 world="Main level node3D"
@@ -51,6 +74,7 @@ world="Main level node3D"
 [gui]
 
 timers/tooltip_delay_sec=0.1
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 
@@ -134,14 +158,12 @@ special={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=2
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method.mobile="gl_compatibility"
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=1
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
 environment/ssao/quality=1
 environment/ssil/quality=1
-anti_aliasing/screen_space_roughness_limiter/enabled=false
-anti_aliasing/quality/use_debanding=true
 scaling_3d/scale=1.5
 scaling_3d/fsr_sharpness=0.2
 environment/glow/upscale_mode=0

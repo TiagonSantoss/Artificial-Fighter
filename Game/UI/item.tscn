@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://sjxnbdrduybk"]
+
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="2_gok8d"]
+[ext_resource type="Script" uid="uid://v2mg1x1xd2yj" path="res://Game/UI/item.gd" id="3_gok8d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wxrh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gok8d"]
+
+[node name="Control" type="PanelContainer" unique_id=1075234289]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1wxrh")
+script = ExtResource("3_gok8d")
+
+[node name="Item" type="VBoxContainer" parent="." unique_id=1731697016]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TextureButton" type="TextureRect" parent="Item" unique_id=1575685806]
+custom_maximum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 5
+stretch_mode = 5
+
+[node name="Name" type="RichTextLabel" parent="Item" unique_id=1222114480]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_gok8d")
+theme_override_font_sizes/normal_font_size = 7
+text = "kokorowatari
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Description" type="RichTextLabel" parent="Item" unique_id=2107330652]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.47582054, 0.47582048, 0.47582054, 1)
+theme_override_fonts/normal_font = ExtResource("2_gok8d")
+theme_override_font_sizes/normal_font_size = 3
+text = "big sword"
+fit_content = true
+
+[node name="Button" type="Button" parent="." unique_id=206768886]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gok8d")

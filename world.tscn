@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="21_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
 [ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="22_mc2jv"]
-[ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="29_qktwf"]
+[ext_resource type="PackedScene" uid="uid://cr56gd4y8f611" path="res://Game/UI/shop_ui.tscn" id="29_qktwf"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioo17"]
 particle_flag_rotate_y = true
@@ -125,50 +125,6 @@ volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
 volumetric_fog_temporal_reprojection_enabled = false
 volumetric_fog_temporal_reprojection_amount = 0.5
 adjustment_enabled = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qktwf"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-anti_aliasing_size = 0.453
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bh8nc"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-anti_aliasing_size = 0.083
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gggvi"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-anti_aliasing_size = 0.364
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjr1n"]
-bg_color = Color(0.17, 0.17, 0.17, 0.57254905)
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-anti_aliasing = false
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
 size = Vector3(689.05664, 3.0751953, 824.17285)
@@ -371,101 +327,7 @@ offset_right = -0.50801086
 offset_bottom = -0.26208496
 metadata/_edit_use_anchors_ = true
 
-[node name="Shop" type="Control" parent="UI/Control" unique_id=1103938976]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -0.5
-offset_right = 0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
-
-[node name="Panel" type="PanelContainer" parent="UI/Control/Shop" unique_id=1239374657]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -300.0
-offset_right = 600.0
-offset_bottom = 300.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qktwf")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/Shop/Panel" unique_id=1016918545]
-propagate_maximum_size = false
-layout_mode = 2
-
-[node name="HBoxContainer" type="HFlowContainer" parent="UI/Control/Shop/Panel/HBoxContainer" unique_id=2067674837]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="item" type="VBoxContainer" parent="UI/Control/Shop/Panel/HBoxContainer/HBoxContainer" unique_id=1482088931]
-custom_maximum_size = Vector2(400, -1)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 1
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/Control/Shop/Panel/HBoxContainer/HBoxContainer/item" unique_id=906192400]
-custom_minimum_size = Vector2(0, 8.939)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_styles/panel = SubResource("StyleBoxFlat_bh8nc")
-
-[node name="TextureRect" type="TextureRect" parent="UI/Control/Shop/Panel/HBoxContainer/HBoxContainer/item/PanelContainer" unique_id=211849160]
-custom_maximum_size = Vector2(40, 8.454)
-layout_mode = 2
-offset_transform_position = Vector2(-0.798, 0)
-texture = ExtResource("29_qktwf")
-stretch_mode = 5
-
-[node name="Label" type="RichTextLabel" parent="UI/Control/Shop/Panel/HBoxContainer/HBoxContainer/item" unique_id=1605792565]
-clip_contents = false
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("16_qktwf")
-theme_override_font_sizes/normal_font_size = 16
-text = "item"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="Button" type="Button" parent="UI/Control/Shop/Panel/HBoxContainer/HBoxContainer/item" unique_id=1116187373]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_styles/normal = SubResource("StyleBoxFlat_gggvi")
-
-[node name="separator" type="Panel" parent="UI/Control/Shop/Panel/HBoxContainer" unique_id=1907997873]
-custom_minimum_size = Vector2(0.462, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jjr1n")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Control/Shop/Panel/HBoxContainer" unique_id=1904367444]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/Shop/Panel/HBoxContainer/VBoxContainer2" unique_id=1498063780]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("16_qktwf")
-theme_override_font_sizes/normal_font_size = 1
-text = "godot 
-melhor 
-item
-
-insane ui"
-fit_content = true
-scroll_active = false
+[node name="Shop" parent="UI" unique_id=641156019 instance=ExtResource("29_qktwf")]
 
 [node name="Kill_Volume" type="Area3D" parent="." unique_id=525981836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.18882, 0)

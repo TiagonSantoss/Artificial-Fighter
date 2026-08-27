@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://cdnnekyon2y4g"]
+
+[ext_resource type="Resource" uid="uid://3d0ii533rxy0" path="res://assets/items/accesories/two_more_bullet.tres" id="1_04yay"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="2_ivbyy"]
+
+[resource]
+script = ExtResource("2_ivbyy")
+item_to_sell = ExtResource("1_04yay")
+price = 9999999999
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

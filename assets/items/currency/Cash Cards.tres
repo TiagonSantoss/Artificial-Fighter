@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("1_a2hd8")
 id = &"CC"
-display_name = "Cash Cards"
-description = "MONEY"
+display_name = "cash cards"
+description = "money"
 icon = ExtResource("1_m6qqu")
 auto_despawns = false
 metadata/_custom_type_script = "uid://cfidmpil06rit"

@@ -17,4 +17,6 @@ signal score_updated(current_score: float, floor_score: float, ceiling_score: fl
 signal enemy_damaged(base_points: float)
 signal enemy_parried(base_points: float)
 
+signal shop_item_selected(item_node)
+
 signal fmod

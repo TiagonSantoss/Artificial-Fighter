@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cr56gd4y8f611"]
+
+[ext_resource type="Script" uid="uid://nqo05uut735" path="res://Game/UI/shop_ui.gd" id="1_j3oli"]
+[ext_resource type="Script" uid="uid://dyyc73hlvhwas" path="res://Game/UI/items_flow.gd" id="1_vs4iv"]
+[ext_resource type="PackedScene" uid="uid://sjxnbdrduybk" path="res://Game/UI/item.tscn" id="2_r1weg"]
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="2_vs4iv"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="3_dubjj"]
+[ext_resource type="Script" uid="uid://dq2s13ogc0r" path="res://Game/UI/shop_description_flow.gd" id="3_r1weg"]
+[ext_resource type="Resource" uid="uid://bjrmre2wxnyjb" path="res://assets/definitions/shop_offers/duo_bullet.tres" id="4_dcy3d"]
+[ext_resource type="Resource" uid="uid://bxhga250waumm" path="res://assets/definitions/shop_offers/one_more_bullet.tres" id="5_80ofe"]
+[ext_resource type="Resource" uid="uid://cdnnekyon2y4g" path="res://assets/definitions/shop_offers/two_more_bullet.tres" id="6_qup20"]
+[ext_resource type="Resource" uid="uid://duv3af307mcvu" path="res://assets/definitions/shop_offers/speed_bolt.tres" id="7_l7uiu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qktwf"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+anti_aliasing_size = 0.453
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_r1weg"]
+content_margin_left = 0.0
+content_margin_top = 4.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+color = Color(0.5, 0.5, 0.5, 1)
+vertical = true
+
+[node name="Shop" type="Control" unique_id=641156019]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_j3oli")
+master_item_pool = Array[ExtResource("3_dubjj")]([ExtResource("4_dcy3d"), ExtResource("5_80ofe"), ExtResource("7_l7uiu"), ExtResource("6_qup20")])
+shop_slots_count = 3
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1095842770]
+custom_maximum_size = Vector2(1800, -1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qktwf")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=472955096]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=2088158654]
+layout_mode = 2
+
+[node name="items" type="FlowContainer" parent="Panel/MarginContainer/HBoxContainer" unique_id=1607402356]
+custom_minimum_size = Vector2(800, 0)
+clip_contents = true
+layout_mode = 2
+theme_override_constants/h_separation = 16
+vertical = true
+script = ExtResource("1_vs4iv")
+item_ui_scene = ExtResource("2_r1weg")
+
+[node name="VSeparator" type="VSeparator" parent="Panel/MarginContainer/HBoxContainer" unique_id=597203107]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_r1weg")
+
+[node name="description" type="VFlowContainer" parent="Panel/MarginContainer/HBoxContainer" unique_id=191260335]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+script = ExtResource("3_r1weg")
+
+[node name="Info" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=1000592151]
+custom_minimum_size = Vector2(400, 460)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_vs4iv")
+theme_override_font_sizes/normal_font_size = 8
+text = "
+"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=656050689]
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="buy_button" type="Button" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=254624938]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.49560398, 0.96882755, 0.9184529, 1)
+theme_override_fonts/font = ExtResource("2_vs4iv")
+theme_override_font_sizes/font_size = 6
+text = "buy?"
+
+[node name="sell_button" type="Button" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=663046847]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8265234, 0.82254636, 1)
+theme_override_fonts/font = ExtResource("2_vs4iv")
+theme_override_font_sizes/font_size = 4
+text = "sell?"

@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="CellDefinition" format=3 uid="uid://c8j60roprapu8"]
-
-[ext_resource type="Script" uid="uid://grak3h02csx2" path="res://Core/Dungeon/Data/cell_definition.gd" id="1_14bfi"]
-
-[resource]
-script = ExtResource("1_14bfi")
-tags = Array[String](["lava"])
-metadata/_custom_type_script = "uid://grak3h02csx2"

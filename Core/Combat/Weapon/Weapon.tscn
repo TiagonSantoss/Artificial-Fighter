@@ -14,7 +14,7 @@ script = ExtResource("1_r5pab")
 render_priority = 3
 
 [node name="Muzzle" type="Marker3D" parent="AnimatedSprite3D" unique_id=190607701]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.5456104, 0)
 
 [node name="WeaponComponent" type="Node" parent="." unique_id=86399417]
 script = ExtResource("2_5cgqc")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://duv3af307mcvu"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_l4lh7"]
+[ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="1_x842m"]
+
+[resource]
+script = ExtResource("1_l4lh7")
+item_to_sell = ExtResource("1_x842m")
+price = -99999
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"
