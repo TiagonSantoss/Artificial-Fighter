@@ -18,5 +18,10 @@ signal enemy_damaged(base_points: float)
 signal enemy_parried(base_points: float)
 
 signal shop_item_selected(item_node)
+signal shop_activation_requested(is_active: bool)
 
 signal fmod
+
+var current_perspective: CameraPerspectiveState = CameraPerspectiveState.new(
+	CameraPerspectiveState.Axis.X_NEGATIVE
+)

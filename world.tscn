@@ -18,7 +18,6 @@
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
-[ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="18_bc84e"]
 [ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="18_k83mh"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
@@ -165,9 +164,10 @@ environment = SubResource("Environment_k3n1d")
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("18_bc84e"), ExtResource("14_k83mh")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("14_k83mh")])
 start_room = ExtResource("20_il2jm")
-_seed = 3
+generate_random_seed = false
+_seed = 2
 room_count = 50
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 
@@ -314,7 +314,6 @@ texture = ExtResource("22_gggvi")
 expand_mode = 2
 
 [node name="P1" parent="UI/Control" unique_id=131289428 instance=ExtResource("16_il2jm")]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00082046055

@@ -162,7 +162,12 @@ func _update_perspective() -> void:
 		return
 
 	current_axis = axis
-	GState.perspective_updated.emit(axis)
+
+	var new_state := CameraPerspectiveState.new(axis)
+
+	GState.current_perspective = new_state
+
+	GState.perspective_updated.emit(new_state)
 
 
 func _get_current_axis() -> CameraPerspectiveState.Axis:
@@ -170,13 +175,13 @@ func _get_current_axis() -> CameraPerspectiveState.Axis:
 
 	match int(round(rot)):
 		0:
-			return CameraPerspectiveState.Axis.Z_NEGATIVE
-		90:
-			return CameraPerspectiveState.Axis.X_POSITIVE
-		180:
-			return CameraPerspectiveState.Axis.Z_POSITIVE
-		270:
 			return CameraPerspectiveState.Axis.X_NEGATIVE
+		90:
+			return CameraPerspectiveState.Axis.Z_POSITIVE
+		180:
+			return CameraPerspectiveState.Axis.X_POSITIVE
+		270:
+			return CameraPerspectiveState.Axis.Z_NEGATIVE
 
 	return CameraPerspectiveState.Axis.Z_NEGATIVE
 

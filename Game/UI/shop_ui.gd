@@ -10,10 +10,21 @@ var current_selected_offer: ShopOffer
 
 
 func _ready() -> void:
+	hide()
+
 	buy_button.pressed.connect(_on_buy_button_pressed)
 	GState.shop_item_selected.connect(_on_item_selected)
 
+	GState.shop_activation_requested.connect(_on_shop_activation_requested)
+
 	generate_random_shop_offers()
+
+
+func _on_shop_activation_requested(is_active: bool) -> void:
+	visible = is_active
+
+	# if is_active:
+	#     generate_random_shop_offers()
 
 
 func generate_random_shop_offers() -> void:

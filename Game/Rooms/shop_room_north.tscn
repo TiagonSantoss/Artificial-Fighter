@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://b070751nbhml8"]
 
+[ext_resource type="Script" uid="uid://bt1mx8igf08ow" path="res://Game/World/shop_room_north.gd" id="1_fqy3o"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="1_yf1lj"]
 [ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="2_4keci"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="3_rdldl"]
@@ -10,9 +11,11 @@
 [ext_resource type="Material" uid="uid://cxqm2go12eira" path="res://assets/models/maps/textures/Prototype_purple_32x32px.tres" id="8_bw5yt"]
 [ext_resource type="Material" uid="uid://kxl3p688621k" path="res://assets/models/maps/textures/Prototype_red_32x32px.tres" id="9_1o711"]
 [ext_resource type="Material" uid="uid://bb7ernc32mgr" path="res://assets/models/maps/textures/Prototype_blue_32x32px.tres" id="10_04bb4"]
+[ext_resource type="PackedScene" uid="uid://debmyv0t0rnww" path="res://assets/models/tv_de_tubo_vermelha.tscn" id="11_4keci"]
+[ext_resource type="PackedScene" uid="uid://b0tmrmqhiv46b" path="res://assets/models/tv_de_tubo_azul.tscn" id="12_rdldl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
-size = Vector3(48.618042, 4.116211, 44.294373)
+size = Vector3(44.77533, 5.3881836, 42.36534)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
 vertices = PackedVector3Array(-6.4000015, -0.5930002, -7.4151497, -4.4000015, -0.5930002, -7.4151497, -4.4000015, -2.0930002, -18.41515, -4.6500015, -0.8430002, -17.04015, -4.9000015, -0.5930002, -15.66515, -4.4000015, -0.5930002, -15.66515, -4.4000015, -0.8430002, -17.04015, -22.400002, -1.8430002, -5.6651497, -6.4000015, -0.5930002, -5.6651497, -20.945456, -0.5930002, -5.8242407, -20.945456, -0.5930002, -5.6651497, -22.400002, -2.0930002, -18.41515, -20.925001, -0.5930002, -16.94015, 10.849998, -0.5930002, -7.4151497, 10.849998, -2.0930002, -18.41515, 10.849998, -0.5930002, -15.66515, 10.849998, -0.8430002, -17.04015, 12.849998, -0.5930002, -7.4151497, 12.849998, -0.5930002, -5.4151497, 22.349998, -1.8430002, -5.4151497, 20.992855, -0.5930002, -5.700864, 20.992855, -0.5930002, -5.4151497, 11.349998, -0.5930002, -15.66515, 11.099998, -0.8430002, -17.04015, 22.349998, -2.0930002, -18.41515, 19.60006, -0.5930002, -16.935215, 21.085072, -0.8430002, -16.924227, 3.3499985, 0.9069998, -3.9151497, 5.3499985, 0.9069998, -3.9151497, 5.3499985, 0.9069998, -7.4151497, -6.4000015, 0.9069998, -7.4151497, -6.4000015, 0.9069998, -3.9151497, -3.4000015, 0.9069998, -3.9151497, -3.4000015, 0.9069998, -0.6651497, 3.3499985, 0.9069998, -0.6651497, 9.599998, 0.9069998, -3.9151497, 12.849998, 0.9069998, -7.4151497, 9.599998, 0.9069998, 0.8348503, 12.849998, 0.9069998, 1.0848503, 9.599998, -0.5930002, 11.83485, 9.599998, -0.5930002, 8.83485, 6.3499985, -0.5930002, 8.83485, -4.9000015, -0.5930002, 25.33485, -4.9000015, -0.5930002, 27.08485, 4.8499985, -0.5930002, 25.33485, 5.324999, -0.5930002, 23.984852, 3.4571419, -0.5930002, 25.58485, -3.4000015, -0.5930002, -0.6651497, -3.4000015, -0.5930002, -3.9151497, -6.4000015, -0.5930002, -3.9151497, 4.8499985, -0.5930002, 27.08485, 4.8499985, -1.8430002, 26.20985, 6.3499985, -0.5930002, 2.5848503, 3.0999985, -0.5930002, -0.6651497, -22.400002, -2.0930002, 26.58485, -6.3583336, -1.0930002, 25.439018, -21.042858, -0.5930002, -5.3080072, -20.912037, -0.5930002, 23.562675, -20.876904, -0.8430002, 25.083534, -7.396927, -0.5930002, 23.561558, -20.945456, -0.5930002, -5.5060587, -4.9000015, -2.0930002, 26.58485, -6.3583336, -2.0930002, 26.58485, 12.849998, -0.5930002, 10.08485, 22.349998, -1.8430002, 10.08485, 20.992855, -0.5930002, 10.08485, 9.599998, -0.5930002, 2.3348503, 9.599998, -0.5930002, -3.9151497, 3.3499985, -0.5930002, -3.9151497, 9.599998, 0.9069998, 2.3348503, 9.599998, 0.9069998, 8.83485, 9.599998, 0.9069998, 12.08485, 12.849998, 0.9069998, 12.08485, 6.3499985, 0.9069998, 2.3348503, 6.3499985, 0.9069998, 8.83485, 12.849998, -0.5930002, 12.08485, 20.992855, -0.5930002, 10.370565, 11.099998, -0.5930002, 12.08485, 11.099998, -2.0930002, 26.58485, 11.274998, -0.8430002, 25.13485, 11.449997, -0.5930002, 23.684849, 11.099998, -0.5930002, 23.684849, 11.099998, -0.8430002, 25.13485, 22.349998, -2.0930002, 26.58485, 19.620567, -0.5930002, 23.576244, 21.11565, -0.8430002, 25.103153, 15.0756, -0.8430002, 25.109207, 21.105217, -0.8430002, 16.10762, 4.8499985, -2.0930002, 26.58485, 6.090107, -0.8430002, 25.108734, -4.9000015, -0.5930002, 32.83485, 4.8499985, -0.5930002, 32.83485)
@@ -146,7 +149,14 @@ points = PackedVector3Array(10, 8, 4, 10, 6, 4, 6, 8, 4, 6, 6, 4, 10, 8, -4, 10,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_toj30"]
 points = PackedVector3Array(2, 8, 12, 2, 6, 12, -6, 8, 12, -6, 6, 12, 2, 8, 8, 2, 6, 8, -6, 8, 8, -6, 6, 8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
+size = Vector3(6.340576, 2.6611328, 3.466919)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fqy3o"]
+size = Vector3(3.3084717, 2.0478516, 6.381836)
+
 [node name="Arena 2" type="Node3D" unique_id=2117219993]
+script = ExtResource("1_fqy3o")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.774986)
@@ -154,14 +164,14 @@ collision_layer = 5
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2183228, 3.2983398, -0.20217896)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29696655, 3.9343262, 0.76233673)
 shape = SubResource("BoxShape3D_dt1lj")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
 script = ExtResource("1_yf1lj")
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
-transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 1.7743073, -24.108486)
+transform = Transform3D(-4.371032e-08, 3.0516056e-10, 1, 0.0069812597, 0.9999756, 0, -0.99997556, 0.00698126, -4.371139e-08, 0, 1.7743073, -24.108486)
 script = ExtResource("2_4keci")
 
 [node name="Links" type="Node3D" parent="." unique_id=502974924]
@@ -230,3 +240,21 @@ shape = SubResource("ConvexPolygonShape3D_wbanr")
 
 [node name="entity_0_brush_15_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1451133831]
 shape = SubResource("ConvexPolygonShape3D_toj30")
+
+[node name="TV_DE_TUBO" parent="." unique_id=926950336 instance=ExtResource("11_4keci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0054688454, 3.6069994, -32.72953)
+
+[node name="TV_DE_TUBO2" parent="." unique_id=650483246 instance=ExtResource("12_rdldl")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.40121, 3.6070004, -22.03606)
+
+[node name="x_area" type="Area3D" parent="." unique_id=338940070]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="x_area" unique_id=765638470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03673458, 4.9340863, -30.356285)
+shape = SubResource("BoxShape3D_2bgwa")
+
+[node name="z_area" type="Area3D" parent="." unique_id=906583778]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="z_area" unique_id=1036590223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.029046, 4.637665, -22.195501)
+shape = SubResource("BoxShape3D_fqy3o")
