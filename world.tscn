@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Resource" uid="uid://b52so3o6hqglt" path="res://assets/definitions/rooms/shop_room.tres" id="14_k83mh"]
+[ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="14_qktwf"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="PackedScene" uid="uid://0v1b8eyr8r8j" path="res://Game/UI/p_1.tscn" id="16_il2jm"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
@@ -164,7 +165,7 @@ environment = SubResource("Environment_k3n1d")
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("14_k83mh")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("14_k83mh"), ExtResource("14_qktwf")])
 start_room = ExtResource("20_il2jm")
 generate_random_seed = false
 _seed = 2

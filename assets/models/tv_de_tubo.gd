@@ -15,7 +15,7 @@ func _on_perspective_changed(_axis):
 	if tween and tween.is_running():
 		tween.kill()
 
-	var current_color: Color = get_instance_shader_parameter("color")
+	var current_color = get_instance_shader_parameter("color")
 	if current_color == null:
 		current_color = Color(1.0, 1.0, 1.0, 0.5)
 

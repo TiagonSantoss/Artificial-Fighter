@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://mgv4db0kq6ed" path="res://Game/UI/health.gd" id="3_poaiy"]
 [ext_resource type="Texture2D" uid="uid://cbcjge7pevctq" path="res://assets/sprites/UI/cardscardernointothefire.png" id="4_tvm4q"]
 [ext_resource type="Script" uid="uid://c1xfew0gfsp1i" path="res://Game/UI/rank_bar.gd" id="5_lx3dl"]
+[ext_resource type="Texture2D" uid="uid://pypeiwjw8n1u" path="res://assets/sprites/UI/barra_de_vida1.png" id="7_msj6d"]
+[ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="8_6qcx1"]
+[ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="9_txbq2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjfdq"]
 bg_color = Color(0.58265924, 0.74032336, 0.99914604, 1)
@@ -122,17 +125,16 @@ script = ExtResource("3_poaiy")
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Health_Display" unique_id=580088258]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.143
 anchor_top = 0.25300002
 anchor_right = 0.79800004
 anchor_bottom = 0.79800004
-offset_left = -25.16
-offset_top = -23.69332
-offset_right = 26.239998
-offset_bottom = 19.906685
+offset_left = -31.16
+offset_top = -64.359985
+offset_right = 87.21264
+offset_bottom = 25.13375
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
@@ -143,9 +145,10 @@ expand_mode = 1
 [node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
 visible = false
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.08957655
+anchor_top = 1.0267282
+anchor_right = 0.060761742
+anchor_bottom = 0.9529954
 offset_left = 36.0
 offset_top = -187.0
 offset_right = 156.0
@@ -173,10 +176,10 @@ anchor_left = 0.21800001
 anchor_top = 0.89400005
 anchor_right = 0.21800001
 anchor_bottom = 0.89400005
-offset_left = 0.147995
-offset_top = -51.99005
-offset_right = 376.148
-offset_bottom = 53.00995
+offset_left = 104.147995
+offset_top = -228.99005
+offset_right = 616.148
+offset_bottom = -42.99005
 script = ExtResource("3_gjfdq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardsBar" unique_id=512959549]
@@ -275,3 +278,17 @@ offset_bottom = -0.14401245
 texture = ExtResource("1_ge5d7")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1391738399]
+visible = false
+layout_mode = 0
+offset_left = 537.0
+offset_top = 190.0
+offset_right = 1037.0
+offset_bottom = 590.0
+max_value = 25.0
+value = 25.0
+rounded = true
+texture_under = ExtResource("7_msj6d")
+texture_over = ExtResource("8_6qcx1")
+texture_progress = ExtResource("9_txbq2")
