@@ -1,8 +1,16 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bnx4x15lwo2e2"]
 
 [ext_resource type="Texture2D" uid="uid://btvyam1y5rqqa" path="res://assets/models/maps/textures/Prototype_checkers_03_32x32px.png" id="1_ccl8a"]
+[ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="2_lcu8f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrvjn"]
+render_priority = 0
+shader = ExtResource("2_lcu8f")
+shader_parameter/weight = 0.02
+shader_parameter/color = Color(0, 0, 0, 1)
 
 [resource]
+next_pass = SubResource("ShaderMaterial_hrvjn")
 albedo_texture = ExtResource("1_ccl8a")
 metallic_specular = 0.0
 texture_filter = 2

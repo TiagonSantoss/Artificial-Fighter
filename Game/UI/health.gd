@@ -8,10 +8,10 @@ var displayed_health: int = 500
 
 var health_tween: Tween
 
-var image_tween: Tween
+var progress_bar_tween: Tween
 
 @onready var original_position: Vector2 = position
-@onready var texture := $"../../../"
+@onready var progress_bar := $"../../"
 
 
 func _ready() -> void:
@@ -25,11 +25,11 @@ func _on_health_changed(new_health: float) -> void:
 	if health_tween and health_tween.is_valid():
 		health_tween.kill()
 
-	if image_tween and image_tween.is_valid():
-		image_tween.kill()
+	if progress_bar_tween and progress_bar_tween.is_valid():
+		progress_bar_tween.kill()
 
 	health_tween = create_tween()
-	image_tween = create_tween()
+	progress_bar_tween = create_tween()
 
 	(
 		health_tween
@@ -39,16 +39,9 @@ func _on_health_changed(new_health: float) -> void:
 	)
 
 	(
-		image_tween
-		. tween_property(texture, "scale", Vector2(0.75, 1.5), 0.4)
-		. set_trans(Tween.TRANS_BACK)
-		. set_ease(Tween.EASE_OUT)
-	)
-
-	(
-		image_tween
-		. tween_property(texture, "scale", Vector2(1.5, 1.5), 0.4)
-		. set_trans(Tween.TRANS_BACK)
+		progress_bar_tween
+		. tween_property(progress_bar, "value", actual_health, 0.4)
+		. set_trans(Tween.TRANS_QUINT)
 		. set_ease(Tween.EASE_OUT)
 	)
 

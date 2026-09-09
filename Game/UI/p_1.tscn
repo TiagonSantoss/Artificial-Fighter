@@ -10,19 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="8_6qcx1"]
 [ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="9_txbq2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjfdq"]
-bg_color = Color(0.58265924, 0.74032336, 0.99914604, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.11764706, 0.45490196, 0.99215686, 1)
-border_blend = true
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 2
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrvgn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ge5d7"]
 content_margin_left = 0.0
@@ -93,36 +81,33 @@ grow_vertical = 0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(60, 120)
 
-[node name="Panel" type="Panel" parent="Health_Display" unique_id=964528921]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25300002
-anchor_top = 0.82800007
-anchor_right = 0.96300006
-anchor_bottom = 1.1910001
-offset_left = -0.03960228
-offset_top = -14.782524
-offset_right = -0.049598694
-offset_bottom = 0.0041503906
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gjfdq")
-metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Health_Display/Panel" unique_id=751203477]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Health_Display" unique_id=1391738399]
 layout_mode = 0
-offset_left = 6.0
-offset_right = 91.0
-offset_bottom = 50.0
-metadata/_edit_lock_ = true
+offset_left = 2.6666665
+offset_top = 37.33333
+offset_right = 150.66667
+offset_bottom = 163.99998
+max_value = 500.0
+value = 500.0
+rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("7_msj6d")
+texture_over = ExtResource("8_6qcx1")
+texture_progress = ExtResource("9_txbq2")
 
-[node name="Label" type="Label" parent="Health_Display/Panel/HBoxContainer" unique_id=1714114020]
+[node name="HBoxContainer" type="HBoxContainer" parent="Health_Display/TextureProgressBar" unique_id=751203477]
+layout_mode = 0
+offset_left = 26.666668
+offset_top = 28.666656
+offset_right = 135.33334
+offset_bottom = 114.66666
+
+[node name="Label" type="Label" parent="Health_Display/TextureProgressBar/HBoxContainer" unique_id=1714114020]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_x72qx")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 10
 text = "500"
 script = ExtResource("3_poaiy")
-metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Health_Display" unique_id=580088258]
 layout_mode = 1
@@ -132,21 +117,21 @@ anchor_top = 0.25300002
 anchor_right = 0.79800004
 anchor_bottom = 0.79800004
 offset_left = -31.16
-offset_top = -64.359985
-offset_right = 87.21264
-offset_bottom = 25.13375
+offset_top = -73.423744
+offset_right = 91.65711
+offset_bottom = 31.176254
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(64.541, 59.326)
-texture = ExtResource("1_ge5d7")
+texture = SubResource("AtlasTexture_yrvgn")
 expand_mode = 1
 
 [node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
 visible = false
 layout_mode = 1
-anchor_left = 0.08957655
-anchor_top = 1.0267282
+anchor_left = 0.060761742
+anchor_top = 0.9529954
 anchor_right = 0.060761742
 anchor_bottom = 0.9529954
 offset_left = 36.0
@@ -278,17 +263,3 @@ offset_bottom = -0.14401245
 texture = ExtResource("1_ge5d7")
 expand_mode = 3
 stretch_mode = 5
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1391738399]
-visible = false
-layout_mode = 0
-offset_left = 537.0
-offset_top = 190.0
-offset_right = 1037.0
-offset_bottom = 590.0
-max_value = 25.0
-value = 25.0
-rounded = true
-texture_under = ExtResource("7_msj6d")
-texture_over = ExtResource("8_6qcx1")
-texture_progress = ExtResource("9_txbq2")

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="4_bh8nc"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
-[ext_resource type="Texture2D" uid="uid://c2nytfcu5r7u0" path="res://assets/images/shaders/248138c3-816f-400e-b52a-3a0875186dac.jpeg" id="6_il2jm"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
 [ext_resource type="Script" uid="uid://bmoje4yltj2n2" path="res://Game/Calls/player_spawn.gd" id="9_k83mh"]
 [ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="9_wukud"]
@@ -20,6 +19,7 @@
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="18_k83mh"]
+[ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/ps2_lighting.gdshader" id="19_bh8nc"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
 [ext_resource type="Texture2D" uid="uid://dx46trsl14lsk" path="res://assets/sprites/UI/zicon.png" id="20_bh8nc"]
@@ -30,6 +30,36 @@
 [ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
 [ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="22_mc2jv"]
 [ext_resource type="PackedScene" uid="uid://cr56gd4y8f611" path="res://Game/UI/shop_ui.tscn" id="29_qktwf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
+shader = ExtResource("5_wukud")
+shader_parameter/rotation_speed = 0.0
+
+[sub_resource type="Sky" id="Sky_26xuy"]
+sky_material = SubResource("ShaderMaterial_bc84e")
+
+[sub_resource type="Environment" id="Environment_k3n1d"]
+background_mode = 2
+background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
+sky = SubResource("Sky_26xuy")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+tonemap_mode = 1
+ssao_radius = 3.06
+ssao_intensity = 5.32
+ssao_power = 2.568522
+sdfgi_read_sky_light = false
+sdfgi_min_cell_size = 0.18085937
+fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
+fog_sun_scatter = 0.16
+fog_density = 0.0
+volumetric_fog_density = 0.0075
+volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+volumetric_fog_temporal_reprojection_amount = 0.5
+adjustment_enabled = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioo17"]
 particle_flag_rotate_y = true
@@ -95,36 +125,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y5hus")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
-shader = ExtResource("5_wukud")
-shader_parameter/rotation_speed = 0.0
-shader_parameter/gradient_texture = ExtResource("6_il2jm")
-
-[sub_resource type="Sky" id="Sky_26xuy"]
-sky_material = SubResource("ShaderMaterial_bc84e")
-
-[sub_resource type="Environment" id="Environment_k3n1d"]
-background_mode = 2
-background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
-sky = SubResource("Sky_26xuy")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.0
-reflected_light_source = 2
-tonemap_mode = 1
-ssao_radius = 3.06
-ssao_intensity = 5.32
-ssao_power = 2.568522
-sdfgi_read_sky_light = false
-sdfgi_min_cell_size = 0.18085937
-fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
-fog_sun_scatter = 0.16
-fog_density = 0.0
-volumetric_fog_density = 0.0075
-volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
-volumetric_fog_temporal_reprojection_enabled = false
-volumetric_fog_temporal_reprojection_amount = 0.5
-adjustment_enabled = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
+shader = ExtResource("19_bh8nc")
+shader_parameter/bloom_threshold = 0.5710000271225
+shader_parameter/bloom_intensity = 2.5
+shader_parameter/bloom_blur = 0.40800001938
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
 size = Vector3(689.05664, 3.0751953, 824.17285)
@@ -133,35 +138,22 @@ size = Vector3(689.05664, 3.0751953, 824.17285)
 script = ExtResource("2_fj7yv")
 enemy_pool = Array[ExtResource("4_bh8nc")]([ExtResource("5_jjr1n")])
 
-[node name="Entities" type="Node3D" parent="." unique_id=681819372 groups=["entities"]]
-script = ExtResource("8_bo7i5")
+[node name="MainContainer" type="SubViewportContainer" parent="." unique_id=1282863015]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=565742135]
-script = ExtResource("9_k83mh")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
-projection = 1
-fov = 147.0
-near = 0.163
-far = 87.56
-script = ExtResource("18_k83mh")
-
-[node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
-transform = Transform3D(8.717856, 0, 0, 0, 2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, -0.038464546, -0.8393612, -13.7882)
-amount = 18
-lifetime = 5.0
-process_material = SubResource("ParticleProcessMaterial_ioo17")
-draw_pass_1 = SubResource("ArrayMesh_wse8f")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
-transform = Transform3D(-0.90412116, -0.41353, -0.10750823, -0.057911098, -0.13069305, 0.9897301, -0.42333364, 0.9010617, 0.09421434, 0, 0.29394203, 0)
-shadow_enabled = true
+[node name="SubViewport" type="SubViewport" parent="MainContainer" unique_id=1560079631]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
 environment = SubResource("Environment_k3n1d")
 
-[node name="ProjectileRenderer" parent="." unique_id=261744940 instance=ExtResource("9_wukud")]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
+transform = Transform3D(-0.9041211, -0.41352996, -0.10750824, -0.057911094, -0.13069306, 0.9897301, -0.42333362, 0.9010618, 0.09421438, 0, 0.29394203, 0)
+shadow_enabled = true
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
@@ -174,6 +166,30 @@ item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 
 [node name="ChunkManager" type="Node3D" parent="DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
+
+[node name="Entities" type="Node3D" parent="." unique_id=681819372 groups=["entities"]]
+script = ExtResource("8_bo7i5")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 22.603718, 24.407417)
+projection = 1
+fov = 147.0
+size = 45.0
+near = 0.163
+far = 87.56
+script = ExtResource("18_k83mh")
+
+[node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
+transform = Transform3D(8.717856, 0, 0, 0, 2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, -0.038464546, -0.8393612, -13.7882)
+amount = 18
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_ioo17")
+draw_pass_1 = SubResource("ArrayMesh_wse8f")
+
+[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=565742135]
+script = ExtResource("9_k83mh")
+
+[node name="ProjectileRenderer" parent="." unique_id=261744940 instance=ExtResource("9_wukud")]
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=466698288]
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank", "res://assets/banks/Desktop/Master.strings.bank", "res://assets/banks/Desktop/SFX.bank"]
@@ -190,6 +206,14 @@ fmod_parameters/Set/variant_type = 2
 script = ExtResource("17_o3ebs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=260962739]
+material = SubResource("ShaderMaterial_2bgwa")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Control" type="Control" parent="UI" unique_id=1182223194]
 layout_mode = 3

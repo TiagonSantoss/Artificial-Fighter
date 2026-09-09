@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://jy03v0ofdl47"]
 
+[ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="1_et4di"]
 [ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_j5xdy"]
 [ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="3_yehmp"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_52hv5"]
@@ -31,7 +32,14 @@ agent_height = 1.0
 agent_radius = 1.0
 agent_max_climb = 1.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7wdg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7wdg"]
+render_priority = 0
+shader = ExtResource("1_et4di")
+shader_parameter/weight = 0.02
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nf13"]
+next_pass = SubResource("ShaderMaterial_k7wdg")
 albedo_color = Color(0.59000003, 0.9248333, 1, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1nf13"]
@@ -41,7 +49,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 324,
 "index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcAGAAZABoAGAAaABsAHAAdAB4AHAAeAB8AIAAhACIAIAAiACMAJAAlACYAJAAmACcAKAApACoAKAAqACsALAAtAC4ALAAuAC8AMAAxADIAMAAyADMANAA1ADYANAA2ADcAOAA5ADoAOAA6ADsAPAA9AD4APAA+AD8AQABBAEIAQABCAEMARABFAEYARABGAEcASABJAEoASABKAEsATABNAE4ATABOAE8AUABRAFIAUABSAFMAVABVAFYAVABWAFcAWABZAFoAWABaAFsAXABdAF4AXABeAF8AYABhAGIAYABiAGMAZABlAGYAZABmAGcAaABpAGoAaABqAGsAbABtAG4AbABuAG8AcABxAHIAcAByAHMAdAB1AHYAdAB2AHcAeAB5AHoAeAB6AHsAfAB9AH4AfAB+AH8AgACBAIIAgACCAIMAhACFAIYAhACGAIcAiACJAIoAiACKAIsAjACNAI4AjACOAI8AkACRAJIAkACSAJMAlACVAJYAlACWAJcAmACZAJoAmACaAJsAnACdAJ4AnACeAJ8AoAChAKIAoACiAKMApAClAKYApACmAKcAqACpAKoAqACqAKsArACtAK4ArACuAK8AsACxALIAsACyALMAtAC1ALYAtAC2ALcAuAC5ALoAuAC6ALsAvAC9AL4AvAC+AL8AwADBAMIAwADCAMMAxADFAMYAxADGAMcAyADJAMoAyADKAMsAzADNAM4AzADOAM8A0ADRANIA0ADSANMA1ADVANYA1ADWANcA"),
-"material": SubResource("StandardMaterial3D_k7wdg"),
+"material": SubResource("StandardMaterial3D_1nf13"),
 "name": "__TB_empty",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -290,6 +298,7 @@ size = Vector3(30.489258, 7.409668, 31.417969)
 script = SubResource("GDScript_g3gis")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=967508230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89038754, 0)
 navigation_mesh = SubResource("NavigationMesh_qn1rc")
 
 [node name="entity_0_worldspawn" type="StaticBody3D" parent="NavigationRegion3D" unique_id=1525470126]
@@ -327,7 +336,7 @@ shape = SubResource("ConvexPolygonShape3D_6k5yq")
 shape = SubResource("ConvexPolygonShape3D_rwxaf")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.0303489, -4.7278447, 0.040048175, 0.64033455, 4.7510586, -0.8013097, 0.46465436, 3.930122, 1.0162454, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-1.1436421, -1.4899154, -0.56052864, -0.5806225, 0.28075466, 1.1566801, -0.2025453, 7.6176453, -0.1526896, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=24314593]

@@ -10,7 +10,7 @@
 [ext_resource type="Material" uid="uid://bnx4x15lwo2e2" path="res://assets/models/maps/textures/Prototype_checkers_03_32x32px.tres" id="10_1b2gp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
-size = Vector3(22.767405, 9.144062, 22.659336)
+size = Vector3(22.767405, 9.144062, 36.316322)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
 size = Vector3(2.4829102, 13.466553, 41.217163)
@@ -30,16 +30,13 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAQQAAAEAAAADBAAAAwQAAAEAAAADBAAAAwQAAAMAAAADBAAAAQQAAAMAAAADBAAAAwQAAAMAAAABBAAAAwQAAAMAAAADBAAAAwQAAAEAAAADBAAAAwQAAAEAAAABBAAAAwQAAAMAAAABBAAAAQQAAAMAAAABBAAAAQQAAAMAAAADBAAAAwQAAAMAAAADBAAAAwQAAAEAAAABBAAAAwQAAAEAAAADBAAAAQQAAAEAAAADBAAAAQQAAAEAAAABBAAAAQQAAAEAAAABBAAAAQQAAAEAAAADBAAAAQQAAAMAAAADBAAAAQQAAAMAAAABBAAAAQQAAAMAAAABBAAAAwQAAAMAAAABBAAAAwQAAAEAAAABBAAAAQQAAAEAAAABB/////////z//////////P/////////8//////////z8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD/f/8//38AAP9//z//fwAA/3//P/9/AAD/f/8//3////9//7//f////3//v/9/////f/+//3////9//7////9//3//P////3//f/8/////f/9//z////9//3//P/9//3////+//3//f////7//f/9/////v/9//3////+/")
 }]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
-vertices = PackedVector3Array(-18.75, 0.5, -18.75, -18.75, 0.5, 18.75, 18.75, 0.5, 18.75, 18.75, 0.5, -18.75)
+[sub_resource type="NavigationMesh" id="NavigationMesh_2bgwa"]
+vertices = PackedVector3Array(-19.390291, -1.0411987, -19.406803, -19.390291, -1.0411987, 19.343197, 19.359709, -1.0411987, 19.343197, 19.359709, -1.0411987, -19.406803)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-agent_height = 0.0
-agent_radius = 0.7
-agent_max_slope = 90.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_y5v8f"]
 _surfaces = [{
-"aabb": AABB(-6.5, -0.5, -6.5, 13, 0.5, 13),
+"aabb": AABB(-26, -2, -26, 52, 2, 52),
 "attribute_data": PackedByteArray("AADgQAAAAD8AAMDAAAAAPwAAwMAAAIA/AADgQAAAgD8AANBAAACAPwAA0MAAAIA/AADQwAAAAD8AANBAAAAAPwAA0EAAAODAAADQQAAAwEAAANDAAADAQAAA0MAAAODAAADQQAAA4MAAANDAAADgwAAA0MAAAMBAAADQQAAAwEAAANBAAAAAPwAA0MAAAAA/AADQwAAAgD8AANBAAACAPwAA4EAAAIA/AADAwAAAgD8AAMDAAAAAPwAA4EAAAAA/"),
 "format": 34359742487,
 "index_count": 36,
@@ -49,11 +46,11 @@ _surfaces = [{
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 24,
-"vertex_data": PackedByteArray("AADQQAAAAAAAANDAAADQwAAAAAAAANDAAADQwAAAAL8AANDAAADQQAAAAL8AANDAAADQwAAAAL8AANBAAADQwAAAAL8AANDAAADQwAAAAAAAANDAAADQwAAAAAAAANBAAADQwAAAAL8AANBAAADQQAAAAL8AANBAAADQQAAAAL8AANDAAADQwAAAAL8AANDAAADQwAAAAAAAANBAAADQwAAAAAAAANDAAADQQAAAAAAAANDAAADQQAAAAAAAANBAAADQQAAAAAAAANBAAADQQAAAAAAAANDAAADQQAAAAL8AANDAAADQQAAAAL8AANBAAADQQAAAAL8AANBAAADQwAAAAL8AANBAAADQwAAAAAAAANBAAADQQAAAAAAAANBA/////////z//////////P/////////8//////////z8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD/f/8//38AAP9//z//fwAA/3//P/9/AAD/f/8//3////9//7//f////3//v/9/////f/+//3////9//7////9//3//P////3//f/8/////f/9//z////9//3//P/9//3////+//3//f////7//f/9/////v/9//3////+/")
+"vertex_data": PackedByteArray("AADQQQAAAAAAANDBAADQwQAAAAAAANDBAADQwQAAAMAAANDBAADQQQAAAMAAANDBAADQwQAAAMAAANBBAADQwQAAAMAAANDBAADQwQAAAAAAANDBAADQwQAAAAAAANBBAADQwQAAAMAAANBBAADQQQAAAMAAANBBAADQQQAAAMAAANDBAADQwQAAAMAAANDBAADQwQAAAAAAANBBAADQwQAAAAAAANDBAADQQQAAAAAAANDBAADQQQAAAAAAANBBAADQQQAAAAAAANBBAADQQQAAAAAAANDBAADQQQAAAMAAANDBAADQQQAAAMAAANBBAADQQQAAAMAAANBBAADQwQAAAMAAANBBAADQwQAAAAAAANBBAADQQQAAAAAAANBB/////////z//////////P/////////8//////////z8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD/f/8//38AAP9//z//fwAA/3//P/9/AAD/f/8//3////9//7//f////3//v/9/////f/+//3////9//7////9//3//P////3//f/8/////f/9//z////9//3//P/9//3////+//3//f////7//f/9/////v/9//3////+/")
 }]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ups1s"]
-points = PackedVector3Array(6.5, 0, 6.5, 6.5, -0.5, 6.5, -6.5, 0, 6.5, -6.5, -0.5, 6.5, 6.5, 0, -6.5, 6.5, -0.5, -6.5, -6.5, 0, -6.5, -6.5, -0.5, -6.5)
+points = PackedVector3Array(26, 0, 26, 26, -2, 26, -26, 0, 26, -26, -2, 26, 26, 0, -26, 26, -2, -26, -26, 0, -26, -26, -2, -26)
 
 [node name="Arena 1" type="Node3D" unique_id=2117219993]
 
@@ -62,8 +59,7 @@ collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040247917, 6.4179883, -0.22639704)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040247917, 1.5124397, 0.5118427)
 shape = SubResource("BoxShape3D_dt1lj")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
@@ -156,18 +152,18 @@ local_map_file = "uid://dgtdtxfj5behh"
 map_settings = ExtResource("8_fo2dy")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1726899022]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01, 0)
-navigation_mesh = SubResource("NavigationMesh_6xxrv")
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1620295817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6221237, 0)
+navigation_mesh = SubResource("NavigationMesh_2bgwa")
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=1103608477]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=228324097]
+transform = Transform3D(0.7650112, 0, 0, 0, 1, 0, 0, 0, 0.7656463, 0, -1.5411987, 0)
 collision_mask = 0
 
-[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1541586150]
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2059289024]
 mesh = SubResource("ArrayMesh_y5v8f")
 
-[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1158988772]
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=977857331]
 shape = SubResource("ConvexPolygonShape3D_ups1s")
 
 [node name="barrier" type="Node3D" parent="." unique_id=139450936]
