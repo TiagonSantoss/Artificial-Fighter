@@ -56,4 +56,4 @@ func _on_buy_button_pressed() -> void:
 
 func _spawn_item(offer: ShopOffer) -> void:
 	var instance = offer.item_to_sell.create_instance()
-	WorldItemSpawner.drop(instance, GameAutoLoad.player.global_position)
+	WorldItemSpawner.drop(instance, GameAutoLoad._controlled_entity.global_position)

@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		is_rotating = false
 
 	# 2. BLEND LOOK TARGET between room pivot and player
-	var player_pos := Game.player.global_position
+	var player_pos := GameAutoLoad._controlled_entity.global_position
 	var half_width := room_size_units.x / 2.0
 	var half_depth := room_size_units.y / 2.0
 

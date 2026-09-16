@@ -159,6 +159,9 @@ func swing(direction: Vector3):
 		can_fire = true
 		return
 
+	if weapon.visual_component and weapon.visual_component.has_method("play_swing_animation"):
+		weapon.visual_component.play_swing_animation(direction)
+
 	for shot in context.shots:
 		var melee_strike: Melee = MELEE_SCENE.instantiate()
 

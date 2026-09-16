@@ -30,8 +30,9 @@ func apply_movement(direction: Vector3, delta: float) -> void:
 	var current_acceleration = acceleration
 
 	if entity.get("is_blocking"):
-		current_max_speed *= BLOCK_SPEED_MULTIPLIER
-		current_acceleration *= BLOCK_SPEED_MULTIPLIER
+		max_speed *= BLOCK_SPEED_MULTIPLIER
+		# acceleration *= BLOCK_SPEED_MULTIPLIER
+		movement_velocity *= BLOCK_SPEED_MULTIPLIER
 
 	if direction.length() > 0.01:
 		last_direction = direction.normalized()

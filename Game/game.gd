@@ -8,18 +8,19 @@ const LAYER_WORLD := 1
 const LAYER_PLAYER := 2
 const LAYER_ENEMY := 3
 
+static var player: Entity
+static var companion: Entity
+static var instance: Game
+
+@export var enemy_pool: Array[EntityDefinition]
+@export var npc_pool: Array[EntityDefinition]
+
 var player_definition: EntityDefinition = preload(
 	"res://assets/definitions/entities/actors/player_definition.tres"
 )
 var companion_definition: EntityDefinition = preload(
 	"res://assets/definitions/entities/actors/rat_definition.tres"
 )
-
-@export var enemy_pool: Array[EntityDefinition]
-@export var npc_pool: Array[EntityDefinition]
-
-static var player: Entity
-static var instance: Game
 
 var controlled_entity: Entity:
 	get:
@@ -48,6 +49,7 @@ var camera_rig: Camera3D
 var wallet := PlayerWallet.new()
 
 var _controlled_entity: Entity
+var _companion_entity: Entity
 
 
 func _ready() -> void:
@@ -166,6 +168,42 @@ func get_camera_right() -> Vector3:
 	return Vector3(1, 0, 0).rotated(Vector3.UP, active_room_pivot.rotation.y)
 
 
+func get_current_entity() -> Entity:
+	return _controlled_entity
+
+
+var can_swap := true
+
+
+func swap_characters():
+	if not can_swap:
+		return
+
+	can_swap = false
+
+	if _controlled_entity.entity_id == 0:
+		companion.controller = PlayerController.new()
+		_controlled_entity = companion
+
+		player.controller = CompanionController.new()
+		player.controller.follow_target = _controlled_entity
+		_companion_entity = player
+	else:
+		player.controller = PlayerController.new()
+		_controlled_entity = player
+
+		companion.controller = CompanionController.new()
+		companion.controller.follow_target = player
+		_companion_entity = companion
+
+	await get_tree().create_timer(0.4).timeout
+
+	can_swap = true
+
+	print("CONTROLEED:", _controlled_entity.entity_id)
+	print("COMPANION:", _companion_entity.entity_id)
+
+
 func spawn_player(pos: Vector3) -> Entity:
 	var listener3D = FmodListener3D.new()
 	player = spawn_entity(player_definition, pos)
@@ -189,9 +227,13 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 
 
 func spawn_companion(pos: Vector3) -> Entity:
-	var companion := spawn_entity(companion_definition, pos)
-	companion.controller.follow_target = player
-	return companion
+	var local_companion := spawn_entity(companion_definition, pos)
+	_companion_entity = local_companion
+	companion = local_companion
+	local_companion.controller.follow_target = player
+
+	local_companion.add_to_group("player")
+	return local_companion
 
 
 func spawn_npc(pos: Vector3, definition: EntityDefinition) -> Entity:

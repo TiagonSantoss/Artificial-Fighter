@@ -160,8 +160,8 @@ script = ExtResource("1_fqy3o")
 
 [node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.774986)
-collision_layer = 5
-collision_mask = 5
+collision_layer = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29696655, 3.9343262, 0.76233673)
@@ -187,7 +187,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -27.778)
 navigation_mesh = SubResource("NavigationMesh_6xxrv")
 
 [node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=1502793170]
-transform = Transform3D(-3.4969112e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.4969112e-08, 0, -5.793, 3.9848518)
+transform = Transform3D(-3.4969112e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.4969112e-08, 0, -6.692, 4.138)
 collision_mask = 0
 
 [node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1901717844]
@@ -248,12 +248,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0054688454, 3.6069994, -32.
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.40121, 3.6070004, -22.03606)
 
 [node name="x_area" type="Area3D" parent="." unique_id=338940070]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="x_area" unique_id=765638470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03673458, 4.9340863, -30.356285)
 shape = SubResource("BoxShape3D_2bgwa")
 
 [node name="z_area" type="Area3D" parent="." unique_id=906583778]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="z_area" unique_id=1036590223]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.029046, 4.637665, -22.195501)

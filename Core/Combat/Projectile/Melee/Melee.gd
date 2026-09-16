@@ -61,7 +61,34 @@ func setup(
 
 	global_rotation.y = atan2(strike_direction.x, strike_direction.z)
 	_apply_visuals()
-	hitbox.monitoring = true
+
+	hitbox.monitoring = false  # Keep off during windup
+
+	# 1. MATCH THESE VARIABLES TO YOUR VISUAL SCRIPT
+	var windup_angle := 0.7  # Matches the visual pullback
+	var swing_end := -1.5  # Matches the visual swing target
+
+	var windup_time := 0.2
+	var swing_time := 0.15
+
+	var tween = create_tween()
+
+	# 2. WINDUP PHASE (Matches visual TRANS_QUAD easing)
+	(
+		tween
+		. tween_property(hitbox, "rotation:y", windup_angle, windup_time)
+		. set_trans(Tween.TRANS_QUAD)
+		. set_ease(Tween.EASE_OUT)
+	)
+
+	# 3. TURN HITBOX ON
+	tween.tween_callback(func(): hitbox.monitoring = true)
+
+	# 4. ACTIVE SWING PHASE (Matches visual TRANS_SINE easing)
+	tween.tween_property(hitbox, "rotation:y", swing_end, swing_time).set_trans(Tween.TRANS_SINE)
+
+	# 5. TURN HITBOX OFF
+	tween.tween_callback(func(): hitbox.monitoring = false)
 
 
 func _physics_process(delta: float) -> void:

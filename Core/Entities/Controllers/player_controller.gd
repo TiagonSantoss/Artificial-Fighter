@@ -69,6 +69,9 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 			if _actor.entity_id == 1:
 				dodge_cooldown_left = DASH_COOLDOWN
 
+	if Input.is_action_just_pressed("change_characters"):
+		actions.append(ChangeCharactersAction.new())
+
 	return actions
 
 

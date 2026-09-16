@@ -35,6 +35,30 @@ func _process(_delta: float) -> void:
 		shader_mat.set_shader_parameter("main_texture", current_texture)
 
 
+func play_swing_animation(_direction: Vector3):
+	var mat = sprite.material_override
+	var tween = create_tween()
+
+	var swing_target = -1.5 if mat.get_shader_parameter("flip_gun") else 1.5
+
+	var windup_angle = -0.7 * sign(swing_target)  # Pulls back much further
+	var windup_time = 0.2  # Takes twice as long
+	(
+		tween
+		. tween_method(set_swing.bind(mat), 0.0, windup_angle, windup_time)
+		. set_trans(Tween.TRANS_QUAD)  # Makes it ease into the pullback
+		. set_ease(Tween.EASE_OUT)
+	)
+	tween.tween_method(set_swing.bind(mat), windup_angle, swing_target, 0.15).set_trans(
+		Tween.TRANS_SINE
+	)
+	tween.tween_method(set_swing.bind(mat), swing_target, 0.0, 0.25).set_trans(Tween.TRANS_QUAD)
+
+
+func set_swing(value: float, mat: Material):
+	mat.set_shader_parameter("swing_angle", value)
+
+
 func update_aim(dir: Vector3) -> void:
 	if dir.length_squared() <= 0.001:
 		return

@@ -6,6 +6,6 @@
 script = ExtResource("1_bf8b5")
 damage = 15
 knockback = 15.0
-hitbox_size = Vector3(3, 1, 12)
+hitbox_size = Vector3(3, 1, 22)
 hitbox_offset = Vector3(0, 0, 4)
 metadata/_custom_type_script = "uid://dev14jj2vupbx"
