@@ -5,7 +5,6 @@ enum Team { PLAYER, ALLY, ENEMY }
 
 enum HitResult { NONE, CONSUME, PIERCE, BOUNCE, REFLECT }
 
-const HIT_VFX_SCENE = preload("res://Utils/HitVFX.tscn")
 const CHIP_DAMAGE_RATIO := 0.25
 const DEFAULT_PARRY_WINDOW := 0.2  # Slightly more forgiving for player bodies than melee clashes
 
