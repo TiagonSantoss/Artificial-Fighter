@@ -48,9 +48,20 @@ func setup(
 
 	lifetime_left = definition.lifetime
 
+	# 1. Determine flip state using the same camera logic as your visual component
+	var is_flipped := false
+	var camera := get_viewport().get_camera_3d()
+	if camera != null:
+		var cam_basis := camera.global_transform.basis.orthonormalized()
+		var cam_dir := cam_basis.inverse() * strike_direction
+		is_flipped = cam_dir.x < 0.0
+
 	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
 	if is_instance_valid(area_shape):
-		area_shape.position = definition.hitbox_offset
+		var current_offset = definition.hitbox_offset
+		if is_flipped:
+			current_offset.x *= -1.0  # Flip the hitbox starting side physically
+		area_shape.position = current_offset
 
 		if definition.hitbox_shape_override:
 			area_shape.shape = definition.hitbox_shape_override.duplicate()
@@ -62,33 +73,23 @@ func setup(
 	global_rotation.y = atan2(strike_direction.x, strike_direction.z)
 	_apply_visuals()
 
-	hitbox.monitoring = false  # Keep off during windup
+	# 1. FORÇAR ROTAÇÃO INICIAL E LIGAR HITBOX IMEDIATAMENTE
+	hitbox.rotation.y = 0.0
+	hitbox.monitoring = true
 
-	# 1. MATCH THESE VARIABLES TO YOUR VISUAL SCRIPT
-	var windup_angle := 0.7  # Matches the visual pullback
-	var swing_end := -1.5  # Matches the visual swing target
-
-	var windup_time := 0.2
+	var swing_end := 1.5 if is_flipped else -1.5
 	var swing_time := 0.15
 
 	var tween = create_tween()
 
-	# 2. WINDUP PHASE (Matches visual TRANS_QUAD easing)
-	(
-		tween
-		. tween_property(hitbox, "rotation:y", windup_angle, windup_time)
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_OUT)
-	)
-
-	# 3. TURN HITBOX ON
-	tween.tween_callback(func(): hitbox.monitoring = true)
-
-	# 4. ACTIVE SWING PHASE (Matches visual TRANS_SINE easing)
+	# 2. FASE DE ATAQUE ATIVO (Sem windup)
 	tween.tween_property(hitbox, "rotation:y", swing_end, swing_time).set_trans(Tween.TRANS_SINE)
 
-	# 5. TURN HITBOX OFF
+	# 3. DESLIGAR HITBOX
 	tween.tween_callback(func(): hitbox.monitoring = false)
+
+	# 4. FASE DE RECUPERAÇÃO (Regresso à posição original)
+	tween.tween_property(hitbox, "rotation:y", 0.0, 0.25).set_trans(Tween.TRANS_QUAD)
 
 
 func _physics_process(delta: float) -> void:

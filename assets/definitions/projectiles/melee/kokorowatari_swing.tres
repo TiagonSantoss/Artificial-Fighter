@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dev14jj2vupbx" path="res://Core/Combat/Projectile/Melee/melee_definition.gd" id="1_bf8b5"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifgm0"]
+size = Vector3(3, 1, 22)
+
 [resource]
 script = ExtResource("1_bf8b5")
 damage = 15
 knockback = 15.0
-hitbox_size = Vector3(3, 1, 22)
+hitbox_size = Vector3(2.145, 1, 21.904)
+hitbox_shape_override = SubResource("BoxShape3D_ifgm0")
 hitbox_offset = Vector3(0, 0, 4)
 metadata/_custom_type_script = "uid://dev14jj2vupbx"

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="4_bh8nc"]
+[ext_resource type="Texture2D" uid="uid://cegwh41mqel6d" path="res://assets/images/shaders/3nuvens.png" id="5_bh8nc"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
@@ -34,6 +35,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
 shader = ExtResource("5_wukud")
 shader_parameter/rotation_speed = 0.0
+shader_parameter/gradient_texture = ExtResource("5_bh8nc")
 
 [sub_resource type="Sky" id="Sky_26xuy"]
 sky_material = SubResource("ShaderMaterial_bc84e")
@@ -43,15 +45,16 @@ background_mode = 2
 background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
 sky = SubResource("Sky_26xuy")
 ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_color = Color(0.76698273, 0.46146178, 0.82021874, 1)
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 tonemap_mode = 1
-ssao_radius = 3.06
-ssao_intensity = 5.32
+ssr_fade_in = 3.820437
+ssao_enabled = true
+ssao_radius = 0.01
+ssao_intensity = 0.76
 ssao_power = 2.568522
 sdfgi_read_sky_light = false
-sdfgi_min_cell_size = 0.18085937
 fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
 fog_sun_scatter = 0.16
 fog_density = 0.0
@@ -208,6 +211,7 @@ script = ExtResource("17_o3ebs")
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
 
 [node name="ColorRect" type="ColorRect" parent="UI" unique_id=260962739]
+visible = false
 material = SubResource("ShaderMaterial_2bgwa")
 anchors_preset = 15
 anchor_right = 1.0
