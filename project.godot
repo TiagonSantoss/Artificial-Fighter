@@ -25,10 +25,8 @@ config/icon="res://icon.svg"
 
 GameAutoLoad="*uid://bqb78gjgjfjxs"
 AutoProjectileSystem="*uid://dtf077dwg3ikk"
-AutoHitVFXPool="*uid://fyxgiec54811"
-EntityGrid="*uid://bua7dfmbiq86u"
 GState="*uid://cq81nx0uqw3ns"
-DebugConsoleScene="*uid://cpxgwl0jy8ijg"
+DebugConsoleScene="uid://cpxgwl0jy8ijg"
 FmodManager="*uid://cds10pm7hwn3p"
 
 [debug]

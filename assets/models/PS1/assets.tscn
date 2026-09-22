@@ -1,10 +1,6 @@
-[gd_scene format=4 uid="uid://c5kmrq04536uc"]
+[gd_scene format=4 uid="uid://d2u1l0kgexuqa"]
 
 [ext_resource type="PackedScene" uid="uid://dmle45gqdh5qa" path="res://assets/models/PS1/assets.glb" id="1_yfcdo"]
-[ext_resource type="PackedScene" uid="uid://bsju70y0xbc13" path="res://cube.tscn" id="2_wpkub"]
-[ext_resource type="Shader" uid="uid://ddnc6kmsuv64f" path="res://fire.tres" id="3_tfxfp"]
-[ext_resource type="Texture2D" uid="uid://c8hh2tjuyeg56" path="res://textures/T_Wave66.png" id="4_gn0dj"]
-[ext_resource type="Texture2D" uid="uid://citpti256xstj" path="res://textures/T_Noise_HU85k.png" id="5_vy6do"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
 render_priority = 1
@@ -116,9 +112,6 @@ shadow_mesh = SubResource("ArrayMesh_hvche")
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yfcdo"]
 data = PackedVector3Array(-1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hvche"]
-data = PackedVector3Array(-1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esisw"]
 albedo_color = Color(0.7611685, 0.36936536, 0.40023252, 0.34509805)
 roughness = 0.3
@@ -167,28 +160,6 @@ shadow_mesh = SubResource("ArrayMesh_nro1d")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_44aw5"]
 data = PackedVector3Array(-1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44aw5"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.08235294)
-roughness = 0.06
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_vmdom"]
-resource_name = "assets_Cube_002"
-_surfaces = [{
-"aabb": AABB(-1, -1, -1, 2, 2, 2),
-"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
-"format": 34896613399,
-"index_count": 36,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
-"material": SubResource("StandardMaterial3D_44aw5"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 24,
-"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_nro1d")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8mp26"]
 albedo_color = Color(0.58431375, 0.68235296, 0.8, 1)
@@ -355,35 +326,13 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0037
 volumetric_fog_albedo = Color(0.91846806, 0.62254554, 0.6737001, 1)
 
-[sub_resource type="Gradient" id="Gradient_h7wsl"]
-offsets = PackedFloat32Array(0, 0.572907, 0.94306785)
-colors = PackedColorArray(0.046962705, 0, 0, 1, 0.5272631, 0, 0, 1, 0.60393053, 0.46891767, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwbse"]
-gradient = SubResource("Gradient_h7wsl")
-use_hdr = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_thvc1"]
-render_priority = 0
-shader = ExtResource("3_tfxfp")
-shader_parameter/displace_speed = Vector2(1, 1)
-shader_parameter/displace_scale = Vector2(1, 1)
-shader_parameter/displace_texture = ExtResource("4_gn0dj")
-shader_parameter/displacement_intensity = 0.1
-shader_parameter/Speed = Vector2(0.5, 0.5)
-shader_parameter/Scale = Vector2(1, 1)
-shader_parameter/texture_base = ExtResource("5_vy6do")
-shader_parameter/color_pallete = SubResource("GradientTexture1D_dwbse")
-shader_parameter/edge_intensity = 2.0
-shader_parameter/edge_color2 = Color(0.4008436, 0.21760604, 0.07645293, 1)
-
 [node name="assets" unique_id=1957593520 instance=ExtResource("1_yfcdo")]
 
-[node name="spiral thing" parent="." index="0" unique_id=74165869]
+[node name="spiral thing" parent="." index="0" unique_id=1238833615]
 transform = Transform3D(0.33143115, 0, 0, 0, -1.7269208, -0.16571562, 0, 0.9970385, -0.28702778, 0, 1.6989145, 13.120168)
 mesh = SubResource("ArrayMesh_esisw")
 
-[node name="blue cube" parent="." index="1" unique_id=1559908319]
+[node name="blue cube" parent="." index="1" unique_id=2011598070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2179718, 1.4198875, 0.7366648)
 mesh = SubResource("ArrayMesh_8mp26")
 
@@ -392,16 +341,7 @@ mesh = SubResource("ArrayMesh_8mp26")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="blue cube/StaticBody3D" index="0" unique_id=550421300]
 shape = SubResource("ConcavePolygonShape3D_yfcdo")
 
-[node name="wall" type="MeshInstance3D" parent="." index="2" unique_id=431776639]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 2.4, -0.2179718, 2.4100914, -34.67932)
-mesh = SubResource("ArrayMesh_8mp26")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="wall" index="0" unique_id=2133906425]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wall/StaticBody3D" index="0" unique_id=450345608]
-shape = SubResource("ConcavePolygonShape3D_hvche")
-
-[node name="red cube" parent="." index="3" unique_id=273241902]
+[node name="red cube" parent="." index="2" unique_id=1671208593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -2.4684992)
 mesh = SubResource("ArrayMesh_u1um5")
 
@@ -410,23 +350,7 @@ mesh = SubResource("ArrayMesh_u1um5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="red cube/StaticBody3D" index="0" unique_id=421600929]
 shape = SubResource("ConcavePolygonShape3D_44aw5")
 
-[node name="door_east" type="MeshInstance3D" parent="." index="4" unique_id=992673578]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -20.209068)
-mesh = SubResource("ArrayMesh_vmdom")
-
-[node name="door_south" type="MeshInstance3D" parent="." index="5" unique_id=457732885]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -22.977837)
-mesh = SubResource("ArrayMesh_vmdom")
-
-[node name="door_north" type="MeshInstance3D" parent="." index="6" unique_id=427199936]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -25.618279)
-mesh = SubResource("ArrayMesh_vmdom")
-
-[node name="door_west" type="MeshInstance3D" parent="." index="7" unique_id=1055953522]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4977417, -28.473686)
-mesh = SubResource("ArrayMesh_vmdom")
-
-[node name="Cube" parent="." index="8" unique_id=1174620060 groups=["world"]]
+[node name="Cube" parent="." index="3" unique_id=487153341 groups=["world"]]
 transform = Transform3D(2, 0, 0, 0, 5.756, 0, 0, 0, 2.4, 0, 1.3706589, -12.060932)
 mesh = SubResource("ArrayMesh_noamg")
 
@@ -435,22 +359,13 @@ mesh = SubResource("ArrayMesh_noamg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0" unique_id=181172870 groups=["world"]]
 shape = SubResource("ConcavePolygonShape3D_vmdom")
 
-[node name="floor2" type="MeshInstance3D" parent="." index="9" unique_id=637008880 groups=["world"]]
-transform = Transform3D(2, 0, 0, 0, 5.756, 0, 0, 0, 2.4, 0, 1.3706589, -42.422276)
-mesh = SubResource("ArrayMesh_noamg")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="floor2" index="0" unique_id=531959599 groups=["world"]]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor2/StaticBody3D" index="0" unique_id=274698853 groups=["world"]]
-shape = SubResource("ConcavePolygonShape3D_vmdom")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="10" unique_id=1889697909]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="4" unique_id=1889697909]
 transform = Transform3D(-0.70453507, -0.6145916, 0.35483456, 2.8066623e-08, 0.4999999, 0.8660255, -0.70966923, 0.61014533, -0.35226744, 0, -9.597354, 0)
 visible = false
 shadow_enabled = true
 directional_shadow_mode = 0
 
-[node name="BlueCubes" type="GPUParticles3D" parent="." index="11" unique_id=496558765]
+[node name="BlueCubes" type="GPUParticles3D" parent="." index="5" unique_id=496558765]
 transform = Transform3D(1.4801986, 0, 0, 0, 0.9094763, 0, 0, 0, 1.4616877, 0, 0, -30.564499)
 visible = false
 amount = 18
@@ -458,7 +373,7 @@ lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_1o2vn")
 draw_pass_1 = SubResource("ArrayMesh_w0bhn")
 
-[node name="RedCubes" type="GPUParticles3D" parent="." index="12" unique_id=1791073041]
+[node name="RedCubes" type="GPUParticles3D" parent="." index="6" unique_id=1791073041]
 transform = Transform3D(1.4801986, 0, 0, 0, 0.9094763, 0, 0, 0, 1.4616877, 25.787476, 0, -30.564499)
 visible = false
 amount = 18
@@ -466,18 +381,8 @@ lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_1o2vn")
 draw_pass_1 = SubResource("ArrayMesh_0yd31")
 
-[node name="Purple" type="WorldEnvironment" parent="." index="13" unique_id=1139105112]
+[node name="Purple" type="WorldEnvironment" parent="." index="7" unique_id=1139105112]
 environment = SubResource("Environment_mlaa2")
 
-[node name="Red" type="WorldEnvironment" parent="." index="14" unique_id=381114616]
+[node name="Red" type="WorldEnvironment" parent="." index="8" unique_id=381114616]
 environment = SubResource("Environment_v5fse")
-
-[node name="cube" parent="." index="15" unique_id=380877417 instance=ExtResource("2_wpkub")]
-transform = Transform3D(0.099605896, 0, 0.95607877, 0.702253, -0.023328962, -0.13544296, 0.024510955, 0.66838837, -0.0047274074, -14.637726, 1.7023569, -1.7144845)
-
-[node name="CSGTorus3D" type="CSGTorus3D" parent="." index="16" unique_id=887740542]
-transform = Transform3D(0.25505656, 2.467658, 1.3391873, 1.7982287, -0.38301054, -0.06701749, 0.062764145, 0.945577, -3.5220037, -14.894157, 1.8258718, -1.5260818)
-inner_radius = 1.6785771
-sides = 23
-ring_sides = 16
-material = SubResource("ShaderMaterial_thvc1")
