@@ -8,13 +8,15 @@ on:
 permissions:
   contents: write
 
+env:
+  GODOT_VERSION: "4.7"
+
 jobs:
-  export:
+  # --- JOB 1: Prepares Godot engine and export templates once ---
+  setup:
     runs-on: ubuntu-latest
-
-    env:
-      GODOT_VERSION: "4.7"
-
+    outputs:
+      cache-hit: ${{ steps.cache-templates.outputs.cache-hit }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,65 +24,97 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb zip
+          sudo apt-get install -y wget unzip
 
       - name: Download Godot
         run: |
-          wget -q \
-            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" \
-            -O godot.zip
-
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -O godot.zip
           unzip -q godot.zip -d "$HOME/godot"
 
       - name: Download export templates
         run: |
-          wget -q \
-            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
-            -O templates.tpz
-
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz" -O templates.tpz
           mkdir extracted
           unzip -q templates.tpz -d extracted
+          mkdir -p "$HOME/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable"
+          cp extracted/templates/* "$HOME/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable/"
 
-          mkdir -p "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
-
-          cp extracted/templates/* \
-            "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
-
-      - name: Setup Build Directories
-        run: |
-          mkdir -p build/linux build/windows dist
-
-      - name: Export Linux Build
-        run: |
-          GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
-          xvfb-run -a "$GODOT_BIN" \
-            --headless \
-            --verbose \
-            --export-release "Linux" \
-            "build/linux/Artificial-Fighter-Linux.x86_64"
-
-      - name: Export Windows Build
-        run: |
-          GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
-          xvfb-run -a "$GODOT_BIN" \
-            --headless \
-            --verbose \
-            --export-release "Windows Desktop" \
-            "build/windows/Artificial-Fighter-Windows.exe"
-
-      - name: Package Linux Archive
-        run: |
-          cd build/linux && zip -r ../../dist/Artificial-Fighter-Linux.zip . && cd ../..
-
-      - name: Package Windows Archive
-        run: |
-          cd build/windows && zip -r ../../dist/Artificial-Fighter-Windows.zip . && cd ../..
-
-      - name: Upload artifacts
+      - name: Upload Godot Binary Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Artificial-Fighter-${{ github.ref_name }}
-          path: dist/*
+          name: godot-binaries
+          path: |
+            $HOME/godot/
+            $HOME/.local/share/godot/export_templates/
+
+  # --- JOB 2: Export Linux Build independently ---
+  export-linux:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies & Download Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip xvfb zip
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -O godot.zip
+          unzip -q godot.zip -d "$HOME/godot"
+
+      - name: Run Linux Export
+        run: |
+          mkdir -p build/linux
+          GODOT_BIN="$HOME/godot/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64"
+          xvfb-run -a "$GODOT_BIN" --headless --verbose --export-release "Linux" "build/linux/Artificial-Fighter-Linux.x86_64"
+          cd build/linux && zip -r ../../Artificial-Fighter-Linux.zip . && cd ../..
+
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: Artificial-Fighter-Linux.zip
+
+  # --- JOB 3: Export Windows Build independently ---
+  export-windows:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies & Download Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip xvfb zip
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -O godot.zip
+          unzip -q godot.zip -d "$HOME/godot"
+
+      - name: Run Windows Export
+        run: |
+          mkdir -p build/windows
+          GODOT_BIN="$HOME/godot/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64"
+          xvfb-run -a "$GODOT_BIN" --headless --verbose --export-release "Windows Desktop" "build/windows/Artificial-Fighter-Windows.exe"
+          cd build/windows && zip -r ../../Artificial-Fighter-Windows.zip . && cd ../..
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: Artificial-Fighter-Windows.zip
+
+  # --- JOB 4: Combine and Publish Release ---
+  release:
+    needs: [export-linux, export-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -88,5 +122,5 @@ jobs:
           name: "Artificial Fighter ${{ github.ref_name }}"
           body_path: RELEASE.md
           generate_release_notes: true
-          files: dist/*.zip
+          files: dist/**/*.zip
           overwrite_files: true

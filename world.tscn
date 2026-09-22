@@ -197,11 +197,9 @@ script = ExtResource("9_k83mh")
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=466698288]
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank", "res://assets/banks/Desktop/Master.strings.bank", "res://assets/banks/Desktop/SFX.bank"]
 
-[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=825175438]
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
 event_name = "event:/Music/Level 1"
 event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
-autoplay = true
-auto_release = true
 fmod_parameters/Set/id = -7549801265799066034
 fmod_parameters/Set = 0
 fmod_parameters/Set/variant_type = 2
