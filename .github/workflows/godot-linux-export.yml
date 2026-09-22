@@ -70,6 +70,10 @@ jobs:
           name: godot-engine-setup
           path: /home/runner/
 
+      - name: Restore Executable Permissions
+        run: |
+          chmod +x "$HOME/godot/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64"
+
       - name: Export & Package Linux
         run: |
           GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
@@ -109,6 +113,10 @@ jobs:
         with:
           name: godot-engine-setup
           path: /home/runner/
+
+      - name: Restore Executable Permissions
+        run: |
+          chmod +x "$HOME/godot/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64"
 
       - name: Export & Package Windows
         run: |
