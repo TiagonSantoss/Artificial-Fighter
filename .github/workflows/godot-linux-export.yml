@@ -46,34 +46,34 @@ jobs:
           cp extracted/templates/* \
             "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
 
-      - name: Export & Package Builds
+      - name: Setup Build Directories
         run: |
-          set -e
+          mkdir -p build/linux build/windows dist
 
+      - name: Export Linux Build
+        run: |
           GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
-
-          # 1. Create temporary folders for each platform build
-          mkdir -p build/linux build/windows
-          mkdir -p dist
-
-          echo "=== Exporting Linux ==="
           xvfb-run -a "$GODOT_BIN" \
             --headless \
             --verbose \
             --export-release "Linux" \
             "build/linux/Artificial-Fighter-Linux.x86_64"
 
-          echo "=== Exporting Windows ==="
+      - name: Export Windows Build
+        run: |
+          GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64"
           xvfb-run -a "$GODOT_BIN" \
             --headless \
             --verbose \
             --export-release "Windows Desktop" \
             "build/windows/Artificial-Fighter-Windows.exe"
 
-          echo "=== Zipping Release Packages ==="
-          # Zip the contents of the build/linux folder into a single archive
+      - name: Package Linux Archive
+        run: |
           cd build/linux && zip -r ../../dist/Artificial-Fighter-Linux.zip . && cd ../..
-          # Zip the contents of the build/windows folder into a single archive
+
+      - name: Package Windows Archive
+        run: |
           cd build/windows && zip -r ../../dist/Artificial-Fighter-Windows.zip . && cd ../..
 
       - name: Upload artifacts
