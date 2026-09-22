@@ -202,7 +202,6 @@ event_name = "event:/Music/Level 1"
 event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
 autoplay = true
 auto_release = true
-volume = 0.0
 fmod_parameters/Set/id = -7549801265799066034
 fmod_parameters/Set = 0
 fmod_parameters/Set/variant_type = 2
