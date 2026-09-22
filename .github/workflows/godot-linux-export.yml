@@ -12,8 +12,8 @@ env:
   GODOT_VERSION: "4.7"
 
 jobs:
-  # --- JOB 1: Linux Export ---
-  export-linux:
+  # --- JOB 1: Setup & Download Engine/Templates ---
+  setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb zip
+          sudo apt-get install -y wget unzip
 
       - name: Download Godot
         run: |
@@ -41,6 +41,34 @@ jobs:
           mkdir -p "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
           cp extracted/templates/* \
             "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
+
+      - name: Upload Godot Binaries & Templates Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-engine-setup
+          path: |
+            /home/runner/godot/
+            /home/runner/.local/share/godot/export_templates/
+          include-hidden-files: true
+
+  # --- JOB 2: Linux Export ---
+  export-linux:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip xvfb zip
+
+      - name: Download Godot & Templates Setup
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-engine-setup
+          path: /home/runner/
 
       - name: Export & Package Linux
         run: |
@@ -63,8 +91,9 @@ jobs:
           name: linux-build
           path: dist/Artificial-Fighter-Linux.zip
 
-  # --- JOB 2: Windows Export ---
+  # --- JOB 3: Windows Export ---
   export-windows:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -75,23 +104,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wget unzip xvfb zip
 
-      - name: Download Godot
-        run: |
-          wget -q \
-            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" \
-            -O godot.zip
-          unzip -q godot.zip -d "$HOME/godot"
-
-      - name: Download export templates
-        run: |
-          wget -q \
-            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
-            -O templates.tpz
-          mkdir extracted
-          unzip -q templates.tpz -d extracted
-          mkdir -p "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
-          cp extracted/templates/* \
-            "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable/"
+      - name: Download Godot & Templates Setup
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-engine-setup
+          path: /home/runner/
 
       - name: Export & Package Windows
         run: |
@@ -114,7 +131,7 @@ jobs:
           name: windows-build
           path: dist/Artificial-Fighter-Windows.zip
 
-  # --- JOB 3: Combine and Publish Release ---
+  # --- JOB 4: Combine and Publish Release ---
   release:
     needs: [export-linux, export-windows]
     runs-on: ubuntu-latest
