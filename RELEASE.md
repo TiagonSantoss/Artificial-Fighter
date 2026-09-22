@@ -1,6 +1,8 @@
-# Artificial Fighter
+# GIZMOS!
 
 Thanks for downloading!!
+
+those dev builds are evolving...
 
 ## Installation
 
@@ -11,5 +13,4 @@ _naming can vary depending on version_
 
 ## Known Issues
 
-- Camera Weird Rotation.
-- Game crashing when Melee Entity hits something.
+- None by now.
