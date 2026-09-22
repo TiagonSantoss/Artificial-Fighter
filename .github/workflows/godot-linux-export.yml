@@ -47,7 +47,21 @@ jobs:
             $HOME/godot/
             $HOME/.local/share/godot/export_templates/
 
-      # --- JOB 2: Export Linux Build independently ---
+  # --- JOB 2: Export Linux Build independently ---
+  export-linux:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies & Download Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip xvfb zip
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -O godot.zip
+          unzip -q godot.zip -d "$HOME/godot"
+
       - name: Run Linux Export
         run: |
           mkdir -p build/linux
@@ -64,6 +78,27 @@ jobs:
 
           cd build/linux && zip -r ../../Artificial-Fighter-Linux.zip . && cd ../..
 
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: Artificial-Fighter-Linux.zip
+
+  # --- JOB 3: Export Windows Build independently ---
+  export-windows:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies & Download Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip xvfb zip
+          wget -q "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip" -O godot.zip
+          unzip -q godot.zip -d "$HOME/godot"
+
       - name: Run Windows Export
         run: |
           mkdir -p build/windows
@@ -79,6 +114,12 @@ jobs:
           fi
 
           cd build/windows && zip -r ../../Artificial-Fighter-Windows.zip . && cd ../..
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: Artificial-Fighter-Windows.zip
 
   # --- JOB 4: Combine and Publish Release ---
   release:
