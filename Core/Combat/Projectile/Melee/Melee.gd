@@ -73,23 +73,23 @@ func setup(
 	global_rotation.y = atan2(strike_direction.x, strike_direction.z)
 	_apply_visuals()
 
-	# 1. FORÇAR ROTAÇÃO INICIAL E LIGAR HITBOX IMEDIATAMENTE
-	hitbox.rotation.y = 0.0
-	hitbox.monitoring = true
-
-	var swing_end := 1.5 if is_flipped else -1.5
-	var swing_time := 0.15
-
-	var tween = create_tween()
-
-	# 2. FASE DE ATAQUE ATIVO (Sem windup)
-	tween.tween_property(hitbox, "rotation:y", swing_end, swing_time).set_trans(Tween.TRANS_SINE)
-
-	# 3. DESLIGAR HITBOX
-	tween.tween_callback(func(): hitbox.monitoring = false)
-
-	# 4. FASE DE RECUPERAÇÃO (Regresso à posição original)
-	tween.tween_property(hitbox, "rotation:y", 0.0, 0.25).set_trans(Tween.TRANS_QUAD)
+	# # 1. FORÇAR ROTAÇÃO INICIAL E LIGAR HITBOX IMEDIATAMENTE
+	# hitbox.rotation.y = 0.0
+	# hitbox.monitoring = true
+	#
+	# var swing_end := 1.5 if is_flipped else -1.5
+	# var swing_time := 0.15
+	#
+	# var tween = create_tween()
+	#
+	# # 2. FASE DE ATAQUE ATIVO (Sem windup)
+	# tween.tween_property(hitbox, "rotation:y", swing_end, swing_time).set_trans(Tween.TRANS_SINE)
+	#
+	# # 3. DESLIGAR HITBOX
+	# tween.tween_callback(func(): hitbox.monitoring = false)
+	#
+	# # 4. FASE DE RECUPERAÇÃO (Regresso à posição original)
+	# tween.tween_property(hitbox, "rotation:y", 0.0, 0.25).set_trans(Tween.TRANS_QUAD)
 
 
 func _physics_process(delta: float) -> void:

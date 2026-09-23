@@ -161,6 +161,7 @@ transform = Transform3D(0.7650112, 0, 0, 0, 1, 0, 0, 0, 0.7656463, 0, -1.5411987
 collision_mask = 0
 
 [node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2059289024]
+visible = false
 mesh = SubResource("ArrayMesh_y5v8f")
 
 [node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=977857331]

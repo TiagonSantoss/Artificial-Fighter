@@ -8,7 +8,7 @@
 script = ExtResource("1_5jy2c")
 sprite_frames = SubResource("SpriteFrames_5jy2c")
 lifetime = 1.4
-damage = 50
-knockback = 4.0
-radius = 1.7
+damage = 15
+knockback = 10.0
+hitbox_size = Vector3(2, 3, 8)
 metadata/_custom_type_script = "uid://dev14jj2vupbx"

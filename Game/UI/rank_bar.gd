@@ -4,15 +4,14 @@ extends Control
 @onready var progress_bar: ProgressBar = $Panel/MarginContainer/ProgressBar
 @onready var progress_label: Label = $Panel/MarginContainer/ProgressBar/Label
 
-
-func _ready() -> void:
-	rank_texture.modulate.a = 0.0
-
-	progress_bar.value = 0
-	progress_label.text = "0 / 0"
-
-	GState.rank_changed.connect(_on_rank_changed)
-	GState.score_updated.connect(_on_score_updated)
+# func _ready() -> void:
+# 	rank_texture.modulate.a = 0.0
+#
+# 	progress_bar.value = 0
+# 	progress_label.text = "0 / 0"
+#
+# 	GState.rank_changed.connect(_on_rank_changed)
+# 	GState.score_updated.connect(_on_score_updated)
 
 
 func _on_rank_changed(state: RankState) -> void:

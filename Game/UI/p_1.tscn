@@ -1,34 +1,24 @@
 [gd_scene format=3 uid="uid://0v1b8eyr8r8j"]
 
-[ext_resource type="Texture2D" uid="uid://d0t8swi1175b" path="res://assets/images/UI/placeholder.png" id="1_ge5d7"]
+[ext_resource type="Script" uid="uid://d0dbeqhtn8eay" path="res://Game/UI/pinguin_reactions.gd" id="1_jiqvk"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="1_x72qx"]
 [ext_resource type="Script" uid="uid://c0e3yym70lcy7" path="res://Game/UI/cards_bar.gd" id="3_gjfdq"]
 [ext_resource type="Script" uid="uid://mgv4db0kq6ed" path="res://Game/UI/health.gd" id="3_poaiy"]
-[ext_resource type="Texture2D" uid="uid://cbcjge7pevctq" path="res://assets/sprites/UI/cardscardernointothefire.png" id="4_tvm4q"]
+[ext_resource type="FontFile" uid="uid://b22tcg1t3h04h" path="res://assets/fonts/gizmo_numbers.tres" id="4_6qcx1"]
 [ext_resource type="Script" uid="uid://c1xfew0gfsp1i" path="res://Game/UI/rank_bar.gd" id="5_lx3dl"]
+[ext_resource type="Texture2D" uid="uid://35tusf2xnuqc" path="res://assets/sprites/UI/slotarma.png" id="6_gfnvd"]
+[ext_resource type="Texture2D" uid="uid://s2wi3fekhd15" path="res://assets/sprites/UI/pinguireacoes.png" id="6_trl4j"]
 [ext_resource type="Texture2D" uid="uid://pypeiwjw8n1u" path="res://assets/sprites/UI/barra_de_vida1.png" id="7_msj6d"]
+[ext_resource type="Texture2D" uid="uid://c5dcbwgsq11fc" path="res://assets/sprites/UI/cartaxfaltando.png" id="7_txbq2"]
 [ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="8_6qcx1"]
+[ext_resource type="Texture2D" uid="uid://3mbdppg7uq3n" path="res://assets/sprites/UI/cartazfaltando.png" id="8_gfnvd"]
 [ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="9_txbq2"]
+[ext_resource type="Texture2D" uid="uid://bmghn4b5bnyo1" path="res://assets/sprites/UI/carinhasvermeias.png" id="13_q5rlk"]
+[ext_resource type="Texture2D" uid="uid://c1yxgo6rdadv0" path="res://assets/sprites/UI/carinhasazuis.png" id="14_jiqvk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrvgn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ge5d7"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0)
-border_width_left = 12
-border_width_top = 12
-border_width_right = 12
-border_width_bottom = 12
-border_color = Color(1, 0.8000001, 0, 1)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+atlas = ExtResource("6_trl4j")
+region = Rect2(0, 0, 500, 500)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvm4q"]
 content_margin_left = 0.0
@@ -58,6 +48,14 @@ content_margin_bottom = 2.0
 bg_color = Color(0.11764706, 0.45490196, 0.99215686, 1)
 corner_detail = 6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2nbf"]
+atlas = ExtResource("14_jiqvk")
+region = Rect2(0, 0, 450, 450)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5rlk"]
+atlas = ExtResource("13_q5rlk")
+region = Rect2(0, 0, 450, 450)
+
 [node name="P1" type="Control" unique_id=131289428]
 layout_mode = 3
 anchors_preset = 2
@@ -81,14 +79,33 @@ grow_vertical = 0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(60, 120)
 
+[node name="Reactions" type="TextureRect" parent="Health_Display" unique_id=580088258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.19000001
+anchor_top = -0.374
+anchor_right = 0.81700003
+anchor_bottom = 0.476
+offset_left = -25.86666
+offset_top = -34.18369
+offset_right = 54.710457
+offset_bottom = 51.144676
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(64.541, 59.326)
+offset_transform_enabled = true
+texture = SubResource("AtlasTexture_yrvgn")
+expand_mode = 3
+script = ExtResource("1_jiqvk")
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Health_Display" unique_id=1391738399]
 layout_mode = 0
-offset_left = 2.6666665
-offset_top = 37.33333
-offset_right = 150.66667
-offset_bottom = 163.99998
-max_value = 500.0
-value = 500.0
+offset_left = -24.666668
+offset_top = 45.333332
+offset_right = 101.33333
+offset_bottom = 153.33333
+value = 100.0
 rounded = true
 nine_patch_stretch = true
 texture_under = ExtResource("7_msj6d")
@@ -96,75 +113,58 @@ texture_over = ExtResource("8_6qcx1")
 texture_progress = ExtResource("9_txbq2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Health_Display/TextureProgressBar" unique_id=751203477]
-layout_mode = 0
-offset_left = 26.666668
-offset_top = 28.666656
-offset_right = 135.33334
-offset_bottom = 114.66666
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.117000006
+anchor_right = 1.069
+anchor_bottom = 0.36400002
+offset_left = -2.6666603
+offset_top = 0.030682564
+offset_right = -0.027359009
+offset_bottom = 0.02136612
 
 [node name="Label" type="Label" parent="Health_Display/TextureProgressBar/HBoxContainer" unique_id=1714114020]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_x72qx")
+theme_override_fonts/font = ExtResource("4_6qcx1")
 theme_override_font_sizes/font_size = 10
-text = "500"
+text = "100
+"
 script = ExtResource("3_poaiy")
 
-[node name="TextureRect" type="TextureRect" parent="Health_Display" unique_id=580088258]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.143
-anchor_top = 0.25300002
-anchor_right = 0.79800004
-anchor_bottom = 0.79800004
-offset_left = -31.16
-offset_top = -73.423744
-offset_right = 91.65711
-offset_bottom = 31.176254
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.6, 0.6)
-pivot_offset = Vector2(64.541, 59.326)
-texture = SubResource("AtlasTexture_yrvgn")
-expand_mode = 1
-
 [node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
-visible = false
 layout_mode = 1
-anchor_left = 0.060761742
-anchor_top = 0.9529954
-anchor_right = 0.060761742
-anchor_bottom = 0.9529954
-offset_left = 36.0
-offset_top = -187.0
-offset_right = 156.0
-offset_bottom = -67.0
+anchor_top = 1.0
+anchor_right = 0.012528212
+anchor_bottom = 0.99361926
+offset_left = 62.0
+offset_top = -146.0
+offset_right = 182.0
+offset_bottom = -26.0
 grow_vertical = 0
 scale = Vector2(1.3, 1.3)
 pivot_offset = Vector2(0, 120)
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="Weapon_Display" unique_id=535590802]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.98300004
-anchor_bottom = 0.9760001
-offset_right = -0.028007507
-offset_bottom = -0.04801178
-theme_override_styles/panel = SubResource("StyleBoxFlat_ge5d7")
-metadata/_edit_lock_ = true
+[node name="TextureRect" type="TextureRect" parent="Weapon_Display" unique_id=1361529028]
+layout_mode = 0
+offset_left = -32.307693
+offset_top = -10.000001
+offset_right = 100.000015
+offset_bottom = 104.61542
+texture = ExtResource("6_gfnvd")
+expand_mode = 3
 
 [node name="CardsBar" type="Control" parent="." unique_id=1551712786]
-visible = false
 custom_minimum_size = Vector2(19.763, 0)
 layout_mode = 1
 anchor_left = 0.21800001
 anchor_top = 0.89400005
 anchor_right = 0.21800001
 anchor_bottom = 0.89400005
-offset_left = 104.147995
-offset_top = -228.99005
-offset_right = 616.148
-offset_bottom = -42.99005
+offset_left = 179.148
+offset_top = -237.99005
+offset_right = 691.148
+offset_bottom = -51.99005
 script = ExtResource("3_gjfdq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardsBar" unique_id=512959549]
@@ -172,24 +172,31 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.62
 anchor_bottom = 0.62
-offset_left = 11.0
-offset_top = -39.885033
-offset_right = 146.0
-offset_bottom = 39.9
+offset_left = -85.0
+offset_top = -89.31997
+offset_right = 310.0
+offset_bottom = 190.68002
 grow_vertical = 0
 pivot_offset = Vector2(0, 40)
+theme_override_constants/separation = 20
 
 [node name="TextureRect" type="TextureRect" parent="CardsBar/HBoxContainer" unique_id=457901624]
+custom_minimum_size = Vector2(50.235, 0)
 layout_mode = 2
-texture = ExtResource("4_tvm4q")
+texture = ExtResource("7_txbq2")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="CardsBar/HBoxContainer" unique_id=1506256529]
+layout_mode = 2
+texture = ExtResource("8_gfnvd")
 expand_mode = 3
 
 [node name="RankBar" type="Control" parent="." unique_id=14119259]
 layout_mode = 1
-anchor_left = 0.12522802
-anchor_top = 0.02764977
-anchor_right = 0.5942737
-anchor_bottom = 0.24726729
+anchor_left = 0.18874595
+anchor_top = 0.19170506
+anchor_right = 0.6577916
+anchor_bottom = 0.4113226
 offset_left = 0.10999298
 offset_right = 0.1159668
 offset_bottom = -0.28500366
@@ -249,17 +256,33 @@ theme_override_fonts/font = ExtResource("1_x72qx")
 theme_override_font_sizes/font_size = 9
 text = "max rank"
 
-[node name="RankTexture" type="TextureRect" parent="RankBar" unique_id=1181964408]
+[node name="Blue" type="TextureRect" parent="RankBar" unique_id=1945787948]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.19500001
-anchor_top = 0.201
-anchor_right = 0.80200005
-anchor_bottom = 0.67200005
-offset_left = -21.744991
-offset_top = 0.19799805
-offset_right = 26.618011
-offset_bottom = -0.14401245
-texture = ExtResource("1_ge5d7")
+anchor_left = 0.017
+anchor_top = -0.038000003
+anchor_right = 0.95000005
+anchor_bottom = 0.924
+offset_left = 0.10400677
+offset_top = 0.04400444
+offset_right = -0.015045166
+offset_bottom = 0.052001953
+texture = SubResource("AtlasTexture_v2nbf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Red" type="TextureRect" parent="RankBar" unique_id=1081191364]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = -0.038000003
+anchor_right = 0.95000005
+anchor_bottom = 0.924
+offset_left = 0.10400677
+offset_top = 0.04400444
+offset_right = -0.015045166
+offset_bottom = 0.052001953
+texture = SubResource("AtlasTexture_q5rlk")
 expand_mode = 3
 stretch_mode = 5

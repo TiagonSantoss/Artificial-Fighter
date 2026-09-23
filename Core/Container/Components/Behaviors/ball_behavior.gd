@@ -15,6 +15,13 @@ func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> voi
 	if not is_instance_valid(movement_comp):
 		return
 
+	# 0. Disable hitboxes during the charge phase safely via set_deferred
+	var hitboxes := _get_hitboxes(wielder, _instance)
+	for hb in hitboxes:
+		var shapes = hb.find_children("*", "CollisionShape3D", true, false)
+		for shape in shapes:
+			shape.set_deferred("disabled", true)
+
 	# 1. Capture the direction before freezing
 	var move_dir := Vector3.FORWARD
 	if (
@@ -33,7 +40,7 @@ func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> voi
 	if "velocity" in wielder:
 		wielder.velocity = Vector3.ZERO
 
-	# 3. Store original speeds and lock them to 0 so player inputs cannot override the freeze
+	# 3. Store original speeds and lock them to 0
 	var original_move_speed = movement_comp.move_speed if "move_speed" in movement_comp else 0.0
 	var original_max_speed = movement_comp.max_speed if "max_speed" in movement_comp else 0.0
 
@@ -53,6 +60,13 @@ func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> voi
 				movement_comp.move_speed = original_move_speed
 			if "max_speed" in movement_comp:
 				movement_comp.max_speed = original_max_speed
+
+			# Re-enable hitboxes right before launching
+			for hb in hitboxes:
+				if is_instance_valid(hb):
+					var shapes = hb.find_children("*", "CollisionShape3D", true, false)
+					for shape in shapes:
+						shape.set_deferred("disabled", false)
 
 			# 5. Release the charge: fire the impulse forward
 			movement_comp.apply_impulse(move_dir * fling_speed)
@@ -78,3 +92,12 @@ func _get_wielder(context: WeaponAttackContext, instance: ItemInstance) -> Node:
 	elif "owner" in instance and is_instance_valid(instance.owner):
 		return instance.owner
 	return null
+
+
+func _get_hitboxes(wielder: Node, instance: ItemInstance) -> Array:
+	var hitboxes = []
+	# Check wielder children for hitboxes or hurtboxes
+	for child in wielder.find_children("*", "Area3D", true, false):
+		if "hitbox" in child.name.to_lower() or child.is_in_group("hitbox"):
+			hitboxes.append(child)
+	return hitboxes

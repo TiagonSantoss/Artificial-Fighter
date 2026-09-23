@@ -1,10 +1,10 @@
 extends Label
 
-@export var low_health_threshold: float = 100.0
+@export var low_health_threshold: float = 10.0
 @export var max_shake: float = 5.0
 
-var actual_health: float = 500.0
-var displayed_health: int = 500
+var actual_health: float = 100.0
+var displayed_health: int = 100
 
 var health_tween: Tween
 

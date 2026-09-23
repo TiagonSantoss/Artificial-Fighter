@@ -8,8 +8,8 @@
 render_priority = 0
 shader = ExtResource("2_gjwsb")
 shader_parameter/atlas = ExtResource("3_gjwsb")
-shader_parameter/frame_size = Vector2(0, 0)
-shader_parameter/atlas_size = Vector2(0, 0)
+shader_parameter/frame_size = Vector2(200, 200)
+shader_parameter/atlas_size = Vector2(800, 600)
 
 [sub_resource type="QuadMesh" id="QuadMesh_6u4og"]
 material = SubResource("ShaderMaterial_s6ytc")

@@ -14,7 +14,6 @@ sprite_scale = Vector3(0.5, 0.5, 0.5)
 fire_rate = 3.2
 pierce_multiplier = 2.0
 spread = 0.0
-shoot_sound = "EnemyRevolver"
 is_melee = true
 default_behaviors = Array[ExtResource("1_1q7vq")]([ExtResource("2_0lxvy")])
 melee = ExtResource("3_1q7vq")
