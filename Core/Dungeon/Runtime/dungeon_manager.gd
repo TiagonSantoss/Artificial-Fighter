@@ -240,9 +240,13 @@ func _on_room_cleared(room: RoomInstance) -> void:
 
 		new_item_instance.definition = random_accessory_def
 
+		var player = GameAutoLoad.get_current_entity()
+		if player and player.rank_component:
+			player.rank_component.finish_encounter()
+
 		# 4. Drop the INSTANCE
 		WorldItemSpawner.drop(
-			new_item_instance, GameAutoLoad.instance.player.position + Vector3(0.0, 2.0, 0.0)
+			new_item_instance, GameAutoLoad.get_current_entity().position + Vector3(0.0, 2.0, 0.0)
 		)
 
 

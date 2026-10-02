@@ -11,11 +11,16 @@ signal controlled_entity_changed(entity: Entity)
 
 signal weapon_changed(state: WeaponState)
 signal health_changed(health: float)
-signal rank_changed(state: RankState)
+
+signal rank_changed(new_rank: int, old_rank: int)
+
 signal score_updated(current_score: float, floor_score: float, ceiling_score: float)
 
-signal enemy_damaged(base_points: float)
-signal enemy_parried(base_points: float)
+signal enemy_damaged(hit_count: int)
+signal enemy_parried(parried_enemies_amount: int)
+signal player_damaged(iframe_duration: float)
+
+signal encounter_ended(final_rank: int)
 
 signal shop_item_selected(item_node)
 signal shop_activation_requested(is_active: bool)

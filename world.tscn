@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="4_bh8nc"]
-[ext_resource type="Texture2D" uid="uid://cegwh41mqel6d" path="res://assets/images/shaders/3nuvens.png" id="5_bh8nc"]
+[ext_resource type="Texture2D" uid="uid://c2nytfcu5r7u0" path="res://assets/images/shaders/248138c3-816f-400e-b52a-3a0875186dac.jpeg" id="5_bh8nc"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
@@ -128,6 +128,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_y5hus")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0tdab"]
+shading_mode = 0
+specular_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_2bgwa"]
+material = SubResource("StandardMaterial3D_0tdab")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
 shader = ExtResource("19_bh8nc")
 shader_parameter/bloom_threshold = 0.5710000271225
@@ -189,6 +196,11 @@ lifetime = 5.0
 process_material = SubResource("ParticleProcessMaterial_ioo17")
 draw_pass_1 = SubResource("ArrayMesh_wse8f")
 
+[node name="Circle" type="MeshInstance3D" parent="Camera3D" unique_id=683361365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.558569, -5.907938)
+visible = false
+mesh = SubResource("SphereMesh_2bgwa")
+
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=565742135]
 script = ExtResource("9_k83mh")
 
@@ -200,6 +212,9 @@ bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Deskt
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
 event_name = "event:/Music/Maximus Rage"
 event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
+autoplay = true
+auto_release = true
+volume = 0.0
 fmod_parameters/Set/id = -7549801265799066034
 fmod_parameters/Set = 0
 fmod_parameters/Set/variant_type = 2
@@ -222,6 +237,7 @@ anchor_right = 1.0
 anchor_bottom = 0.9990001
 offset_right = -4.0
 offset_bottom = 0.079956055
+mouse_filter = 2
 
 [node name="Minimap" parent="UI/Control" unique_id=806877094 instance=ExtResource("12_ikiii")]
 layout_mode = 1

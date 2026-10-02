@@ -44,7 +44,12 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_just_pressed("ui_cancel"):
 		actions.append(EscapeAction.new())
 
-	if Input.is_action_pressed("fire"):
+	if (
+		Input.get_current_cursor_shape() == Input.CURSOR_ARROW
+		or Input.get_current_cursor_shape() == Input.CURSOR_POINTING_HAND
+	):
+		return actions
+	elif Input.is_action_pressed("fire"):
 		actions.append(AttackAction.new())
 
 	if Input.is_action_just_pressed("rotate_camera_right"):
@@ -106,6 +111,8 @@ func get_aim_target(actor: Entity) -> Vector3:
 
 
 func update_aim(actor: Entity) -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_CROSS)
+
 	aim_target = get_aim_target(actor)
 
 

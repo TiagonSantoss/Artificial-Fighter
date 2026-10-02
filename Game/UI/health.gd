@@ -1,6 +1,6 @@
 extends Label
 
-@export var low_health_threshold: float = 10.0
+@export var low_health_threshold: float = 25.0
 @export var max_shake: float = 5.0
 
 var actual_health: float = 100.0
@@ -58,10 +58,12 @@ func _process(_delta: float) -> void:
 func _apply_wiggle() -> void:
 	var random_x = randf_range(-max_shake, max_shake)
 	var random_y = randf_range(-max_shake, max_shake)
-	position = original_position + Vector2(random_x, random_y)
+
+	# Use offset_transform_position instead of position!
+	offset_transform_position = Vector2(random_x, random_y)
 	rotation_degrees = randf_range(-3.0, 3.0)
 
 
 func _reset_transform() -> void:
-	position = original_position
+	offset_transform_position = Vector2.ZERO
 	rotation_degrees = 0.0

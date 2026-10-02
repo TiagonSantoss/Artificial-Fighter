@@ -14,12 +14,13 @@ General/banks_path="res://assets/banks/Desktop"
 
 [application]
 
-config/name="Artifical Fighting 1st"
+config/name="GIZMOS!"
+config/description="Rogue-like experience with a \"twist!\""
 run/main_scene="uid://trvpmwnapc7o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/stretch_mode=0
-config/icon="res://icon.svg"
+config/icon="uid://gydqh7vyg347"
 
 [autoload]
 
@@ -28,6 +29,7 @@ AutoProjectileSystem="*uid://dtf077dwg3ikk"
 GState="*uid://cq81nx0uqw3ns"
 DebugConsoleScene="uid://cpxgwl0jy8ijg"
 FmodManager="*uid://cds10pm7hwn3p"
+CursorManager="*uid://bi41mrxij62cg"
 
 [debug]
 
@@ -39,6 +41,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
+mouse_cursor/custom_image="uid://c0ymbma0d76j5"
 
 [editor_plugins]
 

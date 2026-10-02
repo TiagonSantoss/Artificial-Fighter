@@ -160,12 +160,24 @@ func apply_hit(hit: HitData):
 			if movement_component:
 				movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
 
+			if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
+				rank_component.reset_rank()
+				GState.player_damaged.emit(iframe_duration)
+
 			return HitResult.CONSUME
+
+	if hit.source_entity != null and team == Team.ENEMY:
+		if hit.source_entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
+			GState.enemy_damaged.emit(1)
 
 	if health_component:
 		health_component.damage(hit.get_final_damage())
 		visual_effects_component.flash_red()
 		audio_component.play_sfx("EntityHurt")
+
+		if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
+			rank_component.reset_rank()
+			GState.player_damaged.emit(iframe_duration)
 
 		start_iframes()
 
@@ -196,6 +208,9 @@ func _on_died() -> void:
 
 		WorldItemSpawner.drop(coin_data, global_position)
 
+	if entity_id == 0 or entity_id == 1:
+		GameAutoLoad.swap_characters()
+
 	queue_free()
 
 
@@ -208,19 +223,12 @@ func _ready():
 	$InteractionArea.area_exited.connect(_on_interaction_exited)
 
 	GState.enemy_damaged.connect(_on_enemy_damaged)
-	GState.enemy_parried.connect(_on_enemy_parried)
+	# GState.enemy_parried.connect(_on_enemy_parried) MAYBE
 
 
-func _on_enemy_damaged(points: float):
-	add_style_points(points)
-
-
-func _on_enemy_parried(points: float):
-	add_style_points(points)
-
-
-func add_style_points(points: float):
-	rank_component.add_points(points)
+func _on_enemy_damaged(hit_count: int = 1):
+	if team == Team.PLAYER and rank_component:
+		rank_component.add_hits(hit_count)
 
 
 func _on_interaction_entered(area: Area3D) -> void:

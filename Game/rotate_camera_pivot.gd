@@ -14,6 +14,8 @@ extends Node3D
 ## How much the camera size expands when running out to room bounds.
 @export var max_extra_size := 15.0
 
+@export var room_size_units := Vector2(40.0, 40.0)
+
 # Rotation State
 var target_rotation_y := 0.0
 var is_rotating := false
@@ -22,7 +24,7 @@ var current_axis := CameraPerspectiveState.Axis.Z_NEGATIVE
 
 # Room Tracking State
 var current_room_base_pos := Vector3.ZERO
-@export var room_size_units := Vector2(40.0, 40.0)
+
 var is_active_pivot := false
 
 var smoothed_look_target := Vector3.ZERO
@@ -53,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		is_rotating = false
 
 	# 2. BLEND LOOK TARGET between room pivot and player
-	var player_pos := GameAutoLoad._controlled_entity.global_position
+	var player_pos := GameAutoLoad.get_current_entity().position
 	var half_width := room_size_units.x / 2.0
 	var half_depth := room_size_units.y / 2.0
 

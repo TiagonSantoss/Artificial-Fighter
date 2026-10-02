@@ -65,6 +65,7 @@ offset_top = -1084.0
 offset_right = 614.0
 offset_bottom = 1.0
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="Health_Display" type="Control" parent="." unique_id=183284139]
 layout_mode = 1
@@ -78,6 +79,7 @@ offset_bottom = -237.0
 grow_vertical = 0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(60, 120)
+mouse_filter = 2
 
 [node name="Reactions" type="TextureRect" parent="Health_Display" unique_id=580088258]
 layout_mode = 1
@@ -95,6 +97,7 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(64.541, 59.326)
 offset_transform_enabled = true
+mouse_filter = 2
 texture = SubResource("AtlasTexture_yrvgn")
 expand_mode = 3
 script = ExtResource("1_jiqvk")
@@ -105,6 +108,7 @@ offset_left = -24.666668
 offset_top = 45.333332
 offset_right = 101.33333
 offset_bottom = 153.33333
+mouse_filter = 2
 value = 100.0
 rounded = true
 nine_patch_stretch = true
@@ -118,22 +122,26 @@ anchors_preset = -1
 anchor_top = 0.117000006
 anchor_right = 1.069
 anchor_bottom = 0.36400002
-offset_left = -2.6666603
-offset_top = 0.030682564
-offset_right = -0.027359009
-offset_bottom = 0.02136612
+offset_left = 2.0000002
+offset_top = 13.364017
+offset_right = 4.6392975
+offset_bottom = 36.68801
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Health_Display/TextureProgressBar/HBoxContainer" unique_id=1714114020]
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_6qcx1")
 theme_override_font_sizes/font_size = 10
 text = "100
 "
 script = ExtResource("3_poaiy")
+low_health_threshold = 40.0
+max_shake = 15.0
 
 [node name="Weapon_Display" type="Control" parent="." unique_id=886891285]
 layout_mode = 1
-anchor_top = 1.0
+anchor_top = 0.99361926
 anchor_right = 0.012528212
 anchor_bottom = 0.99361926
 offset_left = 62.0
@@ -143,6 +151,7 @@ offset_bottom = -26.0
 grow_vertical = 0
 scale = Vector2(1.3, 1.3)
 pivot_offset = Vector2(0, 120)
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Weapon_Display" unique_id=1361529028]
@@ -151,6 +160,7 @@ offset_left = -32.307693
 offset_top = -10.000001
 offset_right = 100.000015
 offset_bottom = 104.61542
+mouse_filter = 2
 texture = ExtResource("6_gfnvd")
 expand_mode = 3
 
@@ -165,6 +175,7 @@ offset_left = 179.148
 offset_top = -237.99005
 offset_right = 691.148
 offset_bottom = -51.99005
+mouse_filter = 2
 script = ExtResource("3_gjfdq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardsBar" unique_id=512959549]
@@ -200,6 +211,7 @@ anchor_bottom = 0.4113226
 offset_left = 0.10999298
 offset_right = 0.1159668
 offset_bottom = -0.28500366
+mouse_filter = 2
 script = ExtResource("5_lx3dl")
 metadata/_edit_use_anchors_ = true
 
@@ -214,6 +226,7 @@ offset_left = 0.039999485
 offset_top = -0.008224487
 offset_right = 0.08908081
 offset_bottom = 0.13647461
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvm4q")
 metadata/_edit_use_anchors_ = true
 
@@ -228,33 +241,38 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = -0.037002563
 offset_bottom = -1.0
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="RankBar/Panel/MarginContainer" unique_id=2101212801]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_lx3dl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_poaiy")
-value = 49.01
+max_value = 11.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="RankBar/Panel/MarginContainer/ProgressBar" unique_id=1911327295]
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.015000001
-anchor_top = 1.4860001
-anchor_right = 1.0890001
-anchor_bottom = 3.272
-offset_left = 0.06691384
-offset_top = 0.0002593994
-offset_right = 51.93489
-offset_bottom = 6.242256
+anchor_left = -0.1493945
+anchor_top = 1.45
+anchor_right = 1.1616055
+anchor_bottom = 3.459
+offset_left = -0.0951004
+offset_top = 0.00825882
+offset_right = 0.106903076
+offset_bottom = 0.0062561035
 pivot_offset = Vector2(142, 0)
+offset_transform_enabled = true
 theme_override_fonts/font = ExtResource("1_x72qx")
 theme_override_font_sizes/font_size = 9
 text = "max rank"
+metadata/_edit_use_anchors_ = true
 
 [node name="Blue" type="TextureRect" parent="RankBar" unique_id=1945787948]
 layout_mode = 1
@@ -267,6 +285,8 @@ offset_left = 0.10400677
 offset_top = 0.04400444
 offset_right = -0.015045166
 offset_bottom = 0.052001953
+offset_transform_enabled = true
+mouse_filter = 2
 texture = SubResource("AtlasTexture_v2nbf")
 expand_mode = 3
 stretch_mode = 5
@@ -283,6 +303,7 @@ offset_left = 0.10400677
 offset_top = 0.04400444
 offset_right = -0.015045166
 offset_bottom = 0.052001953
+mouse_filter = 2
 texture = SubResource("AtlasTexture_q5rlk")
 expand_mode = 3
 stretch_mode = 5

@@ -66,6 +66,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qktwf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=472955096]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -73,11 +74,13 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=2088158654]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="items" type="FlowContainer" parent="Panel/MarginContainer/HBoxContainer" unique_id=1607402356]
 custom_minimum_size = Vector2(800, 0)
 clip_contents = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/h_separation = 16
 vertical = true
 script = ExtResource("1_vs4iv")
@@ -85,16 +88,19 @@ item_ui_scene = ExtResource("2_r1weg")
 
 [node name="VSeparator" type="VSeparator" parent="Panel/MarginContainer/HBoxContainer" unique_id=597203107]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_r1weg")
 
 [node name="description" type="VFlowContainer" parent="Panel/MarginContainer/HBoxContainer" unique_id=191260335]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("3_r1weg")
 
 [node name="Info" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=1000592151]
 custom_minimum_size = Vector2(400, 460)
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_vs4iv")
 theme_override_font_sizes/normal_font_size = 8
 text = "
@@ -102,10 +108,12 @@ text = "
 
 [node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=656050689]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 26
 
 [node name="buy_button" type="Button" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=254624938]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.49560398, 0.96882755, 0.9184529, 1)
 theme_override_fonts/font = ExtResource("2_vs4iv")
 theme_override_font_sizes/font_size = 6
@@ -113,6 +121,7 @@ text = "buy?"
 
 [node name="sell_button" type="Button" parent="Panel/MarginContainer/HBoxContainer/description" unique_id=663046847]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 0.8265234, 0.82254636, 1)
 theme_override_fonts/font = ExtResource("2_vs4iv")
 theme_override_font_sizes/font_size = 4

@@ -169,7 +169,10 @@ func get_camera_right() -> Vector3:
 
 
 func get_current_entity() -> Entity:
-	return _controlled_entity
+	if is_instance_valid(_controlled_entity) and _controlled_entity.controller is PlayerController:
+		return _controlled_entity
+	else:
+		return _companion_entity
 
 
 var can_swap := true
@@ -181,27 +184,56 @@ func swap_characters():
 
 	can_swap = false
 
-	if _controlled_entity.entity_id == 0:
-		companion.controller = PlayerController.new()
-		_controlled_entity = companion
+	var swapping_to_companion = true
 
-		player.controller = CompanionController.new()
-		player.controller.follow_target = _controlled_entity
-		_companion_entity = player
+	if is_instance_valid(_controlled_entity):
+		swapping_to_companion = (_controlled_entity.entity_id == 0)
 	else:
-		player.controller = PlayerController.new()
-		_controlled_entity = player
+		if is_instance_valid(companion):
+			swapping_to_companion = true
+		elif is_instance_valid(player):
+			swapping_to_companion = false
+		else:
+			can_swap = true
+			return
 
-		companion.controller = CompanionController.new()
-		companion.controller.follow_target = player
-		_companion_entity = companion
+	if swapping_to_companion:
+		if is_instance_valid(companion):
+			companion.controller = PlayerController.new()
+			_controlled_entity = companion
+		else:
+			_controlled_entity = null
+
+		if is_instance_valid(player):
+			player.controller = CompanionController.new()
+			player.controller.follow_target = _controlled_entity
+			_companion_entity = player
+		else:
+			_companion_entity = null
+
+	else:
+		if is_instance_valid(player):
+			player.controller = PlayerController.new()
+			_controlled_entity = player
+		else:
+			_controlled_entity = null
+
+		if is_instance_valid(companion):
+			companion.controller = CompanionController.new()
+			companion.controller.follow_target = player
+			_companion_entity = companion
+		else:
+			_companion_entity = null
+
+	GState.controlled_entity_changed.emit(_controlled_entity)
 
 	await get_tree().create_timer(0.4).timeout
-
 	can_swap = true
 
-	print("CONTROLEED:", _controlled_entity.entity_id)
-	print("COMPANION:", _companion_entity.entity_id)
+	if is_instance_valid(_controlled_entity):
+		print("CONTROLLED:", _controlled_entity.entity_id)
+	if is_instance_valid(_companion_entity):
+		print("COMPANION:", _companion_entity.entity_id)
 
 
 func spawn_player(pos: Vector3) -> Entity:
@@ -220,7 +252,7 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 		definition = enemy_pool.pick_random()
 
 	var enemy := spawn_entity(definition, pos)
-	enemy.controller.target = player
+	enemy.controller.target = _controlled_entity
 	enemy.add_to_group("enemies")
 
 	return enemy
