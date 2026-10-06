@@ -27,7 +27,7 @@ config/icon="uid://gydqh7vyg347"
 GameAutoLoad="*uid://bqb78gjgjfjxs"
 AutoProjectileSystem="*uid://dtf077dwg3ikk"
 GState="*uid://cq81nx0uqw3ns"
-DebugConsoleScene="uid://cpxgwl0jy8ijg"
+DebugConsoleScene="*uid://cpxgwl0jy8ijg"
 FmodManager="*uid://cds10pm7hwn3p"
 CursorManager="*uid://bi41mrxij62cg"
 

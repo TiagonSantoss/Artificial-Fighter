@@ -7,6 +7,7 @@ enum HitResult { NONE, CONSUME, PIERCE, BOUNCE, REFLECT }
 
 const CHIP_DAMAGE_RATIO := 0.25
 const DEFAULT_PARRY_WINDOW := 0.2  # Slightly more forgiving for player bodies than melee clashes
+const PHYSICAL_CARD_SCENE = preload("res://Core/Container/Components/Base/physical_card.tscn")
 
 var is_blocking := false
 var parry_window_left := 0.0
@@ -31,6 +32,8 @@ var is_dashing := false
 var is_invincible: bool = false
 var iframe_duration: float = 1.0
 var stun_left := 0.0
+
+var current_throw_direction: Vector3 = Vector3.ZERO
 
 @onready var camera_pivot: Marker3D = $CameraPivot
 
@@ -188,6 +191,71 @@ func apply_hit(hit: HitData):
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
 
 	return HitResult.CONSUME
+
+
+func use_card(card_instance: ItemInstance) -> void:
+	var card_def = card_instance.definition as CardDefinition
+	if card_def == null:
+		return
+
+	var cam_axis = GState.current_perspective.active_axis
+	current_throw_direction = get_axis_vector(cam_axis)
+
+	rotation.y = atan2(-current_throw_direction.x, -current_throw_direction.z)
+
+	match card_def.card_type:
+		CardDefinition.CardType.INSTANT:
+			card_def.play(self)
+
+		CardDefinition.CardType.DIRECTIONAL:
+			var aim_dir := _get_camera_forward_flat()
+			look_at(global_position + aim_dir, Vector3.UP)
+			card_def.play(self, null, aim_dir)
+
+		CardDefinition.CardType.PROJECTILE:
+			look_at(global_position + current_throw_direction, Vector3.UP)
+			_spawn_card_projectile(card_instance, current_throw_direction)
+
+			if card_def.dual_fire:
+				_spawn_card_projectile(card_instance, -current_throw_direction)
+
+	if cards_component != null:
+		cards_component.hand.remove(card_instance)
+
+
+static func get_axis_vector(axis: CameraPerspectiveState.Axis) -> Vector3:
+	match axis:
+		CameraPerspectiveState.Axis.X_NEGATIVE:
+			return Vector3(-1, 0, 0)
+		CameraPerspectiveState.Axis.X_POSITIVE:
+			return Vector3(1, 0, 0)
+		CameraPerspectiveState.Axis.Z_NEGATIVE:
+			return Vector3(0, 0, -1)
+		CameraPerspectiveState.Axis.Z_POSITIVE:
+			return Vector3(0, 0, 1)
+	return Vector3(0, 0, -1)  # Fallback
+
+
+func _get_camera_forward_flat() -> Vector3:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return -global_transform.basis.z
+
+	var cam_forward := -camera.global_transform.basis.z
+
+	cam_forward.y = 0.0
+
+	return cam_forward.normalized()
+
+
+func _spawn_card_projectile(card_instance: ItemInstance, aim_dir: Vector3) -> void:
+	var projectile = PHYSICAL_CARD_SCENE.instantiate()
+
+	get_tree().current_scene.add_child(projectile)
+
+	projectile.global_position = self.global_position + Vector3(0, 1.0, 0)
+
+	projectile.fire(self, card_instance, aim_dir)
 
 
 func start_iframes():

@@ -177,27 +177,46 @@ offset_right = 691.148
 offset_bottom = -51.99005
 mouse_filter = 2
 script = ExtResource("3_gjfdq")
+main_card_size = Vector2(400, 400)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CardsBar" unique_id=512959549]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.62
-anchor_bottom = 0.62
-offset_left = -85.0
-offset_top = -89.31997
-offset_right = 310.0
-offset_bottom = 190.68002
-grow_vertical = 0
-pivot_offset = Vector2(0, 40)
+[node name="VBoxContainer" type="VBoxContainer" parent="CardsBar" unique_id=1765756854]
+layout_mode = 0
+offset_left = -91.0
+offset_top = -69.0
+offset_right = 768.0
+offset_bottom = 291.0
+mouse_filter = 2
+
+[node name="PreviewContainer" type="HBoxContainer" parent="CardsBar/VBoxContainer" unique_id=214189981]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MainContainer" type="HBoxContainer" parent="CardsBar/VBoxContainer" unique_id=512959549]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="CardsBar/HBoxContainer" unique_id=457901624]
-custom_minimum_size = Vector2(50.235, 0)
+[node name="SlotX1" type="TextureRect" parent="CardsBar/VBoxContainer/MainContainer" unique_id=457901624]
 layout_mode = 2
 texture = ExtResource("7_txbq2")
 expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="CardsBar/HBoxContainer" unique_id=1506256529]
+[node name="SlotX2" type="TextureRect" parent="CardsBar/VBoxContainer/MainContainer" unique_id=298303461]
+custom_minimum_size = Vector2(50, 120)
+layout_mode = 2
+texture = ExtResource("7_txbq2")
+expand_mode = 3
+
+[node name="SlotZ1" type="TextureRect" parent="CardsBar/VBoxContainer/MainContainer" unique_id=1506256529]
+custom_minimum_size = Vector2(50, 120)
+layout_mode = 2
+texture = ExtResource("8_gfnvd")
+expand_mode = 3
+
+[node name="SlotZ2" type="TextureRect" parent="CardsBar/VBoxContainer/MainContainer" unique_id=1947760265]
+custom_minimum_size = Vector2(50, 120)
 layout_mode = 2
 texture = ExtResource("8_gfnvd")
 expand_mode = 3

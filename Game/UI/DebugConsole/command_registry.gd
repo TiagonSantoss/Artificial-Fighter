@@ -3,7 +3,8 @@ extends Node
 
 # Register resource short-names mapped to their file paths
 const CARD_DATABASE := {
-	"itf": "res://assets/items/cards/into_the_fire.tres",
+	"itfx": "res://assets/items/cards/into_the_fire_x.tres",
+	"itfz": "res://assets/items/cards/into_the_fire_z.tres",
 }
 
 const EFFECT_DATABASE := {
@@ -51,7 +52,10 @@ func _cmd_give_card(args: Array, player: Entity) -> String:
 
 	# Target HandComponent specifically!
 	if player and player.cards_component:
-		player.cards_component.hand.add(instance)
+		if player.cards_component.can_add_card(instance):
+			player.cards_component.hand.add(instance)
+		else:
+			return "Cannot pick up card: Axis slots are full!"
 		return "Successfully added card '%s' to player hand." % card_id
 
 	return "Player missing CardsComponent!"

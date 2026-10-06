@@ -35,10 +35,15 @@ var _cached_camera: Camera3D = null
 
 
 func _physics_process(delta: float) -> void:
-	if not is_active_pivot or not Game.player:
+	if not is_active_pivot:
 		return
 
 	var global_camera_rig = GameAutoLoad.camera_rig
+
+	var current_entity = GameAutoLoad.get_current_entity()
+
+	if not is_instance_valid(current_entity):
+		return
 
 	if not is_instance_valid(global_camera_rig):
 		return

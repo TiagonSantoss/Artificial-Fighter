@@ -23,7 +23,7 @@ animations = [{
 [resource]
 script = ExtResource("1_ohbt7")
 sprite_frames = SubResource("SpriteFrames_ohbt7")
-damage_multiplier = 0.0
+damage_multiplier = 1.6
 fire_rate = 1.2
 is_melee = true
 melee = ExtResource("1_tf4rw")

@@ -230,10 +230,10 @@ func swap_characters():
 	await get_tree().create_timer(0.4).timeout
 	can_swap = true
 
-	if is_instance_valid(_controlled_entity):
-		print("CONTROLLED:", _controlled_entity.entity_id)
-	if is_instance_valid(_companion_entity):
-		print("COMPANION:", _companion_entity.entity_id)
+	# if is_instance_valid(_controlled_entity):
+	# 	print("CONTROLLED:", _controlled_entity.entity_id)
+	# if is_instance_valid(_companion_entity):
+	# 	print("COMPANION:", _companion_entity.entity_id)
 
 
 func spawn_player(pos: Vector3) -> Entity:

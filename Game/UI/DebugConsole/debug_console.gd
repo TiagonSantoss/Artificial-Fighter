@@ -42,8 +42,7 @@ func _on_command_submitted(text: String) -> void:
 	_log_message("> " + text, Color.GRAY)
 	command_input.clear()
 
-	var game := get_tree().current_scene as Game
-	var player := game.controlled_entity if game else null
+	var player := GameAutoLoad.get_current_entity()
 
 	var response = command_registry.execute_command(text, player)
 	if not response.is_empty():

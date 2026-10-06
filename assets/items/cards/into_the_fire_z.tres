@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://c7caodcr0fln6"]
+
+[ext_resource type="Texture2D" uid="uid://b85mixvpmtsi1" path="res://assets/sprites/UI/fogo_azul.png" id="1_gp7dx"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="2_c1jm6"]
+
+[resource]
+script = ExtResource("2_c1jm6")
+card_type = 2
+allowed_axis = 1
+dual_fire = true
+id = &"ITFZ"
+display_name = "Into the fire Z"
+description = "You got into the fire twice"
+icon = ExtResource("1_gp7dx")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

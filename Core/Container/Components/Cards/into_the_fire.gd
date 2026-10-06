@@ -6,31 +6,17 @@ const FIRE_EFFECT = preload("res://assets/items/effects/fire.tres")
 @export var effect_duration: float = 3.0
 
 
-func play(_caster: Entity, _target: Entity) -> void:
-	print("--- [IntoTheFire] PLAYED ---")
-	print("Caster: ", _caster)
+func play(_caster: Entity, target: Entity = null, _throw_direction: Vector3 = Vector3.ZERO) -> void:
+	if target != null:
+		print("Into the Fire hit: ", target.name)
+		_apply_fire_to_entity(target)
+	else:
+		print("Into the Fire activated (No direct target hit).")
 
-	# 1. Test Screen Overlay
 	_trigger_fire_screen_overlay(_caster, effect_duration)
 
-	# 2. Get tree and search group
-	var tree := _caster.get_tree()
-	if tree == null:
-		print("ERROR: Caster tree is null!")
-		return
-
-	var enemies := tree.get_nodes_in_group("enemies")
-	print("Enemies found in group 'enemies': ", enemies.size())
-
-	# Fallback check if your group is named "entities" instead
-	if enemies.size() == 0:
-		enemies = tree.get_nodes_in_group("entities")
-		print("Fallback check - Entities found in group 'entities': ", enemies.size())
-
-	for enemy in enemies:
-		if enemy is Entity and enemy != _caster:
-			print("Attempting to apply fire to enemy: ", enemy)
-			_apply_fire_to_entity(enemy)
+	if target != null:
+		_apply_fire_to_entity(target)
 
 
 func _apply_fire_to_entity(enemy: Entity) -> void:

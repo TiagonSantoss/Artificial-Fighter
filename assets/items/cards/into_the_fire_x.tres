@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://c1mrer2qiyi3a"]
+
+[ext_resource type="Texture2D" uid="uid://c7saaf4k6i2bs" path="res://assets/sprites/UI/fogo_vermelho.png" id="1_2sn1p"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="2_hx0c0"]
+
+[resource]
+script = ExtResource("2_hx0c0")
+card_type = 2
+allowed_axis = 0
+dual_fire = true
+id = &"ITFX"
+display_name = "Into The Fire X"
+description = "You entered the fire"
+icon = ExtResource("1_2sn1p")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"
