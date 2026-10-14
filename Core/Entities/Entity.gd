@@ -6,7 +6,7 @@ enum Team { PLAYER, ALLY, ENEMY }
 enum HitResult { NONE, CONSUME, PIERCE, BOUNCE, REFLECT }
 
 const CHIP_DAMAGE_RATIO := 0.25
-const DEFAULT_PARRY_WINDOW := 0.2  # Slightly more forgiving for player bodies than melee clashes
+const DEFAULT_PARRY_WINDOW := 0.4
 const PHYSICAL_CARD_SCENE = preload("res://Core/Container/Components/Base/physical_card.tscn")
 
 var is_blocking := false

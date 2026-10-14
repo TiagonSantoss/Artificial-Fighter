@@ -14,11 +14,15 @@ func _on_accessory_added(instance: ItemInstance) -> void:
 	if accessory != null:
 		accessory.on_equip(entity, instance)
 
+	_emit_accessories_changed()
+
 
 func _on_accessory_removed(instance: ItemInstance) -> void:
 	var accessory := instance.definition as AccessoryDefinition
 	if accessory != null:
 		accessory.on_unequip(entity, instance)
+
+	_emit_accessories_changed()
 
 
 func equip_accessory(instance: ItemInstance) -> bool:
@@ -36,3 +40,15 @@ func unequip_accessory(instance: ItemInstance) -> bool:
 		return false
 
 	return accessories.remove(instance)
+
+
+func get_accessories() -> Array[ItemInstance]:
+	return accessories.get_contents()
+
+
+func _emit_accessories_changed() -> void:
+	var current_items: Array[ItemInstance] = get_accessories()
+
+	var state := AccessoriesChangedState.new(current_items)
+
+	GState.accessories_changed.emit(state)

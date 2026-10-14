@@ -225,7 +225,14 @@ func swap_characters():
 		else:
 			_companion_entity = null
 
+	var active_enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in active_enemies:
+		if is_instance_valid(enemy) and enemy.controller != null:
+			if "target" in enemy.controller:
+				enemy.controller.target = _controlled_entity
+
 	GState.controlled_entity_changed.emit(_controlled_entity)
+	update_accessories_state()
 
 	await get_tree().create_timer(0.4).timeout
 	can_swap = true
@@ -234,6 +241,17 @@ func swap_characters():
 	# 	print("CONTROLLED:", _controlled_entity.entity_id)
 	# if is_instance_valid(_companion_entity):
 	# 	print("COMPANION:", _companion_entity.entity_id)
+
+
+func update_accessories_state() -> void:
+	var entity = get_current_entity()
+	var items: Array[ItemInstance] = []
+
+	if entity != null and entity.get("accessories_component") != null:
+		items = entity.accessories_component.get_accessories()
+
+	var new_state = AccessoriesChangedState.new(items)
+	GState.accessories_changed.emit(new_state)
 
 
 func spawn_player(pos: Vector3) -> Entity:

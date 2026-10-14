@@ -31,24 +31,27 @@
 [ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
 [ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="22_mc2jv"]
 [ext_resource type="PackedScene" uid="uid://cr56gd4y8f611" path="res://Game/UI/shop_ui.tscn" id="29_qktwf"]
+[ext_resource type="PackedScene" uid="uid://bao0lkwunib3s" path="res://Game/UI/submenu.tscn" id="30_jjr1n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
 shader = ExtResource("5_wukud")
 shader_parameter/rotation_speed = 0.0
+shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/gradient_texture = ExtResource("5_bh8nc")
 
-[sub_resource type="Sky" id="Sky_26xuy"]
+[sub_resource type="Sky" id="Sky_jjr1n"]
 sky_material = SubResource("ShaderMaterial_bc84e")
 
 [sub_resource type="Environment" id="Environment_k3n1d"]
 background_mode = 2
 background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
-sky = SubResource("Sky_26xuy")
+sky = SubResource("Sky_jjr1n")
 ambient_light_source = 3
 ambient_light_color = Color(0.76698273, 0.46146178, 0.82021874, 1)
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 tonemap_mode = 1
+tonemap_agx_contrast = 2.0
 ssr_fade_in = 3.820437
 ssao_enabled = true
 ssao_radius = 0.01
@@ -240,6 +243,7 @@ offset_bottom = 0.079956055
 mouse_filter = 2
 
 [node name="Minimap" parent="UI/Control" unique_id=806877094 instance=ExtResource("12_ikiii")]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -368,7 +372,22 @@ offset_right = -0.50801086
 offset_bottom = -0.26208496
 metadata/_edit_use_anchors_ = true
 
+[node name="CurrencyIndicator" type="Control" parent="UI/Control" unique_id=598359608]
+anchors_preset = 0
+offset_left = 41.0
+offset_top = 477.0
+offset_right = 81.0
+offset_bottom = 517.0
+
+[node name="Submenu" parent="UI" unique_id=356753527 instance=ExtResource("30_jjr1n")]
+visible = false
+offset_left = -514.0
+offset_top = -310.5
+offset_right = 510.0
+offset_bottom = 309.5
+
 [node name="Shop" parent="UI" unique_id=641156019 instance=ExtResource("29_qktwf")]
+visible = false
 
 [node name="Kill_Volume" type="Area3D" parent="." unique_id=525981836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.18882, 0)

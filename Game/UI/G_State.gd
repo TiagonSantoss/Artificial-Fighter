@@ -20,6 +20,8 @@ signal enemy_damaged(hit_count: int)
 signal enemy_parried(parried_enemies_amount: int)
 signal player_damaged(iframe_duration: float)
 
+signal accessories_changed(state: AccessoriesChangedState)
+
 signal encounter_ended(final_rank: int)
 
 signal shop_item_selected(item_node)

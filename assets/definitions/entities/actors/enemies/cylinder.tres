@@ -2,10 +2,23 @@
 
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_73cbb"]
 [ext_resource type="ArrayMesh" uid="uid://daa0hlo8iffre" path="res://assets/models/Enemies/meshes/enemies_Cylinder_001.res" id="1_g3odw"]
+[ext_resource type="Resource" uid="uid://vgm5j725voif" path="res://assets/definitions/entities/controllers/enemies/cylinder_controller.tres" id="1_hvyna"]
+[ext_resource type="Resource" uid="uid://yuvxs6jgs5k4" path="res://assets/items/currency/Cash Cards.tres" id="2_vawr8"]
+[ext_resource type="Resource" uid="uid://d2gm8bx1hwe4o" path="res://assets/definitions/weapons/enemies/EnemyRevolver.tres" id="4_vawr8"]
 
 [resource]
 script = ExtResource("1_73cbb")
 visual_type = 1
 mesh = ExtResource("1_g3odw")
+move_speed = 6.0
+max_speed = 6.0
+acceleration = 200.0
+friction = 200.0
 hitbox_size = Vector3(0.2, 0.5, 0.2)
+controller = ExtResource("1_hvyna")
+entity_id = 4
+starting_weapon = ExtResource("4_vawr8")
+drop_currency_def = ExtResource("2_vawr8")
+team = 2
+spawn_group = 1
 metadata/_custom_type_script = "uid://dll1idsl2062t"

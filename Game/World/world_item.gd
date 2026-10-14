@@ -121,6 +121,8 @@ func _on_body_entered(body: Node) -> void:
 		return
 
 	if body is Entity:
+		if body.team == Entity.Team.ENEMY:
+			return
 		target_entity = body
 		magnet_start_pos = global_position
 		magnet_t = 0.0

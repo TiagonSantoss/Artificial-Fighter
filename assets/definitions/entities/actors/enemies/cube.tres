@@ -3,6 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://c2jktqpv31bq5" path="res://assets/models/Enemies/meshes/enemies_Cube_001.res" id="1_vcvvv"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_wjno2"]
 [ext_resource type="Resource" uid="uid://up3552p1lign" path="res://assets/definitions/entities/controllers/enemies/cube_controller_resource.tres" id="1_yqyds"]
+[ext_resource type="Resource" uid="uid://yuvxs6jgs5k4" path="res://assets/items/currency/Cash Cards.tres" id="2_wq25o"]
 [ext_resource type="Resource" uid="uid://d2gm8bx1hwe4o" path="res://assets/definitions/weapons/enemies/EnemyRevolver.tres" id="3_33yjp"]
 
 [resource]
@@ -18,6 +19,7 @@ hitbox_size = Vector3(0.1, 0.3, 0.1)
 controller = ExtResource("1_yqyds")
 entity_id = 3
 starting_weapon = ExtResource("3_33yjp")
+drop_currency_def = ExtResource("2_wq25o")
 team = 2
 spawn_group = 1
 metadata/_custom_type_script = "uid://dll1idsl2062t"

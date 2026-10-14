@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CylinderController" format=3 uid="uid://vgm5j725voif"]
+
+[ext_resource type="Script" uid="uid://cysm70ubl5whx" path="res://Core/Entities/Controllers/enemies/cylinder_controller.gd" id="1_uaam6"]
+
+[resource]
+script = ExtResource("1_uaam6")
+metadata/_custom_type_script = "uid://cysm70ubl5whx"

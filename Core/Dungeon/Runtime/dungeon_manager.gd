@@ -251,14 +251,10 @@ func _on_room_cleared(room: RoomInstance) -> void:
 
 
 func start_encounter(room: RoomInstance) -> void:
-	if room == null:
+	if room == null or room.encounter_started or not room.definition.has_encounter:
 		return
 
-	if room.encounter_started:
-		return
-
-	if not room.definition.has_encounter:
-		return
+	seed(hash(str(_seed) + room.room_id))
 
 	var encounter := room.definition.get_random_encounter()
 
@@ -266,8 +262,9 @@ func start_encounter(room: RoomInstance) -> void:
 		return
 
 	room.encounter_started = true
-
 	chunk_manager.set_streaming_mode(ChunkManager.StreamingMode.COMBAT, room.room_id)
 
-	for enemy_def in encounter.enemies:
-		_spawn_enemy_for_room(room, enemy_def)
+	if encounter.possible_enemies.size() > 0:
+		for i in range(encounter.spawn_count):
+			var random_enemy_def = encounter.possible_enemies.pick_random()
+			_spawn_enemy_for_room(room, random_enemy_def)

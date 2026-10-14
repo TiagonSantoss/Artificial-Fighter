@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://bao0lkwunib3s"]
+
+[ext_resource type="Script" uid="uid://bkruc2jdt62im" path="res://Game/UI/generate_access_grid.gd" id="1_utxrw"]
+[ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="2_iavxh"]
+[ext_resource type="CompressedTexture3D" uid="uid://c5yei78gmksg5" path="res://assets/images/shaders/TESTANDO2.png" id="2_utxrw"]
+[ext_resource type="Texture2D" uid="uid://do6oi8vmfneur" path="res://demo/assets/icon.svg" id="4_utxrw"]
+[ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="5_x6bns"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x6bns"]
+shader = ExtResource("2_iavxh")
+shader_parameter/rotation_speed = 0.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/gradient_texture = ExtResource("4_utxrw")
+
+[sub_resource type="Sky" id="Sky_26xuy"]
+sky_material = SubResource("ShaderMaterial_x6bns")
+
+[sub_resource type="Environment" id="Environment_aeryv"]
+background_mode = 2
+background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
+sky = SubResource("Sky_26xuy")
+ambient_light_source = 3
+ambient_light_color = Color(0.27965298, 0.27659163, 0.29818365, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 4
+tonemap_agx_contrast = 17.05
+ssr_fade_in = 3.820437
+ssao_radius = 0.01
+ssao_intensity = 0.76
+ssao_power = 2.568522
+sdfgi_read_sky_light = false
+fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
+fog_sun_scatter = 0.16
+fog_density = 0.0
+volumetric_fog_density = 0.0075
+volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+volumetric_fog_temporal_reprojection_amount = 0.5
+adjustment_enabled = true
+adjustment_brightness = 1.47
+adjustment_color_correction = ExtResource("2_utxrw")
+
+[node name="Control" type="Control" unique_id=356753527]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -310.0
+offset_right = 512.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1936699572]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -895.0
+offset_top = -480.0
+offset_right = 895.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PanelContainer" unique_id=22743997]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/CanvasLayer" unique_id=32436982]
+visible = false
+offset_left = 65.0
+offset_top = 60.0
+offset_right = 1855.0
+offset_bottom = 1020.0
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/CanvasLayer/SubViewportContainer" unique_id=2030094271]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+render_target_update_mode = 0
+
+[node name="Node3D" type="Node3D" parent="PanelContainer/CanvasLayer/SubViewportContainer/SubViewport" unique_id=2042979155]
+script = ExtResource("1_utxrw")
+
+[node name="Camera3D" type="Camera3D" parent="PanelContainer/CanvasLayer/SubViewportContainer/SubViewport/Node3D" unique_id=1692185164]
+transform = Transform3D(1, 0, 0, 0, 0.82910925, 0.5590867, 0, -0.5590867, 0.82910925, 0, 3, 10)
+size = 0.001
+near = 0.001
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="PanelContainer/CanvasLayer/SubViewportContainer/SubViewport/Node3D" unique_id=433402358]
+environment = SubResource("Environment_aeryv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PanelContainer/CanvasLayer/SubViewportContainer/SubViewport/Node3D" unique_id=1676174158]
+transform = Transform3D(-0.9041211, -0.41352996, -0.10750824, -0.057911094, -0.13069306, 0.9897301, -0.42333362, 0.9010618, 0.09421438, 0.032271624, 2.6224246, 0.99509096)
+light_energy = 3.024
+
+[node name="Sprite3D" type="Sprite3D" parent="PanelContainer/CanvasLayer/SubViewportContainer/SubViewport/Node3D" unique_id=1014405055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+billboard = 1
+texture = ExtResource("5_x6bns")

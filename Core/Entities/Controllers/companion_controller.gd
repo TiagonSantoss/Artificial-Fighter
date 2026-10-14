@@ -29,6 +29,10 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 
 	var dist := actor.global_position.distance_to(nav.target_position)
 
+	if dist >= 12.0:
+		actor.global_position = follow_target.global_position
+		return actions
+
 	if dist <= follow_distance:
 		return actions
 
