@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_uaam6")
+separation_radius = 12.0
+separation_weight = 3.0
+debug_rays = false
 metadata/_custom_type_script = "uid://cysm70ubl5whx"

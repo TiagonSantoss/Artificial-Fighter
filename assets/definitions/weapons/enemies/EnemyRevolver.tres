@@ -11,6 +11,7 @@
 script = ExtResource("4_o0dxa")
 sprite_frames = SubResource("SpriteFrames_vcvvv")
 sprite_scale = Vector3(0.5, 0.5, 0.5)
+fire_rate = 1.7
 pierce_multiplier = 5.0
 spread = 2.0
 shoot_sound = "EnemyRevolver"

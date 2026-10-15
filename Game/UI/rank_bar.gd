@@ -87,6 +87,8 @@ func _on_rank_changed(new_rank: int, old_rank: int) -> void:
 			. set_ease(Tween.EASE_OUT)
 		)
 
+	GameAutoLoad.get_current_entity().audio_component.play_single_sfx("Voice/RankVoices")
+
 
 func _on_player_damaged(iframe_time: float) -> void:
 	is_currently_damaged = true

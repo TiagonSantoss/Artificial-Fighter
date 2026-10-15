@@ -185,6 +185,8 @@ func swing(direction: Vector3):
 	var lunge_dir := -direction.normalized()
 	context.wielder.movement_component.apply_impulse(lunge_dir * context.recoil)
 
+	weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
+
 	weapon.behavior_component.after_attack(context)
 
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
