@@ -23,8 +23,6 @@ var current_room: RoomInstance
 var previous_room: RoomInstance
 var is_generating := false
 
-var cleared_rooms := {}  # room_id (String) -> bool
-
 @onready var chunk_manager: ChunkManager = $ChunkManager
 
 
@@ -42,30 +40,36 @@ func generate() -> void:
 	print("DungeonManager generating layout with seed: ", _seed)
 
 	seed(_seed)
-
 	GState.seed_changed.emit(_seed)
-	#print_stack()
+
 	chunk_manager.clear()
 	clear()
 
+	# 1. Generate the logical layout
 	chunk_manager.generate(_seed, room_pool, room_count, start_room)
-
 	graph = chunk_manager.graph
 	layout = chunk_manager.layout
 
-	var start_room_instance := _spawn_player_at_start()
+	# ---> THE STARTUP FIX <---
+	# 2. Physically load the start room into the scene first
+	chunk_manager._load_room("start")
 
-	if start_room_instance:
-		current_room = start_room_instance
-		chunk_manager.set_current_room(start_room_instance)
+	# 3. Now that the room exists, spawn the player at its SpawnPoint
+	_spawn_player_at_start()
+
+	# 4. Officially trigger the room change.
+	# Because the player now exists, Game.gd will successfully hook up the camera!
+	var start_instance = chunk_manager.loaded_rooms["start"]
+	chunk_manager._set_current_room(start_instance)
 
 	is_generating = false
 
 
 func _ready() -> void:
 	await get_tree().process_frame
+
+	chunk_manager.active_room_changed.connect(_on_active_room_changed)
 	chunk_manager.room_loaded.connect(_on_room_loaded)
-	chunk_manager.room_unloaded.connect(_on_room_unloaded)
 
 	if is_instance_valid(GameAutoLoad):
 		emitter = GameAutoLoad.emitter
@@ -73,125 +77,74 @@ func _ready() -> void:
 	generate()
 
 
-func _process(_delta: float) -> void:
-	if Game.player == null:
-		return
-
-
 func _on_room_loaded(room: RoomInstance) -> void:
 	print("ROOM LOADED:", room.room_id)
-
-	if cleared_rooms.get(room.room_id, false):
-		room.cleared = true
-		room.encounter_started = true
-
 	register_room(room)
 
 
-func _on_room_unloaded(room: RoomInstance) -> void:
-	if current_room == room:
-		current_room = null
-
-
-func _on_room_entered(room: RoomInstance) -> void:
-	if room.cleared:
-		return
-
-	if not room.encounter_enabled:
-		return
-
-	room.lock_room()
-	start_encounter(room)
-
-	# TODO:
-	# Play music
-
-
-func _on_player_entered_room(room: RoomInstance) -> void:
-	if current_room == room:
-		return
-
+func _on_active_room_changed(room: RoomInstance) -> void:
+	# This fires immediately after the ChunkManager teleports the player
 	if current_room:
 		room_exited.emit(current_room)
+		print("Exited:", current_room.room_id)
 
 	previous_room = current_room
 	current_room = room
 
-	chunk_manager.set_current_room(room)
-
 	room_entered.emit(room)
-
 	print("Entered:", room.room_id)
 
 	if emitter:
-		emitter.set_parameter("Set", 0)
+		pass
+		# emitter.set_parameter("Set", 0)
 
-	_on_room_entered(room)
+	# Automatically start encounters if the room hasn't been cleared yet
+	if not room.cleared and room.encounter_enabled:
+		room.lock_room()
+		start_encounter(room)
 
 
-func _on_player_exited_room(room: RoomInstance) -> void:
-	if current_room != room:
+func _spawn_player_at_start() -> void:
+	if GameAutoLoad == null:
 		return
 
-	print("Exited:", room.room_id)
-
-
-func _spawn_player_at_start() -> RoomInstance:
-	if GameAutoLoad == null:
-		return null
-
 	var start_room_a: RoomInstance = chunk_manager.loaded_rooms.get("start")
-
 	if start_room_a == null:
-		return null
+		return
 
 	var spawn_point := start_room_a.node.find_child("SpawnPoint", true, false)
-
-	if spawn_point == null:
-		return null
+	var spawn_pos = spawn_point.global_position if spawn_point else Vector3.ZERO
 
 	if emitter:
-		emitter.set_parameter("Set", 5)
-		print("EMITTER SET TO 5")
+		pass
+		# emitter.set_parameter("Set", 5)
+		# print("EMITTER SET TO 5")
 
-	GameAutoLoad.spawn_player(spawn_point.global_position)
-	GameAutoLoad.spawn_companion(spawn_point.global_position)
-
-	return start_room_a
-
-
-# ROOM
+	GameAutoLoad.spawn_player(spawn_pos)
+	GameAutoLoad.spawn_companion(spawn_pos)
 
 
 func register_room(room: RoomInstance) -> void:
 	print("REGISTER:", room.room_id)
-	var runtime := room.node.find_child("RoomRuntime", true, false) as RoomRuntime
 
 	var barrier := room.node.find_child("ArenaBarrierRoot", true, false)
 	if barrier:
 		room.barrier_root = barrier
 
-	if runtime == null:
-		return
-
-	if not runtime.player_entered.is_connected(_on_player_entered_room):
-		runtime.player_entered.connect(_on_player_entered_room)
-
-	if not runtime.player_exited.is_connected(_on_player_exited_room):
-		runtime.player_exited.connect(_on_player_exited_room)
-
 
 func clear() -> void:
 	current_room = null
+	previous_room = null
 	graph = null
 	layout.clear()
-	cleared_rooms.clear()
 
 	if chunk_manager:
 		chunk_manager.clear()
 
 
-# ENEMY
+# --------------------------------------------------
+# ENEMY & ENCOUNTER
+# --------------------------------------------------
 
 
 func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> void:
@@ -202,17 +155,17 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 		return
 
 	var enemy := GameAutoLoad.spawn_enemy(marker.global_position, definition)
-
 	room.enemies.append(enemy)
 
 	if emitter:
-		match room.enemies.size():
-			5:
-				emitter.set_parameter("Set", 2)
-			2:
-				emitter.set_parameter("Set", 4)
-			1:
-				emitter.set_parameter("Set", 0)
+		pass
+		# match room.enemies.size():
+		# 	5:
+		# 		emitter.set_parameter("Set", 2)
+		# 	2:
+		# 		emitter.set_parameter("Set", 4)
+		# 	1:
+		# 		emitter.set_parameter("Set", 0)
 
 	enemy.tree_exited.connect(
 		func():
@@ -221,33 +174,6 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 			if room.enemies.is_empty():
 				_on_room_cleared(room)
 	)
-
-
-func _on_room_cleared(room: RoomInstance) -> void:
-	room.cleared = true
-	cleared_rooms[room.room_id] = true
-
-	chunk_manager.set_streaming_mode(ChunkManager.StreamingMode.EXPLORATION, room.room_id)
-	room.unlock_room()
-	print("ROOM CLEARED:", room.room_id)
-
-	emitter.set_parameter("Set", 6)
-
-	if item_pool.size() > 0:
-		var random_accessory_def = item_pool.pick_random()
-
-		var new_item_instance = ItemInstance.new()
-
-		new_item_instance.definition = random_accessory_def
-
-		var player = GameAutoLoad.get_current_entity()
-		if player and player.rank_component:
-			player.rank_component.finish_encounter()
-
-		# 4. Drop the INSTANCE
-		WorldItemSpawner.drop(
-			new_item_instance, GameAutoLoad.get_current_entity().position + Vector3(0.0, 2.0, 0.0)
-		)
 
 
 func start_encounter(room: RoomInstance) -> void:
@@ -262,9 +188,32 @@ func start_encounter(room: RoomInstance) -> void:
 		return
 
 	room.encounter_started = true
-	chunk_manager.set_streaming_mode(ChunkManager.StreamingMode.COMBAT, room.room_id)
 
 	if encounter.possible_enemies.size() > 0:
 		for i in range(encounter.spawn_count):
 			var random_enemy_def = encounter.possible_enemies.pick_random()
 			_spawn_enemy_for_room(room, random_enemy_def)
+
+
+func _on_room_cleared(room: RoomInstance) -> void:
+	room.cleared = true
+
+	room.unlock_room()
+	print("ROOM CLEARED:", room.room_id)
+
+	if emitter:
+		pass
+		# emitter.set_parameter("Set", 6)
+
+	# Handle Loot Drop
+	if item_pool.size() > 0:
+		var random_accessory_def = item_pool.pick_random()
+		var new_item_instance = ItemInstance.new()
+		new_item_instance.definition = random_accessory_def
+
+		var player = GameAutoLoad.get_current_entity()
+		if player and player.rank_component:
+			player.rank_component.finish_encounter()
+
+		var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
+		WorldItemSpawner.drop(new_item_instance, drop_pos)

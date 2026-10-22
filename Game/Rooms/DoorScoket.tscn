@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://2jtjl7kon0di"]
+
+[ext_resource type="Script" uid="uid://d3dhyenevjxjy" path="res://Core/Dungeon/Interaction/door_socket.gd" id="1_0uuff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fo2dy"]
+size = Vector3(4, 3, 4)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2bgwa"]
+radius = 0.6064453
+height = 2.6376953
+
+[node name="DoorSocket" type="Area3D" unique_id=609152283]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_0uuff")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1144640588]
+shape = SubResource("BoxShape3D_fo2dy")
+debug_color = Color(0.9574315, 2.8878452e-07, 0.5352204, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2117365914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18261719, 0)
+mesh = SubResource("CapsuleMesh_2bgwa")

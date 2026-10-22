@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://lhbmvj0wtljr"]
+
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_qi2na"]
+[ext_resource type="PackedScene" uid="uid://cvehno26kulim" path="res://Game/Rooms/PS2/rooms/room_1_single_E.tscn" id="2_2l32q"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_5g7nv"]
+
+[resource]
+script = ExtResource("2_5g7nv")
+scene = ExtResource("2_2l32q")
+available_doors = Array[int]([2])
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

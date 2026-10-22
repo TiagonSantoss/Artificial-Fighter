@@ -47,11 +47,21 @@ func get_random_spawn_for_group(group: EntityDefinition.SpawnGroup) -> Marker3D:
 
 
 func lock_room() -> void:
-	if definition.has_encounter:
-		if barrier_root:
-			barrier_root.set_locked(true)
+	if not definition.has_encounter:
+		return
+
+	if barrier_root:
+		barrier_root.set_locked(true)
+
+	var sockets = node.find_children("*", "DoorSocket", true, false)
+	for socket in sockets:
+		socket.monitoring = false
 
 
 func unlock_room() -> void:
 	if barrier_root:
 		barrier_root.set_locked(false)
+
+	var sockets = node.find_children("*", "DoorSocket", true, false)
+	for socket in sockets:
+		socket.monitoring = true

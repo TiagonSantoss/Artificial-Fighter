@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://b52so3o6hqglt"]
 
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_q7kmu"]
-[ext_resource type="PackedScene" uid="uid://b070751nbhml8" path="res://Game/Rooms/shop_room_north.tscn" id="2_od382"]
+[ext_resource type="PackedScene" uid="uid://b070751nbhml8" path="res://Game/Rooms/PS2/shop_room_1_special.tscn" id="2_od382"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_vke5u"]
 
 [resource]

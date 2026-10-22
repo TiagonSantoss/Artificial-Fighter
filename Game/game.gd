@@ -261,7 +261,7 @@ func spawn_player(pos: Vector3) -> Entity:
 	player.add_to_group("player")
 	player.add_child(listener3D)
 
-	player.collision_layer = 1
+	# player.collision_layer = 1
 	return player
 
 

@@ -134,7 +134,8 @@ func fire(direction: Vector3):
 
 	weapon.behavior_component.after_attack(context)
 
-	weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
+	if is_instance_valid(weapon.definition.shoot_sound):
+		weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
 	can_fire = true

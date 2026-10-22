@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bf46uu6fx7ydc"
+path="res://.godot/imported/shop_room_1_special.map-55c294d370f8cc00045045f6490d9408.tres"
+
+[deps]
+
+source_file="res://assets/models/maps/shop_room_1_special.map"
+dest_files=["res://.godot/imported/shop_room_1_special.map-55c294d370f8cc00045045f6490d9408.tres"]
+
+[params]
+

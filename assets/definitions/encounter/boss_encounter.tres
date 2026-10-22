@@ -6,5 +6,6 @@
 
 [resource]
 script = ExtResource("2_i26fr")
-enemies = Array[ExtResource("1_gqjeu")]([ExtResource("2_53o5x")])
+possible_enemies = Array[ExtResource("1_gqjeu")]([ExtResource("2_53o5x")])
+spawn_count = 1
 metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

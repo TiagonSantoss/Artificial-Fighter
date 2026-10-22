@@ -5,27 +5,34 @@
 [ext_resource type="Texture2D" uid="uid://c2nytfcu5r7u0" path="res://assets/images/shaders/248138c3-816f-400e-b52a-3a0875186dac.jpeg" id="5_bh8nc"]
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
+[ext_resource type="Resource" uid="uid://cqfofhu5swkw0" path="res://assets/definitions/rooms/PS2/room_1_allfour.tres" id="8_1ew0l"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
 [ext_resource type="Script" uid="uid://bmoje4yltj2n2" path="res://Game/Calls/player_spawn.gd" id="9_k83mh"]
+[ext_resource type="Resource" uid="uid://bmygwo6p5n2jl" path="res://assets/definitions/rooms/PS2/boss1_single.tres" id="9_ryup7"]
 [ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="9_wukud"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
+[ext_resource type="Resource" uid="uid://lhbmvj0wtljr" path="res://assets/definitions/rooms/PS2/room_1_single_E.tres" id="10_ytpkv"]
+[ext_resource type="Resource" uid="uid://ort1enk456qk" path="res://assets/definitions/rooms/PS2/room_1_single_N.tres" id="11_jas3d"]
+[ext_resource type="Resource" uid="uid://de03opk1fh4ag" path="res://assets/definitions/rooms/PS2/room_1_single_S.tres" id="12_7htu6"]
 [ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="12_ikiii"]
+[ext_resource type="Resource" uid="uid://drc0nod6ekxsx" path="res://assets/definitions/rooms/PS2/room_1_single_W.tres" id="13_7qk3m"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
-[ext_resource type="Resource" uid="uid://b52so3o6hqglt" path="res://assets/definitions/rooms/shop_room.tres" id="14_k83mh"]
-[ext_resource type="Resource" uid="uid://b33xnysfbaf26" path="res://assets/definitions/rooms/Arena 4.tres" id="14_qktwf"]
+[ext_resource type="Resource" uid="uid://co2e2u3vsjloi" path="res://assets/definitions/rooms/PS2/room_1_three_NSE.tres" id="14_xpnt2"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
+[ext_resource type="Resource" uid="uid://byx6ir8w5a4m3" path="res://assets/definitions/rooms/PS2/room_1_three_NSW.tres" id="15_ruyqm"]
+[ext_resource type="Resource" uid="uid://c65xpshasgovw" path="res://assets/definitions/rooms/PS2/room_1_three_SWE.tres" id="16_fnoqa"]
 [ext_resource type="PackedScene" uid="uid://0v1b8eyr8r8j" path="res://Game/UI/p_1.tscn" id="16_il2jm"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
+[ext_resource type="Resource" uid="uid://clh7llpr3b1vg" path="res://assets/definitions/rooms/PS2/room_1_three_WNE.tres" id="17_nx736"]
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
+[ext_resource type="Resource" uid="uid://dlfwjnksvm6a0" path="res://assets/definitions/rooms/PS2/start_room.tres" id="18_55kwu"]
 [ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="18_k83mh"]
 [ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/ps2_lighting.gdshader" id="19_bh8nc"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
 [ext_resource type="Texture2D" uid="uid://dx46trsl14lsk" path="res://assets/sprites/UI/zicon.png" id="20_bh8nc"]
-[ext_resource type="Resource" uid="uid://xlnd062r674x" path="res://assets/definitions/rooms/Start Room.tres" id="20_il2jm"]
-[ext_resource type="Resource" uid="uid://jsq57wm6wtdv" path="res://assets/definitions/rooms/Arena 3.tres" id="20_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://dpjc1v3mljlp0" path="res://assets/sprites/UI/xicon.png" id="21_jjr1n"]
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="21_wjb0r"]
 [ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="22_gggvi"]
@@ -170,10 +177,10 @@ shadow_enabled = true
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("20_wjb0r"), ExtResource("14_k83mh"), ExtResource("14_qktwf")])
-start_room = ExtResource("20_il2jm")
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("8_1ew0l"), ExtResource("9_ryup7"), ExtResource("10_ytpkv"), ExtResource("11_jas3d"), ExtResource("12_7htu6"), ExtResource("13_7qk3m"), ExtResource("14_xpnt2"), ExtResource("15_ruyqm"), ExtResource("16_fnoqa"), ExtResource("17_nx736")])
+start_room = ExtResource("18_55kwu")
 generate_random_seed = false
-_seed = 2
+_seed = 2055503810
 room_count = 50
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 
@@ -213,14 +220,9 @@ script = ExtResource("9_k83mh")
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank", "res://assets/banks/Desktop/Master.strings.bank", "res://assets/banks/Desktop/SFX.bank"]
 
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
-event_name = "event:/Music/Maximus Rage"
-event_guid = "{fe7aa90e-3b34-4ef0-a2d6-a79646f1179d}"
+event_name = "event:/Music/Fruitiger"
+event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
 autoplay = true
-auto_release = true
-volume = 0.4
-fmod_parameters/Set/id = -7549801265799066034
-fmod_parameters/Set = 0
-fmod_parameters/Set/variant_type = 2
 script = ExtResource("17_o3ebs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
@@ -243,7 +245,6 @@ offset_bottom = 0.079956055
 mouse_filter = 2
 
 [node name="Minimap" parent="UI/Control" unique_id=806877094 instance=ExtResource("12_ikiii")]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -263,12 +264,10 @@ offset_right = 75.0
 offset_bottom = 120.0
 grow_horizontal = 2
 
-[node name="Minimap" parent="UI/Control/Minimap/MinimapFrame" unique_id=910392165 node_paths=PackedStringArray("chunk_manager") instance=ExtResource("12_ikiii")]
+[node name="Minimap" parent="UI/Control/Minimap/MinimapFrame" unique_id=910392165 instance=ExtResource("12_ikiii")]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("13_cbp6q")
-chunk_manager = NodePath("../../../../../DungeonManager/ChunkManager")
-minimap_scale = 1.0
 
 [node name="SeedIndicator" type="Control" parent="UI/Control" unique_id=138866117]
 layout_mode = 1

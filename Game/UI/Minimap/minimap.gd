@@ -1,131 +1,135 @@
 class_name Minimap
 extends Control
 
-@export var chunk_manager: ChunkManager
-@export var minimap_scale := 0.2
-
-@export_category("Sizing")
-@export var box_size := Vector2(16, 16)
-@export var line_thickness := 4.0
-@export_range(0.0, 10.0) var outline_thickness := 2.0
+@export_category("Visuals")
+@export var cell_size := 16.0
+@export var spacing := 24.0
 
 @export_category("Colors")
-@export var color_current := Color("ffcc00")
-@export var color_loaded := Color("ffffff")
-@export var color_visited := Color("4a525a")
-@export var color_line := Color("2d3135")
-@export var color_outline := Color("111315")
+@export var color_current := Color.WHITE
+@export var color_visited := Color.WEB_GRAY
+@export var color_unseen := Color.DIM_GRAY
+@export var color_door := Color.DARK_GRAY
+
+var room_coords: Dictionary = {}  # Maps room_id (String) -> grid position (Vector2i)
+var discovered_rooms: Array[String] = []
+var current_room_id := ""
+
+var _dungeon_graph: RoomGraph
 
 
 func _ready() -> void:
-	anchors_preset = PRESET_FULL_RECT
+	# Wait one frame to ensure DungeonManager finishes generating the map
+	await get_tree().process_frame
+
+	# Hook into ChunkManager's room changes
+	if GameAutoLoad.chunk_manager:
+		GameAutoLoad.chunk_manager.active_room_changed.connect(_on_active_room_changed)
+		_dungeon_graph = GameAutoLoad.chunk_manager.graph
+
+		# Build the initial layout map
+		if _dungeon_graph != null:
+			_build_grid("start")
 
 
-func _process(_delta: float) -> void:
+func _on_active_room_changed(room) -> void:
+	if room == null or not "room_id" in room:
+		return
+
+	current_room_id = room.room_id
+
+	if not discovered_rooms.has(current_room_id):
+		discovered_rooms.append(current_room_id)
+
+	# Queue a redraw of the Control node
 	queue_redraw()
 
 
+# ---------------------------------------------------------
+# MAP GENERATION LOGIC
+# ---------------------------------------------------------
+func _build_grid(start_id: String) -> void:
+	room_coords.clear()
+	_traverse_graph(start_id, Vector2i.ZERO, [])
+
+
+func _traverse_graph(room_id: String, coord: Vector2i, visited: Array) -> void:
+	if room_id in visited:
+		return
+
+	visited.append(room_id)
+	room_coords[room_id] = coord
+
+	var connections: Array = _dungeon_graph.connections.get(room_id, [])
+
+	for conn in connections:
+		var next_coord := coord
+
+		# Calculate the adjacent grid coordinate based on the door direction
+		match conn.direction:
+			DoorSocket.Direction.NORTH:
+				next_coord.y -= 1
+			DoorSocket.Direction.SOUTH:
+				next_coord.y += 1
+			DoorSocket.Direction.EAST:
+				next_coord.x += 1
+			DoorSocket.Direction.WEST:
+				next_coord.x -= 1
+
+		_traverse_graph(conn.target_id, next_coord, visited)
+
+
+# ---------------------------------------------------------
+# DRAWING LOGIC (Runs every time queue_redraw() is called)
+# ---------------------------------------------------------
 func _draw() -> void:
-	if chunk_manager == null:
+	if room_coords.is_empty() or current_room_id == "":
 		return
 
-	if chunk_manager.graph == null:
-		return
+	var center := size / 2.0
+	var current_coord: Vector2i = room_coords.get(current_room_id, Vector2i.ZERO)
 
-	if chunk_manager.layout.is_empty():
-		return
+	# Draw connections (hallways) first so they sit under the rooms
+	for room_id in discovered_rooms:
+		var coord: Vector2i = room_coords[room_id]
+		var connections: Array = _dungeon_graph.connections.get(room_id, [])
 
-	if chunk_manager.current_room == null:
-		return
+		var start_pos := center + Vector2(coord - current_coord) * spacing
 
-	var ui_center := size / 2.0
-	var layout := chunk_manager.layout
-	var graph := chunk_manager.graph
+		for conn in connections:
+			if room_coords.has(conn.target_id) and discovered_rooms.has(conn.target_id):
+				var target_coord: Vector2i = room_coords[conn.target_id]
+				var end_pos := center + Vector2(target_coord - current_coord) * spacing
+				draw_line(start_pos, end_pos, color_door, 4.0)
 
-	var current_room_id := chunk_manager.current_room.room_id
+	# Draw the room boxes
+	for room_id in room_coords:
+		# Optional: Only draw rooms if they are discovered, or adjacent to a discovered room
+		var is_discovered = discovered_rooms.has(room_id)
+		var is_adjacent = _is_adjacent_to_discovered(room_id)
 
-	var current_center_v3: Vector3 = layout.get(current_room_id, Vector3.ZERO)
-
-	var cam_angle := 0.0
-
-	if GameAutoLoad:
-		cam_angle = GameAutoLoad.camera_rig.rotation.y
-
-	# --------------------------------------------------
-	# DRAW CONNECTIONS
-	# --------------------------------------------------
-
-	for id in graph.connections.keys():
-		if not layout.has(id):
+		if not is_discovered and not is_adjacent:
 			continue
 
-		for conn in graph.connections[id]:
-			if not layout.has(conn.target_id):
-				continue
+		var coord: Vector2i = room_coords[room_id]
+		var offset := coord - current_coord
+		var draw_pos := center + Vector2(offset) * spacing
 
-			if not _is_room_visible(id) and not _is_room_visible(conn.target_id):
-				continue
+		var rect := Rect2(draw_pos - (Vector2.ONE * (cell_size / 2.0)), Vector2.ONE * cell_size)
 
-			var pos_a := _get_screen_pos(layout[id], current_center_v3, ui_center, cam_angle)
+		var color := color_unseen
+		if room_id == current_room_id:
+			color = color_current
+		elif is_discovered:
+			color = color_visited
 
-			var pos_b := _get_screen_pos(
-				layout[conn.target_id], current_center_v3, ui_center, cam_angle
-			)
-
-			draw_line(pos_a, pos_b, color_outline, line_thickness + 2.0)
-
-			draw_line(pos_a, pos_b, color_line, line_thickness)
-
-	# --------------------------------------------------
-	# DRAW ROOMS
-	# --------------------------------------------------
-
-	for id in layout.keys():
-		if not _is_room_visible(id):
-			continue
-
-		var room_center := _get_screen_pos(layout[id], current_center_v3, ui_center, cam_angle)
-
-		var box_rect := Rect2(room_center - box_size * 0.5, box_size)
-
-		var target_color := color_loaded
-
-		if id == current_room_id:
-			target_color = color_current
-		elif chunk_manager.visited_rooms.has(id):
-			target_color = color_visited
-
-		var outline_rect := box_rect.grow(outline_thickness)
-
-		draw_rect(outline_rect, color_outline, true)
-
-		draw_rect(box_rect, target_color, true)
+		draw_rect(rect, color)
 
 
-func _is_room_visible(id: String) -> bool:
-	if chunk_manager.current_room:
-		if id == chunk_manager.current_room.room_id:
-			return true
-
-	if chunk_manager.loaded_rooms.has(id):
-		return true
-
-	if chunk_manager.visited_rooms.has(id):
-		return true
-
+func _is_adjacent_to_discovered(target_id: String) -> bool:
+	for visited_id in discovered_rooms:
+		var connections: Array = _dungeon_graph.connections.get(visited_id, [])
+		for conn in connections:
+			if conn.target_id == target_id:
+				return true
 	return false
-
-
-func _get_screen_pos(
-	room_pos_v3: Vector3, current_center_v3: Vector3, ui_center: Vector2, cam_angle: float
-) -> Vector2:
-	var relative := room_pos_v3 - current_center_v3
-
-	var pos := Vector2(relative.x, relative.z) * minimap_scale
-
-	var rotated := Vector2(
-		pos.x * cos(cam_angle) - pos.y * sin(cam_angle),
-		pos.x * sin(cam_angle) + pos.y * cos(cam_angle)
-	)
-
-	return rotated + ui_center

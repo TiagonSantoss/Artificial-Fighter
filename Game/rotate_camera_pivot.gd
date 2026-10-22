@@ -32,6 +32,7 @@ var _look_target_initialized := false
 
 # Cached Camera Reference
 var _cached_camera: Camera3D = null
+var _needs_instant_snap := true
 
 
 func _physics_process(delta: float) -> void:
@@ -106,13 +107,22 @@ func _physics_process(delta: float) -> void:
 	var camera_local_offset := Vector3(0.0, constant_distance, constant_distance * 0.85)
 	var global_offset := camera_local_offset.rotated(Vector3.UP, rotation.y)
 
-	global_camera_rig.global_position = global_camera_rig.global_position.lerp(
-		smoothed_look_target + global_offset, follow_speed * delta
-	)
+	var final_target_cam_pos = smoothed_look_target + global_offset
 
-	# var pitch := -atan2(local_offset.y, local_offset.z)
+	if _needs_instant_snap:
+		global_camera_rig.global_position = final_target_cam_pos
+		_needs_instant_snap = false
+	else:
+		global_camera_rig.global_position = global_camera_rig.global_position.lerp(
+			final_target_cam_pos, follow_speed * delta
+		)
+
+	# ---> THE OFFSET FIX <---
+	# Mathematically calculate the perfect pitch angle so the camera looks directly at the player
+	var pitch := -atan2(camera_local_offset.y, camera_local_offset.z)
+
 	global_camera_rig.rotation.y = rotation.y
-	# global_camera_rig.rotation.x = pitch
+	global_camera_rig.rotation.x = pitch  # Applies the exact tilt needed!
 	global_camera_rig.rotation.z = 0.0
 
 
@@ -138,6 +148,7 @@ func set_room(room: RoomInstance) -> void:
 		room_size_units = Vector2(room.definition.size)
 
 	_look_target_initialized = false
+	_needs_instant_snap = true
 
 
 func deactivate() -> void:

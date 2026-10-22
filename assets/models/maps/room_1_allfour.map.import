@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bcbpcuo1pndy2"
+path="res://.godot/imported/room_1_allfour.map-ecda0199c2fea915dd008b5f09baa539.tres"
+
+[deps]
+
+source_file="res://assets/models/maps/room_1_allfour.map"
+dest_files=["res://.godot/imported/room_1_allfour.map-ecda0199c2fea915dd008b5f09baa539.tres"]
+
+[params]
+

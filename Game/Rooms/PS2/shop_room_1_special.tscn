@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b070751nbhml8"]
+
+[ext_resource type="Script" uid="uid://bt1mx8igf08ow" path="res://Game/World/shop_room_north.gd" id="1_vriqt"]
+[ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="2_assf6"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="3_4fos5"]
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_rargk"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_hv2nn"]
+[ext_resource type="PackedScene" uid="uid://debmyv0t0rnww" path="res://assets/models/tv_de_tubo_vermelha.tscn" id="6_1h064"]
+[ext_resource type="PackedScene" uid="uid://b0tmrmqhiv46b" path="res://assets/models/tv_de_tubo_azul.tscn" id="7_3d1k7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bgwa"]
+size = Vector3(6.340576, 2.6611328, 3.7456665)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fqy3o"]
+size = Vector3(3.7973022, 2.0478516, 7.599121)
+
+[node name="Arena 2" type="Node3D" unique_id=2117219993]
+script = ExtResource("1_vriqt")
+
+[node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
+script = ExtResource("2_assf6")
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
+transform = Transform3D(-4.371032e-08, 3.0516056e-10, 1, 0.0069812597, 0.9999756, 0, -0.99997556, 0.00698126, -4.371139e-08, 0, 1.7743073, -24.108486)
+script = ExtResource("3_4fos5")
+
+[node name="Links" type="Node3D" parent="." unique_id=502974924]
+
+[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1464736967]
+script = ExtResource("4_rargk")
+local_map_file = "uid://lxltidckijdq"
+map_settings = ExtResource("5_hv2nn")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="TV_DE_TUBO" parent="." unique_id=926950336 instance=ExtResource("6_1h064")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0054688454, 3.6069994, -4.980322)
+
+[node name="TV_DE_TUBO2" parent="." unique_id=650483246 instance=ExtResource("7_3d1k7")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.40121, 3.6070004, 5.713148)
+
+[node name="x_area" type="Area3D" parent="." unique_id=338940070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8601465, -1.9895756)
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="x_area" unique_id=765638470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.13937378)
+shape = SubResource("BoxShape3D_2bgwa")
+
+[node name="z_area" type="Area3D" parent="." unique_id=906583778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.946107, 4.1084347, 6.6186886)
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="z_area" unique_id=1036590223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24441528, 0, -0.6086426)
+shape = SubResource("BoxShape3D_fqy3o")

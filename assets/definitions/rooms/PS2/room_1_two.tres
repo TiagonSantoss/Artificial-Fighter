@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://brwv13sbgro82"]
+
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_vtnwd"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_kkkl1"]
+
+[resource]
+script = ExtResource("2_kkkl1")
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

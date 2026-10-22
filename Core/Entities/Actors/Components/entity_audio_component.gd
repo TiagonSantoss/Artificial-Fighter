@@ -19,7 +19,7 @@ func play_single_sfx(sfx: String) -> void:
 		return
 
 	entity.emitter.event_name = "event:/SFX/" + sfx
-
-	entity.emitter.set_parameter()
+	#
+	# entity.emitter.set_parameter()
 
 	entity.emitter.play_one_shot()

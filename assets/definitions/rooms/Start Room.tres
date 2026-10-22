@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_l38xh"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_3xq8t"]
-[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/Start_Room.tscn" id="2_ihd7j"]
+[ext_resource type="PackedScene" uid="uid://jy03v0ofdl47" path="res://Game/Rooms/PS2/start_room.tscn" id="2_ihd7j"]
 
 [resource]
 script = ExtResource("2_3xq8t")
 id = "0"
 scene = ExtResource("2_ihd7j")
-available_doors = Array[int]([0, 1, 2, 3])
+available_doors = Array[int]([0, 1, 2, 3, 4])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

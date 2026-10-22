@@ -6,11 +6,8 @@
 [ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="6_264k8"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="7_ups1s"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="8_fo2dy"]
+[ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="8_ups1s"]
 [ext_resource type="Material" uid="uid://cq6o6v7docyq2" path="res://assets/models/maps/textures/Prototype_symbol_cross_32x32px.tres" id="8_y5v8f"]
-[ext_resource type="Material" uid="uid://bnx4x15lwo2e2" path="res://assets/models/maps/textures/Prototype_checkers_03_32x32px.tres" id="10_1b2gp"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dt1lj"]
-size = Vector3(22.767405, 9.144062, 36.316322)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
 size = Vector3(2.4829102, 13.466553, 41.217163)
@@ -34,6 +31,8 @@ _surfaces = [{
 vertices = PackedVector3Array(-19.390291, -1.0411987, -19.406803, -19.390291, -1.0411987, 19.343197, 19.359709, -1.0411987, 19.343197, 19.359709, -1.0411987, -19.406803)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2bgwa"]
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_y5v8f"]
 _surfaces = [{
 "aabb": AABB(-26, -2, -26, 52, 2, 52),
@@ -41,7 +40,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 36,
 "index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcA"),
-"material": ExtResource("10_1b2gp"),
+"material": SubResource("StandardMaterial3D_2bgwa"),
 "name": "Prototype_checkers_03_32x32px",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -53,14 +52,6 @@ _surfaces = [{
 points = PackedVector3Array(26, 0, 26, 26, -2, 26, -26, 0, 26, -26, -2, 26, 26, 0, -26, 26, -2, -26, -26, 0, -26, -26, -2, -26)
 
 [node name="Arena 1" type="Node3D" unique_id=2117219993]
-
-[node name="RoomArea" type="Area3D" parent="." unique_id=2126480861]
-collision_layer = 0
-collision_mask = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomArea" unique_id=8180320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040247917, 1.5124397, 0.5118427)
-shape = SubResource("BoxShape3D_dt1lj")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
 script = ExtResource("2_3jnca")
@@ -161,7 +152,6 @@ transform = Transform3D(0.7650112, 0, 0, 0, 1, 0, 0, 0, 0.7656463, 0, -1.5411987
 collision_mask = 0
 
 [node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2059289024]
-visible = false
 mesh = SubResource("ArrayMesh_y5v8f")
 
 [node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=977857331]
@@ -173,3 +163,18 @@ script = ExtResource("7_ups1s")
 local_map_file = "uid://c1srjg1672dbg"
 map_settings = ExtResource("8_fo2dy")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("8_ups1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.083324, 0.33175993, 0)
+direction = 1
+
+[node name="DoorSocket2" parent="." unique_id=1531760253 instance=ExtResource("8_ups1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13939285, 0.33175993, 15.442066)
+
+[node name="DoorSocket3" parent="." unique_id=638029189 instance=ExtResource("8_ups1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13939285, 0.33175993, -15.666685)
+direction = 3
+
+[node name="DoorSocket4" parent="." unique_id=906243496 instance=ExtResource("8_ups1s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.295166, 0.33175993, -0.15979195)
+direction = 2

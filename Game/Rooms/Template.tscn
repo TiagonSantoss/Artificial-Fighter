@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="6_2djid"]
 [ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="6_pgm35"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="7_tgiwm"]
+[ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="8_2djid"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
 agent_height = 2.0
@@ -122,3 +123,5 @@ script = ExtResource("6_2djid")
 local_map_file = "uid://lxltidckijdq"
 map_settings = ExtResource("7_tgiwm")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("8_2djid")]
