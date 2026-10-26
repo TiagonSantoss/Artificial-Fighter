@@ -16,12 +16,12 @@ shader = ExtResource("2_n4wst")
 shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/gradient_color = Color(0.8806993, 0.89460146, 0.9448832, 1)
 shader_parameter/gradient_angle = 102.2810048583475
-shader_parameter/gradient_scale = 1.04000004614012
+shader_parameter/gradient_scale = 0.10000000149012
 shader_parameter/dot_color = Color(0.04031481, 0.053938203, 0.13311192, 1)
 shader_parameter/spacing = 10.0
-shader_parameter/dot_size = 12.0430005245425
+shader_parameter/dot_size = 17.81200079857
 shader_parameter/scroll_speed = Vector2(15, 15)
-shader_parameter/edge_shrink_intensity = 1.5170000720575
+shader_parameter/edge_shrink_intensity = 1.2150000577125
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
 shader_parameter/vignette_multiplier = 0.0
 
@@ -194,6 +194,7 @@ stretch_mode = 5
 event_name = "event:/Music/theVibeMusic"
 event_guid = "{3331668f-a543-4e14-9385-bc5495ced6c4}"
 autoplay = true
+volume = 0.0
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=631336112]
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank"]

@@ -46,6 +46,6 @@ void fragment() {
     vec4 pattern_color = mix(current_bg, dot_color, alpha);
     
     // 3. Vignette
-    float vignette_mask = clamp((dist_from_center * dist_from_center) * vignette_multiplier, 0.0, 1.0);
-    COLOR = mix(pattern_color, vignette_color, vignette_mask);
+    //float vignette_mask = clamp((dist_from_center * dist_from_center) * vignette_multiplier, 0.0, 1.0);
+    COLOR = pattern_color;
 }
