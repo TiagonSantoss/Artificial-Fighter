@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://uc3isrvje1u"]
+
+[ext_resource type="Script" uid="uid://iyj54hu7vhej" path="res://Game/UI/MainMenu/director.gd" id="1_5svyl"]
+[ext_resource type="Shader" uid="uid://dulc4j5ggfywd" path="res://assets/shaders/background.gdshader" id="2_n4wst"]
+[ext_resource type="Script" uid="uid://hw205ocb54lx" path="res://Game/UI/MainMenu/hover.gd" id="3_58csg"]
+[ext_resource type="Shader" uid="uid://bvw67pvh3bb2d" path="res://assets/shaders/invert_viewport_color.gdshader" id="3_dmg7p"]
+[ext_resource type="Texture2D" uid="uid://bs21qy2hb554d" path="res://assets/images/UI/GIZMOS.png" id="4_58csg"]
+[ext_resource type="Shader" uid="uid://bin0rrjmgae1" path="res://assets/shaders/invert_canvas.gdshader" id="5_718h0"]
+[ext_resource type="Texture2D" uid="uid://dmlkr452v2whr" path="res://assets/images/UI/play.png" id="6_t0p1s"]
+[ext_resource type="Texture2D" uid="uid://c0waustyuvheu" path="res://assets/images/UI/options.png" id="7_dmg7p"]
+[ext_resource type="Texture2D" uid="uid://bf7vlpyhadq0e" path="res://assets/images/UI/credits.png" id="8_718h0"]
+[ext_resource type="Texture2D" uid="uid://bcrhvuwcdfeb1" path="res://assets/images/UI/exit.png" id="9_6x5qi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
+shader = ExtResource("2_n4wst")
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/gradient_color = Color(0.8806993, 0.89460146, 0.9448832, 1)
+shader_parameter/gradient_angle = 102.2810048583475
+shader_parameter/gradient_scale = 1.04000004614012
+shader_parameter/dot_color = Color(0.04031481, 0.053938203, 0.13311192, 1)
+shader_parameter/spacing = 10.0
+shader_parameter/dot_size = 12.0430005245425
+shader_parameter/scroll_speed = Vector2(15, 15)
+shader_parameter/edge_shrink_intensity = 1.5170000720575
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/vignette_multiplier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ir6a"]
+shader = ExtResource("3_dmg7p")
+
+[sub_resource type="Gradient" id="Gradient_t0p1s"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_718h0"]
+gradient = SubResource("Gradient_t0p1s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lq6ai"]
+emission_shape = 3
+emission_box_extents = Vector3(5, 1, 2)
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+angular_velocity_min = -45.000015
+angular_velocity_max = 44.999985
+gravity = Vector3(0, -1, 0)
+color_ramp = SubResource("GradientTexture1D_718h0")
+turbulence_enabled = true
+turbulence_noise_strength = 2.0
+turbulence_noise_scale = 4.0
+turbulence_noise_speed_random = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmg7p"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_t0p1s"]
+material = SubResource("StandardMaterial3D_dmg7p")
+size = Vector3(3, 10, 3)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_md635"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmg7p"]
+shader = ExtResource("5_718h0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxmqv"]
+shader = ExtResource("5_718h0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_718h0"]
+shader = ExtResource("5_718h0")
+
+[node name="Node2D" type="Control" unique_id=1064789993]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5svyl")
+
+[node name="background" type="ColorRect" parent="." unique_id=1665782955]
+material = SubResource("ShaderMaterial_2bgwa")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node3D" type="SubViewportContainer" parent="." unique_id=123352149]
+material = SubResource("ShaderMaterial_3ir6a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Node3D" unique_id=640092571]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/SubViewport" unique_id=1473405393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9199967, 4.7459855)
+
+[node name="blocks" type="GPUParticles3D" parent="Node3D/SubViewport" unique_id=1981199642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8905853, 0)
+amount = 30
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_lq6ai")
+draw_pass_1 = SubResource("BoxMesh_t0p1s")
+script = ExtResource("3_58csg")
+
+[node name="characters" type="GPUParticles3D" parent="Node3D/SubViewport" unique_id=616568224]
+process_material = SubResource("ParticleProcessMaterial_md635")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D/SubViewport" unique_id=1479947949]
+light_energy = 0.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Node3D" unique_id=1847705789]
+position = Vector2(959, 545.5)
+scale = Vector2(9.56, 5.375)
+copy_mode = 2
+
+[node name="UILayer" type="MarginContainer" parent="." unique_id=2078500113]
+material = SubResource("ShaderMaterial_dmg7p")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="UILayer" unique_id=1573839756]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="TextureRect" parent="UILayer/Menu" unique_id=1550748548]
+material = SubResource("ShaderMaterial_gxmqv")
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+texture = ExtResource("4_58csg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="UILayer/Menu" unique_id=1779857996]
+visible = false
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="UILayer/Menu" unique_id=373284036]
+layout_mode = 2
+theme_override_constants/separation = -55
+alignment = 1
+
+[node name="Play" type="TextureButton" parent="UILayer/Menu/Buttons" unique_id=63308341]
+material = SubResource("ShaderMaterial_718h0")
+custom_minimum_size = Vector2(0, 191.116)
+layout_mode = 2
+texture_normal = ExtResource("6_t0p1s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Options" type="TextureButton" parent="UILayer/Menu/Buttons" unique_id=1013225761]
+material = SubResource("ShaderMaterial_718h0")
+custom_minimum_size = Vector2(400, 191.116)
+layout_mode = 2
+texture_normal = ExtResource("7_dmg7p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Credits" type="TextureButton" parent="UILayer/Menu/Buttons" unique_id=1764498155]
+material = SubResource("ShaderMaterial_718h0")
+custom_minimum_size = Vector2(400, 191.116)
+layout_mode = 2
+texture_normal = ExtResource("8_718h0")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Exit" type="TextureButton" parent="UILayer/Menu/Buttons" unique_id=2072556098]
+material = SubResource("ShaderMaterial_718h0")
+custom_minimum_size = Vector2(400, 191.116)
+layout_mode = 2
+texture_normal = ExtResource("9_6x5qi")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Intro" type="AnimationPlayer" parent="." unique_id=643472132]
+
+[node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="." unique_id=1473116646]
+event_name = "event:/Music/theVibeMusic"
+event_guid = "{3331668f-a543-4e14-9385-bc5495ced6c4}"
+autoplay = true
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=631336112]
+bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank"]
