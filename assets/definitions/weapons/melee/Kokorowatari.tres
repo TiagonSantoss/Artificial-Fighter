@@ -23,4 +23,5 @@ billboard = 0
 texture_filter = 3
 is_melee = true
 melee = ExtResource("2_ixxsq")
+icon = ExtResource("4_c741t")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"

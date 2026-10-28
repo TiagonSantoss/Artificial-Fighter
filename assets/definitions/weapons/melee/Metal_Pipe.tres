@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://2v58ds8dm73l"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_uavgm"]
+[ext_resource type="Resource" uid="uid://c6axyp0tnkmlg" path="res://assets/definitions/projectiles/melee/metal_pipe_swing.tres" id="2_6v7jf"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_wko2j"]
+[ext_resource type="Texture2D" uid="uid://bh32xoygnrrhc" path="res://assets/sprites/combat/metal_pipe.png" id="3_uavgm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j24wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_uavgm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_wko2j")
+sprite_frames = SubResource("SpriteFrames_j24wk")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+damage_multiplier = 2.3
+knockback_multiplier = 1.6
+speed_multiplier = 0.5
+fire_rate = 2.5
+pierce_multiplier = 1.7
+recoil = 3.0
+spread = 0.0
+stun_duration = 2.0
+projectile_count = 0
+is_melee = true
+melee = ExtResource("2_6v7jf")
+icon = ExtResource("3_uavgm")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

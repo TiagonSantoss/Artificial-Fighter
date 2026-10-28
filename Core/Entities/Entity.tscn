@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://7k3rw2jwh6e3" path="res://Core/Entities/Actors/Components/accessories_component.gd" id="13_mdepg"]
 [ext_resource type="Script" uid="uid://dqygi3xwh5g36" path="res://Core/Entities/Actors/Components/cards_component.gd" id="13_vuvms"]
 [ext_resource type="Script" uid="uid://3qtwxqcmi0tc" path="res://Core/Entities/Actors/Components/rank_component.gd" id="14_mdepg"]
+[ext_resource type="Script" uid="uid://ko0rksdgwotm" path="res://Core/Entities/Actors/Components/weapon_inventory_component.gd" id="16_iqbtn"]
 [ext_resource type="Script" uid="uid://cau1ck3i7d5a4" path="res://Core/Entities/Actors/Components/currency_component.gd" id="26_i4vqt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_avlqe"]
@@ -116,6 +117,9 @@ script = ExtResource("14_mdepg")
 
 [node name="CurrencyComponent" type="Node" parent="Components" unique_id=1244540654]
 script = ExtResource("26_i4vqt")
+
+[node name="WeaponInventoryComponent" type="Node" parent="Components" unique_id=43728738]
+script = ExtResource("16_iqbtn")
 
 [node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
 event_name = "event:/SFX/Entity/EntityHurt"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BackSlashBehavior" format=3 uid="uid://beh8bg6spfuhk"]
+
+[ext_resource type="Script" uid="uid://dp5hqy4a3gcpe" path="res://Core/Container/Components/Behaviors/backslash_behavior.gd" id="1_cxm2a"]
+
+[resource]
+script = ExtResource("1_cxm2a")
+allowed_weapon_type = 1
+metadata/_custom_type_script = "uid://dp5hqy4a3gcpe"

@@ -1,5 +1,5 @@
 class_name WeaponDefinition
-extends Resource
+extends ItemDefinition
 
 @export_category("Visuals")
 @export var sprite_frames: SpriteFrames

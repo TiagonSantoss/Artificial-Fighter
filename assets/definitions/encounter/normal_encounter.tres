@@ -9,5 +9,5 @@
 [resource]
 script = ExtResource("2_07to5")
 possible_enemies = Array[ExtResource("1_hnj2p")]([ExtResource("2_wo4ft"), ExtResource("4_4meqb"), ExtResource("3_wo4ft")])
-spawn_count = 2
+spawn_count = 5
 metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

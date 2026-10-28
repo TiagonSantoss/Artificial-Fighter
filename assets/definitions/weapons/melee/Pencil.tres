@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://oa3bo5ddyywk"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_21md4"]
+[ext_resource type="Resource" uid="uid://de60um4b5imro" path="res://assets/definitions/projectiles/melee/pencil_swing.tres" id="2_21md4"]
+[ext_resource type="Texture2D" uid="uid://7sqhfltvjcb2" path="res://assets/sprites/combat/pencil.png" id="3_7xgex"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="3_ub3p0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j24wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7xgex")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_ub3p0")
+sprite_frames = SubResource("SpriteFrames_j24wk")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+damage_multiplier = 0.2
+knockback_multiplier = 0.6
+speed_multiplier = 0.7
+fire_rate = 0.7
+pierce_multiplier = 1.0
+recoil = 0.0
+spread = 0.0
+stun_duration = 0.0
+projectile_count = 0
+is_melee = true
+melee = ExtResource("2_21md4")
+icon = ExtResource("3_7xgex")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

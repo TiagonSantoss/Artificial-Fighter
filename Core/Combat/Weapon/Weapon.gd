@@ -46,6 +46,7 @@ func setup(weapon_definition, owner_entity):
 	visual_component.setup(self)
 	attack_component.setup(self)
 	audio_component.setup(self)
+	behavior_component.setup(self)
 
 	if default_behaviors:
 		equip_default_behaviors()

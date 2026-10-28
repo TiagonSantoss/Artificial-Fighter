@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://cbr3c4afytlwp"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_q50vb"]
+[ext_resource type="Resource" uid="uid://brycpdikn2lob" path="res://assets/definitions/projectiles/monogatari_throw.tres" id="2_q50vb"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="3_51ccv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nhhgh"]
+
+[resource]
+script = ExtResource("3_51ccv")
+sprite_frames = SubResource("SpriteFrames_nhhgh")
+damage_multiplier = 0.5
+knockback_multiplier = 1.3
+fire_rate = 5.0
+pierce_multiplier = 5.0
+recoil = 0.0
+spread = 5.0
+stun_duration = 3.0
+projectile = ExtResource("2_q50vb")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

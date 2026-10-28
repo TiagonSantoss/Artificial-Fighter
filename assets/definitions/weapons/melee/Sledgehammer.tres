@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://d2pgc055a5uk6"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_bmdbd"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_bgomg"]
+[ext_resource type="Resource" uid="uid://o6ifodpb7hvb" path="res://assets/definitions/projectiles/melee/sledgehammer_swing.tres" id="2_kbt37"]
+[ext_resource type="Texture2D" uid="uid://csmguoxitonfh" path="res://assets/sprites/combat/sledgehammer.png" id="4_jffob"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j24wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jffob")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_bgomg")
+sprite_frames = SubResource("SpriteFrames_j24wk")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+damage_multiplier = 8.0
+knockback_multiplier = 8.0
+speed_multiplier = 0.1
+fire_rate = 12.0
+pierce_multiplier = 8.0
+recoil = 5.0
+spread = 0.0
+stun_duration = 12.0
+projectile_count = 0
+is_melee = true
+melee = ExtResource("2_kbt37")
+icon = ExtResource("4_jffob")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EchoSlashBehavior" format=3 uid="uid://46hjn648t8y5"]
+
+[ext_resource type="Script" uid="uid://bykxhsjcmvlp8" path="res://Core/Container/Components/Behaviors/echo_slash_behavior.gd" id="1_gbx31"]
+
+[resource]
+script = ExtResource("1_gbx31")
+metadata/_custom_type_script = "uid://bykxhsjcmvlp8"

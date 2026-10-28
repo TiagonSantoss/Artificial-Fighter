@@ -108,3 +108,90 @@ func update_aim(dir: Vector3) -> void:
 
 func get_muzzle_position() -> Vector3:
 	return muzzle.global_position
+
+
+func create_phantom_weapon(aim_dir: Vector3, delay: float = 0.0) -> void:
+	if delay > 0:
+		await get_tree().create_timer(delay, false).timeout
+
+	if not is_instance_valid(sprite):
+		return
+
+	# 1. Create a temporary AnimatedSprite3D copy
+	var phantom = AnimatedSprite3D.new()
+	phantom.sprite_frames = sprite.sprite_frames
+	phantom.animation = sprite.animation
+	phantom.frame = sprite.frame
+	phantom.pixel_size = sprite.pixel_size
+	phantom.billboard = sprite.billboard
+	phantom.scale = sprite.scale
+
+	# 2. Setup the Shader & Animation Sync
+	var duplicate_mat = null
+	if shader_mat != null:
+		duplicate_mat = shader_mat.duplicate()
+		phantom.material_override = duplicate_mat
+
+		# FIX 1: The custom shader needs its texture manually updated every frame!
+		# This inline signal forces the phantom to animate exactly like the main _process loop does.
+		phantom.frame_changed.connect(
+			func():
+				if is_instance_valid(phantom) and phantom.sprite_frames:
+					var tex = phantom.sprite_frames.get_frame_texture(
+						phantom.animation, phantom.frame
+					)
+					duplicate_mat.set_shader_parameter("main_texture", tex)
+		)
+
+		# Force the very first frame to load immediately
+		if phantom.sprite_frames:
+			var tex = phantom.sprite_frames.get_frame_texture(phantom.animation, phantom.frame)
+			duplicate_mat.set_shader_parameter("main_texture", tex)
+
+		# Invert the screen visuals
+		var current_flip = shader_mat.get_shader_parameter("flip_gun")
+		duplicate_mat.set_shader_parameter("flip_gun", not current_flip)
+
+		var current_offset = shader_mat.get_shader_parameter("gun_offset")
+		if current_offset != null:
+			current_offset.x *= -1.0
+			duplicate_mat.set_shader_parameter("gun_offset", current_offset)
+
+	phantom.modulate = Color(1, 1, 1, 0.7)
+
+	# FIX 2: Attach it directly to the Wielder (Player).
+	# This prevents it from spinning wildly if you move your mouse while it's fading out!
+	weapon.wielder.add_child(phantom)
+
+	# FIX 3: Push it 1.2 meters away in pure World Space using the aim direction.
+	# (Since BackSlashBehavior reverses aim_dir before calling this, it pushes perfectly backward)
+	phantom.global_position = weapon.wielder.global_position + (aim_dir.normalized() * 1.2)
+
+	# Play the sprite so the frame_changed signal actually fires!
+	phantom.play(sprite.animation)
+
+	# 4. Play the shader swing animation
+	if duplicate_mat != null:
+		var swing_tween = create_tween()
+		var swing_target = -1.5 if duplicate_mat.get_shader_parameter("flip_gun") else 1.5
+		var windup_angle = -0.7 * sign(swing_target)
+
+		(
+			swing_tween
+			. tween_method(set_swing.bind(duplicate_mat), 0.0, windup_angle, 0.2)
+			. set_trans(Tween.TRANS_QUAD)
+			. set_ease(Tween.EASE_OUT)
+		)
+		(
+			swing_tween
+			. tween_method(set_swing.bind(duplicate_mat), windup_angle, swing_target, 0.15)
+			. set_trans(Tween.TRANS_SINE)
+		)
+		swing_tween.tween_method(set_swing.bind(duplicate_mat), swing_target, 0.0, 0.25).set_trans(
+			Tween.TRANS_QUAD
+		)
+
+	# 5. Fade out
+	var fade_tween = create_tween()
+	fade_tween.tween_property(phantom, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD)
+	fade_tween.tween_callback(phantom.queue_free)

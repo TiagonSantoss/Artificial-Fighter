@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://bm4i3wwk2oyqf"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_ssdcj"]
+[ext_resource type="Resource" uid="uid://bmn0lokx3wvnh" path="res://assets/definitions/projectiles/melee/please_punch_swing.tres" id="2_ssdcj"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="3_t8qli"]
+[ext_resource type="Texture2D" uid="uid://qibmrohj1oue" path="res://assets/sprites/combat/please_punch.png" id="4_e72he"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j24wk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e72he")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_t8qli")
+sprite_frames = SubResource("SpriteFrames_j24wk")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+damage_multiplier = 2.3
+knockback_multiplier = 18.0
+speed_multiplier = 0.4
+fire_rate = 1.7
+pierce_multiplier = 5.0
+recoil = 4.0
+spread = 0.0
+stun_duration = 3.0
+projectile_count = 0
+is_melee = true
+melee = ExtResource("2_ssdcj")
+icon = ExtResource("4_e72he")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

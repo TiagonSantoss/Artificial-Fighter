@@ -147,9 +147,18 @@ func _collect_item(body: Entity) -> void:
 	if instance == null or instance.definition == null:
 		return
 
+	var raw_def: Variant = instance.definition
+
+	# 0. Handle Weapons (Calls your WeaponInventoryComponent!)
+	if raw_def is WeaponDefinition:
+		var weapon_inv = body.get_node_or_null("WeaponInventoryComponent")
+		if weapon_inv != null:
+			weapon_inv.pickup_weapon_from_world(self)
+			return
+
 	# 1. Handle Status Effects / Accessories
-	if instance.definition is EffectDefinition or AccessoryDefinition:
-		if "effects_component" in body and body.effects_component != null:
+	if raw_def is EffectDefinition or raw_def is AccessoryDefinition:
+		if "accessories_component" in body and body.accessories_component != null:
 			if body.accessories_component.accessories.add(instance):
 				_finalize_pickup()
 				return

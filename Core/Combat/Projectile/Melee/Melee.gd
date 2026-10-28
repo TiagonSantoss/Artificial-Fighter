@@ -50,13 +50,26 @@ func setup(
 
 	# 1. Determine flip state using the same camera logic as your visual component
 	var is_flipped := false
-	var camera := get_viewport().get_camera_3d()
-	if camera != null:
-		var cam_basis := camera.global_transform.basis.orthonormalized()
-		var cam_dir := cam_basis.inverse() * strike_direction
-		is_flipped = cam_dir.x < 0.0
+	var current_viewport = get_viewport()
 
-	var area_shape := hitbox.get_node_or_null("CollisionShape3D")
+	# If this node isn't in the tree yet (like when duplicating), borrow the source entity's viewport
+	if (
+		current_viewport == null
+		and is_instance_valid(source_entity)
+		and source_entity.is_inside_tree()
+	):
+		current_viewport = source_entity.get_viewport()
+
+	if current_viewport != null:
+		var camera := current_viewport.get_camera_3d()
+		if camera != null:
+			var cam_basis := camera.global_transform.basis.orthonormalized()
+			var cam_dir := cam_basis.inverse() * strike_direction
+			is_flipped = cam_dir.x < 0.0
+
+	var current_hitbox = hitbox if hitbox != null else get_node("Area3D")
+	var area_shape := current_hitbox.get_node_or_null("CollisionShape3D")
+
 	if is_instance_valid(area_shape):
 		var current_offset = definition.hitbox_offset
 		if is_flipped:

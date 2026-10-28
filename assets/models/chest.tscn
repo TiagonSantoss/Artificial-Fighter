@@ -108,10 +108,16 @@ size = Vector3(4, 3, 4.258789)
 [node name="bottom" parent="." index="0" unique_id=127607405]
 mesh = SubResource("ArrayMesh_bp1or")
 
-[node name="top" parent="Top/Skeleton3D/Bone" parent_id_path=PackedInt32Array(55298472) index="0" unique_id=1629782717]
+[node name="Skeleton3D" parent="Top" parent_id_path=PackedInt32Array(1475189095) index="0" unique_id=1546186020]
+bones/0/rotation = Quaternion(0, 0, 0.69780076, 0.71629196)
+
+[node name="Bone" parent="Top/Skeleton3D" index="0" unique_id=55298472]
+transform = Transform3D(0.0261482, -0.99965817, 0, 0.99965817, 0.0261482, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="top" parent="Top/Skeleton3D/Bone" index="0" unique_id=1629782717]
 mesh = SubResource("ArrayMesh_trlyu")
 
-[node name="top_001" parent="Top/Skeleton3D/Bone" parent_id_path=PackedInt32Array(55298472) index="1" unique_id=1223554669]
+[node name="top_001" parent="Top/Skeleton3D/Bone" index="1" unique_id=1223554669]
 mesh = SubResource("ArrayMesh_bv3sb")
 
 [node name="Area3D" type="Area3D" parent="." index="3" unique_id=1138252863 node_paths=PackedStringArray("animation_player")]

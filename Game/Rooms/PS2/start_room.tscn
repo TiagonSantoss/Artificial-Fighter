@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_oqk6f"]
 [ext_resource type="PackedScene" uid="uid://co464qq4ci6c7" path="res://Game/Debugging Machine.tscn" id="6_oqk6f"]
 [ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="7_k7wdg"]
+[ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="7_mlk7b"]
+[ext_resource type="Resource" uid="uid://csxa16v23ubnf" path="res://assets/items/accesories/swordrow.tres" id="8_jtlru"]
 [ext_resource type="PackedScene" uid="uid://5vm83pufruwe" path="res://assets/models/chest.tscn" id="8_v6hk5"]
 
 [sub_resource type="GDScript" id="GDScript_g3gis"]
@@ -341,7 +343,7 @@ points = PackedVector3Array(2, 4, 8, 2, 2, 8, -2, 4, 8, -2, 2, 8, 2, 4, -8, 2, 2
 script = SubResource("GDScript_g3gis")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(0.890229, 5.0228624, -0.8666425, -0.31234172, 7.1855483, 0.84145314, 1.1656454, -1.9097791, 0.8870355, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-0.55279315, -2.2899766, -1.3394481, -1.1280969, -4.3337092, 0.67181104, -0.81882983, 7.515257, -0.02086559, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]
@@ -449,6 +451,7 @@ shape = SubResource("ConvexPolygonShape3D_iwvna")
 
 [node name="DebuggingMachine" parent="." unique_id=900501115 instance=ExtResource("6_oqk6f")]
 transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 11.946413, 0.014974594, -16.130802)
+possible_items = Array[ExtResource("7_mlk7b")]([ExtResource("8_jtlru")])
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("7_k7wdg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.660595, 2.2853684, 0)

@@ -18,8 +18,8 @@ func on_projectile_spawned(context: WeaponAttackContext, shot: AttackShot, proje
 		var behavior := instance.definition as BehaviorDefinition
 		if behavior:
 			behavior.on_projectile_spawned(context, shot, projectile, instance)
-
-			projectile.set_meta("source_behavior_component", self)
+			if behavior and behavior.can_apply_to(weapon):
+				projectile.set_meta("source_behavior_component", self)
 
 
 func update_live_projectile(projectile: Projectile, delta: float) -> void:
@@ -32,7 +32,7 @@ func update_live_projectile(projectile: Projectile, delta: float) -> void:
 func on_melee_spawned(context, shot, melee):
 	for instance in behaviors.contents:
 		var behavior := instance.definition as BehaviorDefinition
-		if behavior:
+		if behavior and behavior.can_apply_to(weapon):
 			behavior.on_melee_spawned(context, shot, melee, instance)
 
 

@@ -111,6 +111,16 @@ func fire(direction: Vector3):
 		request.damage_multiplier = shot.damage_multiplier
 		request.knockback_multiplier = shot.knockback_multiplier
 
+		request.pierce_multiplier = shot.pierce_multiplier
+
+		if "speed_multiplier" in request:
+			request.speed_multiplier = shot.speed_multiplier
+		if (
+			"projectile_size_multiplier" in request
+			and "projectile_size_multiplier" in weapon.definition
+		):
+			request.projectile_size_multiplier = weapon.definition.projectile_size_multiplier
+
 		if "speed_multiplier" in request:
 			request.speed_multiplier = shot.speed_multiplier
 		if (
