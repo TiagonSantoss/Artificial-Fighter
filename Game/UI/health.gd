@@ -45,12 +45,16 @@ func _on_health_changed(new_health: float) -> void:
 		. set_ease(Tween.EASE_OUT)
 	)
 
+	SceneManager.shake(0.5, 0.2)
+	SceneManager.pulse_vignette(0.2, 1.0)
+
 
 func _process(_delta: float) -> void:
 	text = str(round(displayed_health))
 
 	if actual_health < low_health_threshold:
 		_apply_wiggle()
+		SceneManager.shake(0.1, 0.2)
 	else:
 		_reset_transform()
 
@@ -59,7 +63,6 @@ func _apply_wiggle() -> void:
 	var random_x = randf_range(-max_shake, max_shake)
 	var random_y = randf_range(-max_shake, max_shake)
 
-	# Use offset_transform_position instead of position!
 	offset_transform_position = Vector2(random_x, random_y)
 	rotation_degrees = randf_range(-3.0, 3.0)
 

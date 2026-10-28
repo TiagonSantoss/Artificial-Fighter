@@ -117,9 +117,24 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 
 func start_dodge(duration: float) -> void:
 	is_dashing = true
-	# Wait for the i-frames to finish
+
+	_trail_loop()
+
 	await get_tree().create_timer(duration, false).timeout
 	is_dashing = false
+
+
+func _trail_loop() -> void:
+	while is_dashing:
+		var time = Time.get_ticks_msec() / 1000.0
+
+		var current_hue = wrapf(time, 0.0, 1.0)
+
+		var rainbow_color = Color.from_hsv(current_hue, 1.0, 1.0, 0.8)
+
+		SceneManager.spawn_trail(sprite, 0.4, rainbow_color)
+
+		await get_tree().create_timer(0.05, false).timeout
 
 
 func is_friendly_to(other_team: Team) -> bool:
@@ -146,7 +161,8 @@ func apply_hit(hit: HitData):
 		if parry_window_left > 0.0:
 			audio_component.play_sfx("ParrySound")
 			visual_effects_component.flash_blue()
-			_trigger_hitstop(0.1)
+			_trigger_hitstop(0.4)
+			SceneManager.play_impact_frame(GameAutoLoad.get_current_entity().position, 0.1)
 
 			GState.enemy_parried.emit(25.0)
 			return HitResult.CONSUME

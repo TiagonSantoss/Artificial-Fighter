@@ -77,6 +77,11 @@ func _on_rank_changed(new_rank: int, old_rank: int) -> void:
 		if tween and tween.is_running():
 			tween.kill()
 
+		if new_rank > 2:
+			pass
+			# var random_music := GodRNG.rng.randi_range(0, 3)
+			# FmodServer.set_global_parameter_by_name("MusicType", random_music)
+
 		tween = create_tween()
 		reaction_node.offset_transform_position = Vector2(0, -20)
 

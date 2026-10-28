@@ -8,8 +8,11 @@
 [ext_resource type="Shader" uid="uid://bin0rrjmgae1" path="res://assets/shaders/invert_canvas.gdshader" id="5_718h0"]
 [ext_resource type="Texture2D" uid="uid://dmlkr452v2whr" path="res://assets/images/UI/play.png" id="6_t0p1s"]
 [ext_resource type="Texture2D" uid="uid://c0waustyuvheu" path="res://assets/images/UI/options.png" id="7_dmg7p"]
+[ext_resource type="Texture2D" uid="uid://com7ajxyencut" path="res://assets/images/UI/pressed_play.png" id="8_6t1yk"]
+[ext_resource type="Script" uid="uid://xahp4autm0vb" path="res://Game/UI/MainMenu/play.gd" id="8_6x5qi"]
 [ext_resource type="Texture2D" uid="uid://bf7vlpyhadq0e" path="res://assets/images/UI/credits.png" id="8_718h0"]
 [ext_resource type="Texture2D" uid="uid://bcrhvuwcdfeb1" path="res://assets/images/UI/exit.png" id="9_6x5qi"]
+[ext_resource type="Texture2D" uid="uid://dsnikvoc7yhgq" path="res://assets/images/UI/hovered_play.png" id="9_slyes"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
 shader = ExtResource("2_n4wst")
@@ -161,8 +164,11 @@ material = SubResource("ShaderMaterial_718h0")
 custom_minimum_size = Vector2(0, 191.116)
 layout_mode = 2
 texture_normal = ExtResource("6_t0p1s")
+texture_pressed = ExtResource("8_6t1yk")
+texture_hover = ExtResource("9_slyes")
 ignore_texture_size = true
 stretch_mode = 5
+script = ExtResource("8_6x5qi")
 
 [node name="Options" type="TextureButton" parent="UILayer/Menu/Buttons" unique_id=1013225761]
 material = SubResource("ShaderMaterial_718h0")
@@ -191,10 +197,11 @@ stretch_mode = 5
 [node name="Intro" type="AnimationPlayer" parent="." unique_id=643472132]
 
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="." unique_id=1473116646]
-event_name = "event:/Music/theVibeMusic"
-event_guid = "{3331668f-a543-4e14-9385-bc5495ced6c4}"
+event_name = "event:/Music/MainMusics"
+event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
 autoplay = true
-volume = 0.0
+auto_release = true
+volume = 0.3
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=631336112]
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank"]

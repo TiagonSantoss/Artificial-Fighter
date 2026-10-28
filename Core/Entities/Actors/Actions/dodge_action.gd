@@ -14,8 +14,8 @@ func execute(actor: Entity, _delta: float) -> void:
 	if not actor.controller or not actor.movement_component:
 		return
 
-	var target_pos: Vector3 = actor.controller.aim_target
-	var dash_dir := target_pos - actor.global_position
+	# var target_pos: Vector3 = actor.controller.aim_target
+	var dash_dir := actor.velocity
 	dash_dir.y = 0
 
 	if dash_dir.length_squared() > 0.001:

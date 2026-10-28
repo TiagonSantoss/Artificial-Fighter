@@ -1,14 +1,13 @@
 class_name DungeonGenerator
 extends RefCounted
 
-var rng := RandomNumberGenerator.new()
 var visited_edges := {}
 
 
 func generate(
 	_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition
 ) -> RoomGraph:
-	rng.seed = _seed
+	GodRNG.set_run_seed(_seed)
 
 	var builder := RoomGraphBuilder.new()
 	var graph := builder.create_graph(start_room)
@@ -100,4 +99,4 @@ func _pick_compatible_room(
 	if candidates.is_empty():
 		return null
 
-	return candidates[rng.randi_range(0, candidates.size() - 1)]
+	return candidates[GodRNG.rng.randi_range(0, candidates.size() - 1)]

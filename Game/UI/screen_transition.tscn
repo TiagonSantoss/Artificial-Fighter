@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://de6u3jrwvdvn7"]
+
+[ext_resource type="Shader" uid="uid://f3hdgf7rf1rj" path="res://assets/shaders/fractal.gdshader" id="1_10gif"]
+[ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/dot_vignette.gdshader" id="2_s35i2"]
+[ext_resource type="Shader" uid="uid://cjbbwxorjiqyv" path="res://assets/shaders/impact_frame.gdshader" id="3_ybvxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xpsd"]
+shader = ExtResource("1_10gif")
+shader_parameter/progress = 0.608
+shader_parameter/speed = 0.1
+shader_parameter/pixelation = Vector2(2, 2)
+shader_parameter/zoom = 2.0
+shader_parameter/background_threshold = 0.0
+shader_parameter/color_threshold = 0.24
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybvxu"]
+shader = ExtResource("2_s35i2")
+shader_parameter/vignette_color = Color(1, 1, 1, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/spacing = 20.0
+shader_parameter/max_dot_size = 12.0
+shader_parameter/vignette_multiplier = 2.0
+shader_parameter/opacity = 0.50000002375
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hsg17"]
+shader = ExtResource("3_ybvxu")
+shader_parameter/center = Vector2(0.112, 0.5)
+shader_parameter/size = 0.06200000224648
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+
+[node name="ScreenTransition" type="Control" unique_id=1184265478]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TransitionEffect" type="ColorRect" parent="." unique_id=1046615288]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2xpsd")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DottedVignette" type="ColorRect" parent="." unique_id=743417262]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_ybvxu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ImpactFrame" type="ColorRect" parent="." unique_id=923306737]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_hsg17")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

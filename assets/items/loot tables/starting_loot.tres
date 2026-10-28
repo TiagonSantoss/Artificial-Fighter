@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LootTable" format=3 uid="uid://d0y5dmdygwtxc"]
+
+[ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="1_hp7c5"]
+[ext_resource type="Script" uid="uid://b8ih4p6c3s4n3" path="res://Core/Container/Components/Base/loot_pool.gd" id="2_1mbwq"]
+[ext_resource type="Resource" uid="uid://3cpkxgwk2jhu" path="res://assets/items/behaviors/spiral_pattern.tres" id="2_eq0va"]
+
+[resource]
+script = ExtResource("2_1mbwq")
+possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_eq0va")])
+metadata/_custom_type_script = "uid://b8ih4p6c3s4n3"

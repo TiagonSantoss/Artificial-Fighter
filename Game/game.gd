@@ -63,7 +63,7 @@ func _ready() -> void:
 
 func _boss_music():
 	print("SETTING GLOBAL PARAMETER")
-	FmodServer.set_global_parameter_by_name("Set", 2.0)
+	FmodServer.set_global_parameter_by_name("MusicType", 1)
 
 
 func _process(_delta: float) -> void:

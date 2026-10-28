@@ -90,6 +90,12 @@ func teleport_player(target_room_id: String, exited_direction: DoorSocket.Direct
 
 	_set_current_room(new_room)
 
+	SceneManager.cover_screen()
+
+	await SceneManager.reveal_screen()
+
+	SceneManager.shake(0.2, 0.1)
+
 	await get_tree().create_timer(1.2).timeout
 	is_teleporting = false
 

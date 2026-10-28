@@ -137,6 +137,9 @@ func fire(direction: Vector3):
 	if is_instance_valid(weapon.definition.shoot_sound):
 		weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
+	if weapon.wielder.entity_id == GameAutoLoad.get_current_entity().entity_id:
+		SceneManager.shake(0.1, 0.1)
+
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
 	can_fire = true
 
@@ -189,6 +192,9 @@ func swing(direction: Vector3):
 	weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
 	weapon.behavior_component.after_attack(context)
+
+	if weapon.wielder.entity_id == GameAutoLoad.get_current_entity().entity_id:
+		SceneManager.shake(0.3, 0.1)
 
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
 	can_fire = true

@@ -5,7 +5,7 @@ var follow_target: Entity
 var target: Entity
 
 var follow_distance := 8.0
-var attack_range := 8.0
+var attack_range := 16.0
 var formation_offset := Vector3.ZERO
 
 
