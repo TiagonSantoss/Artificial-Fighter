@@ -224,4 +224,4 @@ shape = SubResource("ConvexPolygonShape3D_r3mfj")
 shape = SubResource("ConvexPolygonShape3D_65xwt")
 
 [node name="DoorSocket3" parent="." unique_id=1325426674 instance=ExtResource("9_lqlmu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.222578, 7.1854243, -0.25989342)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.993797, 7.1854243, -0.25989342)

@@ -244,14 +244,14 @@ shape = SubResource("ConvexPolygonShape3D_yo06b")
 shape = SubResource("ConvexPolygonShape3D_1uryx")
 
 [node name="DoorSocket3" parent="." unique_id=1325426674 instance=ExtResource("9_up1p6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1829071, 3.9714732, -18.15741)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1829071, 3.9714732, -11.768986)
 direction = 3
 
 [node name="DoorSocket4" parent="." unique_id=609152283 instance=ExtResource("9_up1p6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.817093, 3.9714732, -0.15740967)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.448702, 3.9714732, -0.15740967)
 
 [node name="DoorSocket5" parent="." unique_id=1654730694 instance=ExtResource("9_up1p6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.182907, 5.7924294, 0.33654785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.560623, 5.7924294, 0.33654785)
 direction = 1
 
 [node name="DoorSocket6" parent="." unique_id=1121854977 instance=ExtResource("9_up1p6")]
