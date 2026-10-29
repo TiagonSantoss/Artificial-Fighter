@@ -31,7 +31,8 @@ var is_dashing := false
 
 var is_invincible: bool = false
 var iframe_duration: float = 1.0
-var stun_left := 0.0
+
+var stun_duration := 0.0
 
 var current_throw_direction: Vector3 = Vector3.ZERO
 
@@ -57,6 +58,8 @@ var current_throw_direction: Vector3 = Vector3.ZERO
 @onready var accessories_component: AccessoriesComponent = $Components/AccessoriesComponent
 @onready var rank_component: RankComponent = $Components/RankComponent
 @onready var currency_component: CurrencyComponent = $Components/CurrencyComponent
+@onready
+var weapon_inventory_component: WeaponInventoryComponent = $Components/WeaponInventoryComponent
 
 
 func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void:
@@ -100,6 +103,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 
 	effects_component.setup(self)
 	accessories_component.setup(self)
+	weapon_inventory_component.setup(self)
 	audio_component.setup(self)
 
 	rank_component.setup(self)
@@ -201,7 +205,7 @@ func apply_hit(hit: HitData):
 		start_iframes()
 
 		var incoming_stun = hit.stun_duration
-		stun_left = maxf(stun_left, incoming_stun)
+		stun_duration = maxf(stun_duration, incoming_stun)
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
@@ -356,7 +360,10 @@ func _physics_process(delta: float) -> void:
 	var was_blocking = is_blocking
 	is_blocking = false
 
-	if controller:
+	if stun_duration > 0.0:
+		stun_duration = maxf(0.0, stun_duration - delta)
+
+	if controller and stun_duration <= 0.0:
 		var actions = controller.get_actions(self, delta)
 		for action in actions:
 			if action is MovementAction:

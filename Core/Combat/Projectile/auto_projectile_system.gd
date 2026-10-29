@@ -4,7 +4,7 @@ var active_projectiles: Array[Projectile] = []
 
 var space_state: PhysicsDirectSpaceState3D
 var ray := PhysicsRayQueryParameters3D.new()
-var hit_data := HitData.new()
+# var hit_data := HitData.new()
 
 
 func _ready():
@@ -31,6 +31,8 @@ func _handle_projectile_hit(
 				return false
 		elif projectile.source_team == collider.get_team():
 			return false
+
+	var hit_data := HitData.new()
 
 	# Build hit data safely
 	hit_data.damage = projectile.definition.damage

@@ -36,6 +36,7 @@ func _create_attack_context(direction: Vector3) -> WeaponAttackContext:
 		shot.pierce_multiplier = weapon.pierce_multiplier
 		shot.speed_multiplier = weapon.speed_multiplier if "speed_multiplier" in weapon else 1.0
 		shot.melee = weapon.definition.melee
+		shot.stun_duration = weapon.definition.stun_duration
 
 		context.add_shot(shot)
 
@@ -112,6 +113,7 @@ func fire(direction: Vector3):
 		request.knockback_multiplier = shot.knockback_multiplier
 
 		request.pierce_multiplier = shot.pierce_multiplier
+		request.stun_duration = shot.stun_duration
 
 		if "speed_multiplier" in request:
 			request.speed_multiplier = shot.speed_multiplier
@@ -190,6 +192,8 @@ func swing(direction: Vector3):
 			shot.damage_multiplier,
 			shot.knockback_multiplier
 		)
+
+		melee_strike.stun_duration = shot.stun_duration
 
 		if "speed_multiplier" in melee_strike:
 			melee_strike.speed_multiplier = shot.speed_multiplier

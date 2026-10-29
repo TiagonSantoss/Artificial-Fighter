@@ -2,12 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="1_hp7c5"]
 [ext_resource type="Script" uid="uid://b8ih4p6c3s4n3" path="res://Core/Container/Components/Base/loot_pool.gd" id="2_1mbwq"]
-[ext_resource type="Resource" uid="uid://csxa16v23ubnf" path="res://assets/items/accesories/swordrow.tres" id="2_aycwc"]
-[ext_resource type="Resource" uid="uid://ckypcgp4vkmmx" path="res://assets/definitions/weapons/melee/Scythe.tres" id="3_5v0nr"]
-[ext_resource type="Resource" uid="uid://b07ib2irja7xy" path="res://assets/definitions/weapons/melee/Monogatari_reference.tres" id="4_sj8sb"]
-[ext_resource type="Resource" uid="uid://yuvxs6jgs5k4" path="res://assets/items/currency/Cash Cards.tres" id="5_hfoic"]
+[ext_resource type="Resource" uid="uid://c1mrer2qiyi3a" path="res://assets/items/cards/into_the_fire_x.tres" id="3_2dnvq"]
+[ext_resource type="Resource" uid="uid://b8ftkxrovtfhw" path="res://assets/items/effects/speed_effect.tres" id="4_aycwc"]
 
 [resource]
 script = ExtResource("2_1mbwq")
-possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_aycwc"), ExtResource("3_5v0nr"), ExtResource("4_sj8sb"), ExtResource("5_hfoic")])
+possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("3_2dnvq"), ExtResource("4_aycwc")])
 metadata/_custom_type_script = "uid://b8ih4p6c3s4n3"

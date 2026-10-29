@@ -23,11 +23,16 @@ var state := State.IDLE
 # Toss parameters
 var toss_velocity := Vector3.ZERO
 
+var pickup_cooldown := 0.0
+
 # Magnet parameters
 var target_entity: Entity = null
 var magnet_start_pos := Vector3.ZERO
 var magnet_side_dir := Vector3.ZERO
 var magnet_t := 0.0
+
+var ignored_body: Node = null
+var _blocked := false
 
 # Hover bobbing
 var hover_time := 0.0
@@ -40,6 +45,8 @@ var initial_y := 0.0
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+
 	initial_y = global_position.y
 
 	if instance != null:
@@ -47,7 +54,12 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# Billboard sprite to camera
+	if pickup_cooldown > 0.0:
+		pickup_cooldown -= delta
+		if pickup_cooldown <= 0.0:
+			for b in get_overlapping_bodies():
+				_try_magnet(b)
+
 	var cam := get_viewport().get_camera_3d()
 	if cam and sprite:
 		sprite.look_at(cam.global_position)
@@ -62,6 +74,13 @@ func _process(delta: float) -> void:
 
 
 func _process_idle(delta: float) -> void:
+	if _blocked:
+		var bodies := get_overlapping_bodies()
+		if bodies.is_empty():
+			_blocked = false
+		for b in bodies:
+			_try_magnet(b)
+
 	hover_time += delta
 	# Subtle floating animation
 	sprite.position.y = sin(hover_time * 3.0) * 0.15
@@ -85,11 +104,8 @@ func _process_toss(delta: float) -> void:
 
 func _process_magnet(delta: float) -> void:
 	if not is_instance_valid(target_entity):
-		state = State.IDLE
-		if trail:
-			trail.emitting = false
+		_abort_magnet()
 		return
-
 	var target_pos := target_entity.global_position + Vector3(0, 3.0, 0)
 	var total_dist := magnet_start_pos.distance_to(target_pos)
 
@@ -113,74 +129,91 @@ func _process_magnet(delta: float) -> void:
 func push_item(impulse: Vector3) -> void:
 	toss_velocity = impulse
 	initial_y = global_position.y
+	pickup_cooldown = 1.0
 	state = State.TOSS
 
 
 func _on_body_entered(body: Node) -> void:
-	if instance == null or state == State.MAGNET:
+	_try_magnet(body)
+
+
+func _on_body_exited(body: Node) -> void:
+	if body == ignored_body:
+		ignored_body = null
+
+
+func _try_magnet(body: Node) -> void:
+	if instance == null or state == State.MAGNET or pickup_cooldown > 0.0:
+		return
+	if not (body is Entity) or body == ignored_body:
+		return
+	if body.team == Entity.Team.ENEMY:
 		return
 
-	if body is Entity:
-		if body.team == Entity.Team.ENEMY:
+	# Weapons need the entity's cooldown to be over and no other weapon in flight
+	if instance.definition is WeaponDefinition:
+		var inv = body.weapon_inventory_component
+		if inv == null or not inv.try_claim_pickup(self):
+			_blocked = true
 			return
-		target_entity = body
-		magnet_start_pos = global_position
-		magnet_t = 0.0
 
-		# Calculate a lateral direction vector relative to target
-		var to_target = (body.global_position - global_position).normalized()
-		magnet_side_dir = to_target.cross(Vector3.UP).normalized()
+	_blocked = false
+	target_entity = body
+	magnet_start_pos = global_position
+	magnet_t = 0.0
 
-		# Randomly select left or right curve direction
-		if randf() > 0.5:
-			magnet_side_dir = -magnet_side_dir
+	var to_target = (body.global_position - global_position).normalized()
+	magnet_side_dir = to_target.cross(Vector3.UP).normalized()
+	if randf() > 0.5:
+		magnet_side_dir = -magnet_side_dir
+	if magnet_side_dir.length_squared() < 0.01:
+		magnet_side_dir = Vector3.RIGHT
 
-		if magnet_side_dir.length_squared() < 0.01:
-			magnet_side_dir = Vector3.RIGHT
+	state = State.MAGNET
+	if trail:
+		trail.emitting = true
 
-		state = State.MAGNET
-		if trail:
-			trail.emitting = true
+
+func _abort_magnet() -> void:
+	toss_velocity = Vector3.ZERO
+	state = State.TOSS
+	if trail:
+		trail.emitting = false
 
 
 func _collect_item(body: Entity) -> void:
 	if instance == null or instance.definition == null:
+		_abort_magnet()
 		return
 
-	var raw_def: Variant = instance.definition
+	var def := instance.definition
+	var accepted := false
 
-	# 0. Handle Weapons (Calls your WeaponInventoryComponent!)
-	if raw_def is WeaponDefinition:
-		var weapon_inv = body.get_node_or_null("WeaponInventoryComponent")
-		if weapon_inv != null:
-			weapon_inv.pickup_weapon_from_world(self)
-			return
+	if def is CurrencyDefinition:
+		accepted = body.currency_component != null and body.currency_component.collect_item(self)
+	elif def is WeaponDefinition:
+		accepted = (
+			body.weapon_inventory_component != null
+			and body.weapon_inventory_component.pickup_weapon(self)
+		)
+	elif def is EffectDefinition or def is AccessoryDefinition:
+		accepted = (
+			body.accessories_component != null
+			and body.accessories_component.accessories.add(instance)
+		)
+	else:  # behaviors
+		var wc = body.weapon_component
+		if wc != null and wc.equipped_weapon != null:
+			accepted = wc.equipped_weapon.equip_behavior(instance)
 
-	# 1. Handle Status Effects / Accessories
-	if raw_def is EffectDefinition or raw_def is AccessoryDefinition:
-		if "accessories_component" in body and body.accessories_component != null:
-			if body.accessories_component.accessories.add(instance):
-				_finalize_pickup()
-				return
+	if accepted:
+		_finalize_pickup()
+		return
 
-	# 2. Handle Weapon Behaviors
-	if body.weapon_component != null and body.weapon_component.equipped_weapon != null:
-		if body.weapon_component.equipped_weapon.equip_behavior(instance):
-			_finalize_pickup()
-			return
-
-	# 3. Fallback General Inventory
-	if ("inventory" in body) and body.inventory != null:
-		if body.inventory.add(instance):
-			_finalize_pickup()
-			return
-
-	# If no component accepted the item (or container is full), reset magnet state
-	state = State.IDLE
-	if sprite:
-		sprite.scale = Vector3.ONE * 0.5
-	if trail:
-		trail.emitting = false
+	push_warning("No component accepted item: %s" % def)
+	if def is WeaponDefinition and body.weapon_inventory_component:
+		body.weapon_inventory_component.release_claim(self)
+	_abort_magnet()
 
 
 func _finalize_pickup() -> void:

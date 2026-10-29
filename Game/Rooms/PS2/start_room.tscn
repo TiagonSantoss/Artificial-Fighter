@@ -8,8 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://co464qq4ci6c7" path="res://Game/Debugging Machine.tscn" id="6_oqk6f"]
 [ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="7_k7wdg"]
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="7_mlk7b"]
+[ext_resource type="Resource" uid="uid://b07ib2irja7xy" path="res://assets/definitions/weapons/melee/Monogatari_reference.tres" id="8_033yy"]
 [ext_resource type="Resource" uid="uid://csxa16v23ubnf" path="res://assets/items/accesories/swordrow.tres" id="8_jtlru"]
 [ext_resource type="PackedScene" uid="uid://5vm83pufruwe" path="res://assets/models/chest.tscn" id="8_v6hk5"]
+[ext_resource type="Resource" uid="uid://b5ab7bvsvusbg" path="res://assets/definitions/weapons/melee/Axe.tres" id="9_q5eij"]
+[ext_resource type="Resource" uid="uid://oa3bo5ddyywk" path="res://assets/definitions/weapons/melee/Pencil.tres" id="10_itqj8"]
+[ext_resource type="Resource" uid="uid://d2pgc055a5uk6" path="res://assets/definitions/weapons/melee/Sledgehammer.tres" id="11_2yjxq"]
+[ext_resource type="Resource" uid="uid://ckypcgp4vkmmx" path="res://assets/definitions/weapons/melee/Scythe.tres" id="12_2yjxq"]
+[ext_resource type="Resource" uid="uid://cepf5p1nymfht" path="res://assets/definitions/weapons/melee/Combat_Knife.tres" id="14_lidyg"]
 
 [sub_resource type="GDScript" id="GDScript_g3gis"]
 script/source = "@tool
@@ -343,7 +349,8 @@ points = PackedVector3Array(2, 4, 8, 2, 2, 8, -2, 4, 8, -2, 2, 8, 2, 4, -8, 2, 2
 script = SubResource("GDScript_g3gis")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(-0.55279315, -2.2899766, -1.3394481, -1.1280969, -4.3337092, 0.67181104, -0.81882983, 7.515257, -0.02086559, 0, 1.6989145, -0.8869953)
+transform = Transform3D(-0.32221472, -8.293281, -0.47268867, 0.6165987, 1.8619258, -1.3303562, 1.328537, -2.8736327, 0.5024255, 0, 1.6989145, -0.8869953)
+visible = false
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]
@@ -451,7 +458,7 @@ shape = SubResource("ConvexPolygonShape3D_iwvna")
 
 [node name="DebuggingMachine" parent="." unique_id=900501115 instance=ExtResource("6_oqk6f")]
 transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 11.946413, 0.014974594, -16.130802)
-possible_items = Array[ExtResource("7_mlk7b")]([ExtResource("8_jtlru")])
+possible_items = Array[ExtResource("7_mlk7b")]([ExtResource("8_033yy"), ExtResource("9_q5eij"), ExtResource("10_itqj8"), ExtResource("11_2yjxq"), ExtResource("12_2yjxq"), ExtResource("8_jtlru"), ExtResource("14_lidyg")])
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("7_k7wdg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.660595, 2.2853684, 0)
@@ -471,3 +478,18 @@ direction = 2
 
 [node name="chest" parent="." unique_id=1273433877 instance=ExtResource("8_v6hk5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -15.45187)
+
+[node name="chest2" parent="." unique_id=1377217238 instance=ExtResource("8_v6hk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -10.602553)
+
+[node name="chest3" parent="." unique_id=751030539 instance=ExtResource("8_v6hk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -5.4055357)
+
+[node name="chest4" parent="." unique_id=1274175844 instance=ExtResource("8_v6hk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 5.267353)
+
+[node name="chest5" parent="." unique_id=750675270 instance=ExtResource("8_v6hk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 11.143739)
+
+[node name="chest6" parent="." unique_id=593910268 instance=ExtResource("8_v6hk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 16.177162)

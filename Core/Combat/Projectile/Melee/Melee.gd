@@ -15,6 +15,8 @@ var already_hit := {}
 var position_offset := Vector3.ZERO
 var strike_direction := Vector3.FORWARD
 
+var stun_duration := 0.0
+
 var is_in_hitstop := false
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
@@ -69,7 +71,6 @@ func setup(
 
 	var current_hitbox = hitbox if hitbox != null else get_node("Area3D")
 	var area_shape := current_hitbox.get_node_or_null("CollisionShape3D")
-
 	if is_instance_valid(area_shape):
 		var current_offset = definition.hitbox_offset
 		if is_flipped:
@@ -172,8 +173,7 @@ func create_hit_data(target_pos: Vector3, knockback_scale: float = 1.0) -> HitDa
 	hit.source_entity = source_entity if is_instance_valid(source_entity) else null
 	hit.source_team = source_team
 	hit.attack_source = self
-	hit.stun_duration = definition.stun_duration
-	hit.lifetime = lifetime_left
+	hit.stun_duration = stun_duration
 	hit.hit_position = target_pos
 	hit.hit_normal = -hit.direction
 	return hit

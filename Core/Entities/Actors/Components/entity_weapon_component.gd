@@ -32,17 +32,21 @@ func set_sockets(socket: Marker3D, orbit: SpringArm3D) -> void:
 	orbit_socket = orbit
 
 
-func equip_weapon(weapon_definition) -> void:
-	if equipped_weapon:
-		equipped_weapon.queue_free()
+func equip_weapon(weapon_definition: WeaponDefinition) -> void:
+	unequip_weapon()
 
 	equipped_weapon = WEAPON_SCENE.instantiate()
-
 	weapon_socket.add_child(equipped_weapon)
-
 	equipped_weapon.rotation_degrees.x = weapon_definition.upward_tilt_degrees
-
 	equipped_weapon.setup(weapon_definition, entity)
+
+
+func unequip_weapon() -> void:
+	if is_instance_valid(equipped_weapon):
+		if equipped_weapon.get_parent():
+			equipped_weapon.get_parent().remove_child(equipped_weapon)
+		equipped_weapon.queue_free()
+	equipped_weapon = null
 
 
 func get_damage_multiplier() -> float:

@@ -42,7 +42,7 @@ func setup(request: ProjectileRequest) -> void:
 	remaining_pierce = int((definition.pierce + 1) * request.pierce_multiplier)
 	remaining_bounces = definition.bounce_count
 	lifetime_left = definition.lifetime
-	stun_duration = definition.stun_duration
+	stun_duration = request.stun_duration
 
 	drag_factor = definition.drag
 

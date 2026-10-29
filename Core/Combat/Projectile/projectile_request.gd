@@ -14,3 +14,4 @@ var knockback_multiplier := 1.0
 var speed_multiplier = 1.0
 
 var pierce_multiplier := 1.0
+var stun_duration := 0.0

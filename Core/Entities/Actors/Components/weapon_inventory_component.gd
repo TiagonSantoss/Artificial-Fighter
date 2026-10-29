@@ -1,11 +1,33 @@
 class_name WeaponInventoryComponent
 extends EntityComponent
 
-# Replace this with the actual path to your base Weapon scene
 const WEAPON_SCENE = preload("res://Core/Combat/Weapon/Weapon.tscn")
 
-# A container strictly limited to 1 slot!
+@export var pickup_cooldown := 0.75
+
 var weapon_container := CollectibleContainer.new(1)
+
+var _cooldown_left := 0.0
+var _incoming: WorldItem = null
+
+
+func _process(delta: float) -> void:
+	if _cooldown_left > 0.0:
+		_cooldown_left -= delta
+
+
+func try_claim_pickup(item: WorldItem) -> bool:
+	if _cooldown_left > 0.0:
+		return false
+	if is_instance_valid(_incoming) and _incoming != item:
+		return false
+	_incoming = item
+	return true
+
+
+func release_claim(item: WorldItem) -> void:
+	if _incoming == item:
+		_incoming = null
 
 
 func _ready() -> void:
@@ -13,95 +35,103 @@ func _ready() -> void:
 	weapon_container.removed.connect(_on_weapon_removed)
 
 
-# Call this function when your player collides with a dropped weapon
-func pickup_weapon(world_item) -> void:
-	var instance = world_item.item_instance
-	if instance == null or not (instance.definition is WeaponDefinition):
-		return
+# Helper to fetch this specific entity's starting/default weapon definition
+func _get_default_weapon_def() -> WeaponDefinition:
+	if entity and entity.definition and "starting_weapon" in entity.definition:
+		return entity.definition.starting_weapon
+	return null
 
-	# 1. Drop the currently equipped weapon if the slot is full
+
+func _check_default_weapon() -> void:
+	var default_def = _get_default_weapon_def()
+	if weapon_container.is_empty() and default_def != null:
+		var default_instance = ItemInstance.new()
+		default_instance.definition = default_def
+		weapon_container.add(default_instance)
+
+
+# Call this when colliding with a WorldItem weapon drop
+func pickup_weapon(world_item: WorldItem) -> bool:
+	if (
+		world_item.instance.definition == null
+		or not (world_item.instance.definition is WeaponDefinition)
+	):
+		return false
+
+	var new_instance = world_item.instance
+	var default_def = _get_default_weapon_def()
+
+	# 1. If we already have a weapon equipped...
 	if not weapon_container.is_empty():
-		_drop_current_weapon()
+		var current_instance = weapon_container.get_contents()[0]
 
-	# 2. Equip the new weapon
-	var success = weapon_container.add(instance)
+		# If it's NOT the character's default weapon, drop the real weapon into the world first
+		if current_instance.definition != default_def:
+			var drop_pos = entity.global_position + Vector3(0, 0.5, 0)
+			var drop_impulse = -entity.global_transform.basis.z * 6.0 + Vector3(0, 4.0, 0)
+			var dropped = WorldItemSpawner.drop(
+				current_instance, drop_pos, get_tree().current_scene, drop_impulse
+			)
+			if dropped is WorldItem:
+				dropped.ignored_body = entity
 
-	# 3. Destroy the physical item node on the ground
-	if success:
-		world_item.queue_free()
+		# Clear the container silently without triggering the default weapon fallback yet
+		weapon_container.remove(current_instance)  # Cleans up the old 3D weapon node
+
+	var ok := weapon_container.add(new_instance)
+
+	if ok:
+		_cooldown_left = pickup_cooldown
+	release_claim(world_item)
+	return ok
+
+	return weapon_container.add(new_instance)
 
 
-func _drop_current_weapon() -> void:
+func drop_current_weapon() -> void:
 	var current_instances = weapon_container.get_contents()
 	if current_instances.is_empty():
 		return
 
 	var current_instance = current_instances[0]
+	var default_def = _get_default_weapon_def()
 
-	# Calculate drop position and impulse (pops it up and slightly forward)
-	var drop_pos = entity.global_position + Vector3(0, 0.5, 0)
-	var drop_impulse = -entity.global_transform.basis.z * 3.0 + Vector3(0, 3.0, 0)
+	# SAFETY: Never allow the character's default fallback weapon to be dropped into the world!
+	if current_instance.definition == default_def:
+		return
 
-	# Remove it from our container (this triggers _on_weapon_removed to destroy the 3D node)
-	weapon_container.remove(current_instance)
+	# Remove from container (triggers _on_weapon_removed to delete the 3D node)
+	WorldItemSpawner.drop(current_instance, Vector3(0, 2, 0))
 
-	# Spawn the world item back into the scene
-	WorldItemSpawner.drop(current_instance, drop_pos, get_tree().current_scene, drop_impulse)
+	# FALLBACK: Automatically re-equip the character's default weapon once the item is gone
+	if weapon_container.is_empty() and default_def != null:
+		var default_instance = ItemInstance.new()
+		default_instance.definition = default_def
+		weapon_container.add(default_instance)
 
 
 func _on_weapon_added(instance: ItemInstance) -> void:
-	var raw_def: Variant = instance.definition
-
-	var weapon_def = raw_def as WeaponDefinition
-
+	var weapon_def := instance.definition as WeaponDefinition
 	if weapon_def == null:
 		return
 
-	# Grab the WeaponComponent (Adjust the path if your component structure is different)
-	var weapon_comp = entity.get_node_or_null("WeaponComponent")
-	if weapon_comp == null:
-		push_error("WeaponInventoryComponent could not find WeaponComponent!")
-		return
-
-	# 1. Spawn the new physical 3D weapon node
-	var new_weapon_node = WEAPON_SCENE.instantiate()
-	weapon_comp.add_child(new_weapon_node)
-
-	# 2. Setup the weapon with the definition
-	new_weapon_node.setup(weapon_def, entity)
-	weapon_comp.equipped_weapon = new_weapon_node
-
-	# 3. Re-apply Accessory behaviors!
-	_reapply_accessories(new_weapon_node)
-
-	# Optional: Emit a global signal if your UI needs to update
-	# GState.weapon_inventory_changed.emit(instance)
+	entity.weapon_component.equip_weapon(weapon_def)
+	_reapply_accessories(entity.weapon_component.equipped_weapon)
 
 
-func _on_weapon_removed(instance: ItemInstance) -> void:
-	# Destroy the physical 3D weapon node when it leaves the container
-	var weapon_comp = entity.get_node_or_null("WeaponComponent")
-	if weapon_comp != null and is_instance_valid(weapon_comp.equipped_weapon):
-		weapon_comp.equipped_weapon.queue_free()
-		weapon_comp.equipped_weapon = null
+func _on_weapon_removed(_instance: ItemInstance) -> void:
+	entity.weapon_component.unequip_weapon()
 
 
-func _reapply_accessories(new_weapon) -> void:
-	# Grab the AccessoriesComponent (Adjust the path if your component structure is different)
-	var accessories_comp = entity.get_node_or_null("AccessoriesComponent")
+func _reapply_accessories(new_weapon: Weapon) -> void:
+	var accessories_comp = entity.accessories_component
 	if accessories_comp == null:
 		return
-
-	var behavior_comp = new_weapon.behavior_component
-	if behavior_comp == null:
-		return
-
-	# Because you swapped weapons, the new weapon doesn't have the Accessory behaviors yet.
-	# Loop through the player's equipped accessories and push their behaviors to the new weapon.
 	for accessory_instance in accessories_comp.get_accessories():
-		var accessory_def = accessory_instance.definition as AccessoryDefinition
+		var raw_acc: Variant = accessory_instance.definition
+		var accessory_def = raw_acc as AccessoryDefinition
 		if accessory_def and accessory_def.behaviors:
 			for behavior_def in accessory_def.behaviors:
 				var new_behavior_instance = ItemInstance.new()
 				new_behavior_instance.definition = behavior_def
-				behavior_comp.add_behavior(new_behavior_instance)
+				new_weapon.behavior_component.add_behavior(new_behavior_instance)
