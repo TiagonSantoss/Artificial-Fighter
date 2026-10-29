@@ -68,13 +68,11 @@ func pickup_weapon(world_item: WorldItem) -> bool:
 		# If it's NOT the character's default weapon, drop the real weapon into the world first
 		if current_instance.definition != default_def:
 			var drop_pos = entity.global_position + Vector3(0, 0.5, 0)
-			var drop_impulse = -entity.global_transform.basis.z * 6.0 + Vector3(0, 4.0, 0)
 			var dropped = WorldItemSpawner.drop(
-				current_instance, drop_pos, get_tree().current_scene, drop_impulse
+				current_instance, drop_pos, get_tree().current_scene
 			)
 			if dropped is WorldItem:
 				dropped.ignored_body = entity
-
 		# Clear the container silently without triggering the default weapon fallback yet
 		weapon_container.remove(current_instance)  # Cleans up the old 3D weapon node
 
