@@ -83,8 +83,6 @@ func pickup_weapon(world_item: WorldItem) -> bool:
 	release_claim(world_item)
 	return ok
 
-	return weapon_container.add(new_instance)
-
 
 func drop_current_weapon() -> void:
 	var current_instances = weapon_container.get_contents()
