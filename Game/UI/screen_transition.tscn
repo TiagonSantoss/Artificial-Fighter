@@ -29,7 +29,7 @@ shader = ExtResource("3_ybvxu")
 shader_parameter/center = Vector2(0.112, 0.5)
 shader_parameter/size = 0.06200000224648
 shader_parameter/aspect_ratio = 1.0
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 0.5294118)
 
 [node name="ScreenTransition" type="Control" unique_id=1184265478]
 layout_mode = 3

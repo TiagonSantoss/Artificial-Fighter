@@ -4,7 +4,7 @@ extends Controller
 var follow_target: Entity
 var target: Entity
 
-var follow_distance := 8.0
+var follow_distance := 5.0
 var attack_range := 16.0
 var formation_offset := Vector3.ZERO
 
@@ -29,7 +29,7 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 
 	var dist := actor.global_position.distance_to(nav.target_position)
 
-	if dist >= 12.0:
+	if dist >= 22.0:
 		actor.global_position = follow_target.global_position
 		return actions
 

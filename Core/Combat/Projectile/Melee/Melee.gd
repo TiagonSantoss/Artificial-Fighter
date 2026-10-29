@@ -128,7 +128,7 @@ func _on_hitbox_area_entered(area: Area3D) -> void:
 			return
 
 		_register_hit([area, incoming_melee])
-		_trigger_hitstop(0.06)
+		_trigger_hitstop(0.1)
 
 		if (
 			is_instance_valid(incoming_melee.source_entity)
