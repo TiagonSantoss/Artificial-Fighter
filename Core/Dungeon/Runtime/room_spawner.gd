@@ -7,15 +7,19 @@ var instances: Dictionary = {}
 
 
 func spawn_room(
-	room_id: String, definition: RoomDefinition, layout_pos: Vector2i, world_pos: Vector3
+	room_id: String, variant: RoomVariant, layout_pos: Vector2i, world_pos: Vector3  # CHANGED
 ) -> RoomInstance:
 	if instances.has(room_id):
 		return instances[room_id]
+
+	var definition := variant.definition  # NEW
 
 	var room := RoomInstance.new()
 
 	room.room_id = room_id
 	room.definition = definition
+	room.variant = variant  # NEW
+	room.rotation_steps = variant.rotation_steps  # NEW
 	room.layout_position = layout_pos
 
 	room.node = definition.scene.instantiate()
@@ -24,13 +28,14 @@ func spawn_room(
 
 	add_child(room.node)
 
+	room.node.rotation.y = -variant.rotation_steps * PI / 2.0
+
 	var runtime := room.node.find_child("RoomRuntime", true, false) as RoomRuntime
 
 	if runtime:
 		runtime.room_instance = room
 		_cache_spawn_groups(room)
 
-	# Use the exact un-rounded layout calculation directly
 	room.node.global_position = world_pos
 
 	room.world_origin = room.node.global_position

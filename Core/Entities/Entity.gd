@@ -152,7 +152,7 @@ func apply_hit(hit: HitData):
 	if is_invincible:
 		return HitResult.NONE
 
-	if hit.source_team == team:
+	if hit.source_team != null and is_friendly_to(hit.source_team):
 		return HitResult.NONE
 
 	if is_dashing:
@@ -166,7 +166,10 @@ func apply_hit(hit: HitData):
 			audio_component.play_sfx("ParrySound")
 			visual_effects_component.flash_blue()
 			_trigger_hitstop(0.4)
-			SceneManager.play_impact_frame(GameAutoLoad.get_current_entity().position, 0.1)
+			SceneManager.spawn_effect(
+				SceneManager.Fx.PARRY,
+				global_position + Vector3(0.0, 1.0, 0.0) - hit.direction * 0.6
+			)
 
 			GState.enemy_parried.emit(25.0)
 			return HitResult.CONSUME
@@ -192,6 +195,7 @@ func apply_hit(hit: HitData):
 	if hit.source_entity != null and team == Team.ENEMY:
 		if hit.source_entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
 			GState.enemy_damaged.emit(1)
+			SceneManager.spawn_effect(SceneManager.Fx.HIT, hit.hit_position)
 
 	if health_component:
 		health_component.damage(hit.get_final_damage())

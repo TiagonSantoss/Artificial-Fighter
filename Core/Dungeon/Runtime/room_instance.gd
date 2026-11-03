@@ -4,6 +4,9 @@ extends RefCounted
 var room_id: String
 var definition: RoomDefinition
 
+var variant: RoomVariant
+var rotation_steps: int = 0
+
 var layout_position: Vector2i
 var world_origin: Vector3
 
@@ -25,6 +28,14 @@ var spawn_groups: Dictionary = {}
 var enemies: Array[Entity] = []
 
 var barrier_root: ArenaBarrierRoot = null
+
+
+func get_doors() -> Array[DoorSocket.Direction]:
+	return variant.get_doors()
+
+
+func get_size() -> Vector2i:
+	return variant.get_size()
 
 
 func get_spawn_group(group_name: String) -> Array:

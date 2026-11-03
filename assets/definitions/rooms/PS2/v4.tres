@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://b8mwpfxori72v"]
+
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_hr00p"]
+[ext_resource type="Resource" uid="uid://ti7d8lw4awrb" path="res://assets/definitions/encounter/normal_encounter.tres" id="2_y34fg"]
+[ext_resource type="PackedScene" uid="uid://dqyqhnhj5c47d" path="res://Game/Rooms/PS2/v4.tscn" id="3_hr00p"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="4_2sdrv"]
+
+[resource]
+script = ExtResource("4_2sdrv")
+scene = ExtResource("3_hr00p")
+category = 1
+available_doors = Array[int]([0, 1, 2, 3])
+has_encounter = true
+encounter_pool = Array[ExtResource("1_hr00p")]([ExtResource("2_y34fg")])
+metadata/_custom_type_script = "uid://c4rxfwpj30llb"

@@ -253,7 +253,7 @@ shader_parameter/color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6hk5"]
 next_pass = SubResource("ShaderMaterial_rmals")
-albedo_color = Color(0.59000003, 0.9248333, 1, 1)
+albedo_color = Color(0.4822908, 0.4652238, 0.5155815, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ccdvy"]
 _surfaces = [{
@@ -349,7 +349,7 @@ points = PackedVector3Array(2, 4, 8, 2, 2, 8, -2, 4, 8, -2, 2, 8, 2, 4, -8, 2, 2
 script = SubResource("GDScript_g3gis")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(-0.32221472, -8.293281, -0.47268867, 0.6165987, 1.8619258, -1.3303562, 1.328537, -2.8736327, 0.5024255, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.4393415, 2.5152586, 0.028604208, 0.41001347, -8.22248, -0.43777192, -0.09618239, 2.5627909, -1.4329122, 0, 1.6989145, -0.8869953)
 visible = false
 mesh = SubResource("ArrayMesh_qn1rc")
 

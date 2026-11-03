@@ -33,6 +33,7 @@ CursorManager="*uid://bi41mrxij62cg"
 SceneManager="*uid://cgu7ihuucejnw"
 GodRNG="*uid://47ritflhuy1i"
 RunManager="*uid://eu6s8uwq2184"
+MusicDirector="*uid://cww683i4e1fjl"
 
 [debug]
 
@@ -60,6 +61,7 @@ folder_colors={
 "res://Core/Entities/": "orange",
 "res://Game/": "orange",
 "res://Game/Calls/": "red",
+"res://Game/Music/": "yellow",
 "res://Game/Player/": "purple",
 "res://Game/Rooms/": "blue",
 "res://Game/UI/": "green",

@@ -150,7 +150,7 @@ func fire(direction: Vector3):
 		weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
 	if weapon.wielder.entity_id == GameAutoLoad.get_current_entity().entity_id:
-		SceneManager.shake(0.1, 0.1)
+		SceneManager.shake(0.3, 0.1)
 
 	await get_tree().create_timer(weapon.definition.fire_rate).timeout
 	can_fire = true

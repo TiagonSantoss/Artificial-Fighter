@@ -104,7 +104,7 @@ func _physics_process(delta: float) -> void:
 
 	# 4. POSITION CAMERA RIG
 	var constant_distance := 15.0
-	var camera_local_offset := Vector3(0.0, constant_distance, constant_distance * 0.85)
+	var camera_local_offset := Vector3(0.0, constant_distance, constant_distance)
 	var global_offset := camera_local_offset.rotated(Vector3.UP, rotation.y)
 
 	var final_target_cam_pos = smoothed_look_target + global_offset

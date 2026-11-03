@@ -6,11 +6,15 @@
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
+[ext_resource type="Resource" uid="uid://d2f8vfomoc0bv" path="res://assets/definitions/rooms/PS2/v2.tres" id="9_6ah6f"]
 [ext_resource type="Resource" uid="uid://cgqo72yu75ycn" path="res://assets/definitions/rooms/PS2/v6.tres" id="9_bh8nc"]
 [ext_resource type="Script" uid="uid://bmoje4yltj2n2" path="res://Game/Calls/player_spawn.gd" id="9_k83mh"]
 [ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="9_wukud"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="10_2o6r5"]
+[ext_resource type="Resource" uid="uid://c04x3fej8bnmo" path="res://assets/definitions/rooms/PS2/v3.tres" id="10_g1i3r"]
+[ext_resource type="Resource" uid="uid://b8mwpfxori72v" path="res://assets/definitions/rooms/PS2/v4.tres" id="11_my276"]
 [ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="12_ikiii"]
+[ext_resource type="Resource" uid="uid://bfcqpq61rwphq" path="res://assets/definitions/rooms/PS2/v5.tres" id="12_yx0jh"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
@@ -46,7 +50,7 @@ background_mode = 2
 background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
 sky = SubResource("Sky_jjr1n")
 ambient_light_source = 3
-ambient_light_color = Color(0.76698273, 0.46146178, 0.82021874, 1)
+ambient_light_color = Color(0.9237736, 0.8051104, 0.9422711, 1)
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 tonemap_mode = 1
@@ -147,7 +151,7 @@ shader_parameter/vignette_multiplier = 2.0
 shader_parameter/opacity = 0.50000002375
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
-size = Vector3(689.05664, 3.0751953, 824.17285)
+size = Vector3(689.05664, 101.70068, 824.17285)
 
 [node name="Game" type="Node3D" unique_id=1397934900]
 script = ExtResource("2_fj7yv")
@@ -172,11 +176,10 @@ shadow_enabled = true
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_bh8nc")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc")])
 start_room = ExtResource("18_55kwu")
-generate_random_seed = false
 _seed = 2
-room_count = 5
+room_count = 50
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 
 [node name="ChunkManager" type="Node3D" parent="DungeonManager" unique_id=204241371]
@@ -215,11 +218,8 @@ script = ExtResource("9_k83mh")
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank", "res://assets/banks/Desktop/Master.strings.bank", "res://assets/banks/Desktop/SFX.bank"]
 
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
-event_name = "event:/Music/MainMusics"
+event_name = "event:/Music/MainTracks"
 event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
-autoplay = true
-auto_release = true
-volume = 0.2
 script = ExtResource("17_o3ebs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
@@ -388,8 +388,10 @@ visible = false
 
 [node name="Kill_Volume" type="Area3D" parent="." unique_id=525981836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.18882, 0)
+collision_layer = 15
+collision_mask = 15
 script = ExtResource("19_cbp6q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Kill_Volume" unique_id=47664547]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0375977, -1.1047363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50.35034, -1.1047363)
 shape = SubResource("BoxShape3D_3ir6a")

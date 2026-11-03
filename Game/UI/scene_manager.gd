@@ -28,6 +28,66 @@ var _transition_effect_parameter_call = func(value: float):
 			"color_threshold", min(1.0, abs(-4.0 + value * 8.0)) * 0.48
 		)
 
+enum Fx { PARRY, HIT, EXPLOSION }
+
+const EFFECTS := {
+	Fx.PARRY:
+	{
+		"texture": preload("res://assets/sprites/SPRITE_PARRY.png"),
+		"hframes": 2,
+		"vframes": 1,
+		"fps": 24.0,
+		"pixel_size": 0.02,
+	},
+	Fx.HIT:
+	{
+		"texture": preload("res://assets/sprites/HIT-PARTICLE.png"),
+		"hframes": 2,
+		"vframes": 2,
+		"fps": 30.0,
+		"pixel_size": 0.015,
+	},
+	Fx.EXPLOSION:
+	{
+		"texture": preload("res://assets/sprites/SPRITE_SPLOSAO.png"),  # example path
+		"hframes": 2,
+		"vframes": 2,
+	},
+}
+
+
+func spawn_effect(effect: Fx, world_pos: Vector3, tint: Color = Color.WHITE) -> void:
+	var cfg: Dictionary = EFFECTS[effect]
+
+	var hframes: int = cfg["hframes"]
+	var vframes: int = cfg["vframes"]
+	var total: int = cfg.get("frames", hframes * vframes)
+	var frame_time := 1.0 / float(cfg.get("fps", 24.0))
+
+	var fx := Sprite3D.new()
+	fx.texture = cfg["texture"]
+	fx.hframes = hframes
+	fx.vframes = vframes
+	fx.pixel_size = cfg.get("pixel_size", 0.02)
+	fx.modulate = tint
+	fx.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	fx.shaded = false
+	fx.no_depth_test = true
+	fx.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	fx.render_priority = 10
+
+	get_tree().current_scene.add_child(fx)
+	fx.global_position = world_pos
+
+	for i in total:
+		if not is_instance_valid(fx):
+			return
+		fx.frame = i
+		await get_tree().create_timer(frame_time, true, false, true).timeout
+
+	if is_instance_valid(fx):
+		fx.queue_free()
+
 
 func _ready():
 	# process_mode = Node.PROCESS_MODE_ALWAYS

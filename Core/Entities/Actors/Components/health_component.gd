@@ -17,12 +17,13 @@ func configure(max_hp: int):
 func damage(amount: float):
 	health -= amount
 
-	if entity.entity_id == 0:
+	if entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
 		GState.health_changed.emit(int(health))
 
 	print(health)
 
 	if health <= 0:
+		SceneManager.spawn_effect(SceneManager.Fx.EXPLOSION, entity.global_position)
 		#_spawn_hit_vfx()
 		died.emit()
 

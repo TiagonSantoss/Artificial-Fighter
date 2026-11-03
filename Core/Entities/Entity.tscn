@@ -57,8 +57,6 @@ shape = SubResource("CapsuleShape3D_68ee8")
 debug_color = Color(0.96862745, 0, 0.48235294, 1)
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=1280813439]
-collision_layer = 5
-collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1850055982]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.0056152344, 0, 0.03857422)
@@ -121,7 +119,7 @@ script = ExtResource("26_i4vqt")
 [node name="WeaponInventoryComponent" type="Node" parent="Components" unique_id=43728738]
 script = ExtResource("16_iqbtn")
 
-[node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=458360966]
+[node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=1024659852]
 event_name = "event:/SFX/Entity/EntityHurt"
 event_guid = "{cf68e701-3dcd-41e0-95a7-8d2c90e9b5e4}"
 

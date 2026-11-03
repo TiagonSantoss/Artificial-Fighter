@@ -51,8 +51,6 @@ func generate(
 # TELEPORT LOGIC (With Fades & State)
 # --------------------------------------------------
 func teleport_player(target_room_id: String, exited_direction: DoorSocket.Direction) -> void:
-	# 1. Start screen transition (assuming you make a ScreenFader autoload)
-	# If you don't have this yet, just comment it out!
 	if is_teleporting:
 		return
 
@@ -77,12 +75,16 @@ func teleport_player(target_room_id: String, exited_direction: DoorSocket.Direct
 	var spawn_position: Vector3 = new_room.world_origin
 
 	if exited_direction != DoorSocket.Direction.SPECIAL:
-		var entry_dir = _opposite(exited_direction)
-		var entry_socket = _find_door_in_room(new_room.node, entry_dir)
+		var entry_socket := _find_entry_socket(new_room, old_room_id)
 
 		if entry_socket:
+			var world_dir := DirUtil.rotate(entry_socket.direction, new_room.rotation_steps)
 			spawn_position = entry_socket.global_position
-			spawn_position += _get_push_vector(entry_dir) * 2.0
+			spawn_position += _get_push_vector(world_dir) * 2.0
+		else:
+			push_warning(
+				"No entry door in '%s' leading back to '%s'" % [target_room_id, old_room_id]
+			)
 
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
@@ -110,11 +112,11 @@ func _set_current_room(room: RoomInstance) -> void:
 # STATE MANAGEMENT & ENGINE OPS
 # --------------------------------------------------
 func _load_room(id: String) -> void:
-	var def: RoomDefinition = graph.nodes[id]
+	var variant: RoomVariant = graph.nodes[id]  # CHANGED (was RoomDefinition)
 	var logical_pos: Vector3 = layout.get(id, Vector3.ZERO)
 	var grid_pos := Vector2i(roundi(logical_pos.x), roundi(logical_pos.z))
 
-	var room := room_spawner.spawn_room(id, def, grid_pos, Vector3.ZERO)
+	var room := room_spawner.spawn_room(id, variant, grid_pos, Vector3.ZERO)
 
 	if id == "start":
 		start_room_instance = room
@@ -172,25 +174,17 @@ func _clear_enemies(room: RoomInstance) -> void:
 			child.queue_free()
 
 
-func _find_door_in_room(room_node: Node3D, dir: DoorSocket.Direction) -> Area3D:
-	var sockets = room_node.find_children("*", "DoorSocket", true, false)
-	for socket in sockets:
-		if socket.direction == dir:
+func _find_entry_socket(room: RoomInstance, from_room_id: String) -> DoorSocket:
+	if from_room_id == "":
+		return null
+
+	for socket in room.node.find_children("*", "DoorSocket", true, false):
+		if socket.is_queued_for_deletion():
+			continue
+		if socket.target_room_id == from_room_id:
 			return socket
+
 	return null
-
-
-func _opposite(dir: DoorSocket.Direction) -> DoorSocket.Direction:
-	match dir:
-		DoorSocket.Direction.NORTH:
-			return DoorSocket.Direction.SOUTH
-		DoorSocket.Direction.SOUTH:
-			return DoorSocket.Direction.NORTH
-		DoorSocket.Direction.EAST:
-			return DoorSocket.Direction.WEST
-		DoorSocket.Direction.WEST:
-			return DoorSocket.Direction.EAST
-	return dir
 
 
 func _get_push_vector(dir: DoorSocket.Direction) -> Vector3:
@@ -207,36 +201,23 @@ func _get_push_vector(dir: DoorSocket.Direction) -> Vector3:
 
 
 func _configure_doors(room: RoomInstance) -> void:
-	# 1. Get all doors in the physical scene
 	var sockets = room.node.find_children("*", "DoorSocket", true, false)
-
-	# 2. Get the logical connections for this room from the Graph
 	var logic_connections: Array = graph.connections.get(room.room_id, [])
 
 	for socket in sockets:
-		var matching_connection: RoomConnection = null
-		print(
-			"socket:",
-			socket,
-			"array:",
-		)
+		var world_dir := DirUtil.rotate(socket.direction, room.rotation_steps)
 
-		# 3. Check if this physical door has a matching logical connection
+		var matching_connection: RoomConnection = null
 		for conn in logic_connections:
-			if conn.direction == socket.direction:
-				print(conn.direction)
+			if conn.direction == world_dir:  # CHANGED (was socket.direction)
 				matching_connection = conn
 				break
 
-		# 4. Apply the data or remove the door
 		if matching_connection:
 			socket.target_room_id = matching_connection.target_id
-			# Ensure the door is active
 			socket.monitoring = true
 			socket.show()
 		else:
-			# This door is a dead-end according to the dungeon generator.
-			# You can queue_free() it, or hide it and enable a static wall model in its place.
 			socket.queue_free()
 
 

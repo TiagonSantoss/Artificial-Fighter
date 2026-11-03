@@ -56,6 +56,7 @@ func generate() -> void:
 
 	# 3. Now that the room exists, spawn the player at its SpawnPoint
 	_spawn_player_at_start()
+	MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
 
 	# 4. Officially trigger the room change.
 	# Because the player now exists, Game.gd will successfully hook up the camera!
@@ -83,7 +84,6 @@ func _on_room_loaded(room: RoomInstance) -> void:
 
 
 func _on_active_room_changed(room: RoomInstance) -> void:
-	# This fires immediately after the ChunkManager teleports the player
 	if current_room:
 		room_exited.emit(current_room)
 		print("Exited:", current_room.room_id)
@@ -94,14 +94,17 @@ func _on_active_room_changed(room: RoomInstance) -> void:
 	room_entered.emit(room)
 	print("Entered:", room.room_id)
 
-	if emitter:
-		pass
-		# emitter.set_parameter("Set", 0)
-
-	# Automatically start encounters if the room hasn't been cleared yet
 	if not room.cleared and room.encounter_enabled:
 		room.lock_room()
+		await get_tree().create_timer(1.3).timeout
 		start_encounter(room)
+
+	if room.encounter_started and not room.cleared:
+		MusicDirector.set_mood(MusicDirector.Mood.COMBAT)
+	else:
+		MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
+
+	print("whats playing right now:", MusicDirector.current_value)
 
 
 func _spawn_player_at_start() -> void:
@@ -114,11 +117,6 @@ func _spawn_player_at_start() -> void:
 
 	var spawn_point := start_room_a.node.find_child("SpawnPoint", true, false)
 	var spawn_pos = spawn_point.global_position if spawn_point else Vector3.ZERO
-
-	if emitter:
-		pass
-		# emitter.set_parameter("Set", 5)
-		# print("EMITTER SET TO 5")
 
 	GameAutoLoad.spawn_player(spawn_pos)
 	GameAutoLoad.spawn_companion(spawn_pos)
@@ -157,16 +155,6 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 	var enemy := GameAutoLoad.spawn_enemy(marker.global_position, definition)
 	room.enemies.append(enemy)
 
-	if emitter:
-		pass
-		# match room.enemies.size():
-		# 	5:
-		# 		emitter.set_parameter("Set", 2)
-		# 	2:
-		# 		emitter.set_parameter("Set", 4)
-		# 	1:
-		# 		emitter.set_parameter("Set", 0)
-
 	enemy.tree_exited.connect(
 		func():
 			room.enemies.erase(enemy)
@@ -189,6 +177,8 @@ func start_encounter(room: RoomInstance) -> void:
 
 	room.encounter_started = true
 
+	MusicDirector.set_mood(MusicDirector.Mood.COMBAT)
+
 	if encounter.possible_enemies.size() > 0:
 		for i in range(encounter.spawn_count):
 			var random_enemy_def = encounter.possible_enemies.pick_random()
@@ -201,19 +191,16 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
 
-	if emitter:
-		pass
-		# emitter.set_parameter("Set", 6)
+	MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
 
-	# Handle Loot Drop
-	if item_pool.size() > 0:
-		var random_accessory_def = item_pool.pick_random()
-		var new_item_instance = ItemInstance.new()
-		new_item_instance.definition = random_accessory_def
-
-		var player = GameAutoLoad.get_current_entity()
-		if player and player.rank_component:
-			player.rank_component.finish_encounter()
-
-		var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
-		WorldItemSpawner.drop(new_item_instance, drop_pos)
+	# if item_pool.size() > 0:
+	# 	var random_accessory_def = item_pool.pick_random()
+	# 	var new_item_instance = ItemInstance.new()
+	# 	new_item_instance.definition = random_accessory_def
+	#
+	# 	var player = GameAutoLoad.get_current_entity()
+	# 	if player and player.rank_component:
+	# 		player.rank_component.finish_encounter()
+	#
+	# 	var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
+	# 	WorldItemSpawner.drop(new_item_instance, drop_pos)

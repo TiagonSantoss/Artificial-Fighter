@@ -8,6 +8,7 @@
 [resource]
 script = ExtResource("4_3l712")
 scene = ExtResource("3_fnllf")
+category = 1
 available_doors = Array[int]([0, 1, 2, 3])
 has_encounter = true
 encounter_pool = Array[ExtResource("1_fnllf")]([ExtResource("2_68u7w")])

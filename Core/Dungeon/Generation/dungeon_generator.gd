@@ -8,13 +8,17 @@ func generate(
 	_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition
 ) -> RoomGraph:
 	GodRNG.set_run_seed(_seed)
+	visited_edges.clear()
+
+	var start_variant := RoomVariant.new()
+	start_variant.definition = start_room
+	start_variant.rotation_steps = 0
 
 	var builder := RoomGraphBuilder.new()
-	var graph := builder.create_graph(start_room)
+	var graph := builder.create_graph(start_variant)
 
 	var open := ["start"]
 	var id_counter := 1
-
 	var used_doors := {"start": []}
 
 	while open.size() > 0 and id_counter < count:
@@ -24,8 +28,8 @@ func generate(
 			push_error("Missing node in graph: " + current)
 			continue
 
-		var current_def: RoomDefinition = graph.nodes[current]
-		var available_dirs := _get_free_doors(current_def, used_doors.get(current, []))
+		var current_variant: RoomVariant = graph.nodes[current]
+		var available_dirs := _get_free_doors(current_variant, used_doors.get(current, []))
 
 		if available_dirs.is_empty():
 			continue
@@ -34,23 +38,21 @@ func generate(
 			if id_counter >= count:
 				break
 
-			var opposite := _opposite(dir)
-			var room_def := _pick_compatible_room(room_pool, opposite)
+			var opposite := DirUtil.opposite(dir)
+			var variant := _pick_compatible_variant(room_pool, opposite)
 
-			if room_def == null:
+			if variant == null:
 				continue
 
 			var room_id := "room_%d" % id_counter
 			id_counter += 1
 
 			var edge_key := "%s->%s" % [current, room_id]
-
 			if visited_edges.has(edge_key):
 				continue
-
 			visited_edges[edge_key] = true
 
-			builder.add_room(graph, room_id, room_def)
+			builder.add_room(graph, room_id, variant)
 			builder.connect_rooms(graph, current, room_id, dir)
 
 			if not used_doors.has(current):
@@ -66,35 +68,27 @@ func generate(
 	return graph
 
 
-func _get_free_doors(room: RoomDefinition, used: Array) -> Array:
+func _get_free_doors(variant: RoomVariant, used: Array) -> Array:
 	var result := []
-	for d in room.available_doors:
+	for d in variant.get_doors():
 		if not used.has(d):
 			result.append(d)
 	return result
 
 
-func _opposite(dir: DoorSocket.Direction) -> DoorSocket.Direction:
-	match dir:
-		DoorSocket.Direction.NORTH:
-			return DoorSocket.Direction.SOUTH
-		DoorSocket.Direction.SOUTH:
-			return DoorSocket.Direction.NORTH
-		DoorSocket.Direction.EAST:
-			return DoorSocket.Direction.WEST
-		DoorSocket.Direction.WEST:
-			return DoorSocket.Direction.EAST
-	return dir
-
-
-func _pick_compatible_room(
+func _pick_compatible_variant(
 	pool: Array[RoomDefinition], required: DoorSocket.Direction
-) -> RoomDefinition:
-	var candidates: Array[RoomDefinition] = []
+) -> RoomVariant:
+	var candidates: Array[RoomVariant] = []
 
 	for room in pool:
-		if required in room.available_doors:
-			candidates.append(room)
+		var rotations := 4 if room.allow_rotation else 1
+		for r in rotations:
+			var v := RoomVariant.new()
+			v.definition = room
+			v.rotation_steps = r
+			if required in v.get_doors():
+				candidates.append(v)
 
 	if candidates.is_empty():
 		return null

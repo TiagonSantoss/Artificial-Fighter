@@ -1,14 +1,14 @@
-[gd_scene format=4 uid="uid://mp3q4fipwul8"]
+[gd_scene format=4 uid="uid://bapkepst25t7n"]
 
-[ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="1_7cjec"]
-[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="2_b2000"]
-[ext_resource type="Script" uid="uid://cimsyt5r5fen4" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierRoot.gd" id="3_tj8nj"]
-[ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="4_mow60"]
-[ext_resource type="Material" uid="uid://cq6o6v7docyq2" path="res://assets/models/maps/textures/Prototype_symbol_cross_32x32px.tres" id="5_bbxk3"]
-[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="6_s1a45"]
-[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="7_ghskg"]
-[ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="8_4u8vs"]
-[ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="8_38uok"]
+[ext_resource type="Script" uid="uid://bhanuekr47qtk" path="res://Core/Dungeon/Runtime/room_runtime.gd" id="1_4u8vs"]
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="2_6bpl1"]
+[ext_resource type="Script" uid="uid://cimsyt5r5fen4" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierRoot.gd" id="3_vvvmh"]
+[ext_resource type="Script" uid="uid://duys7n4qdufny" path="res://Core/Dungeon/Runtime/ArenaBarrier/ArenaBarrierPiece.gd" id="4_x4f1x"]
+[ext_resource type="Material" uid="uid://cq6o6v7docyq2" path="res://assets/models/maps/textures/Prototype_symbol_cross_32x32px.tres" id="5_uvigv"]
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="6_8xlht"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="7_6w054"]
+[ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="8_8iuln"]
+[ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="9_mhiva"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6xxrv"]
 agent_height = 2.0
@@ -27,7 +27,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 36,
 "index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcA"),
-"material": ExtResource("5_bbxk3"),
+"material": ExtResource("5_uvigv"),
 "name": "Prototype_symbol_cross_32x32px",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -41,7 +41,7 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4u8vs"]
 render_priority = 0
-shader = ExtResource("8_4u8vs")
+shader = ExtResource("8_8iuln")
 shader_parameter/weight = 0.02
 shader_parameter/color = Color(0, 0, 0, 1)
 
@@ -119,14 +119,14 @@ collision_mask = 5
 shape = SubResource("BoxShape3D_dt1lj")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=1813229291]
-script = ExtResource("1_7cjec")
+script = ExtResource("1_4u8vs")
 
 [node name="SpawnPoint" type="Marker3D" parent="." unique_id=519788099]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7426062, 0)
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=659040028]
 transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 1.7743073, 0)
-script = ExtResource("2_b2000")
+script = ExtResource("2_6bpl1")
 
 [node name="SpawnGroups" type="Node3D" parent="." unique_id=692537820]
 
@@ -143,10 +143,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.282633, 5.6342125, 12.3311
 [node name="Links" type="Node3D" parent="." unique_id=502974924]
 
 [node name="ArenaBarrierRoot" type="Node3D" parent="." unique_id=1410628061]
-script = ExtResource("3_tj8nj")
+script = ExtResource("3_vvvmh")
 
 [node name="Barrier" type="Node3D" parent="ArenaBarrierRoot" unique_id=1867362097]
-script = ExtResource("4_mow60")
+script = ExtResource("4_x4f1x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ArenaBarrierRoot/Barrier" unique_id=1239169007]
 collision_mask = 0
@@ -192,9 +192,9 @@ visible = false
 mesh = SubResource("ArrayMesh_sdouj")
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1464736967]
-script = ExtResource("6_s1a45")
+script = ExtResource("6_8xlht")
 local_map_file = "uid://bcbpcuo1pndy2"
-map_settings = ExtResource("7_ghskg")
+map_settings = ExtResource("7_6w054")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=434476525]
@@ -248,21 +248,21 @@ shape = SubResource("ConvexPolygonShape3D_4mcgp")
 [node name="entity_0_brush_13_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2087456761]
 shape = SubResource("ConvexPolygonShape3D_kl6t3")
 
-[node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("8_38uok")]
+[node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("9_mhiva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.973507, 6.1776185, 0)
 
-[node name="DoorSocket3" parent="." unique_id=1325426674 instance=ExtResource("8_38uok")]
+[node name="DoorSocket3" parent="." unique_id=1325426674 instance=ExtResource("9_mhiva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1829071, 6.1776185, 17.198994)
 direction = 3
 
-[node name="DoorSocket4" parent="." unique_id=1718425898 instance=ExtResource("8_38uok")]
+[node name="DoorSocket4" parent="." unique_id=1718425898 instance=ExtResource("9_mhiva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1829071, 6.1776185, -17.912373)
 direction = 2
 
-[node name="DoorSocket5" parent="." unique_id=1258441811 instance=ExtResource("8_38uok")]
+[node name="DoorSocket5" parent="." unique_id=1258441811 instance=ExtResource("9_mhiva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3165627, 6.1776185, -5.2655053)
 direction = 4
 
-[node name="DoorSocket2" parent="." unique_id=516997491 instance=ExtResource("8_38uok")]
+[node name="DoorSocket2" parent="." unique_id=516997491 instance=ExtResource("9_mhiva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.481987, 6.1776185, 0)
 direction = 1

@@ -11,7 +11,8 @@ func _on_body_entered(body: Node) -> void:
 		return
 
 	if body is Entity:
-		if body.controller is CompanionController or PlayerController:
+		var controller = body.controller
+		if controller is CompanionController or controller is PlayerController:
 			return
 
-		body.queue_free()
+		body.health_component.damage(999)

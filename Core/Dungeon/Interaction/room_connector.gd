@@ -23,8 +23,10 @@ func _link_rooms(room_id: String, connection: RoomConnection, instances: Diction
 	var room_a: RoomInstance = instances[room_id]
 	var room_b: RoomInstance = instances[connection.target_id]
 
-	var socket_a = _find_socket(room_a.node, connection.direction)
-	var socket_b = _find_socket(room_b.node, _opposite(connection.direction))
+	var socket_a = _find_socket(room_a.node, connection.direction, room_a.rotation_steps)
+	var socket_b = _find_socket(
+		room_b.node, DirUtil.opposite(connection.direction), room_b.rotation_steps
+	)
 
 	if socket_a:
 		socket_a.target_room_id = connection.target_id
@@ -33,28 +35,12 @@ func _link_rooms(room_id: String, connection: RoomConnection, instances: Diction
 		socket_b.target_room_id = room_id
 
 
-func _find_socket(room: Node3D, dir: DoorSocket.Direction):
-	var sockets := room.find_children("*", "DoorSocket", true, false)
-
-	for socket in sockets:
-		if socket.direction == dir:
+func _find_socket(room: Node3D, dir: DoorSocket.Direction, steps: int):
+	for socket in room.find_children("*", "DoorSocket", true, false):
+		if DirUtil.rotate(socket.direction, steps) == dir:
 			return socket
-
 	return null
 
 
-func _opposite(dir: DoorSocket.Direction) -> DoorSocket.Direction:
-	match dir:
-		DoorSocket.Direction.NORTH:
-			return DoorSocket.Direction.SOUTH
-		DoorSocket.Direction.SOUTH:
-			return DoorSocket.Direction.NORTH
-		DoorSocket.Direction.EAST:
-			return DoorSocket.Direction.WEST
-		DoorSocket.Direction.WEST:
-			return DoorSocket.Direction.EAST
-	return dir
-
-
 func _pair_key(a: String, b: String) -> String:
-	return a if a < b else b
+	return "%s|%s" % [a, b] if a < b else "%s|%s" % [b, a]

@@ -1,0 +1,128 @@
+[gd_scene format=4 uid="uid://dbo4yalrlxbeb"]
+
+[ext_resource type="Script" uid="uid://dii7464f0yb8o" path="res://Game/rotate_camera_pivot.gd" id="2_2n0vj"]
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="3_pd3i5"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="4_6bhrc"]
+[ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="4_756pn"]
+[ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="6_h46n2"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_2bgwa"]
+vertices = PackedVector3Array(-9.75, 2.5, -9.5, -9.75, 2.5, -22.5, -26.5, 2.5, -22.5, -26.5, 2.5, -9.5, -6.5, 2.5, -8.25, -6.5, 2.5, -6.25, 6.5, 2.5, -6.25, -7.25, 2.5, -9.25, 6.5, 2.5, -22.5, -6.5, 2.5, 10.5, 6.5, 2.5, 10.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(6, 5, 4), PackedInt32Array(0, 1, 7), PackedInt32Array(4, 7, 6), PackedInt32Array(6, 7, 8), PackedInt32Array(8, 7, 1), PackedInt32Array(10, 9, 6), PackedInt32Array(6, 9, 5)]
+agent_radius = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rmals"]
+render_priority = 0
+shader = ExtResource("4_756pn")
+shader_parameter/weight = 0.02
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rf4sn"]
+next_pass = SubResource("ShaderMaterial_rmals")
+albedo_color = Color(0.4822908, 0.4652238, 0.5155815, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pd3i5"]
+_surfaces = [{
+"aabb": AABB(-28, -50, -24, 36, 52, 36),
+"attribute_data": PackedByteArray("AACAPwAAgL4AAIC/AACAvgAAgL8AAMhAAACAPwAAyEAAAMA/AADIQAAAQMAAAMhAAABAwAAAgL4AAMA/AACAvgAAwD8AAIC/AADAPwAAgD8AAEDAAACAPwAAQMAAAIC/AADAPwAAgL8AAEDAAACAvwAAQMAAAIA/AADAPwAAgD8AAMA/AACAvgAAQMAAAIC+AABAwAAAyEAAAMA/AADIQAAAgD8AAMhAAACAvwAAyEAAAIC/AACAvgAAgD8AAIC+AACAvwAAgL4AAGDAAACAvgAAYMAAAMhAAACAvwAAyEAAAIC/AADIQAAAQMAAAMhAAABAwAAAgL4AAIC/AACAvgAAgL8AAGDAAACAvwAAgL8AAEDAAACAvwAAQMAAAGDAAACAvwAAYMAAAEDAAABgwAAAQMAAAIC/AACAvwAAgL8AAIC/AACAvgAAQMAAAIC+AABAwAAAyEAAAIC/AADIQAAAgL8AAMhAAABgwAAAyEAAAGDAAACAvgAAgL8AAIC+"),
+"format": 34359742487,
+"index_count": 72,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACAAKAAsADAANAA4ADAAOAA8AEAARABIAEAASABMAFAAVABYAFAAWABcAGAAZABoAGAAaABsAHAAdAB4AHAAeAB8AIAAhACIAIAAiACMAJAAlACYAJAAmACcAKAApACoAKAAqACsALAAtAC4ALAAuAC8A"),
+"material": SubResource("StandardMaterial3D_rf4sn"),
+"name": "__TB_empty",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("AAAAQQAAAEAAAMDBAAAAwQAAAEAAAMDBAAAAwQAASMIAAMDBAAAAQQAASMIAAMDBAAAAwQAASMIAAEBBAAAAwQAASMIAAMDBAAAAwQAAAEAAAMDBAAAAwQAAAEAAAEBBAAAAwQAASMIAAEBBAAAAQQAASMIAAEBBAAAAQQAASMIAAMDBAAAAwQAASMIAAMDBAAAAwQAAAEAAAEBBAAAAwQAAAEAAAMDBAAAAQQAAAEAAAMDBAAAAQQAAAEAAAEBBAAAAQQAAAEAAAEBBAAAAQQAAAEAAAMDBAAAAQQAASMIAAMDBAAAAQQAASMIAAEBBAAAAQQAASMIAAEBBAAAAwQAASMIAAEBBAAAAwQAAAEAAAEBBAAAAQQAAAEAAAEBBAAAAwQAAAEAAAMDBAADgwQAAAEAAAMDBAADgwQAASMIAAMDBAAAAwQAASMIAAMDBAADgwQAASMIAAADBAADgwQAASMIAAMDBAADgwQAAAEAAAMDBAADgwQAAAEAAAADBAADgwQAASMIAAADBAAAAwQAASMIAAADBAAAAwQAASMIAAMDBAADgwQAASMIAAMDBAADgwQAAAEAAAADBAADgwQAAAEAAAMDBAAAAwQAAAEAAAMDBAAAAwQAAAEAAAADBAAAAwQAAAEAAAADBAAAAwQAAAEAAAMDBAAAAwQAASMIAAMDBAAAAwQAASMIAAADBAAAAwQAASMIAAADBAADgwQAASMIAAADBAADgwQAAAEAAAADBAAAAwQAAAEAAAADB/////////z//////////P/////////8//////////z8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD/f/8//38AAP9//z//fwAA/3//P/9/AAD/f/8//3////9//7//f////3//v/9/////f/+//3////9//7////9//3//P////3//f/8/////f/9//z////9//3//P/9//3////+//3//f////7//f/9/////v/9//3////+//////////z//////////P/////////8//////////z8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9/AAD/f/8//38AAP9//z//fwAA/3//P/9/AAD/f/8//3////9//7//f////3//v/9/////f/+//3////9//7////9//3//P////3//f/8/////f/9//z////9//3//P/9//3////+//3//f////7//f/9/////v/9//3////+/")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6bhrc"]
+points = PackedVector3Array(8, 2, 12, 8, -50, 12, -8, 2, 12, -8, -50, 12, 8, 2, -24, 8, -50, -24, -8, 2, -24, -8, -50, -24)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y88l3"]
+points = PackedVector3Array(-8, 2, -8, -8, -50, -8, -28, 2, -8, -28, -50, -8, -8, 2, -24, -8, -50, -24, -28, 2, -24, -28, -50, -24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_756pn"]
+size = Vector3(40.144287, 12.358398, 1)
+
+[node name="Start" type="Node3D" unique_id=251378112]
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=113840430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7093034, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=2015351271]
+transform = Transform3D(0.9999677, -0.00727333, -0.0034175778, 0.007271984, 0.9999735, -0.00040618106, 0.0034204412, 0.0003813179, 0.9999941, 0, 4.1583977, 0)
+script = ExtResource("2_2n0vj")
+base_camera_size = 35.0
+max_extra_size = 2.0
+room_size_units = Vector2(100, 100)
+
+[node name="FuncGodotMap" type="Node3D" parent="." unique_id=1648080924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.3286715, 9.937717)
+script = ExtResource("3_pd3i5")
+local_map_file = "uid://busujlcsvuqmu"
+map_settings = ExtResource("4_6bhrc")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=987230095]
+navigation_mesh = SubResource("NavigationMesh_2bgwa")
+
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=2051933754]
+collision_mask = 0
+
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=577995772]
+mesh = SubResource("ArrayMesh_pd3i5")
+
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=791416803]
+shape = SubResource("ConvexPolygonShape3D_6bhrc")
+
+[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2057340050]
+shape = SubResource("ConvexPolygonShape3D_y88l3")
+
+[node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("6_h46n2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.141035, -0.15423346, -7.5047646)
+direction = 3
+
+[node name="DoorSocket3" parent="." unique_id=145515346 instance=ExtResource("6_h46n2")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.14037561, -0.0040130615, 18.439804)
+direction = 1
+
+[node name="SpawnGroups" type="Node3D" parent="." unique_id=2000807530]
+
+[node name="Melee" type="Node3D" parent="SpawnGroups" unique_id=1644759633]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnGroups/Melee" unique_id=1864520401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1033373, 6.5172844, 2.626483)
+
+[node name="Ranged" type="Node3D" parent="SpawnGroups" unique_id=269661243]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnGroups/Ranged" unique_id=2035068996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0888577, 5.6342125, -5.557686)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2091824755]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=53750446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.679199, 21.616913)
+shape = SubResource("BoxShape3D_756pn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1188839616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.91277, 5.679199, -14.599058)
+shape = SubResource("BoxShape3D_756pn")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=334768402]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, 8.311279, 5.679199, 3.0090334)
+shape = SubResource("BoxShape3D_756pn")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" unique_id=1248443083]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, -27.89404, 5.679199, 3.0090334)
+shape = SubResource("BoxShape3D_756pn")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1521795887]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1769448071]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -8.467382, 5.679199, 21.693035)
+shape = SubResource("BoxShape3D_756pn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2" unique_id=986030908]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -27.902752, 5.679199, 2.149426)
+shape = SubResource("BoxShape3D_756pn")
