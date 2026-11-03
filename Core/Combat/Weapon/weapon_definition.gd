@@ -23,6 +23,9 @@ extends ItemDefinition
 @export var stun_duration := 0.5
 @export var projectile_count := 1
 
+@export var ammo_per_axis := 6
+@export var start_ammo_in_x := -1  
+
 @export_category("Audio")
 @export var shoot_sound: String
 @export var reload_sound: String

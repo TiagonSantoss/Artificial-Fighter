@@ -72,6 +72,9 @@ func _spread_direction(
 
 	return base_direction.rotated(Vector3.UP, deg_to_rad(angle)).normalized()
 
+func _try_spend_ammo() -> bool:
+	var group := AxisAmmo.group_of(GState.current_perspective.active_axis)
+	return weapon.ammo.fire(group)
 
 func use(direction: Vector3) -> void:
 	if weapon.definition.is_melee:
@@ -86,6 +89,9 @@ func fire(direction: Vector3):
 		return
 
 	if fire_cooldown > 0.0 or not can_fire:
+		return
+	
+	if not _try_spend_ammo():
 		return
 
 	can_fire = false
@@ -162,6 +168,9 @@ func swing(direction: Vector3):
 		return
 
 	if fire_cooldown > 0.0 or not can_fire:
+		return
+	
+	if not _try_spend_ammo():
 		return
 
 	can_fire = false

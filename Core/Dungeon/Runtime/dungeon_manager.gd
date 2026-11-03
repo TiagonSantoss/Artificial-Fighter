@@ -188,6 +188,8 @@ func start_encounter(room: RoomInstance) -> void:
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
 
+
+	await get_tree().create_timer(1.2).timeout
 	room.unlock_room()
 	print("ROOM CLEARED:", room.room_id)
 

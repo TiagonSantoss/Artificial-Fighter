@@ -8,7 +8,9 @@ var damage_multiplier := 1.0
 var knockback_multiplier := 1.0
 var pierce_multiplier := 1.0
 var speed_multiplier := 1.0
+
 var default_behaviors: Array[BehaviorDefinition]
+var ammo := AxisAmmo.new()
 
 @onready var visual_component: WeaponVisualComponent = $WeaponComponent/VisualComponent
 @onready var attack_component: WeaponAttackComponent = $WeaponComponent/AttackComponent
@@ -34,6 +36,8 @@ func setup(weapon_definition, owner_entity):
 		assert(weapon_definition.projectile != null)
 
 	definition = weapon_definition
+	ammo.setup(definition.ammo_per_axis, definition.start_ammo_in_x)
+
 	wielder = owner_entity
 
 	damage_multiplier = definition.damage_multiplier

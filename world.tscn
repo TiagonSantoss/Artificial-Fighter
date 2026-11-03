@@ -178,6 +178,7 @@ shadow_enabled = true
 script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc")])
 start_room = ExtResource("18_55kwu")
+generate_random_seed = false
 _seed = 2
 room_count = 50
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
@@ -360,13 +361,14 @@ expand_mode = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00082046055
-anchor_top = -0.001330838
+anchor_top = 0.17105098
 anchor_right = 0.30663258
-anchor_bottom = 1.051216
+anchor_bottom = 1.2235979
 offset_left = 0.4279976
 offset_top = 0.43597412
 offset_right = -0.50801086
 offset_bottom = -0.26208496
+scale = Vector2(0.8, 0.8)
 metadata/_edit_use_anchors_ = true
 
 [node name="CurrencyIndicator" type="Control" parent="UI/Control" unique_id=598359608]

@@ -197,7 +197,7 @@ stretch_mode = 5
 [node name="Intro" type="AnimationPlayer" parent="." unique_id=643472132]
 
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="." unique_id=1473116646]
-event_name = "event:/Music/MainMusics"
+event_name = "event:/Music/MainTracks"
 event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
 autoplay = true
 auto_release = true

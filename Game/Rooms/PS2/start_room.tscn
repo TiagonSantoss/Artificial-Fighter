@@ -345,12 +345,14 @@ points = PackedVector3Array(6, 4, 8, 6, 2, 8, 2, 4, 8, 2, 2, 8, 6, 4, 6, 6, 2, 6
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iwvna"]
 points = PackedVector3Array(2, 4, 8, 2, 2, 8, -2, 4, 8, -2, 2, 8, 2, 4, -8, 2, 2, -8, -2, 4, -8, -2, 2, -8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yjxq"]
+size = Vector3(55.458008, 12.358398, 1)
+
 [node name="Start" type="Node3D" unique_id=251378112]
 script = SubResource("GDScript_g3gis")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.4393415, 2.5152586, 0.028604208, 0.41001347, -8.22248, -0.43777192, -0.09618239, 2.5627909, -1.4329122, 0, 1.6989145, -0.8869953)
-visible = false
+transform = Transform3D(1.300791, 2.6339617, 0.6025903, 0.7057939, -6.700926, -0.70439637, 0.24386647, 5.3559275, -1.1777354, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]
@@ -461,7 +463,7 @@ transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258
 possible_items = Array[ExtResource("7_mlk7b")]([ExtResource("8_033yy"), ExtResource("9_q5eij"), ExtResource("10_itqj8"), ExtResource("11_2yjxq"), ExtResource("12_2yjxq"), ExtResource("8_jtlru"), ExtResource("14_lidyg")])
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("7_k7wdg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.660595, 2.2853684, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.54774, 2.2853684, 0)
 direction = 1
 
 [node name="DoorSocket2" parent="." unique_id=1540554199 instance=ExtResource("7_k7wdg")]
@@ -469,27 +471,30 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 17.3
 direction = 1
 
 [node name="DoorSocket3" parent="." unique_id=145515346 instance=ExtResource("7_k7wdg")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.14037561, 2.2853684, 19.152586)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.14037561, 2.2853684, 15.901403)
 direction = 2
 
 [node name="DoorSocket4" parent="." unique_id=125769763 instance=ExtResource("7_k7wdg")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.14037561, 2.2853684, -19.438002)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.14037561, 2.2853684, -17.075718)
 direction = 2
 
 [node name="chest" parent="." unique_id=1273433877 instance=ExtResource("8_v6hk5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -15.45187)
 
-[node name="chest2" parent="." unique_id=1377217238 instance=ExtResource("8_v6hk5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -10.602553)
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1130852309]
 
-[node name="chest3" parent="." unique_id=751030539 instance=ExtResource("8_v6hk5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -5.4055357)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=995325510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.679199, 20.141949)
+shape = SubResource("BoxShape3D_2yjxq")
 
-[node name="chest4" parent="." unique_id=1274175844 instance=ExtResource("8_v6hk5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 5.267353)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=2033672905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.679199, -19.617374)
+shape = SubResource("BoxShape3D_2yjxq")
 
-[node name="chest5" parent="." unique_id=750675270 instance=ExtResource("8_v6hk5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 11.143739)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1790784468]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, -20.078526, 5.679199, 2.8791864)
+shape = SubResource("BoxShape3D_2yjxq")
 
-[node name="chest6" parent="." unique_id=593910268 instance=ExtResource("8_v6hk5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, 16.177162)
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=1394042258]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, 20.025723, 5.679199, 3.0090334)
+shape = SubResource("BoxShape3D_2yjxq")
