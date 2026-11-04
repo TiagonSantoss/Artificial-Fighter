@@ -15,6 +15,8 @@ var observed_entity: Entity
 var current_cam_axis: int = -1
 var active_card_uis: Dictionary = {}
 
+@onready var hud := PlayerHud.find_for(self)
+
 @onready var preview_container: HBoxContainer = $VBoxContainer/PreviewContainer
 @onready var slot_x1: TextureRect = $VBoxContainer/MainContainer/SlotX1
 @onready var slot_x2: TextureRect = $VBoxContainer/MainContainer/SlotX2
@@ -34,6 +36,8 @@ func _ready() -> void:
 		current_cam_axis = GState.current_perspective.active_axis
 		_update_bg_visuals()
 
+	hud.activated.connect(refresh)
+
 
 func _on_perspective_updated(state) -> void:
 	current_cam_axis = state.active_axis
@@ -42,11 +46,17 @@ func _on_perspective_updated(state) -> void:
 
 
 func _on_cards_changed(state) -> void:
-	if state != null and state.entity == observed_entity:
-		refresh()
+	if state == null or state.entity == null:
+		return
+	if state.entity.entity_id != hud.entity_id:
+		return
+	observed_entity = state.entity
+	refresh()
 
 
 func _on_controlled_entity_changed(entity: Entity) -> void:
+	if entity == null or entity.entity_id != hud.entity_id:
+		return
 	observed_entity = entity
 	refresh()
 

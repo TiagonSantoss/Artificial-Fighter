@@ -2,8 +2,8 @@ class_name AmmoBar
 extends Control
 
 @export_group("Layout Settings")
-@export var main_size := Vector2(120, 60)
-@export var preview_size := Vector2(60, 30)
+@export var main_size := Vector2(140, 70)
+@export var preview_size := Vector2(100, 50)
 
 @export_group("Animation")
 @export var tween_duration := 0.25
@@ -31,22 +31,15 @@ func _ready() -> void:
 		slot.offset_transform_enabled = true
 		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	_arrange(false)
 	GState.perspective_updated.connect(_on_perspective_updated)
-	GState.controlled_entity_changed.connect(_on_controlled_entity_changed)
-	GState.weapon_changed.connect(func(_state): _bind_ammo())
+	GState.ammo_bound.connect(_bind_ammo)
 
 	if GState.current_perspective:
 		current_group = AxisAmmo.group_of(GState.current_perspective.active_axis)
 
-	# Fetch entity if it was already spawned before UI ready
-	if "controlled_entity" in GState and GState.controlled_entity:
-		observed_entity = GState.controlled_entity
-	elif GameAutoLoad.get_current_entity():
-		observed_entity = GameAutoLoad.get_current_entity()
-
-	_hide_all()
-	_bind_ammo()
+	_arrange(true)
+	if GState.current_ammo:
+		_bind_ammo(GState.current_ammo)  # the weapon may already exist
 
 
 # --- SIGNALS ---
@@ -60,11 +53,6 @@ func _on_perspective_updated(state) -> void:
 	_arrange(false)
 
 
-func _on_controlled_entity_changed(entity: Entity) -> void:
-	observed_entity = entity
-	_bind_ammo()
-
-
 func _on_ammo_changed(group: AxisAmmo.Group, current: int, _maximum: int) -> void:
 	_refresh_text(group)
 
@@ -76,22 +64,12 @@ func _on_ammo_changed(group: AxisAmmo.Group, current: int, _maximum: int) -> voi
 # --- BINDING ---
 
 
-func _bind_ammo() -> void:
+func _bind_ammo(new_ammo: AxisAmmo) -> void:
 	if ammo and ammo.changed.is_connected(_on_ammo_changed):
 		ammo.changed.disconnect(_on_ammo_changed)
-	ammo = null
 
-	if not observed_entity:
-		if "controlled_entity" in GState and GState.controlled_entity:
-			observed_entity = GState.controlled_entity
-		elif GameAutoLoad.get_current_entity():
-			observed_entity = GameAutoLoad.get_current_entity()
-
-	if observed_entity and "weapon" in observed_entity and observed_entity.weapon:
-		ammo = observed_entity.weapon.ammo
-
+	ammo = new_ammo
 	if ammo == null:
-		_hide_all()
 		return
 
 	ammo.changed.connect(_on_ammo_changed)
@@ -132,16 +110,15 @@ func _arrange(instant: bool) -> void:
 
 
 func _refresh_text(group: AxisAmmo.Group) -> void:
-	if ammo == null:
-		return
-
 	var label: Label = slots[group].get_node("Label")
-	var axis_name := "X" if group == AxisAmmo.Group.X else "Z"
+	var axis_name := "x" if group == AxisAmmo.Group.X else "z"
+	var cur = ammo.current[group] if ammo else 0
+	var total := ammo.total if ammo else 0
 
 	if group == current_group:
-		label.text = "%s  %d / %d" % [axis_name, ammo.current[group], ammo.total]
+		label.text = "%s  %d / %d" % [axis_name, cur, total]
 	else:
-		label.text = "%s %d" % [axis_name, ammo.current[group]]
+		label.text = "%s  %d" % [axis_name, cur]
 
 
 # --- TWEENS ---
@@ -173,8 +150,8 @@ func _new_tween(slot: Control) -> Tween:
 		if old and old.is_valid():
 			old.kill()
 
-	var tween := (
-		create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var tween := create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(
+		Tween.EASE_OUT
 	)
 	slot.set_meta("tween", tween)
 	return tween

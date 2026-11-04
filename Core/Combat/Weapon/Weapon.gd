@@ -59,6 +59,17 @@ func setup(weapon_definition, owner_entity):
 
 	set_process(true)
 
+	if wielder == GameAutoLoad.get_current_entity():
+		GState.bind_ammo(ammo)
+
+	if not GState.controlled_entity_changed.is_connected(_on_controlled_entity_changed):
+		GState.controlled_entity_changed.connect(_on_controlled_entity_changed)
+
+
+func _on_controlled_entity_changed(entity: Entity) -> void:
+	if entity == wielder:
+		GState.bind_ammo(ammo)
+
 
 func equip_default_behaviors() -> void:
 	for behavior in default_behaviors:

@@ -14,9 +14,16 @@ var bar_tween: Tween
 var is_currently_damaged := false
 var current_rank := -1  # Starts unranked (-1)
 
-@onready var reaction_node = $Blue
-@onready var atlas: AtlasTexture = reaction_node.texture
+@onready var hud := PlayerHud.find_for(self)
+@onready var reaction_node = $Reaction
+@onready var atlas: AtlasTexture = _make_local_atlas()
 @onready var progress_bar: ProgressBar = $Panel/MarginContainer/ProgressBar
+
+
+func _make_local_atlas() -> AtlasTexture:  # NEW
+	var a := (reaction_node.texture as AtlasTexture).duplicate() as AtlasTexture
+	reaction_node.texture = a
+	return a
 
 
 func _ready() -> void:
@@ -64,7 +71,10 @@ func _update_idle_face() -> void:
 	set_atlas_frame(target_frame)
 
 
-func _on_rank_changed(new_rank: int, old_rank: int) -> void:
+func _on_rank_changed(entity_id: int, new_rank: int, old_rank: int) -> void:
+	if entity_id != hud.entity_id:
+		return
+
 	current_rank = new_rank
 
 	if is_currently_damaged:
@@ -95,7 +105,10 @@ func _on_rank_changed(new_rank: int, old_rank: int) -> void:
 	# GameAutoLoad.get_current_entity().audio_component.play_single_sfx("Voice/RankVoices")
 
 
-func _on_player_damaged(iframe_time: float) -> void:
+func _on_player_damaged(entity_id: int, iframe_time: float) -> void:
+	if entity_id != hud.entity_id:
+		return
+
 	is_currently_damaged = true
 
 	if tween and tween.is_running():

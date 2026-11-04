@@ -1,22 +1,35 @@
 extends TextureRect
 
-var frame_width := 500.0
-var frame_height := 502.0
-
-var columns := 3
+var frame_width: float
+var frame_height: float
+var columns: int
 
 var tween: Tween
 
+@onready var hud := PlayerHud.find_for(self)
 @onready var reaction_node = self
-@onready var atlas: AtlasTexture = reaction_node.texture
+@onready var atlas: AtlasTexture = _make_local_atlas()
 @onready var original_pos: Vector2 = reaction_node.position
+
+
+func _make_local_atlas() -> AtlasTexture:
+	var a := (reaction_node.texture as AtlasTexture).duplicate() as AtlasTexture
+	reaction_node.texture = a
+
+	frame_width = a.region.size.x
+	frame_height = a.region.size.y
+	columns = maxi(1, int(a.atlas.get_width() / frame_width))
+	return a
 
 
 func _ready() -> void:
 	GState.health_changed.connect(_on_health_changed)
 
 
-func _on_health_changed(new_health: float) -> void:
+func _on_health_changed(entity_id: int, new_health: float) -> void:
+	if entity_id != hud.entity_id:
+		return
+
 	if tween and tween.is_running():
 		tween.kill()
 

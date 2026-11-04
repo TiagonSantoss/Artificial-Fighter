@@ -18,7 +18,7 @@ func damage(amount: float):
 	health -= amount
 
 	if entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
-		GState.health_changed.emit(int(health))
+		GState.health_changed.emit(entity.entity_id, int(health))
 
 	print(health)
 

@@ -188,13 +188,13 @@ func apply_hit(hit: HitData):
 
 			if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
 				rank_component.reset_rank()
-				GState.player_damaged.emit(iframe_duration)
+				GState.player_damaged.emit(entity_id, iframe_duration)
 
 			return HitResult.CONSUME
 
 	if hit.source_entity != null and team == Team.ENEMY:
 		if hit.source_entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
-			GState.enemy_damaged.emit(1)
+			GState.enemy_damaged.emit(hit.source_entity.entity_id, 1)
 			SceneManager.spawn_effect(SceneManager.Fx.HIT, hit.hit_position)
 
 	if health_component:
@@ -204,7 +204,7 @@ func apply_hit(hit: HitData):
 
 		if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
 			rank_component.reset_rank()
-			GState.player_damaged.emit(iframe_duration)
+			GState.player_damaged.emit(entity_id, iframe_duration)
 
 		start_iframes()
 
@@ -318,8 +318,11 @@ func _ready():
 	# GState.enemy_parried.connect(_on_enemy_parried) MAYBE
 
 
-func _on_enemy_damaged(hit_count: int = 1):
-	if team == Team.PLAYER and rank_component:
+func _on_enemy_damaged(source_id: int, hit_count: int = 1) -> void:
+	if source_id != entity_id:
+		return
+
+	if (team == Team.PLAYER or team == Team.ALLY) and rank_component:
 		rank_component.add_hits(hit_count)
 
 

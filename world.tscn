@@ -18,7 +18,6 @@
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
-[ext_resource type="PackedScene" uid="uid://0v1b8eyr8r8j" path="res://Game/UI/p_1.tscn" id="16_il2jm"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
@@ -35,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="22_mc2jv"]
 [ext_resource type="PackedScene" uid="uid://cr56gd4y8f611" path="res://Game/UI/shop_ui.tscn" id="29_qktwf"]
 [ext_resource type="PackedScene" uid="uid://bao0lkwunib3s" path="res://Game/UI/submenu.tscn" id="30_jjr1n"]
+[ext_resource type="PackedScene" uid="uid://cjl7py7intgn7" path="res://Game/UI/player_hud.tscn" id="32_6ah6f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
 shader = ExtResource("5_wukud")
@@ -357,26 +357,16 @@ grow_vertical = 2
 texture = ExtResource("22_gggvi")
 expand_mode = 2
 
-[node name="P1" parent="UI/Control" unique_id=131289428 instance=ExtResource("16_il2jm")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.00082046055
-anchor_top = 0.17105098
-anchor_right = 0.30663258
-anchor_bottom = 1.2235979
-offset_left = 0.4279976
-offset_top = 0.43597412
-offset_right = -0.50801086
-offset_bottom = -0.26208496
-scale = Vector2(0.8, 0.8)
-metadata/_edit_use_anchors_ = true
-
 [node name="CurrencyIndicator" type="Control" parent="UI/Control" unique_id=598359608]
 anchors_preset = 0
 offset_left = 41.0
 offset_top = 477.0
 offset_right = 81.0
 offset_bottom = 517.0
+
+[node name="PlayerHud" parent="UI/Control" unique_id=1038164618 instance=ExtResource("32_6ah6f")]
+layout_mode = 1
+mouse_filter = 2
 
 [node name="Submenu" parent="UI" unique_id=356753527 instance=ExtResource("30_jjr1n")]
 visible = false

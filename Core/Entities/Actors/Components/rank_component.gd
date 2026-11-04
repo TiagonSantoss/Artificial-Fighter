@@ -14,7 +14,7 @@ func add_hits(amount: int = 1) -> void:
 
 	if current_rank != old_rank:
 		# Emit both the new rank and old rank so the UI knows the full jump
-		GState.rank_changed.emit(current_rank, old_rank)
+		GState.rank_changed.emit(entity.entity_id, current_rank, old_rank)
 
 
 func reset_rank() -> void:
@@ -22,7 +22,7 @@ func reset_rank() -> void:
 	current_rank = -1
 
 	if current_rank != old_rank:
-		GState.rank_changed.emit(current_rank, old_rank)
+		GState.rank_changed.emit(entity.entity_id, current_rank, old_rank)
 
 
 func finish_encounter() -> void:

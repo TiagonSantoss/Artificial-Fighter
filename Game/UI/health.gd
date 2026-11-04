@@ -12,6 +12,7 @@ var progress_bar_tween: Tween
 
 @onready var original_position: Vector2 = position
 @onready var progress_bar := $"../../"
+@onready var hud := PlayerHud.find_for(self)
 
 
 func _ready() -> void:
@@ -19,7 +20,10 @@ func _ready() -> void:
 	text = str(actual_health)
 
 
-func _on_health_changed(new_health: float) -> void:
+func _on_health_changed(entity_id: int, new_health: float) -> void:
+	if entity_id != hud.entity_id:
+		return
+
 	actual_health = new_health
 
 	if health_tween and health_tween.is_valid():
@@ -45,8 +49,9 @@ func _on_health_changed(new_health: float) -> void:
 		. set_ease(Tween.EASE_OUT)
 	)
 
-	SceneManager.shake(0.5, 0.2)
-	SceneManager.pulse_vignette(0.2, 1.0)
+	if hud.is_active:
+		SceneManager.shake(0.5, 0.2)
+		SceneManager.pulse_vignette(0.2, 1.0)
 
 
 func _process(_delta: float) -> void:
@@ -54,7 +59,8 @@ func _process(_delta: float) -> void:
 
 	if actual_health < low_health_threshold:
 		_apply_wiggle()
-		SceneManager.shake(0.1, 0.2)
+		if hud.is_active:
+			SceneManager.shake(0.1, 0.2)
 	else:
 		_reset_transform()
 
