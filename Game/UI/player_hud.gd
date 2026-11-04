@@ -56,6 +56,8 @@ func _set_active(active: bool, instant := false) -> void:
 	_tween.set_ease(Tween.EASE_OUT if active else Tween.EASE_IN)
 	_tween.tween_property(self, "offset_transform_position", target, tween_duration)
 
+	FmodServer.play_one_shot("event:/SFX/UI/Sweep")
+
 	if active:
 		activated.emit()
 	else:

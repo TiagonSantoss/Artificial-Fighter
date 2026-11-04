@@ -161,7 +161,7 @@ func fire(direction: Vector3):
 
 	weapon.behavior_component.after_attack(context)
 
-	if is_instance_valid(weapon.definition.shoot_sound):
+	if not weapon.definition.shoot_sound.is_empty():
 		weapon.audio_component.play_sfx(weapon.definition.shoot_sound)
 
 	if weapon.wielder.entity_id == GameAutoLoad.get_current_entity().entity_id:

@@ -3,7 +3,7 @@ extends Node
 enum Mood { EXPLORE, COMBAT }
 
 const PARAM_NAME := "MusicType"
-const START_VALUE := 6
+const START_VALUE := 7
 
 var labels := {
 	0: "TheVibeMusic",
@@ -12,12 +12,13 @@ var labels := {
 	3: "Deiz Mosquitos No meu QUARTO",
 	4: "ESTACAO DE JOGOS",
 	5: "Frutiger",
-	6: "Wiiu",
-	7: "Silence",
+	6: "2TOXIC4ME",
+	7: "Wiiu",
+	8: "Silence",
 }
 
-var explore_values: Array[int] = [3, 4, 6, 7]
-var combat_values: Array[int] = [0, 1, 2, 5]
+var explore_values: Array[int] = [3, 4, 7, 8]
+var combat_values: Array[int] = [0, 1, 2, 5, 6]
 
 var mood: int = -1
 var rng := RandomNumberGenerator.new()
@@ -55,13 +56,18 @@ func _play_next() -> void:
 		return
 
 	var value: int
+
 	if first_pick and mood == Mood.EXPLORE:
 		value = START_VALUE
 	else:
 		value = _pick_value()
+
 	first_pick = false
+
 	if not is_playing:
 		emitter.play()
+	
+	_set_track(value)
 
 	last_value = value
 	current_value = value

@@ -28,8 +28,7 @@ extends ItemDefinition
 
 @export_category("Audio")
 @export var shoot_sound: String
-@export var reload_sound: String
-#@export var empty_sound: AudioStream MAYBE
+@export var empty_sound: String
 
 @export_category("Combat")
 @export var is_melee: bool = false

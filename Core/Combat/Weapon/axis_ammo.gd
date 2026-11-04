@@ -36,6 +36,8 @@ func can_shoot(group: Group) -> bool:
 ## Returns false (and changes nothing) when 'group' doesnt have nothing
 func fire(group: Group, amount: int = 1) -> bool:
 	if current[group] < amount:
+		FmodServer.play_one_shot("event:/SFX/UI/Error")
+		SceneManager.shake(4.0,0.3)
 		return false
 
 	var target := other(group)

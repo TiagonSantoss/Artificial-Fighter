@@ -44,6 +44,7 @@ var active_room_pivot: DynamicRotatingCameraPivot = null
 var entities: Node3D
 var player_spawn: Marker3D
 var emitter: FmodEventEmitter3D
+var ui_emitter: FmodEventEmitter2D
 var camera_rig: Camera3D
 # var marker: Marker3D
 var wallet := PlayerWallet.new()

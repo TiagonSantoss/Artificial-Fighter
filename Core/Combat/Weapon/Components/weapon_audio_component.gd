@@ -8,9 +8,11 @@ func play_sfx(sfx: String) -> void:
 	if not is_instance_valid(weapon.wielder.emitter):
 		return
 
-	if not is_instance_valid(sfx):
+	if sfx.is_empty():
 		return
+	
+	var sfx_name = SFX_BASE_PATH + sfx
 
-	weapon.wielder.emitter.event_name = SFX_BASE_PATH + sfx
+	#weapon.wielder.emitter.event_name = SFX_BASE_PATH + sfx
 
-	weapon.wielder.emitter.play_one_shot()
+	FmodServer.play_one_shot(sfx_name)

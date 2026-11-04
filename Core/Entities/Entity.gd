@@ -109,8 +109,6 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	rank_component.setup(self)
 	currency_component.setup(self)
 
-	await get_tree().physics_frame
-
 	initialized = true
 
 	if definition.starting_weapon:

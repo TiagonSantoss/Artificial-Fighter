@@ -14,24 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="8_6qcx1"]
 [ext_resource type="Texture2D" uid="uid://3mbdppg7uq3n" path="res://assets/sprites/UI/cartazfaltando.png" id="8_gfnvd"]
 [ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="9_txbq2"]
-[ext_resource type="Script" uid="uid://dqdfuq6devhnm" path="res://Game/UI/ammo_bar.gd" id="9_v2nbf"]
 [ext_resource type="Texture2D" uid="uid://c1yxgo6rdadv0" path="res://assets/sprites/UI/carinhasazuis.png" id="14_jiqvk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrvgn"]
 atlas = ExtResource("6_trl4j")
 region = Rect2(0, 0, 500, 500)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jiqvk"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvm4q"]
 content_margin_left = 0.0
@@ -172,73 +159,6 @@ offset_bottom = 104.61542
 mouse_filter = 2
 texture = ExtResource("6_gfnvd")
 expand_mode = 3
-
-[node name="AmmoBar" type="Control" parent="." unique_id=623174380]
-visible = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -149.0
-offset_right = 233.0
-offset_bottom = -24.0
-grow_vertical = 0
-script = ExtResource("9_v2nbf")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="AmmoBar" unique_id=464185514]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PreviewContainer" type="HBoxContainer" parent="AmmoBar/VBoxContainer" unique_id=1167460253]
-layout_mode = 2
-
-[node name="MainContainer" type="HBoxContainer" parent="AmmoBar/VBoxContainer" unique_id=399884609]
-layout_mode = 2
-alignment = 1
-
-[node name="Slot1" type="PanelContainer" parent="AmmoBar/VBoxContainer/MainContainer" unique_id=1425655721]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(-1, 60)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jiqvk")
-
-[node name="TextureRect" type="TextureRect" parent="AmmoBar/VBoxContainer/MainContainer/Slot1" unique_id=1077619947]
-modulate = Color(0.9137255, 0.16078432, 0.14901961, 1)
-layout_mode = 2
-texture = ExtResource("6_gfnvd")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="AmmoBar/VBoxContainer/MainContainer/Slot1" unique_id=334888781]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(12.358, 0)
-theme_override_fonts/font = ExtResource("1_x72qx")
-theme_override_font_sizes/font_size = 6
-text = "10"
-
-[node name="Slot2" type="PanelContainer" parent="AmmoBar/VBoxContainer/MainContainer" unique_id=517747453]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(-1, 60)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jiqvk")
-
-[node name="TextureRect" type="TextureRect" parent="AmmoBar/VBoxContainer/MainContainer/Slot2" unique_id=634206167]
-modulate = Color(0.12941177, 0.62352943, 0.9137255, 1)
-layout_mode = 2
-texture = ExtResource("6_gfnvd")
-expand_mode = 4
-
-[node name="Label" type="Label" parent="AmmoBar/VBoxContainer/MainContainer/Slot2" unique_id=1437179270]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(12.358, 0)
-theme_override_fonts/font = ExtResource("1_x72qx")
-theme_override_font_sizes/font_size = 6
-text = "10"
 
 [node name="CardsBar" type="Control" parent="." unique_id=1551712786]
 custom_minimum_size = Vector2(19.763, 0)
