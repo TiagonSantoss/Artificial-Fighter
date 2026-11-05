@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://y32kacgsri0i"]
+
+[ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/ranged/Revolver.tres" id="1_8gv4a"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_qair1"]
+
+[resource]
+script = ExtResource("1_qair1")
+item_to_sell = ExtResource("1_8gv4a")
+price = 2
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

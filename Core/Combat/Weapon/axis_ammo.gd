@@ -38,6 +38,7 @@ func fire(group: Group, amount: int = 1) -> bool:
 	if current[group] < amount:
 		FmodServer.play_one_shot("event:/SFX/UI/Error")
 		SceneManager.shake(4.0,0.3)
+		GameAutoLoad.rotate_by(90)
 		return false
 
 	var target := other(group)

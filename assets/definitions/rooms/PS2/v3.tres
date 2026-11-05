@@ -9,7 +9,8 @@
 script = ExtResource("4_1y5cx")
 scene = ExtResource("3_jh73h")
 category = 1
-available_doors = Array[int]([0, 1])
+available_doors = Array[int]([0, 1, 0])
+special_door_chance = null
 has_encounter = true
 encounter_pool = Array[ExtResource("1_jh73h")]([ExtResource("2_eaojf")])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

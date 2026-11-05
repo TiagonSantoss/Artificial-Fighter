@@ -352,7 +352,7 @@ size = Vector3(55.458008, 12.358398, 1)
 script = SubResource("GDScript_g3gis")
 
 [node name="spiral thing" type="MeshInstance3D" parent="." unique_id=142375749]
-transform = Transform3D(1.300791, 2.6339617, 0.6025903, 0.7057939, -6.700926, -0.70439637, 0.24386647, 5.3559275, -1.1777354, 0, 1.6989145, -0.8869953)
+transform = Transform3D(1.0431322, -0.8888278, 1.0664291, 0.9651511, -3.1820698, -1.0168544, 0.47960734, 8.34346, -0.27426204, 0, 1.6989145, -0.8869953)
 mesh = SubResource("ArrayMesh_qn1rc")
 
 [node name="RoomRuntime" type="Node" parent="." unique_id=315127997]
@@ -464,7 +464,6 @@ possible_items = Array[ExtResource("7_mlk7b")]([ExtResource("8_033yy"), ExtResou
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("7_k7wdg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.54774, 2.2853684, 0)
-direction = 1
 
 [node name="DoorSocket2" parent="." unique_id=1540554199 instance=ExtResource("7_k7wdg")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 17.339405, 2.2853684, 0)
@@ -476,7 +475,7 @@ direction = 2
 
 [node name="DoorSocket4" parent="." unique_id=125769763 instance=ExtResource("7_k7wdg")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.14037561, 2.2853684, -17.075718)
-direction = 2
+direction = 3
 
 [node name="chest" parent="." unique_id=1273433877 instance=ExtResource("8_v6hk5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.600363, 0.5148423, -15.45187)

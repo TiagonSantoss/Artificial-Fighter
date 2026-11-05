@@ -64,6 +64,9 @@ points = PackedVector3Array(14.000001, 2, -6.0000005, 11.999999, 5.9999995, -7.9
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b51e7"]
 points = PackedVector3Array(20, 3, 2, 20, 2, 2, 10.000001, 3, 2, 10.000001, 2, 2, 20, 3, -2, 20, 2, -2, 14.000001, 3, -2, 14.000001, 2, -2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_msr2q"]
+size = Vector3(78.85181, 12.358398, 1)
+
 [node name="Arena 1" type="Node3D" unique_id=2117219993]
 script = ExtResource("1_lw6s6")
 
@@ -135,3 +138,22 @@ shape = SubResource("ConvexPolygonShape3D_b51e7")
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("7_a33n4")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 16.908234, 4.523468, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=125874003]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0852432, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=882571654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.679199, 19.699549)
+shape = SubResource("BoxShape3D_msr2q")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1549661329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7717047, 5.679199, -19.738476)
+shape = SubResource("BoxShape3D_msr2q")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=907991855]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, 19.438248, 5.679199, -11.823935)
+shape = SubResource("BoxShape3D_msr2q")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" unique_id=1297162543]
+transform = Transform3D(-0.00427726, 0, -0.9999909, 0, 1, 0, 0.9999909, 0, -0.00427726, -17.418877, 5.679199, 3.0090334)
+shape = SubResource("BoxShape3D_msr2q")

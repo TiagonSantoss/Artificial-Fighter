@@ -6,6 +6,8 @@
 
 [resource]
 script = ExtResource("2_gyygp")
+id = "start_room"
 scene = ExtResource("2_tw2gi")
 available_doors = Array[int]([0, 1, 2, 3])
+special_door_chance = null
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

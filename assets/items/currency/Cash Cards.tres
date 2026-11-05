@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_a2hd8")
-id = &"CC"
+currency_type = &"cc"
+id = &"cc"
 display_name = "cash cards"
 description = "money"
 icon = ExtResource("1_m6qqu")

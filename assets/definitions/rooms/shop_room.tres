@@ -9,5 +9,5 @@ script = ExtResource("2_vke5u")
 id = "SBR"
 scene = ExtResource("2_od382")
 tags = Array[String](["\"shop\""])
-available_doors = Array[int]([1])
+available_doors = Array[int]([4])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

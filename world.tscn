@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://bfcqpq61rwphq" path="res://assets/definitions/rooms/PS2/v5.tres" id="12_yx0jh"]
 [ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="13_cbp6q"]
 [ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="14_bc84e"]
+[ext_resource type="Resource" uid="uid://bjr6k03j8knel" path="res://assets/definitions/rooms/PS2/treasure_room.tres" id="14_my276"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
@@ -24,6 +25,8 @@
 [ext_resource type="Resource" uid="uid://dlfwjnksvm6a0" path="res://assets/definitions/rooms/PS2/start_room.tres" id="18_55kwu"]
 [ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="18_k83mh"]
 [ext_resource type="Resource" uid="uid://cmc7ekwdcwcen" path="res://assets/definitions/rooms/PS2/v1.tres" id="18_ryup7"]
+[ext_resource type="Resource" uid="uid://ch56nvbm4jbak" path="res://assets/definitions/rooms/PS2/shop_room_1_special.tres" id="18_yx0jh"]
+[ext_resource type="Resource" uid="uid://bmygwo6p5n2jl" path="res://assets/definitions/rooms/PS2/boss1_single.tres" id="19_1ew0l"]
 [ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/dot_vignette.gdshader" id="19_bh8nc"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
@@ -202,12 +205,14 @@ shadow_enabled = true
 
 [node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
 script = ExtResource("17_udxuc")
-room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc")])
+room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc"), ExtResource("14_my276")])
 start_room = ExtResource("18_55kwu")
-generate_random_seed = false
 _seed = 2
-room_count = 50
+room_count = 10
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
+bonus_room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_yx0jh")])
+special_door_min_rank = -1
+boss_room = ExtResource("19_1ew0l")
 
 [node name="ChunkManager" type="Node3D" parent="DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
@@ -293,6 +298,10 @@ grow_horizontal = 2
 clip_contents = true
 layout_mode = 2
 script = ExtResource("13_cbp6q")
+highlights = {
+"start": Color(0, 0.9860479, 0.8730128, 1),
+"start_room": ""
+}
 
 [node name="SeedIndicator" type="Control" parent="UI/Control" unique_id=138866117]
 layout_mode = 1

@@ -1,107 +1,133 @@
-class_name BossEnemyController
+class_name DvdBossController
 extends Controller
 
-var target: Entity
+@export_category("Boss Settings")
+@export var windup_time := 1.5  # stands still and slowly spins before bouncing
+@export var spin_speed := 12.0  # radians per second
+@export var contact_damage := 20.0
+@export var contact_knockback := 12.0
+@export var hit_radius := 2.5
+@export var hit_interval := 1.2  # keep this above your players' iframe_duration (1.0)
+@export var parry_stun := 2.0  # boss freezes this long when a hit gets parried
 
-@export_category("Distance Tuning")
-var desired_distance := 25.0
-var flee_distance := 10.0
-var attack_range := 35.0
+var target: Entity  # Game.spawn_enemy assigns this
 
-@export_category("Movement Variety")
-## Alternates between left/right circling states to confuse the player
-var circle_direction := 1.0
-var circle_switch_timer := 0.0
-# 🟢 NEW: Tracks elapsed time to drive organic movement shifts
-var lifetime_drift_timer := 0.0
+var _heading := Vector3.ZERO
+var _started := false
+var _windup_left := 0.0
+var _hit_cooldowns := {}  # victim instance id -> seconds left
 
 
 func get_actions(actor: Entity, delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
 
-	# --- DYNAMIC TARGETING ---
-	# Automatically sync the boss's target to whoever the player is currently controlling
-	if is_instance_valid(GameAutoLoad):
-		target = GameAutoLoad.get_current_entity()
-
 	if not is_instance_valid(target):
 		return actions
 
-	var dist := actor.global_position.distance_to(target.global_position)
-	var nav: NavigationAgent3D = actor.get_node_or_null("NavigationAgent3D")
+	if not _started:
+		_started = true
+		_windup_left = windup_time
+		_heading = _random_heading()
+		SceneManager.spawn_effect(
+			SceneManager.Fx.WARNING, actor.global_position + Vector3(0, 2.0, 0)
+		)
+		FmodServer.play_one_shot("event:/SFX/UI/Warn")
 
-	if nav == null:
+	if _windup_left > 0.0:	
+		_windup_left -= delta
+		actor.animation_component.sprite.rotate_z(spin_speed * 0.25 * delta)
 		return actions
 
-	# Increment our master wave clocks
-	lifetime_drift_timer += delta
-	circle_switch_timer -= delta
+	actor.animation_component.sprite.rotate_z(spin_speed * delta)
+	_tick_hit_cooldowns(delta)
+	_handle_bounce(actor)
 
-	if circle_switch_timer <= 0.0:
-		circle_direction = 1.0 if randf() > 0.5 else -1.0
-		circle_switch_timer = randf_range(3.0, 6.0)  # slightly longer timers feel less twitchy
+	# Constant speed in the heading direction, no acceleration ramp
+	var move := actor.movement_component
+	move.movement_velocity = _heading * move.max_speed
 
-	# --- DYNAMIC NAVIGATION PATHFINDING SYSTEM ---
-	if dist < flee_distance:
-		var flee_dir := (actor.global_position - target.global_position).normalized()
-		var flee_point := actor.global_position + flee_dir * desired_distance
+	# Still returned so Entity doesn't apply friction this frame
+	actions.append(MovementAction.new(_heading))
 
-		nav.target_position = flee_point
-		_add_nav_movement_action(actor, nav, actions)
-
-	elif dist > attack_range:
-		nav.target_position = target.global_position
-		_add_nav_movement_action(actor, nav, actions)
-
-	else:
-		# 🟢 FIXED BREAKOUT: Calculate a dynamic floating distance ring instead of a rigid, flat one
-		# This sine wave fluctuates between -6.0 and +6.0 units every few seconds
-		var dynamic_drift = sin(lifetime_drift_timer * 0.8) * 6.0
-		var current_ideal_range = desired_distance + dynamic_drift
-
-		var to_target := (target.global_position - actor.global_position).normalized()
-		var tangent_dir := Vector3(-to_target.z, 0.0, to_target.x) * circle_direction
-
-		# Blend towards the shifting dynamic orbit range rather than a fixed number
-		if dist > current_ideal_range:
-			tangent_dir = (tangent_dir + to_target * 0.35).normalized()
-		else:
-			tangent_dir = (tangent_dir - to_target * 0.35).normalized()
-
-		# Project the target position point outward along the navigation grid mesh
-		var strafe_target_point := actor.global_position + (tangent_dir * 7.0)
-
-		nav.target_position = strafe_target_point
-		_add_nav_movement_action(actor, nav, actions)
-
-	# --- COMBAT MANAGEMENT SYSTEM ---
-	if dist <= attack_range:
-		actions.append(AttackAction.new())
-
+	_hit_nearby(actor)
 	return actions
 
 
-func _add_nav_movement_action(
-	actor: Entity, nav: NavigationAgent3D, actions: Array[Action]
-) -> void:
-	var next_point := nav.get_next_path_position()
-	var move_dir := next_point - actor.global_position
-
-	var flat_dir := Vector3(move_dir.x, 0.0, move_dir.z).normalized()
-
-	if flat_dir.length_squared() > 0.001:
-		actions.append(MovementAction.new(flat_dir))
-
-	if move_dir.y > 0.4:
-		actions.append(JumpAction.new())
+# --------------------------------------------------
+# BOUNCE
+# --------------------------------------------------
+func _random_heading() -> Vector3:
+	# Off-axis on purpose, an axis-aligned start would just ping-pong between two walls
+	var angle := randf_range(PI / 6.0, PI / 3.0) + randi_range(0, 3) * (PI / 2.0)
+	return Vector3(cos(angle), 0.0, sin(angle))
 
 
-# Bulletproofed aiming to return a strict Vector3 instead of Variant
-func get_aim_target(actor: Entity) -> Vector3:
-	if not is_instance_valid(target):
-		# Fallback: aim straight forward if the player swaps or despawns
-		var forward = -actor.global_transform.basis.z
-		forward.y = 0
-		return actor.global_position + forward.normalized() * 10.0
+func _handle_bounce(actor: Entity) -> void:
+	# Slide collisions come from the previous frame's move_and_slide
+	for i in actor.get_slide_collision_count():
+		var normal := actor.get_slide_collision(i).get_normal()
+		normal.y = 0.0  # ignore floor hits
 
-	return target.global_position
+		if normal.length_squared() < 0.25:
+			continue
+
+		normal = normal.normalized()
+
+		# Only reflect if moving into the wall (corners reflect twice, like the logo)
+		if _heading.dot(normal) < 0.0:
+			_heading = _heading.bounce(normal).normalized()
+			SceneManager.shake(0.15, 0.1)
+
+
+# --------------------------------------------------
+# CONTACT DAMAGE
+# --------------------------------------------------
+func _tick_hit_cooldowns(delta: float) -> void:
+	for id in _hit_cooldowns.keys():
+		_hit_cooldowns[id] -= delta
+		if _hit_cooldowns[id] <= 0.0:
+			_hit_cooldowns.erase(id)
+
+
+func _hit_nearby(actor: Entity) -> void:
+	var query := PhysicsShapeQueryParameters3D.new()
+	var sphere := SphereShape3D.new()
+	sphere.radius = hit_radius
+	query.shape = sphere
+	query.transform = Transform3D(Basis.IDENTITY, actor.global_position + Vector3(0, 1.0, 0))
+	query.collision_mask = 1 << (Game.LAYER_PLAYER - 1)  # players and allies
+	query.exclude = [actor.get_rid()]
+
+	for result in actor.get_world_3d().direct_space_state.intersect_shape(query):
+		var victim = result.get("collider")
+		if not (victim is Entity) or victim == actor or victim.team == actor.team:
+			continue
+
+		var id: int = victim.get_instance_id()
+		if _hit_cooldowns.has(id):
+			continue
+
+		_hit_cooldowns[id] = hit_interval
+		_hit_victim(actor, victim)
+
+
+func _hit_victim(actor: Entity, victim: Entity) -> void:
+	var dir := actor.global_position.direction_to(victim.global_position)
+	dir.y = 0.0
+	dir = dir.normalized()
+
+	# ADAPT: I haven't seen HitData, so the damage and knockback field names are guesses
+	var hit := HitData.new()
+	hit.source_entity = actor
+	hit.source_team = actor.team
+	hit.direction = dir
+	hit.hit_position = victim.global_position + Vector3(0, 1.0, 0)
+	hit.damage = contact_damage
+	hit.knockback = contact_knockback
+
+	var was_parrying: bool = victim.parry_window_left > 0.0
+	victim.apply_hit(hit)
+
+	# Parry punishes the boss: it freezes and the player gets a free window
+	if was_parrying:
+		actor.stun_duration = maxf(actor.stun_duration, parry_stun)

@@ -5,7 +5,11 @@ var visited_edges := {}
 
 
 func generate(
-	_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition
+	_seed: int,
+	room_pool: Array[RoomDefinition],
+	count: int,
+	start_room: RoomDefinition,
+	boss_room: RoomDefinition = null
 ) -> RoomGraph:
 	GodRNG.set_run_seed(_seed)
 	visited_edges.clear()
@@ -39,10 +43,14 @@ func generate(
 				break
 
 			var opposite := DirUtil.opposite(dir)
-			var variant := _pick_compatible_variant(room_pool, opposite)
+			var variant: RoomVariant = null
+
+			if boss_room != null and id_counter == count - 1:
+				var boss_pool: Array[RoomDefinition] = [boss_room]
+				variant = _pick_compatible_variant(boss_pool, opposite)
 
 			if variant == null:
-				continue
+				variant = _pick_compatible_variant(room_pool, opposite)
 
 			var room_id := "room_%d" % id_counter
 			id_counter += 1
@@ -71,6 +79,8 @@ func generate(
 func _get_free_doors(variant: RoomVariant, used: Array) -> Array:
 	var result := []
 	for d in variant.get_doors():
+		if d == DoorSocket.Direction.SPECIAL:
+			continue  
 		if not used.has(d):
 			result.append(d)
 	return result

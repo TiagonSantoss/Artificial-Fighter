@@ -59,7 +59,7 @@ func _ready() -> void:
 
 	GState.fmod.connect(_boss_music)
 
-	add_money("Cash Cards", 1)
+	add_money("cc", 1)
 
 	await get_tree().create_timer(2.0).timeout
 

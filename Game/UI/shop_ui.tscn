@@ -45,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 script = ExtResource("1_j3oli")
-master_item_pool = Array[ExtResource("3_dubjj")]([ExtResource("4_dcy3d"), ExtResource("5_80ofe"), ExtResource("7_l7uiu"), ExtResource("6_qup20")])
+master_item_pool = Array[ExtResource("3_dubjj")]([ExtResource("4_dcy3d"), ExtResource("5_80ofe"), ExtResource("7_l7uiu"), ExtResource("6_qup20"), null])
 shop_slots_count = 3
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1095842770]

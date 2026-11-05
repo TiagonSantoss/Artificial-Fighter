@@ -22,6 +22,8 @@ var visited_rooms := {}
 
 var is_teleporting := false
 
+var special_links := {}
+
 
 func _ready() -> void:
 	GameAutoLoad.chunk_manager = self
@@ -33,18 +35,21 @@ func _ready() -> void:
 # INIT PIPELINE
 # --------------------------------------------------
 func generate(
-	_seed: int, room_pool: Array[RoomDefinition], count: int, start_room: RoomDefinition
+	_seed: int,
+	room_pool: Array[RoomDefinition],
+	count: int,
+	start_room: RoomDefinition,
+	boss_room: RoomDefinition = null
 ) -> void:
 	generator = DungeonGenerator.new()
-	graph = generator.generate(_seed, room_pool, count, start_room)
+	graph = generator.generate(_seed, room_pool, count, start_room, boss_room)
 	layout = LayoutSolver.new().solve(graph)
 
 	loaded_rooms.clear()
-	room_states.clear()  # Reset memory for new runs
+	room_states.clear()
+	special_links.clear()
 	current_room = null
 	visited_rooms.clear()
-
-	# teleport_player("start", DoorSocket.Direction.SPECIAL)
 
 
 # --------------------------------------------------
@@ -72,19 +77,21 @@ func teleport_player(target_room_id: String, exited_direction: DoorSocket.Direct
 	var new_room: RoomInstance = loaded_rooms[target_room_id]
 
 	# 4. Position the player
-	var spawn_position: Vector3 = new_room.world_origin
+	var spawn_position := _get_default_spawn(new_room)
+	var entry_socket := _find_entry_socket(new_room, old_room_id)
 
-	if exited_direction != DoorSocket.Direction.SPECIAL:
-		var entry_socket := _find_entry_socket(new_room, old_room_id)
-
-		if entry_socket:
+	if entry_socket:
+		if entry_socket.direction == DoorSocket.Direction.SPECIAL:
+			# Special doors have no cardinal direction, so push toward the room's spawn point
+			var inward := spawn_position - entry_socket.global_position
+			inward.y = 0.0
+			spawn_position = entry_socket.global_position + inward.normalized() * 2.0
+		else:
 			var world_dir := DirUtil.rotate(entry_socket.direction, new_room.rotation_steps)
 			spawn_position = entry_socket.global_position
 			spawn_position += _get_push_vector(world_dir) * 2.0
-		else:
-			push_warning(
-				"No entry door in '%s' leading back to '%s'" % [target_room_id, old_room_id]
-			)
+	elif old_room_id != "":
+		push_warning("No entry door in '%s' leading back to '%s'" % [target_room_id, old_room_id])
 
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
@@ -147,6 +154,10 @@ func _load_room(id: String) -> void:
 		runtime.set_active(true)
 
 	room_loaded.emit(room)
+
+func _get_default_spawn(room: RoomInstance) -> Vector3:
+	var sp := room.node.find_child("SpawnPoint", true, false)
+	return sp.global_position if sp else room.world_origin
 
 
 func _unload_room(id: String) -> void:
@@ -211,6 +222,10 @@ func _configure_doors(room: RoomInstance) -> void:
 	for socket in sockets:
 		var world_dir := DirUtil.rotate(socket.direction, room.rotation_steps)
 
+		if socket.direction == DoorSocket.Direction.SPECIAL:
+			_configure_special_socket(room, socket)
+			continue
+
 		var matching_connection: RoomConnection = null
 		for conn in logic_connections:
 			if conn.direction == world_dir:  # CHANGED (was socket.direction)
@@ -223,6 +238,34 @@ func _configure_doors(room: RoomInstance) -> void:
 			socket.show()
 		else:
 			socket.queue_free()
+
+func _configure_special_socket(room: RoomInstance, socket: DoorSocket) -> void:
+	if special_links.has(room.room_id):
+		socket.target_room_id = special_links[room.room_id]
+		socket.reveal_special(false) 
+	else:
+		socket.target_room_id = ""
+		socket.hide_special()
+
+
+func create_special_link(room: RoomInstance, bonus_def: RoomDefinition) -> void:
+	if special_links.has(room.room_id):
+		return
+
+	var bonus_id := "bonus_%s" % room.room_id
+	var variant := RoomVariant.new()
+	variant.definition = bonus_def
+	variant.rotation_steps = 0
+	RoomGraphBuilder.new().add_room(graph, bonus_id, variant)
+
+	special_links[room.room_id] = bonus_id
+	special_links[bonus_id] = room.room_id
+
+	for socket in room.node.find_children("*", "DoorSocket", true, false):
+		if socket.direction == DoorSocket.Direction.SPECIAL:
+			socket.target_room_id = bonus_id
+			socket.reveal_special(true) 
+			FmodServer.play_one_shot("event:/SFX/UI/DoorOpen")  
 
 
 func clear() -> void:

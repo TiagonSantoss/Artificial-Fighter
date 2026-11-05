@@ -2,18 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_mbynb"]
 [ext_resource type="Resource" uid="uid://c8u6ltlxbs4n8" path="res://assets/definitions/entities/controllers/enemies/boss_controller.tres" id="1_nmiqq"]
-[ext_resource type="Texture2D" uid="uid://btyvugj41by75" path="res://icon.svg" id="3_m7uhh"]
+[ext_resource type="Texture2D" uid="uid://crrq6o5k4lpml" path="res://assets/sprites/combat/boss_sword.png" id="3_nmiqq"]
 [ext_resource type="Resource" uid="uid://bnsk1034kn6o6" path="res://assets/definitions/weapons/enemies/boss_weapon.tres" id="4_7mhvr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nuwqd"]
-atlas = ExtResource("3_m7uhh")
-region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tkibd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nuwqd")
+"texture": ExtResource("3_nmiqq")
 }],
 "loop": 1,
 "name": &"default",
@@ -24,9 +20,11 @@ animations = [{
 script = ExtResource("1_mbynb")
 sprite_frames = SubResource("SpriteFrames_tkibd")
 default_animation = "default"
-max_health = 500
-move_speed = 12.0
-max_speed = 12.0
+billboard = 2
+sprite_scale = Vector3(0.4, 0.4, 0.4)
+max_health = 250
+move_speed = 50.0
+max_speed = 50.0
 acceleration = 200.0
 friction = 200.0
 controller = ExtResource("1_nmiqq")
@@ -34,4 +32,5 @@ entity_id = 5
 starting_weapon = ExtResource("4_7mhvr")
 team = 2
 spawn_group = 2
+is_boss = true
 metadata/_custom_type_script = "uid://dll1idsl2062t"

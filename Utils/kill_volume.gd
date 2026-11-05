@@ -13,6 +13,7 @@ func _on_body_entered(body: Node) -> void:
 	if body is Entity:
 		var controller = body.controller
 		if controller is CompanionController or controller is PlayerController:
+			body.position = Vector3(0,0,0)
 			return
 
 		body.health_component.damage(999)

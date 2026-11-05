@@ -14,6 +14,17 @@ signal room_exited(room: RoomInstance)
 @export_category("Item Drop")
 @export var item_pool: Array[ItemDefinition]
 
+@export_category("Special Doors")
+@export var bonus_room_pool: Array[RoomDefinition] 
+@export var special_door_min_rank := 5
+@export var special_door_rank_bonus := 25.0
+
+
+@export var boss_room: RoomDefinition
+
+var _advancing := false
+var floor_number := 1
+
 var emitter: FmodEventEmitter3D
 
 var graph: RoomGraph
@@ -26,14 +37,15 @@ var is_generating := false
 @onready var chunk_manager: ChunkManager = $ChunkManager
 
 
-func generate() -> void:
+func generate(keep_party := false) -> void:
 	if is_generating:
 		print("GENERATION BLOCKED (already running)")
 		return
 
 	is_generating = true
 
-	if generate_random_seed:
+	# Advancing a floor always needs a new seed, even if generate_random_seed is off
+	if generate_random_seed or keep_party:
 		randomize()
 		_seed = randi()
 
@@ -45,21 +57,14 @@ func generate() -> void:
 	chunk_manager.clear()
 	clear()
 
-	# 1. Generate the logical layout
-	chunk_manager.generate(_seed, room_pool, room_count, start_room)
+	chunk_manager.generate(_seed, room_pool, room_count, start_room, boss_room)
 	graph = chunk_manager.graph
 	layout = chunk_manager.layout
 
-	# ---> THE STARTUP FIX <---
-	# 2. Physically load the start room into the scene first
 	chunk_manager._load_room("start")
-
-	# 3. Now that the room exists, spawn the player at its SpawnPoint
-	_spawn_player_at_start()
+	_spawn_player_at_start(keep_party)
 	MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
 
-	# 4. Officially trigger the room change.
-	# Because the player now exists, Game.gd will successfully hook up the camera!
 	var start_instance = chunk_manager.loaded_rooms["start"]
 	chunk_manager._set_current_room(start_instance)
 
@@ -107,7 +112,7 @@ func _on_active_room_changed(room: RoomInstance) -> void:
 	print("whats playing right now:", MusicDirector.current_value)
 
 
-func _spawn_player_at_start() -> void:
+func _spawn_player_at_start(keep_party := false) -> void:
 	if GameAutoLoad == null:
 		return
 
@@ -118,8 +123,21 @@ func _spawn_player_at_start() -> void:
 	var spawn_point := start_room_a.node.find_child("SpawnPoint", true, false)
 	var spawn_pos = spawn_point.global_position if spawn_point else Vector3.ZERO
 
+	if keep_party:
+		# Only moves whoever is still alive, nobody gets respawned
+		_move_entity(GameAutoLoad.player, spawn_pos)
+		_move_entity(GameAutoLoad.companion, spawn_pos + Vector3(1.5, 0.0, 0.0))
+		return
+
 	GameAutoLoad.spawn_player(spawn_pos)
 	GameAutoLoad.spawn_companion(spawn_pos)
+
+
+func _move_entity(entity: Entity, pos: Vector3) -> void:
+	if not is_instance_valid(entity):
+		return
+	entity.global_position = pos
+	entity.velocity = Vector3.ZERO
 
 
 func register_room(room: RoomInstance) -> void:
@@ -157,11 +175,46 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 	enemy.tree_exited.connect(
 		func():
+			if _advancing:
+				return  # being cleaned up by a floor change, not killed
+
 			room.enemies.erase(enemy)
 
-			if room.enemies.is_empty():
+			if definition.is_boss:
+				_on_boss_defeated(room)
+			elif room.enemies.is_empty():
 				_on_room_cleared(room)
 	)
+
+func _on_boss_defeated(room: RoomInstance) -> void:
+	room.cleared = true
+	advance_floor()
+
+
+func advance_floor() -> void:
+	if _advancing or is_generating:
+		return
+	_advancing = true
+
+	await get_tree().create_timer(1.5).timeout  # let the kill land
+
+	var fader := GameAutoLoad.get_node_or_null("ScreenFader")
+	if fader:
+		await fader.fade_to_black()
+
+	# Boss minions or leftovers shouldn't follow you to the next floor
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy):
+			enemy.queue_free()
+
+	floor_number += 1
+	generate(true)
+
+	FmodServer.play_one_shot("event:/SFX/UI/DoorOpen")
+	SceneManager.cover_screen()
+	await SceneManager.reveal_screen()
+
+	_advancing = false
 
 
 func start_encounter(room: RoomInstance) -> void:
@@ -188,12 +241,16 @@ func start_encounter(room: RoomInstance) -> void:
 func _on_room_cleared(room: RoomInstance) -> void:
 	room.cleared = true
 
-
 	await get_tree().create_timer(1.2).timeout
+	_try_open_special_door(room)
 	room.unlock_room()
-	print("ROOM CLEARED:", room.room_id)
 
 	MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
+
+	await get_tree().create_timer(1.2).timeout
+	if _advancing or chunk_manager.loaded_rooms.get(room.room_id) != room:
+		return
+	room.unlock_room()
 
 	# if item_pool.size() > 0:
 	# 	var random_accessory_def = item_pool.pick_random()
@@ -206,3 +263,42 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	#
 	# 	var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
 	# 	WorldItemSpawner.drop(new_item_instance, drop_pos)
+
+func _try_open_special_door(room: RoomInstance) -> void:
+	if bonus_room_pool.is_empty():
+		return
+	if chunk_manager.loaded_rooms.get(room.room_id) != room:
+		return  # room was unloaded during the wait
+	if chunk_manager.special_links.has(room.room_id):
+		return
+
+	var base: float = room.definition.special_door_chance
+	if base <= 0.0:
+		return
+
+	var rank := _get_player_rank()
+	if rank < special_door_min_rank:
+		return
+
+	var chance := clampf(base + (rank - special_door_min_rank) * special_door_rank_bonus, 0.0, 1.0)
+
+
+	# Deterministic per seed + room, so it doesn't mess with your global RNG
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("%s_%s_special" % [_seed, room.room_id])
+
+	#if rng.randf() > chance:
+	#	print("DANG IT")
+	#	return
+	
+	print("SPAWNING SPECIAL ROOM")
+
+	var bonus_def := bonus_room_pool[rng.randi_range(0, bonus_room_pool.size() - 1)]
+	chunk_manager.create_special_link(room, bonus_def)
+
+
+func _get_player_rank() -> int:
+	var player = GameAutoLoad.get_current_entity()
+	if player and player.rank_component:
+		return player.rank_component.current_rank
+	return 0

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://sp0qiriuj6k"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_hcdvx"]
+[ext_resource type="Resource" uid="uid://dxoaosoohpd1v" path="res://assets/definitions/weapons/ranged/TMP.tres" id="1_qlxn4"]
+
+[resource]
+script = ExtResource("1_hcdvx")
+item_to_sell = ExtResource("1_qlxn4")
+price = 35
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

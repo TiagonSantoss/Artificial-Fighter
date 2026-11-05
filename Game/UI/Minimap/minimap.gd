@@ -4,32 +4,51 @@ extends Control
 @export_category("Visuals")
 @export var cell_size := 16.0
 @export var spacing := 24.0
+@export var line_width := 4.0
+@export var rotate_with_camera := true
+@export var rotation_smoothing := 10.0  # 0 = snap instantly
 
 @export_category("Colors")
 @export var color_current := Color.WHITE
 @export var color_visited := Color.WEB_GRAY
 @export var color_unseen := Color.DIM_GRAY
 @export var color_door := Color.DARK_GRAY
+@export var color_bonus_link := Color.MEDIUM_PURPLE
 
-var room_coords: Dictionary = {}  # Maps room_id (String) -> grid position (Vector2i)
+@export_category("Highlights")
+## Key = exact room_id ("start") or the room definition's file name ("shop" for shop.tres)
+@export var highlights: Dictionary = {"start": Color.GOLD}
+## Key = room_id prefix
+@export var highlight_prefixes: Dictionary = {"bonus_": Color.MEDIUM_PURPLE}
+
+var room_coords := {}  # room_id -> Vector2i grid position (main graph only)
 var discovered_rooms: Array[String] = []
 var current_room_id := ""
 
-var _dungeon_graph: RoomGraph
+var _graph: RoomGraph
+var _chunks: ChunkManager
+var _angle := 0.0
 
 
 func _ready() -> void:
-	# Wait one frame to ensure DungeonManager finishes generating the map
+	clip_contents = true
 	await get_tree().process_frame
 
-	# Hook into ChunkManager's room changes
-	if GameAutoLoad.chunk_manager:
-		GameAutoLoad.chunk_manager.active_room_changed.connect(_on_active_room_changed)
-		_dungeon_graph = GameAutoLoad.chunk_manager.graph
+	_chunks = GameAutoLoad.chunk_manager
+	if _chunks:
+		_chunks.active_room_changed.connect(_on_active_room_changed)
 
-		# Build the initial layout map
-		if _dungeon_graph != null:
-			_build_grid("start")
+
+func _process(delta: float) -> void:
+	if _chunks == null:
+		return
+
+	# New dungeon generated -> rebuild everything
+	if _chunks.graph != _graph:
+		_rebuild()
+
+	_update_rotation(delta)
+	queue_redraw()
 
 
 func _on_active_room_changed(room) -> void:
@@ -37,20 +56,26 @@ func _on_active_room_changed(room) -> void:
 		return
 
 	current_room_id = room.room_id
-
 	if not discovered_rooms.has(current_room_id):
 		discovered_rooms.append(current_room_id)
 
-	# Queue a redraw of the Control node
-	queue_redraw()
-
 
 # ---------------------------------------------------------
-# MAP GENERATION LOGIC
+# MAP BUILDING
 # ---------------------------------------------------------
-func _build_grid(start_id: String) -> void:
+func _rebuild() -> void:
+	_graph = _chunks.graph
 	room_coords.clear()
-	_traverse_graph(start_id, Vector2i.ZERO, [])
+	discovered_rooms.clear()
+	current_room_id = ""
+
+	if _graph == null:
+		return
+
+	_traverse_graph("start", Vector2i.ZERO, [])
+
+	if _chunks.current_room:
+		_on_active_room_changed(_chunks.current_room)
 
 
 func _traverse_graph(room_id: String, coord: Vector2i, visited: Array) -> void:
@@ -60,12 +85,9 @@ func _traverse_graph(room_id: String, coord: Vector2i, visited: Array) -> void:
 	visited.append(room_id)
 	room_coords[room_id] = coord
 
-	var connections: Array = _dungeon_graph.connections.get(room_id, [])
-
-	for conn in connections:
+	for conn in _graph.connections.get(room_id, []):
 		var next_coord := coord
 
-		# Calculate the adjacent grid coordinate based on the door direction
 		match conn.direction:
 			DoorSocket.Direction.NORTH:
 				next_coord.y -= 1
@@ -75,61 +97,203 @@ func _traverse_graph(room_id: String, coord: Vector2i, visited: Array) -> void:
 				next_coord.x += 1
 			DoorSocket.Direction.WEST:
 				next_coord.x -= 1
+			_:
+				continue  # SPECIAL etc. never go on the main grid
 
 		_traverse_graph(conn.target_id, next_coord, visited)
 
 
 # ---------------------------------------------------------
-# DRAWING LOGIC (Runs every time queue_redraw() is called)
+# CAMERA ROTATION
 # ---------------------------------------------------------
-func _draw() -> void:
-	if room_coords.is_empty() or current_room_id == "":
+func _update_rotation(delta: float) -> void:
+	if not rotate_with_camera:
+		_angle = 0.0
 		return
 
+	var cam := get_viewport().get_camera_3d()
+	if cam == null:
+		cam = get_tree().root.get_camera_3d()
+	if cam == null:
+		return
+
+	# The camera's right vector flattened onto the ground plane (x, z)
+	var right := cam.global_transform.basis.x
+	if Vector2(right.x, right.z).length_squared() < 0.0001:
+		return
+
+	var target := atan2(right.z, right.x)
+	if rotation_smoothing <= 0.0:
+		_angle = target
+	else:
+		_angle = lerp_angle(_angle, target, 1.0 - exp(-rotation_smoothing * delta))
+
+
+func _to_screen(coord: Vector2i, anchor: Vector2i, center: Vector2) -> Vector2:
+	var offset := Vector2(coord - anchor) * spacing
+	return center + offset.rotated(-_angle)
+
+
+# ---------------------------------------------------------
+# DRAWING
+# ---------------------------------------------------------
+func _draw() -> void:
+	if _graph == null or room_coords.is_empty() or current_room_id == "":
+		return
+
+	# If we're inside a bonus room, keep the map centered on the room that owns the door
+	var anchor_id := current_room_id
+	if not room_coords.has(anchor_id):
+		anchor_id = _chunks.special_links.get(current_room_id, "")
+	if not room_coords.has(anchor_id):
+		return
+
+	var anchor: Vector2i = room_coords[anchor_id]
 	var center := size / 2.0
-	var current_coord: Vector2i = room_coords.get(current_room_id, Vector2i.ZERO)
 
-	# Draw connections (hallways) first so they sit under the rooms
+	# Hallways first so they sit under the rooms
 	for room_id in discovered_rooms:
-		var coord: Vector2i = room_coords[room_id]
-		var connections: Array = _dungeon_graph.connections.get(room_id, [])
+		if not room_coords.has(room_id):
+			continue
+		var from := _to_screen(room_coords[room_id], anchor, center)
 
-		var start_pos := center + Vector2(coord - current_coord) * spacing
-
-		for conn in connections:
+		for conn in _graph.connections.get(room_id, []):
 			if room_coords.has(conn.target_id) and discovered_rooms.has(conn.target_id):
-				var target_coord: Vector2i = room_coords[conn.target_id]
-				var end_pos := center + Vector2(target_coord - current_coord) * spacing
-				draw_line(start_pos, end_pos, color_door, 4.0)
+				var to := _to_screen(room_coords[conn.target_id], anchor, center)
+				draw_line(from, to, color_door, line_width)
 
-	# Draw the room boxes
+	# Rooms
 	for room_id in room_coords:
-		# Optional: Only draw rooms if they are discovered, or adjacent to a discovered room
-		var is_discovered = discovered_rooms.has(room_id)
-		var is_adjacent = _is_adjacent_to_discovered(room_id)
-
-		if not is_discovered and not is_adjacent:
+		var is_discovered := discovered_rooms.has(room_id)
+		if not is_discovered and not _is_adjacent_to_discovered(room_id):
 			continue
 
-		var coord: Vector2i = room_coords[room_id]
-		var offset := coord - current_coord
-		var draw_pos := center + Vector2(offset) * spacing
+		var pos := _to_screen(room_coords[room_id], anchor, center)
 
-		var rect := Rect2(draw_pos - (Vector2.ONE * (cell_size / 2.0)), Vector2.ONE * cell_size)
-
-		var color := color_unseen
+		var fill := color_unseen
 		if room_id == current_room_id:
-			color = color_current
+			fill = color_current
 		elif is_discovered:
-			color = color_visited
+			fill = color_visited
 
-		draw_rect(rect, color)
+		_draw_room(pos, fill, _get_highlight(room_id))
+
+		# Small diamond = this room has an open special door
+		if is_discovered and _chunks.special_links.has(room_id):
+			_draw_bonus_marker(pos + Vector2(cell_size * 0.5, -cell_size * 0.5))
+
+		if room_id == current_room_id:
+			_draw_player_marker(pos)
+
+	_draw_bonus_panel()
+
+
+func _draw_room(pos: Vector2, fill: Color, accent: Variant) -> void:
+	# Rooms rotate with the map so they line up with the hallways
+	draw_set_transform(pos, -_angle, Vector2.ONE)
+
+	var half := Vector2.ONE * (cell_size * 0.5)
+	var rect := Rect2(-half, half * 2.0)
+	draw_rect(rect, fill)
+
+	if accent != null:
+		draw_rect(rect.grow(2.0), accent, false, 2.0)
+
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
+func _draw_player_marker(pos: Vector2) -> void:
+	# Always points up = the way the camera is facing
+	var s := cell_size * 0.3
+	draw_colored_polygon(
+		PackedVector2Array([pos + Vector2(0, -s), pos + Vector2(s, s), pos + Vector2(-s, s)]),
+		Color.BLACK
+	)
+
+
+func _draw_bonus_marker(pos: Vector2) -> void:
+	var s := cell_size * 0.28
+	draw_colored_polygon(
+		PackedVector2Array(
+			[pos + Vector2(0, -s), pos + Vector2(s, 0), pos + Vector2(0, s), pos + Vector2(-s, 0)]
+		),
+		color_bonus_link
+	)
+
+
+func _draw_bonus_panel() -> void:
+	var bonus_ids: Array[String] = []
+	for id in _chunks.special_links:
+		if not room_coords.has(id) and _graph.nodes.has(id):
+			bonus_ids.append(id)
+
+	if bonus_ids.is_empty():
+		return
+
+	var pad := 6.0
+	var box := cell_size
+	var panel_size := Vector2(bonus_ids.size() * (box + pad) + pad, box + pad * 2.0)
+	var panel_pos := size - panel_size - Vector2(4.0, 4.0)
+
+	draw_rect(Rect2(panel_pos, panel_size), Color(0, 0, 0, 0.5))
+	draw_string(
+		ThemeDB.fallback_font,
+		panel_pos + Vector2(pad, -4.0),
+		"BONUS",
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1,
+		10,
+		color_bonus_link
+	)
+
+	for i in bonus_ids.size():
+		var bonus_id := bonus_ids[i]
+		var rect := Rect2(panel_pos + Vector2(pad + i * (box + pad), pad), Vector2.ONE * box)
+
+		var fill := color_unseen
+		if bonus_id == current_room_id:
+			fill = color_current
+		elif discovered_rooms.has(bonus_id):
+			fill = color_visited
+
+		draw_rect(rect, fill)
+
+		var accent: Variant = _get_highlight(bonus_id)
+		if accent != null:
+			draw_rect(rect.grow(2.0), accent, false, 2.0)
+
+		if bonus_id == current_room_id:
+			_draw_player_marker(rect.get_center())
+
+
+# ---------------------------------------------------------
+# HELPERS
+# ---------------------------------------------------------
+func _get_highlight(room_id: String) -> Variant:
+	# 1. Exact room id
+	if highlights.has(room_id):
+		return highlights[room_id]
+
+	# 2. Room definition file name (e.g. res://rooms/shop.tres -> "shop")
+	if _graph and _graph.nodes.has(room_id):
+		var variant: RoomVariant = _graph.nodes[room_id]
+		var def := variant.definition
+		if def and def.resource_path != "":
+			var key := def.resource_path.get_file().get_basename()
+			if highlights.has(key):
+				return highlights[key]
+
+	# 3. Prefix match
+	for prefix in highlight_prefixes:
+		if room_id.begins_with(prefix):
+			return highlight_prefixes[prefix]
+
+	return null
 
 
 func _is_adjacent_to_discovered(target_id: String) -> bool:
 	for visited_id in discovered_rooms:
-		var connections: Array = _dungeon_graph.connections.get(visited_id, [])
-		for conn in connections:
+		for conn in _graph.connections.get(visited_id, []):
 			if conn.target_id == target_id:
 				return true
 	return false

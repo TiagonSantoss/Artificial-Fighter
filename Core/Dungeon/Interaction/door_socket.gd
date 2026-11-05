@@ -25,3 +25,26 @@ func _on_body_entered(body: Node3D) -> void:
 				GameAutoLoad.chunk_manager.teleport_player(target_room_id, direction)
 			else:
 				print("Warning: Door touched, but target_room_id is empty!")
+
+func hide_special() -> void:
+	hide()
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
+
+
+func reveal_special(animated := true) -> void:
+	show()
+	if not animated:
+		set_deferred("monitoring", true)
+		set_deferred("monitorable", true)
+		return
+
+	# Pop-in animation. Works on any Node3D without touching materials.
+	scale = Vector3.ONE * 0.01
+	var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector3.ONE, 0.4)
+	tween.tween_callback(
+		func():
+			set_deferred("monitoring", true)
+			set_deferred("monitorable", true)
+	)

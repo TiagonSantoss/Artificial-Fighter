@@ -30,6 +30,7 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 				SceneManager.spawn_effect(
 					SceneManager.Fx.WARNING, actor.global_position + Vector3(0, 1.5, 0)
 				)
+				FmodServer.play_one_shot("event:/SFX/UI/EnemyWarn")
 
 			# ATTACK: Fire when the timer reaches zero
 			if cooldown_left <= 0.0:

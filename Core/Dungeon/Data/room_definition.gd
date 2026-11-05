@@ -13,6 +13,7 @@ enum RoomCategory { START, COMBAT, ELITE, BOSS }
 @export var size: Vector2i = Vector2i(1, 1)
 @export var allow_rotation: bool = true  # NEW
 @export var available_doors: Array[DoorSocket.Direction]
+@export var special_door_chance := 0.0
 
 @export_category("Combat")
 @export var has_encounter: bool = false

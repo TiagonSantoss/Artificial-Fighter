@@ -8,6 +8,7 @@ extends Controller
 @export var attack_cooldown := 5.0  # How often it fires its weapon
 @export var aggro_range := 40.0
 @export var attack_range := 100.0
+@export var warning_lead_time := 1.0  # seconds between warning and attack
 
 var jump_cooldown_left := 0.0
 var recovery_time_left := 0.0
@@ -18,7 +19,8 @@ var target: Entity
 
 var was_in_air := false
 
-var _has_played_warning := false
+var _winding_up := false
+var _windup_left := 0.0
 
 
 func get_actions(actor: Entity, delta: float) -> Array[Action]:
@@ -60,43 +62,37 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 		return actions
 
 	# 4. COMBAT & TELEGRAPHING
-
-	# If we made it past the recovery block, we are allowed to shoot!
-
 	if dist_to_target <= attack_range:
-		if attack_cooldown_left <= 0.1 and not _has_played_warning:
-			if has_clear_shot(actor):
-				_has_played_warning = true
-
-				var spawn_pos = actor.global_position + Vector3(0.0, 1.5, 0.0)
-
-				SceneManager.spawn_effect(SceneManager.Fx.WARNING, spawn_pos)
-
-		if attack_cooldown_left <= 0.0:
-			if has_clear_shot(actor):
-				actions.append(AttackAction.new())
-
+		if _winding_up:
+			_windup_left -= delta
+			if _windup_left <= 0.0:
+				_winding_up = false
+				if has_clear_shot(actor):
+					actions.append(AttackAction.new())
 				attack_cooldown_left = attack_cooldown
+		elif attack_cooldown_left <= 0.0 and has_clear_shot(actor):
+			# Start telegraph, the attack comes later
+			_winding_up = true
+			_windup_left = warning_lead_time
+			var spawn_pos := actor.global_position + Vector3(0.0, 1.5, 0.0)
+			SceneManager.spawn_effect(SceneManager.Fx.WARNING, spawn_pos)
+			FmodServer.play_one_shot("event:/SFX/UI/Warn")
+	else:
+		_winding_up = false  # target left range, cancel the wind-up
 
-				_has_played_warning = false  # Reset the warning tracker for the next shot
-
-	if dist_to_target <= aggro_range:
-		# Walk directly toward the player
-
-		var dir_to_target = actor.global_position.direction_to(target.global_position)
-
-		var flat_dir = Vector3(dir_to_target.x, 0, dir_to_target.z).normalized()
+		# 5. MOVEMENT
+	if dist_to_target <= aggro_range and not _winding_up:
+		var dir_to_target := actor.global_position.direction_to(target.global_position)
+		var flat_dir := Vector3(dir_to_target.x, 0, dir_to_target.z).normalized()
 
 		if flat_dir.length_squared() > 0.001:
 			actions.append(MovementAction.new(flat_dir))
 
 		# Hop toward the player
-
 		if jump_cooldown_left <= 0.0 and is_grounded:
 			actions.append(JumpAction.new())
-
 			jump_cooldown_left = jump_interval
-
+	
 	return actions
 
 

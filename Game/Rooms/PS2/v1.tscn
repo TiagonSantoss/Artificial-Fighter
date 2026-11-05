@@ -123,6 +123,10 @@ direction = 2
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.14037561, 2.2853684, -9.748686)
 direction = 3
 
+[node name="DoorSocket5" parent="." unique_id=2044809078 instance=ExtResource("15_uhxwp")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.14037561, 2.2853684, 1.2775841)
+direction = 4
+
 [node name="SpawnGroups" type="Node3D" parent="." unique_id=2000807530]
 
 [node name="Melee" type="Node3D" parent="SpawnGroups" unique_id=1644759633]

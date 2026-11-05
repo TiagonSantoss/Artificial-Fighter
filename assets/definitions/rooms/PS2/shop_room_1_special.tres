@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="1_iibqi"]
 [ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="2_p3qko"]
+[ext_resource type="PackedScene" uid="uid://b070751nbhml8" path="res://Game/Rooms/PS2/shop_room_1_special.tscn" id="2_rmu8e"]
 
 [resource]
 script = ExtResource("2_p3qko")
+scene = ExtResource("2_rmu8e")
+available_doors = Array[int]([4])
 metadata/_custom_type_script = "uid://c4rxfwpj30llb"

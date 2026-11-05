@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://cfulxt8bgcek3"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_b8hkb"]
+[ext_resource type="Resource" uid="uid://2v58ds8dm73l" path="res://assets/definitions/weapons/melee/Metal_Pipe.tres" id="1_vlfvm"]
+
+[resource]
+script = ExtResource("1_b8hkb")
+item_to_sell = ExtResource("1_vlfvm")
+price = 5
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"
