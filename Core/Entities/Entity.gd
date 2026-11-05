@@ -45,7 +45,7 @@ var current_throw_direction: Vector3 = Vector3.ZERO
 @onready var orbit_socket: SpringArm3D = $OrbitSocket
 @onready var hit_box_shape: CollisionShape3D = get_node_or_null("hitbox")
 
-@onready var emitter: FmodEventEmitter3D = $Emitter
+@onready var emitter: FmodEventEmitter2D = $Emitter
 
 @onready var health_component: HealthComponent = $Components/HealthComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent

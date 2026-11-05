@@ -119,7 +119,7 @@ script = ExtResource("26_i4vqt")
 [node name="WeaponInventoryComponent" type="Node" parent="Components" unique_id=43728738]
 script = ExtResource("16_iqbtn")
 
-[node name="Emitter" type="FmodEventEmitter3D" parent="." unique_id=1024659852]
+[node name="Emitter" type="FmodEventEmitter2D" parent="." unique_id=536751918]
 event_name = "event:/SFX/Entity/EntityHurt"
 event_guid = "{cf68e701-3dcd-41e0-95a7-8d2c90e9b5e4}"
 

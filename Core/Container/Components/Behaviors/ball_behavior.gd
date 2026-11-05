@@ -72,6 +72,28 @@ func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> voi
 			movement_comp.apply_impulse(move_dir * fling_speed)
 
 
+func on_melee_spawned(
+	context: WeaponAttackContext, shot: AttackShot, melee: Node, _instance: ItemInstance
+) -> void:
+	# 1. Freeze the melee strike so its lifetime timer doesn't run out during the charge
+	melee.set_physics_process(false)
+
+	# 2. Disable the melee hitbox immediately
+	if "hitbox" in melee and is_instance_valid(melee.hitbox):
+		melee.hitbox.set_deferred("monitoring", false)
+
+	var tree := melee.get_tree()
+	if tree:
+		# Wait for the exact same charge duration as before_attack
+		await tree.create_timer(charge_duration).timeout
+
+		# 3. The enemy is launching now. Re-enable the hitbox and unfreeze the logic
+		if is_instance_valid(melee):
+			melee.set_physics_process(true)
+			if "hitbox" in melee and is_instance_valid(melee.hitbox):
+				melee.hitbox.set_deferred("monitoring", true)
+
+
 func _get_movement_component(wielder: Node) -> Node:
 	if wielder.has_node("MovementComponent"):
 		return wielder.get_node("MovementComponent")

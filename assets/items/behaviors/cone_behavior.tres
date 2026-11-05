@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpwardBounceBehavior" format=3 uid="uid://cam4jo0scgvkt"]
+
+[ext_resource type="Script" uid="uid://b2mlg0s712xtv" path="res://Core/Container/Components/Behaviors/upward_behavior.gd" id="1_eha8u"]
+[ext_resource type="Texture2D" uid="uid://dj4oayt5ttvh8" path="res://demo/assets/fx.png" id="1_nbdba"]
+
+[resource]
+script = ExtResource("1_eha8u")
+fling_speed = 200.0
+icon = ExtResource("1_nbdba")
+metadata/_custom_type_script = "uid://b2mlg0s712xtv"

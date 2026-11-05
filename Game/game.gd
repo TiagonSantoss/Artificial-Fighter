@@ -61,6 +61,10 @@ func _ready() -> void:
 
 	add_money("Cash Cards", 1)
 
+	await get_tree().create_timer(2.0).timeout
+
+	# DialogueManager.show_message("Hello, {pause=1.0} how is it [bounce]going?")
+
 
 func _boss_music():
 	print("SETTING GLOBAL PARAMETER")

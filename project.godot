@@ -34,6 +34,7 @@ SceneManager="*uid://cgu7ihuucejnw"
 GodRNG="*uid://47ritflhuy1i"
 RunManager="*uid://eu6s8uwq2184"
 MusicDirector="*uid://cww683i4e1fjl"
+DialogueManager="*uid://blru7by6tvscx"
 
 [debug]
 
@@ -164,6 +165,7 @@ change_characters={
 
 [physics]
 
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=30.0
 
 [rendering]

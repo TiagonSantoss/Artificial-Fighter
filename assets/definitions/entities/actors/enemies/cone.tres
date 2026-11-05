@@ -1,11 +1,24 @@
 [gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://jirtq7dy0sql"]
 
+[ext_resource type="Resource" uid="uid://rfumfqgv1lio" path="res://assets/definitions/entities/controllers/enemies/cone_controller.tres" id="1_4pqw0"]
 [ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_j7gsw"]
 [ext_resource type="ArrayMesh" uid="uid://bwaol5g3pc0l8" path="res://assets/models/Enemies/meshes/enemies_Cylinder.res" id="1_nopwj"]
+[ext_resource type="Resource" uid="uid://yuvxs6jgs5k4" path="res://assets/items/currency/Cash Cards.tres" id="2_kp8ov"]
+[ext_resource type="Resource" uid="uid://wgbb4yxfskii" path="res://assets/definitions/weapons/enemies/cone_weapon.tres" id="5_hbiqx"]
 
 [resource]
 script = ExtResource("1_j7gsw")
 visual_type = 1
 mesh = ExtResource("1_nopwj")
+move_speed = 200.0
+max_speed = 5.0
+acceleration = 200.0
+friction = 60.0
+jump_force = 25.0
 hitbox_size = Vector3(0.1, 0.3, 0.1)
+controller = ExtResource("1_4pqw0")
+entity_id = 5
+starting_weapon = ExtResource("5_hbiqx")
+drop_currency_def = ExtResource("2_kp8ov")
+team = 2
 metadata/_custom_type_script = "uid://dll1idsl2062t"

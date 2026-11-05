@@ -92,9 +92,13 @@ func teleport_player(target_room_id: String, exited_direction: DoorSocket.Direct
 
 	_set_current_room(new_room)
 
+	FmodServer.play_one_shot("event:/SFX/UI/DoorOpen")
+
 	SceneManager.cover_screen()
 
 	await SceneManager.reveal_screen()
+
+	FmodServer.play_one_shot("event:/SFX/UI/DoorClose")
 
 	SceneManager.shake(0.2, 0.1)
 

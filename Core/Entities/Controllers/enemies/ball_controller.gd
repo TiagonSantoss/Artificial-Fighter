@@ -6,6 +6,10 @@ const CARDINAL_DIRECTIONS: Array[Vector3] = [
 	Vector3(0, 0, -1), Vector3(0, 0, 1), Vector3(-1, 0, 0), Vector3(1, 0, 0)
 ]
 
+const ATTACK_COOLDOWN := 3.2
+const WARNING_LEAD_TIME := 0.3
+const ATTACK_RANGE := 15.0
+
 @export var separation_radius: float = 3.0
 @export var separation_weight: float = 1.5
 @export var ray_check_distance: float = 1.2
@@ -13,22 +17,25 @@ const CARDINAL_DIRECTIONS: Array[Vector3] = [
 var follow_target: Entity
 var follow_distance := 0.1
 var target: Entity
-var attack_range := 15.0
+
+var cooldown_left := 0.0
+var _warning_played := false
 
 
-func get_actions(actor: Entity, _delta: float) -> Array[Action]:
+func get_actions(actor: Entity, delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
 
 	if not is_instance_valid(target):
 		_find_player(actor)
 
 	if not is_instance_valid(target):
+		_warning_played = false
 		return actions
 
 	var dist := actor.global_position.distance_to(target.global_position)
 
+	# 1. MOVEMENT
 	if dist > follow_distance:
-		# 1. Determine base target point (via NavigationAgent3D if available)
 		var nav: NavigationAgent3D = actor.get_node_or_null("NavigationAgent3D")
 		var target_pos := target.global_position
 
@@ -64,9 +71,30 @@ func get_actions(actor: Entity, _delta: float) -> Array[Action]:
 		if (target_pos - actor.global_position).y > 0.3:
 			actions.append(JumpAction.new())
 
-	# Attack
-	if dist <= attack_range:
-		actions.append(AttackAction.new())
+	# 2. COMBAT & TELEGRAPHING
+	if dist <= ATTACK_RANGE:
+		if cooldown_left > 0.0:
+			cooldown_left -= delta
+
+			# TELEGRAPH: Play warning effect before firing
+			if cooldown_left <= WARNING_LEAD_TIME and not _warning_played:
+				_warning_played = true
+				SceneManager.spawn_effect(
+					SceneManager.Fx.WARNING, actor.global_position + Vector3(0, 1.0, 0)
+				)
+
+			# ATTACK
+			if cooldown_left <= 0.0:
+				actions.append(AttackAction.new())
+				cooldown_left = ATTACK_COOLDOWN
+				_warning_played = false
+		else:
+			# Initialize cooldown cycle
+			cooldown_left = ATTACK_COOLDOWN
+			_warning_played = false
+	else:
+		if cooldown_left > 0.0:
+			cooldown_left -= delta
 
 	return actions
 

@@ -7,6 +7,10 @@
 [ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="5_usm1o"]
 [ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="6_2og8t"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_2bgwa"]
+vertices = PackedVector3Array(-12.228163, 6.954571, -22.239353, -9.228163, 6.954571, -22.239353, -8.978163, 6.954571, -23.739353, 0.77183723, 6.954571, -31.489353, 1.2718372, 6.954571, -31.739353, 1.2718372, 6.954571, -36.739353, -2.4781628, 6.954571, -23.739353, 1.2718372, 6.954571, -28.489353, 0.77183723, 6.954571, -28.739353, -12.228163, 6.954571, -36.739353, 7.771837, 6.954571, -31.739353, 8.021837, 6.954571, -30.239353, 10.771837, 6.954571, -30.239353, 10.771837, 6.954571, -36.739353, 1.7718372, 12.954571, -30.739353, 1.7718372, 12.954571, -29.489353, 7.021837, 12.954571, -29.489353, 7.021837, 12.954571, -30.739353, 2.0218372, 6.954571, -30.489353, 2.0218372, 6.954571, -29.739353, 6.771837, 6.954571, -29.739353, 6.771837, 6.954571, -30.489353, 8.021837, 6.954571, -28.989353, 7.771837, 6.954571, -15.739353, 8.021837, 6.954571, -14.239353, 10.771837, 6.954571, -14.239353, 7.521837, 6.954571, -28.489353, -1.9781628, 6.954571, -23.489353, -1.9781628, 6.954571, -20.989353, -2.7281628, 6.954571, -20.489353, 1.2718372, 6.954571, -15.739353, -8.228163, 12.954571, -22.739353, -8.228163, 12.954571, -21.489353, -2.9781628, 12.954571, -21.489353, -2.9781628, 12.954571, -22.739353, -7.978163, 6.954571, -22.489353, -7.978163, 6.954571, -21.739353, -3.2281628, 6.954571, -21.739353, -3.2281628, 6.954571, -22.489353, -12.228163, 6.954571, -6.239353, -9.228163, 6.954571, -6.239353, -8.978163, 6.954571, -7.739353, -8.978163, 6.954571, -20.489353, -2.4781628, 6.954571, -7.739353, 0.77183723, 6.954571, -12.739353, 0.77183723, 6.954571, -15.489353, 1.2718372, 6.954571, -12.489353, 1.7718372, 12.954571, -14.739353, 1.7718372, 12.954571, -13.489353, 7.021837, 12.954571, -13.489353, 7.021837, 12.954571, -14.739353, 2.0218372, 6.954571, -14.489353, 2.0218372, 6.954571, -13.739353, 6.771837, 6.954571, -13.739353, 6.771837, 6.954571, -14.489353, 8.021837, 6.954571, -12.989353, 7.771837, 6.954571, 0.26064682, 8.021837, 6.954571, 1.7606468, 10.771837, 6.954571, 1.7606468, 7.521837, 6.954571, -12.489353, -1.9781628, 6.954571, -7.489353, -1.9781628, 6.954571, -4.989353, -2.7281628, 6.954571, -4.489353, 1.2718372, 6.954571, 0.26064682, -8.228163, 12.954571, -6.739353, -8.228163, 12.954571, -5.489353, -2.9781628, 12.954571, -5.489353, -2.9781628, 12.954571, -6.739353, -7.978163, 6.954571, -6.489353, -7.978163, 6.954571, -5.739353, -3.2281628, 6.954571, -5.739353, -3.2281628, 6.954571, -6.489353, -12.228163, 6.954571, 9.760647, -9.228163, 6.954571, 9.760647, -8.978163, 6.954571, 8.260647, -8.978163, 6.954571, -4.489353, -2.4781628, 6.954571, 8.260647, 0.77183723, 6.954571, 3.2606468, 0.77183723, 6.954571, 0.5106468, 1.2718372, 6.954571, 3.5106468, 1.7718372, 12.954571, 1.2606468, 1.7718372, 12.954571, 2.5106468, 7.021837, 12.954571, 2.5106468, 7.021837, 12.954571, 1.2606468, 2.0218372, 6.954571, 1.5106468, 2.0218372, 6.954571, 2.2606468, 6.771837, 6.954571, 2.2606468, 6.771837, 6.954571, 1.5106468, 8.021837, 6.954571, 3.0106468, 7.771837, 6.954571, 16.260647, 8.021837, 6.954571, 17.760647, 10.771837, 6.954571, 17.760647, 7.521837, 6.954571, 3.5106468, -1.9781628, 6.954571, 8.510647, -1.9781628, 6.954571, 11.010647, -2.7281628, 6.954571, 11.510647, 1.2718372, 6.954571, 16.260647, -8.228163, 12.954571, 9.260647, -8.228163, 12.954571, 10.510647, -2.9781628, 12.954571, 10.510647, -2.9781628, 12.954571, 9.260647, -7.978163, 6.954571, 9.510647, -7.978163, 6.954571, 10.260647, -3.2281628, 6.954571, 10.260647, -3.2281628, 6.954571, 9.510647, -8.978163, 6.954571, 11.510647, -12.228163, 6.954571, 24.260647, 0.77183723, 6.954571, 16.510647, 0.52183723, 6.954571, 24.260647, 0.77183723, 6.954571, 19.010647, 1.7718372, 12.954571, 17.260647, 1.7718372, 12.954571, 18.510647, 7.021837, 12.954571, 18.510647, 7.021837, 12.954571, 17.260647, 2.0218372, 6.954571, 17.510647, 2.0218372, 6.954571, 18.260647, 6.771837, 6.954571, 18.260647, 6.771837, 6.954571, 17.510647, 8.021837, 6.954571, 19.010647, 7.521837, 6.954571, 19.510647, 10.771837, 6.954571, 24.260647, 1.0218372, 6.954571, 19.510647)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 3), PackedInt32Array(3, 6, 2), PackedInt32Array(0, 9, 2), PackedInt32Array(2, 9, 3), PackedInt32Array(3, 9, 5), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(4, 5, 10), PackedInt32Array(10, 5, 13), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(22, 11, 12), PackedInt32Array(23, 25, 24), PackedInt32Array(26, 22, 12), PackedInt32Array(27, 6, 7), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 23), PackedInt32Array(27, 7, 28), PackedInt32Array(28, 7, 26), PackedInt32Array(23, 28, 25), PackedInt32Array(25, 28, 26), PackedInt32Array(25, 26, 12), PackedInt32Array(34, 33, 31), PackedInt32Array(31, 33, 32), PackedInt32Array(38, 37, 35), PackedInt32Array(35, 37, 36), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(42, 39, 1), PackedInt32Array(1, 39, 0), PackedInt32Array(44, 43, 45), PackedInt32Array(45, 43, 29), PackedInt32Array(29, 43, 42), PackedInt32Array(42, 43, 41), PackedInt32Array(44, 46, 43), PackedInt32Array(29, 30, 45), PackedInt32Array(50, 49, 47), PackedInt32Array(47, 49, 48), PackedInt32Array(54, 53, 51), PackedInt32Array(51, 53, 52), PackedInt32Array(55, 24, 25), PackedInt32Array(56, 58, 57), PackedInt32Array(59, 55, 25), PackedInt32Array(60, 43, 46), PackedInt32Array(62, 61, 63), PackedInt32Array(63, 61, 56), PackedInt32Array(60, 46, 61), PackedInt32Array(61, 46, 59), PackedInt32Array(56, 61, 58), PackedInt32Array(58, 61, 59), PackedInt32Array(58, 59, 25), PackedInt32Array(67, 66, 64), PackedInt32Array(64, 66, 65), PackedInt32Array(71, 70, 68), PackedInt32Array(68, 70, 69), PackedInt32Array(73, 72, 74), PackedInt32Array(74, 72, 75), PackedInt32Array(75, 72, 40), PackedInt32Array(40, 72, 39), PackedInt32Array(77, 76, 78), PackedInt32Array(78, 76, 62), PackedInt32Array(62, 76, 75), PackedInt32Array(75, 76, 74), PackedInt32Array(77, 79, 76), PackedInt32Array(62, 63, 78), PackedInt32Array(83, 82, 80), PackedInt32Array(80, 82, 81), PackedInt32Array(87, 86, 84), PackedInt32Array(84, 86, 85), PackedInt32Array(88, 57, 58), PackedInt32Array(89, 91, 90), PackedInt32Array(92, 88, 58), PackedInt32Array(93, 76, 79), PackedInt32Array(95, 94, 96), PackedInt32Array(96, 94, 89), PackedInt32Array(93, 79, 94), PackedInt32Array(94, 79, 92), PackedInt32Array(89, 94, 91), PackedInt32Array(91, 94, 92), PackedInt32Array(91, 92, 58), PackedInt32Array(100, 99, 97), PackedInt32Array(97, 99, 98), PackedInt32Array(104, 103, 101), PackedInt32Array(101, 103, 102), PackedInt32Array(73, 105, 72), PackedInt32Array(72, 105, 106), PackedInt32Array(95, 96, 107), PackedInt32Array(109, 108, 107), PackedInt32Array(107, 108, 95), PackedInt32Array(95, 108, 105), PackedInt32Array(105, 108, 106), PackedInt32Array(113, 112, 110), PackedInt32Array(110, 112, 111), PackedInt32Array(117, 116, 114), PackedInt32Array(114, 116, 115), PackedInt32Array(118, 90, 91), PackedInt32Array(118, 91, 119), PackedInt32Array(119, 91, 120), PackedInt32Array(108, 109, 121), PackedInt32Array(121, 119, 108), PackedInt32Array(108, 119, 120)]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rmals"]
 render_priority = 0
 shader = ExtResource("5_usm1o")
@@ -81,35 +85,38 @@ local_map_file = "uid://b2xh1sxbshndk"
 map_settings = ExtResource("4_48552")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=2136286976]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1025355672]
+navigation_mesh = SubResource("NavigationMesh_2bgwa")
+
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=2136286976]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2718372, 4.45457, 20.760647)
 collision_mask = 0
 
-[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1857317912]
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1857317912]
 mesh = SubResource("ArrayMesh_3r0kw")
 
-[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1792565708]
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1792565708]
 shape = SubResource("ConvexPolygonShape3D_48552")
 
-[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1340979822]
+[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1340979822]
 shape = SubResource("ConvexPolygonShape3D_5pvpt")
 
-[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1313141751]
+[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1313141751]
 shape = SubResource("ConvexPolygonShape3D_2og8t")
 
-[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=962290769]
+[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=962290769]
 shape = SubResource("ConvexPolygonShape3D_lqlv2")
 
-[node name="entity_0_brush_4_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1453134921]
+[node name="entity_0_brush_4_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1453134921]
 shape = SubResource("ConvexPolygonShape3D_ioo8s")
 
-[node name="entity_0_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=2011032942]
+[node name="entity_0_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2011032942]
 shape = SubResource("ConvexPolygonShape3D_46bl3")
 
-[node name="entity_0_brush_6_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1636120206]
+[node name="entity_0_brush_6_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1636120206]
 shape = SubResource("ConvexPolygonShape3D_lejc5")
 
-[node name="entity_0_brush_7_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=88575254]
+[node name="entity_0_brush_7_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=88575254]
 shape = SubResource("ConvexPolygonShape3D_e0h4x")
 
 [node name="DoorSocket3" parent="." unique_id=145515346 instance=ExtResource("6_2og8t")]

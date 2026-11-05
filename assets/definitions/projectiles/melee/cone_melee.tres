@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MeleeDefinition" format=3 uid="uid://dxxljkxwpqwsc"]
+
+[ext_resource type="Script" uid="uid://dev14jj2vupbx" path="res://Core/Combat/Projectile/Melee/melee_definition.gd" id="1_5edqp"]
+
+[resource]
+script = ExtResource("1_5edqp")
+speed = 0.0
+lifetime = 1.7
+damage = 30
+knockback = 20.0
+stun_duration = 5.0
+hitbox_size = Vector3(8, 1, 8)
+metadata/_custom_type_script = "uid://dev14jj2vupbx"

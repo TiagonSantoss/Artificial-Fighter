@@ -1,0 +1,115 @@
+class_name UpwardBounceBehavior
+extends BehaviorDefinition
+
+@export_category("Settings")
+@export var charge_duration := 0.5
+@export var fling_speed := 50.0
+
+
+func before_attack(context: WeaponAttackContext, _instance: ItemInstance) -> void:
+	var wielder := _get_wielder(context, _instance)
+	if not is_instance_valid(wielder):
+		return
+
+	var movement_comp := _get_movement_component(wielder)
+	if not is_instance_valid(movement_comp):
+		return
+
+	# 0. Disable hitboxes during the charge phase safely via set_deferred
+	var hitboxes := _get_hitboxes(wielder, _instance)
+	for hb in hitboxes:
+		var shapes = hb.find_children("*", "CollisionShape3D", true, false)
+		for shape in shapes:
+			shape.set_deferred("disabled", true)
+
+	# 1. Force the direction to strictly UP
+	var move_dir := Vector3.UP
+
+	# 2. Halt current velocities so gravity doesn't fight the jump
+	# movement_comp.movement_velocity = Vector3.ZERO
+	# movement_comp.external_velocity = Vector3.ZERO
+	# if "velocity" in wielder:
+	# wielder.velocity = Vector3.ZERO
+
+	# 3. Store original speeds and lock them to 0
+	var original_move_speed = movement_comp.move_speed if "move_speed" in movement_comp else 0.0
+	var original_max_speed = movement_comp.max_speed if "max_speed" in movement_comp else 0.0
+
+	# if "move_speed" in movement_comp:
+	# movement_comp.move_speed = 0.0
+	# if "max_speed" in movement_comp:
+	# movement_comp.max_speed = 0.0
+
+	# 4. Wait for the charge duration
+	var tree := wielder.get_tree()
+	if tree:
+		await tree.create_timer(charge_duration).timeout
+
+		if is_instance_valid(movement_comp) and is_instance_valid(wielder):
+			# Restore original movement speeds
+			if "move_speed" in movement_comp:
+				movement_comp.move_speed = original_move_speed
+			if "max_speed" in movement_comp:
+				movement_comp.max_speed = original_max_speed
+
+			# Re-enable hitboxes right before launching
+			for hb in hitboxes:
+				if is_instance_valid(hb):
+					var shapes = hb.find_children("*", "CollisionShape3D", true, false)
+					for shape in shapes:
+						shape.set_deferred("disabled", false)
+
+			# 5. Release the charge: fire the impulse straight UP
+			movement_comp.apply_impulse(move_dir * fling_speed)
+
+
+func on_melee_spawned(
+	context: WeaponAttackContext, shot: AttackShot, melee: Node, _instance: ItemInstance
+) -> void:
+	# 1. Freeze the melee strike so its lifetime timer doesn't run out during the charge
+	melee.set_physics_process(false)
+
+	# 2. Disable the melee hitbox immediately
+	if "hitbox" in melee and is_instance_valid(melee.hitbox):
+		melee.hitbox.set_deferred("monitoring", false)
+
+	var tree := melee.get_tree()
+	if tree:
+		# Wait for the exact same charge duration as before_attack
+		await tree.create_timer(charge_duration).timeout
+
+		# 3. The enemy is launching now. Re-enable the hitbox and unfreeze the logic
+		if is_instance_valid(melee):
+			melee.set_physics_process(true)
+			if "hitbox" in melee and is_instance_valid(melee.hitbox):
+				melee.hitbox.set_deferred("monitoring", true)
+
+
+func _get_movement_component(wielder: Node) -> Node:
+	if wielder.has_node("MovementComponent"):
+		return wielder.get_node("MovementComponent")
+	if "movement_component" in wielder and is_instance_valid(wielder.movement_component):
+		return wielder.movement_component
+	for child in wielder.get_children():
+		if (
+			child is MovementComponent
+			or (child.get_script() and child.get_script().get_global_name() == &"MovementComponent")
+		):
+			return child
+	return null
+
+
+func _get_wielder(context: WeaponAttackContext, instance: ItemInstance) -> Node:
+	if "wielder" in context and is_instance_valid(context.wielder):
+		return context.wielder
+	elif "owner" in instance and is_instance_valid(instance.owner):
+		return instance.owner
+	return null
+
+
+func _get_hitboxes(wielder: Node, instance: ItemInstance) -> Array:
+	var hitboxes = []
+	for child in wielder.find_children("*", "Area3D", true, false):
+		if "hitbox" in child.name.to_lower() or child.is_in_group("hitbox"):
+			hitboxes.append(child)
+	return hitboxes

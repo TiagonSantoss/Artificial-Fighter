@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ConeController" format=3 uid="uid://rfumfqgv1lio"]
+
+[ext_resource type="Script" uid="uid://tiniwtb53xaa" path="res://Core/Entities/Controllers/enemies/cone_controller.gd" id="1_irk3i"]
+
+[resource]
+script = ExtResource("1_irk3i")
+metadata/_custom_type_script = "uid://tiniwtb53xaa"

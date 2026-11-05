@@ -28,7 +28,7 @@ var _transition_effect_parameter_call = func(value: float):
 			"color_threshold", min(1.0, abs(-4.0 + value * 8.0)) * 0.48
 		)
 
-enum Fx { PARRY, HIT, EXPLOSION }
+enum Fx { PARRY, HIT, EXPLOSION, WARNING }
 
 const EFFECTS := {
 	Fx.PARRY:
@@ -49,9 +49,17 @@ const EFFECTS := {
 	},
 	Fx.EXPLOSION:
 	{
-		"texture": preload("res://assets/sprites/SPRITE_SPLOSAO.png"),  # example path
+		"texture": preload("res://assets/sprites/SPRITE_SPLOSAO.png"),
 		"hframes": 2,
 		"vframes": 2,
+	},
+	Fx.WARNING:
+	{
+		"texture": preload("res://assets/sprites/SPRITE_SCLAMACAO.png"),
+		"hframes": 3,
+		"vframes": 2,
+		"fps": 12.0,
+		"pixel_size": 0.025,
 	},
 }
 

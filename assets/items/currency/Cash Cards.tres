@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CurrencyDefinition" format=3 uid="uid://yuvxs6jgs5k4"]
 
 [ext_resource type="Script" uid="uid://cfidmpil06rit" path="res://Core/Container/Components/Base/currency_definition.gd" id="1_a2hd8"]
-[ext_resource type="Texture2D" uid="uid://vw388lkkfvb4" path="res://assets/images/UI/placeHolder.jpeg" id="1_m6qqu"]
+[ext_resource type="Texture2D" uid="uid://mmoqss6lhiyw" path="res://assets/images/UI/cedula_feia.png" id="1_m6qqu"]
 
 [resource]
 script = ExtResource("1_a2hd8")

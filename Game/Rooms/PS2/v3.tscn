@@ -7,6 +7,10 @@
 [ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="5_5mrpx"]
 [ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="6_qwmdf"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_2bgwa"]
+vertices = PackedVector3Array(-18.934818, 6.701336, 7.5, -13.934818, 6.701336, 7.5, -13.934818, 6.701336, 1.75, -10.934818, 6.701336, 1.5, -10.934818, 6.701336, -13.5, -18.934818, 6.701336, -13.5, -8.684818, 6.701336, 1.75, -8.684818, 6.701336, 7.5, 0.06518173, 6.701336, 7.5, 0.06518173, 6.701336, 1.75, 2.8151817, 6.701336, 1.5, 2.8151817, 6.701336, -13.5, 5.3151817, 6.701336, 1.75, 5.3151817, 6.701336, 7.5, 14.065182, 6.701336, 7.5, 14.065182, 6.701336, 1.75, 16.315182, 6.701336, 1.5, 16.315182, 6.701336, -13.5, 19.315182, 6.701336, 1.75, 19.315182, 6.701336, 7.5, 24.065182, 6.701336, 7.5, 24.065182, 6.701336, -13.5, -12.934818, 20.701336, 2.5, -12.934818, 20.701336, 7.5, -9.684818, 20.701336, 7.5, -9.684818, 20.701336, 2.5, 1.0651817, 20.701336, 2.5, 1.0651817, 20.701336, 7.5, 4.3151817, 20.701336, 7.5, 4.3151817, 20.701336, 2.5, 15.065182, 20.701336, 2.5, 15.065182, 20.701336, 7.5, 18.315182, 20.701336, 7.5, 18.315182, 20.701336, 2.5, -12.684818, 6.701336, 2.75, -12.684818, 6.701336, 7.25, -9.934818, 6.701336, 7.25, -9.934818, 6.701336, 2.75, 1.3151817, 6.701336, 2.75, 1.3151817, 6.701336, 7.25, 4.0651817, 6.701336, 7.25, 4.0651817, 6.701336, 2.75, 15.315182, 6.701336, 2.75, 15.315182, 6.701336, 7.25, 18.065182, 6.701336, 7.25, 18.065182, 6.701336, 2.75)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 2), PackedInt32Array(4, 2, 5), PackedInt32Array(5, 2, 0), PackedInt32Array(9, 8, 6), PackedInt32Array(6, 8, 7), PackedInt32Array(6, 3, 9), PackedInt32Array(9, 3, 10), PackedInt32Array(10, 3, 4), PackedInt32Array(10, 4, 11), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(15, 12, 16), PackedInt32Array(16, 12, 10), PackedInt32Array(16, 10, 11), PackedInt32Array(16, 11, 17), PackedInt32Array(20, 19, 18), PackedInt32Array(18, 16, 17), PackedInt32Array(17, 21, 18), PackedInt32Array(18, 21, 20), PackedInt32Array(25, 24, 22), PackedInt32Array(22, 24, 23), PackedInt32Array(29, 28, 26), PackedInt32Array(26, 28, 27), PackedInt32Array(33, 32, 30), PackedInt32Array(30, 32, 31), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(41, 40, 38), PackedInt32Array(38, 40, 39), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43)]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rmals"]
 render_priority = 0
 shader = ExtResource("5_5mrpx")
@@ -69,23 +73,26 @@ local_map_file = "uid://dl6mlafq8v876"
 map_settings = ExtResource("4_r2i0l")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap" unique_id=1584177638]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=1692664229]
+navigation_mesh = SubResource("NavigationMesh_2bgwa")
+
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=1584177638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4348183, 4.201336, 0)
 collision_mask = 0
 
-[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1072347701]
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1072347701]
 mesh = SubResource("ArrayMesh_0xxi4")
 
-[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1826027003]
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1826027003]
 shape = SubResource("ConvexPolygonShape3D_r2i0l")
 
-[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=2096838724]
+[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=2096838724]
 shape = SubResource("ConvexPolygonShape3D_gw3ob")
 
-[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1972097928]
+[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1972097928]
 shape = SubResource("ConvexPolygonShape3D_qwmdf")
 
-[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1130210199]
+[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/NavigationRegion3D/entity_0_worldspawn" unique_id=1130210199]
 shape = SubResource("ConvexPolygonShape3D_ejapc")
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("6_qwmdf")]

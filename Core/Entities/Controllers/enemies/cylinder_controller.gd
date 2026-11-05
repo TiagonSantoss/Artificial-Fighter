@@ -2,8 +2,9 @@ class_name CylinderController
 extends Controller
 
 # Cylinder Combat Constants
-const SHOOT_COOLDOWN := 0.1
+const SHOOT_COOLDOWN := 1.7
 const ATTACK_RANGE := 60.0
+const WARNING_LEAD_TIME := 0.3
 
 # Movement Sweet Spot (AI will try to stay between 8 and 12 meters away)
 const RETREAT_DISTANCE := 12.0
@@ -18,25 +19,21 @@ const CARDINAL_DIRECTIONS: Array[Vector3] = [
 @export var separation_radius: float = 3.0
 @export var separation_weight: float = 1.5
 @export var ray_check_distance: float = 1.2
-
 @export var debug_rays: bool = true
 
 var cooldown_left := 0.0
 var target: Entity
+var _warning_played := false
 
 
 func get_actions(actor: Entity, delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
 
-	# Tick down the shooting cooldown
-	if cooldown_left > 0.0:
-		cooldown_left -= delta
-
 	if not is_instance_valid(target):
+		_warning_played = false
 		return actions
 
 	var dist_to_target = actor.global_position.distance_to(target.global_position)
-
 	var is_retreating = dist_to_target < RETREAT_DISTANCE
 	var is_following = dist_to_target > STOP_DISTANCE
 
@@ -44,8 +41,6 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 	if is_retreating or is_following:
 		var target_pos := target.global_position
 
-		# Only use the NavigationAgent if we are trying to reach the player.
-		# If we are retreating, we just want to back away directly using our wall-checks.
 		if is_following:
 			var nav: NavigationAgent3D = actor.get_node_or_null("NavigationAgent3D")
 			if is_instance_valid(nav):
@@ -55,9 +50,7 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 					if next_pos != Vector3.ZERO or target_pos.length_squared() < 1.0:
 						target_pos = next_pos
 
-		# Tell our direction chooser whether we want to get closer or further away
 		var move_dir := _choose_direction(actor, target_pos, is_retreating)
-
 		var separation := _get_separation_vector(actor)
 		var combined_dir := move_dir + (separation * separation_weight)
 
@@ -65,7 +58,6 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 		var dz := combined_dir.z
 		var flat_dir := Vector3.ZERO
 
-		# Snap to Cardinal Directions
 		if abs(dx) > abs(dz) + AXIS_THRESHOLD:
 			flat_dir.x = sign(dx)
 		elif abs(dz) > abs(dx) + AXIS_THRESHOLD:
@@ -79,24 +71,41 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 			if is_instance_valid(actor.audio_component):
 				actor.audio_component.play_sfx("EnemyFootSteps")
 
-		# Only jump to navigate terrain if we are actively chasing
 		if is_following and (target_pos - actor.global_position).y > 0.3:
 			actions.append(JumpAction.new())
 
-	# 2. COMBAT LOGIC
+	# 2. COMBAT LOGIC WITH WARNING EFFECT
 	if dist_to_target <= ATTACK_RANGE:
-		if cooldown_left <= 0.0 and has_clear_shot(actor):
-			actions.append(AttackAction.new())
+		if cooldown_left > 0.0:
+			cooldown_left -= delta
+
+			# TELEGRAPH: Play warning effect before firing
+			if cooldown_left <= WARNING_LEAD_TIME and not _warning_played:
+				_warning_played = true
+				SceneManager.spawn_effect(
+					SceneManager.Fx.WARNING, actor.global_position + Vector3(0, 1.5, 0)
+				)
+
+			# ATTACK
+			if cooldown_left <= 0.0 and has_clear_shot(actor):
+				actions.append(AttackAction.new())
+				cooldown_left = SHOOT_COOLDOWN
+				_warning_played = false
+		else:
+			# Initialize cooldown cycle
 			cooldown_left = SHOOT_COOLDOWN
+			_warning_played = false
+	else:
+		if cooldown_left > 0.0:
+			cooldown_left -= delta
 
 	return actions
 
 
 func update_aim(actor: Entity) -> void:
 	if is_instance_valid(target):
-		var target_center := target.global_position + Vector3(0, 0, 0)
-
-		var enemy_weapon_height := actor.global_position.y + 0
+		var target_center := target.global_position
+		var enemy_weapon_height := actor.global_position.y
 		target_center.y = enemy_weapon_height
 
 		aim_target = target_center
@@ -118,7 +127,7 @@ func has_clear_shot(actor: Entity) -> bool:
 
 	var space_state := actor.get_world_3d().direct_space_state
 	var origin := actor.global_position + Vector3(0, -1, 0)
-	var target_center := target.global_position + Vector3(0, 0, 0)
+	var target_center := target.global_position
 
 	var dir_to_target := origin.direction_to(target_center)
 	var right_offset := Vector3.UP.cross(dir_to_target).normalized() * 0.4
@@ -146,7 +155,6 @@ func has_clear_shot(actor: Entity) -> bool:
 		var hit_target = not result.is_empty() and result.collider == target
 
 		if debug_rays:
-			# Draw green if it hits the player, red if it hits a wall/nothing
 			var line_color = Color.GREEN if hit_target else Color.RED
 			var end_point = result.position if not result.is_empty() else point
 			_draw_debug_line(actor, origin, end_point, line_color)
@@ -165,54 +173,41 @@ func _draw_debug_line(actor: Entity, start: Vector3, end: Vector3, color: Color)
 	mesh_instance.mesh = immediate_mesh
 	mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
-	# Draw the line
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	immediate_mesh.surface_add_vertex(start)
 	immediate_mesh.surface_add_vertex(end)
 	immediate_mesh.surface_end()
 
-	# Make it unshaded so it glows nicely in the dark
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
 
 	actor.get_tree().root.add_child(mesh_instance)
-
-	# Automatically delete the line after 0.05 seconds so they don't pile up and lag the game
 	actor.get_tree().create_timer(0.05).timeout.connect(mesh_instance.queue_free)
 
 
-# Added a `retreat` parameter to flip the distance logic
 func _choose_direction(actor: Entity, destination: Vector3, retreat: bool = false) -> Vector3:
 	var space_state := actor.get_world_3d().direct_space_state
 	var best_dir := Vector3.ZERO
-
-	# If retreating, we want to maximize distance (start at negative infinity).
-	# If following, we want to minimize distance (start at infinity).
 	var best_dist := -INF if retreat else INF
 
 	for dir in CARDINAL_DIRECTIONS:
 		var check_target := actor.global_position + (dir * ray_check_distance)
 
-		# Skip direction if another enemy or wall is blocking it
 		if _is_path_blocked(actor, space_state, check_target):
 			continue
 
 		var dist_to_target := check_target.distance_squared_to(destination)
 
 		if retreat:
-			# Pick the direction that takes us FURTHEST from the player
 			if dist_to_target > best_dist:
 				best_dist = dist_to_target
 				best_dir = dir
 		else:
-			# Pick the direction that takes us CLOSEST to the player
 			if dist_to_target < best_dist:
 				best_dist = dist_to_target
 				best_dir = dir
 
-	# Fallback: if all valid cardinal directions are blocked by walls
 	if best_dir == Vector3.ZERO:
-		# Flee exactly away from target, or walk exactly toward it
 		var fallback_dir := (
 			actor.global_position - destination if retreat else destination - actor.global_position
 		)

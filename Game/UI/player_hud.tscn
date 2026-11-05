@@ -17,7 +17,7 @@ layout_mode = 1
 [node name="P2" parent="." unique_id=1066147796 instance=ExtResource("3_oe7c8")]
 layout_mode = 1
 offset_left = -608.0
-offset_top = -1012.0
+offset_top = -1017.0
 offset_right = 6.0
-offset_bottom = 73.0
+offset_bottom = 68.0
 entity_id = 1
