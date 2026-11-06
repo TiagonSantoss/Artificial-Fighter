@@ -1,4 +1,4 @@
-class_name DvdBossController
+class_name EvilSwordController
 extends Controller
 
 @export_category("Boss Settings")
@@ -9,6 +9,14 @@ extends Controller
 @export var hit_radius := 2.5
 @export var hit_interval := 1.2  # keep this above your players' iframe_duration (1.0)
 @export var parry_stun := 2.0  # boss freezes this long when a hit gets parried
+@export var bounce_duration := 8.0  # seconds spent bouncing before it stops
+@export var rest_duration := 3.0  # seconds it stands still before bouncing again
+
+enum Phase { STANDING, BOUNCING }
+
+var _phase := Phase.STANDING
+var _phase_left := 0.0
+var _phase_total := 1.0
 
 var target: Entity  # Game.spawn_enemy assigns this
 
@@ -26,31 +34,51 @@ func get_actions(actor: Entity, delta: float) -> Array[Action]:
 
 	if not _started:
 		_started = true
-		_windup_left = windup_time
-		_heading = _random_heading()
+		_enter_standing(actor, windup_time)
 		SceneManager.spawn_effect(
 			SceneManager.Fx.WARNING, actor.global_position + Vector3(0, 2.0, 0)
 		)
 		FmodServer.play_one_shot("event:/SFX/UI/Warn")
 
-	if _windup_left > 0.0:	
-		_windup_left -= delta
-		actor.animation_component.sprite.rotate_z(spin_speed * 0.25 * delta)
+	_tick_hit_cooldowns(delta)
+	_phase_left -= delta
+	var sprite = actor.animation_component.sprite
+
+	if _phase == Phase.STANDING:
+		# spin ramps up as the rest ends, telegraphing the restart
+		var t := 1.0 - clampf(_phase_left / _phase_total, 0.0, 1.0)
+		sprite.rotate_z(spin_speed * lerpf(0.1, 0.5, t) * delta)
+		if _phase_left <= 0.0:
+			_enter_bouncing()
 		return actions
 
-	actor.animation_component.sprite.rotate_z(spin_speed * delta)
-	_tick_hit_cooldowns(delta)
+	if _phase_left <= 0.0:
+		_enter_standing(actor, rest_duration)
+		return actions
+
+	sprite.rotate_z(spin_speed * delta)
 	_handle_bounce(actor)
 
-	# Constant speed in the heading direction, no acceleration ramp
 	var move := actor.movement_component
 	move.movement_velocity = _heading * move.max_speed
-
-	# Still returned so Entity doesn't apply friction this frame
 	actions.append(MovementAction.new(_heading))
 
 	_hit_nearby(actor)
 	return actions
+
+
+func _enter_standing(actor: Entity, duration: float) -> void:
+	_phase = Phase.STANDING
+	_phase_total = maxf(duration, 0.001)
+	_phase_left = duration
+	actor.movement_component.movement_velocity = Vector3.ZERO
+
+
+func _enter_bouncing() -> void:
+	_phase = Phase.BOUNCING
+	_phase_total = bounce_duration
+	_phase_left = bounce_duration
+	_heading = _random_heading()
 
 
 # --------------------------------------------------

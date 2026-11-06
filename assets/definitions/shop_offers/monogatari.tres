@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://c2q0dtehdonkx"]
+
+[ext_resource type="Resource" uid="uid://b07ib2irja7xy" path="res://assets/definitions/weapons/melee/Monogatari_reference.tres" id="1_3yc83"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_kutm7"]
+
+[resource]
+script = ExtResource("1_kutm7")
+item_to_sell = ExtResource("1_3yc83")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

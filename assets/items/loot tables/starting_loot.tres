@@ -3,12 +3,15 @@
 [ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="1_hp7c5"]
 [ext_resource type="Script" uid="uid://b8ih4p6c3s4n3" path="res://Core/Container/Components/Base/loot_pool.gd" id="2_1mbwq"]
 [ext_resource type="Resource" uid="uid://csxa16v23ubnf" path="res://assets/items/accesories/swordrow.tres" id="2_5v0nr"]
-[ext_resource type="Resource" uid="uid://rtmangqbh3im" path="res://assets/items/behaviors/multishot.tres" id="3_sj8sb"]
 [ext_resource type="Resource" uid="uid://bk5ynb2583nmv" path="res://assets/definitions/weapons/ranged/Revolver.tres" id="4_hfoic"]
 [ext_resource type="Resource" uid="uid://dxoaosoohpd1v" path="res://assets/definitions/weapons/ranged/TMP.tres" id="5_qbmej"]
+[ext_resource type="Resource" uid="uid://djjcuqo0v83se" path="res://assets/definitions/weapons/ranged/Double_Barrel.tres" id="6_5v0nr"]
 [ext_resource type="Resource" uid="uid://b07ib2irja7xy" path="res://assets/definitions/weapons/melee/Monogatari_reference.tres" id="6_swbhx"]
+[ext_resource type="Resource" uid="uid://2v58ds8dm73l" path="res://assets/definitions/weapons/melee/Metal_Pipe.tres" id="7_hfoic"]
+[ext_resource type="Resource" uid="uid://bscl5f0adwebr" path="res://assets/definitions/weapons/melee/Kokorowatari.tres" id="8_qbmej"]
+[ext_resource type="Resource" uid="uid://b5ab7bvsvusbg" path="res://assets/definitions/weapons/melee/Axe.tres" id="9_qbmej"]
 
 [resource]
 script = ExtResource("2_1mbwq")
-possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("3_sj8sb"), ExtResource("4_hfoic"), ExtResource("5_qbmej"), ExtResource("6_swbhx")])
+possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("4_hfoic"), ExtResource("5_qbmej"), ExtResource("6_swbhx"), ExtResource("6_5v0nr"), ExtResource("7_hfoic"), ExtResource("8_qbmej"), ExtResource("9_qbmej")])
 metadata/_custom_type_script = "uid://b8ih4p6c3s4n3"

@@ -21,4 +21,5 @@ entity_id = 5
 starting_weapon = ExtResource("5_hbiqx")
 drop_currency_def = ExtResource("2_kp8ov")
 team = 2
+base_currency_drop = 15
 metadata/_custom_type_script = "uid://dll1idsl2062t"

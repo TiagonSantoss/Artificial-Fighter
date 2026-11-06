@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_m1kux"]
 [ext_resource type="Texture2D" uid="uid://d2v80n2nnfn1f" path="res://assets/sprites/combat/weapons/Revolver.png" id="3_avdkl"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwslg"]
+atlas = ExtResource("3_avdkl")
+region = Rect2(10, 80, 260, 150)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_55gr2"]
 atlas = ExtResource("3_avdkl")
 region = Rect2(0, 0, 300, 300)
@@ -34,11 +38,15 @@ sprite_frames = SubResource("SpriteFrames_jb85x")
 damage_multiplier = 2.2
 knockback_multiplier = 1.2
 fire_rate = 1.3
-pierce_multiplier = 5.0
 recoil = 0.0
 spread = 0.0
 ammo_per_axis = 10
 shoot_sound = "Revolver"
 default_behaviors = Array[ExtResource("1_m1kux")]([ExtResource("2_55gr2")])
 projectile = ExtResource("1_iw2s6")
+id = &"Rev"
+display_name = "Revolver"
+description = "Revolver"
+shop_description = "volver"
+icon = SubResource("AtlasTexture_wwslg")
 metadata/_custom_type_script = "uid://bj0tx3188ordn"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://dc24mfywwakg3"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_k2oa6"]
+[ext_resource type="Resource" uid="uid://dxx7d4ub36uht" path="res://assets/definitions/weapons/ranged/Desert_Eagle.tres" id="1_ubq1j"]
+
+[resource]
+script = ExtResource("1_k2oa6")
+item_to_sell = ExtResource("1_ubq1j")
+price = 25
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

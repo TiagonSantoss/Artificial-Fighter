@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://dpb2h6wnr5gyc"]
+
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="1_j2ifu"]
+[ext_resource type="Resource" uid="uid://dkaq1keocoqr" path="res://assets/definitions/entities/actors/enemies/moai.tres" id="2_j2ifu"]
+[ext_resource type="Script" uid="uid://cbwqmhh6ormqo" path="res://Core/Dungeon/Data/encounter_definition.gd" id="3_wyc8m"]
+
+[resource]
+script = ExtResource("3_wyc8m")
+possible_enemies = Array[ExtResource("1_j2ifu")]([ExtResource("2_j2ifu")])
+metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

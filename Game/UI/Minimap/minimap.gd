@@ -7,6 +7,7 @@ extends Control
 @export var line_width := 4.0
 @export var rotate_with_camera := true
 @export var rotation_smoothing := 10.0  # 0 = snap instantly
+@export_range(0, 3) var map_rotation_steps := 1
 
 @export_category("Colors")
 @export var color_current := Color.WHITE
@@ -28,6 +29,7 @@ var current_room_id := ""
 var _graph: RoomGraph
 var _chunks: ChunkManager
 var _angle := 0.0
+var _angle_ready := false
 
 
 func _ready() -> void:
@@ -122,9 +124,12 @@ func _update_rotation(delta: float) -> void:
 	if Vector2(right.x, right.z).length_squared() < 0.0001:
 		return
 
-	var target := atan2(right.z, right.x)
-	if rotation_smoothing <= 0.0:
+	# CHANGED: subtract the grid-to-world offset
+	var target := atan2(right.z, right.x) - map_rotation_steps * PI / 2.0
+
+	if rotation_smoothing <= 0.0 or not _angle_ready:
 		_angle = target
+		_angle_ready = true  # snap on the first frame instead of sweeping from 0
 	else:
 		_angle = lerp_angle(_angle, target, 1.0 - exp(-rotation_smoothing * delta))
 

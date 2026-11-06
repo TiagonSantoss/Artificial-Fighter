@@ -21,4 +21,5 @@ starting_weapon = ExtResource("4_vawr8")
 drop_currency_def = ExtResource("2_vawr8")
 team = 2
 spawn_group = 1
+base_currency_drop = 10
 metadata/_custom_type_script = "uid://dll1idsl2062t"

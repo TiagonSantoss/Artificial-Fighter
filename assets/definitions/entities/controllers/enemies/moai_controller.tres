@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EvilSwordController" format=3 uid="uid://ddgxuya3uedri"]
+
+[ext_resource type="Script" uid="uid://dxuobg4cqrefq" path="res://Core/Entities/Controllers/evil_sword_controller.gd" id="1_musid"]
+
+[resource]
+script = ExtResource("1_musid")
+metadata/_custom_type_script = "uid://dxuobg4cqrefq"

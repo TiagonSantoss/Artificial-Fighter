@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="4_6bhrc"]
 [ext_resource type="Shader" uid="uid://1yi7vtdddbnh" path="res://assets/shaders/inverted_hull.gdshader" id="4_756pn"]
 [ext_resource type="PackedScene" uid="uid://2jtjl7kon0di" path="res://Game/Rooms/DoorScoket.tscn" id="6_h46n2"]
+[ext_resource type="PackedScene" uid="uid://5vm83pufruwe" path="res://assets/models/chest.tscn" id="6_rf4sn"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2bgwa"]
 vertices = PackedVector3Array(-9.75, 2.5, -9.5, -9.75, 2.5, -22.5, -26.5, 2.5, -22.5, -26.5, 2.5, -9.5, -6.5, 2.5, -8.25, -6.5, 2.5, -6.25, 6.5, 2.5, -6.25, -7.25, 2.5, -9.25, 6.5, 2.5, -22.5, -6.5, 2.5, 10.5, 6.5, 2.5, 10.5)
@@ -126,3 +127,6 @@ shape = SubResource("BoxShape3D_756pn")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2" unique_id=986030908]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -27.902752, 5.679199, 2.149426)
 shape = SubResource("BoxShape3D_756pn")
+
+[node name="chest" parent="." unique_id=1273433877 instance=ExtResource("6_rf4sn")]
+transform = Transform3D(-0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, -0.9659258, 3.096859, 0, -10.343202)

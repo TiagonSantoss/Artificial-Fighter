@@ -30,7 +30,9 @@ var is_in_hitstop := false
 var is_dashing := false
 
 var is_invincible: bool = false
-var iframe_duration: float = 1.0
+var iframe_duration: float = 0.3
+
+var intro_cutscene: VideoStream
 
 var stun_duration := 0.0
 
@@ -67,6 +69,7 @@ func setup(start_position: Vector3, entity_definition: EntityDefinition) -> void
 	global_position = start_position
 
 	entity_id = definition.entity_id
+	intro_cutscene = definition.intro_cutscene
 	team = definition.team
 	grid_position = Grid.world_to_grid(global_position)
 
@@ -298,10 +301,10 @@ func _on_died() -> void:
 
 		WorldItemSpawner.drop(coin_data, global_position)
 
+	queue_free()
+
 	if entity_id == 0 or entity_id == 1:
 		GameAutoLoad.swap_characters()
-
-	queue_free()
 
 
 func get_team():

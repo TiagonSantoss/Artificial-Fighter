@@ -4,12 +4,24 @@
 [ext_resource type="Script" uid="uid://dyyc73hlvhwas" path="res://Game/UI/items_flow.gd" id="1_vs4iv"]
 [ext_resource type="PackedScene" uid="uid://sjxnbdrduybk" path="res://Game/UI/item.tscn" id="2_r1weg"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="2_vs4iv"]
+[ext_resource type="Resource" uid="uid://dbddodksl3ky6" path="res://assets/definitions/shop_offers/HL.tres" id="3_682lb"]
 [ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="3_dubjj"]
 [ext_resource type="Script" uid="uid://dq2s13ogc0r" path="res://Game/UI/shop_description_flow.gd" id="3_r1weg"]
 [ext_resource type="Resource" uid="uid://bjrmre2wxnyjb" path="res://assets/definitions/shop_offers/duo_bullet.tres" id="4_dcy3d"]
+[ext_resource type="Resource" uid="uid://sp0qiriuj6k" path="res://assets/definitions/shop_offers/TMP.tres" id="4_fd6n1"]
 [ext_resource type="Resource" uid="uid://bxhga250waumm" path="res://assets/definitions/shop_offers/one_more_bullet.tres" id="5_80ofe"]
+[ext_resource type="Resource" uid="uid://ckc8eeximrk0b" path="res://assets/definitions/shop_offers/pencil.tres" id="5_ebt8w"]
+[ext_resource type="Resource" uid="uid://y32kacgsri0i" path="res://assets/definitions/shop_offers/revolver.tres" id="6_b1uns"]
 [ext_resource type="Resource" uid="uid://cdnnekyon2y4g" path="res://assets/definitions/shop_offers/two_more_bullet.tres" id="6_qup20"]
 [ext_resource type="Resource" uid="uid://duv3af307mcvu" path="res://assets/definitions/shop_offers/speed_bolt.tres" id="7_l7uiu"]
+[ext_resource type="Resource" uid="uid://bfr0v0nogxra7" path="res://assets/definitions/shop_offers/shuriken.tres" id="7_yl1fo"]
+[ext_resource type="Resource" uid="uid://cfulxt8bgcek3" path="res://assets/definitions/shop_offers/metal_pipe.tres" id="9_et46i"]
+[ext_resource type="Resource" uid="uid://c2q0dtehdonkx" path="res://assets/definitions/shop_offers/monogatari.tres" id="10_debcm"]
+[ext_resource type="Resource" uid="uid://dc24mfywwakg3" path="res://assets/definitions/shop_offers/desert_eagle.tres" id="12_hi5lf"]
+[ext_resource type="Resource" uid="uid://0y5v8jbphkui" path="res://assets/definitions/shop_offers/kokorowatari.tres" id="13_xen8w"]
+[ext_resource type="Resource" uid="uid://c2plg2epr635f" path="res://assets/definitions/shop_offers/please_punch.tres" id="14_4h8rk"]
+[ext_resource type="Resource" uid="uid://dncqfct2riiju" path="res://assets/definitions/shop_offers/sledgehammer.tres" id="15_c3ec7"]
+[ext_resource type="Resource" uid="uid://dmtjf1p8w76da" path="res://assets/definitions/shop_offers/double_barrel.tres" id="16_gm556"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qktwf"]
 content_margin_left = 0.0
@@ -45,8 +57,8 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 script = ExtResource("1_j3oli")
-master_item_pool = Array[ExtResource("3_dubjj")]([ExtResource("4_dcy3d"), ExtResource("5_80ofe"), ExtResource("7_l7uiu"), ExtResource("6_qup20"), null])
-shop_slots_count = 3
+master_item_pool = Array[ExtResource("3_dubjj")]([ExtResource("3_682lb"), ExtResource("4_fd6n1"), ExtResource("5_ebt8w"), ExtResource("6_b1uns"), ExtResource("7_yl1fo"), ExtResource("4_dcy3d"), ExtResource("9_et46i"), ExtResource("10_debcm"), ExtResource("7_l7uiu"), ExtResource("12_hi5lf"), ExtResource("13_xen8w"), ExtResource("14_4h8rk"), ExtResource("15_c3ec7"), ExtResource("16_gm556"), ExtResource("5_80ofe"), ExtResource("6_qup20")])
+shop_slots_count = 5
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1095842770]
 custom_maximum_size = Vector2(1800, -1)

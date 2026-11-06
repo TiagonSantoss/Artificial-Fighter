@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://c6q44sq20e4mo" path="res://assets/fonts/GIZMO_FONT_DARK.tres" id="3_12mln"]
 [ext_resource type="Script" uid="uid://berl322f66deo" path="res://assets/fonts/text_bounce.gd" id="4_aj57t"]
 [ext_resource type="Script" uid="uid://kwm3t5u8tcg7" path="res://assets/fonts/typewritter.gd" id="5_vrp8b"]
+[ext_resource type="Texture2D" uid="uid://cpt1utxidp8jl" path="res://assets/images/UI/gizmo chanT.png" id="6_70hct"]
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_2bgwa"]
 
@@ -17,14 +18,42 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+bg_color = Color(1, 1, 1, 0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="White" type="TextureRect" unique_id=998001667]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70hct"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="White" type="CanvasLayer" unique_id=1466540946]
+script = ExtResource("2_70hct")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=729533070]
+anchors_preset = -1
+anchor_top = 0.67800003
+anchor_bottom = 0.67800003
+offset_left = -32.0
+offset_top = -738.24005
+offset_right = 1448.0
+offset_bottom = 389.75995
+grow_vertical = 2
+texture = ExtResource("6_70hct")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="window" type="TextureRect" parent="." unique_id=1083125342]
 anchors_preset = -1
 anchor_left = 0.48000002
 anchor_top = 1.0
@@ -35,16 +64,15 @@ offset_top = -536.0
 offset_right = 499.39996
 offset_bottom = -136.0
 texture = ExtResource("1_xfws5")
-script = ExtResource("2_70hct")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1120853118]
+[node name="MarginContainer" type="MarginContainer" parent="window" unique_id=1120853118]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 48.0
 offset_right = 979.0
 offset_bottom = 382.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer" unique_id=608568913]
+[node name="RichTextLabel" type="RichTextLabel" parent="window/MarginContainer" unique_id=608568913]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("3_12mln")
 theme_override_font_sizes/normal_font_size = 10
@@ -54,14 +82,17 @@ text = "
 custom_effects = [SubResource("RichTextEffect_2bgwa"), SubResource("RichTextEffect_3ir6a")]
 script = ExtResource("5_vrp8b")
 
-[node name="Button" type="Button" parent="." unique_id=843084552]
+[node name="Button" type="Button" parent="window" unique_id=843084552]
 layout_mode = 0
 offset_left = 916.0
 offset_top = 9.0
 offset_right = 988.0
 offset_bottom = 45.0
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_wfiss")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wfiss")
-theme_override_styles/hover = SubResource("StyleBoxFlat_wfiss")
+theme_override_styles/hover = SubResource("StyleBoxFlat_70hct")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_wfiss")
 theme_override_styles/focus = SubResource("StyleBoxFlat_wfiss")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1888856438]

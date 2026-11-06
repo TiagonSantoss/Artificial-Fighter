@@ -31,6 +31,8 @@ signal fmod
 
 signal ammo_bound(ammo: AxisAmmo)
 
+signal boss_fight_changed(bosses: Array)
+
 var current_ammo: AxisAmmo
 
 

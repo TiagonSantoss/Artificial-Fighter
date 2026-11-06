@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="PyramidController" format=3 uid="uid://cfuslus1lfds7"]
+
+[ext_resource type="Script" uid="uid://dfihnyysxh35x" path="res://Core/Entities/Controllers/enemies/pyramid_controller.gd" id="1_a3lvb"]
+
+[resource]
+script = ExtResource("1_a3lvb")
+metadata/_custom_type_script = "uid://dfihnyysxh35x"

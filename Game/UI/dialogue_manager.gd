@@ -4,9 +4,10 @@ const DIALOGUE_BOX = preload("res://Game/UI/text_box.tscn")
 
 
 ## Needs a BBCode formatted text!
-func show_message(text: String):
-	var text_box = DIALOGUE_BOX.instantiate()
+func show_messages(lines: Array[String]) -> void:
+	get_tree().paused = true
 
-	get_tree().current_scene.add_child(text_box)
+	var box = DIALOGUE_BOX.instantiate()
+	add_child(box)
 
-	text_box.type_text(text)
+	box.start_messages(lines)

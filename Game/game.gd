@@ -1,7 +1,7 @@
 class_name Game
 extends Node3D
 
-# signal controlled_entity_changed(entity: Entity)
+signal all_characters_dead
 
 const ENTITY_SCENE = preload("res://Core/Entities/Entity.tscn")
 const LAYER_WORLD := 1
@@ -48,9 +48,13 @@ var ui_emitter: FmodEventEmitter2D
 var camera_rig: Camera3D
 # var marker: Marker3D
 var wallet := PlayerWallet.new()
+var can_swap := true
 
 var _controlled_entity: Entity
 var _companion_entity: Entity
+
+var _intro_played := false
+var _game_over := false
 
 
 func _ready() -> void:
@@ -59,11 +63,26 @@ func _ready() -> void:
 
 	GState.fmod.connect(_boss_music)
 
-	add_money("cc", 1)
+
+func play_intro() -> void:
+	if _intro_played:
+		return
+	_intro_played = true
+
+	add_money("cc", 1)  # looks like debug, but move it here if it belongs to a new run
 
 	await get_tree().create_timer(2.0).timeout
+	get_tree().paused = true
 
-	# DialogueManager.show_message("Hello, {pause=1.0} how is it [bounce]going?")
+	(
+		DialogueManager
+		. show_messages(
+			[
+				"Ola, sou a {pause=0.5}[wave amp=50 freq=2]Gizmo-chan[/wave]. Estou aqui para te ajudar. Vamos Comecar?",
+				"Nesse jogo, {pause=0.3} voce precisa sobreviver a {pause=0.5}[shake][color=808080]masmorra[/color][/shake]\n pegando loot"
+			]
+		)
+	)
 
 
 func _boss_music():
@@ -176,76 +195,122 @@ func get_camera_right() -> Vector3:
 func get_current_entity() -> Entity:
 	if is_instance_valid(_controlled_entity) and _controlled_entity.controller is PlayerController:
 		return _controlled_entity
+	return _companion_entity
+
+
+func get_living_characters() -> Array[Entity]:
+	var result: Array[Entity] = []
+	for e in [player, companion]:
+		var alive := _alive(e)
+		if alive != null:
+			result.append(alive)
+	return result
+
+
+func _alive(entity) -> Entity:
+	if is_instance_valid(entity) and not entity.is_queued_for_deletion():
+		return entity
+	return null
+
+
+func revive_missing_characters(pos: Vector3) -> void:
+	var player_alive := _alive(player) != null
+	var companion_alive := _alive(companion) != null
+	if player_alive and companion_alive:
+		return
+
+	_game_over = false
+
+	if not player_alive and not companion_alive:
+		spawn_player(pos)  # becomes the controlled entity
+		spawn_companion(pos + Vector3(1.0, 0.0, 0.0))
+	elif not companion_alive:
+		spawn_companion(pos + Vector3(1.0, 0.0, 0.0))  # follows the living player
 	else:
-		return _companion_entity
+		# player is dead, companion is alive and controlled: revive as follower
+		var revived := spawn_player(pos)
+		var follow := CompanionController.new()
+		follow.follow_target = companion
+		revived.controller = follow
+		controlled_entity = companion  # setter re-emits and rebinds ammo
+		_companion_entity = revived
+
+	_retarget_enemies()
+	update_accessories_state()
 
 
-var can_swap := true
+func _forget_entity(entity) -> void:
+	if player == entity:
+		player = null
+	if companion == entity:
+		companion = null
+	if _controlled_entity == entity:
+		_controlled_entity = null
+	if _companion_entity == entity:
+		_companion_entity = null
 
 
-func swap_characters():
-	if not can_swap:
+func swap_characters(force := false) -> void:
+	if not can_swap and not force:
+		return
+
+	var a := _alive(player)
+	var b := _alive(companion)
+	var current := _alive(_controlled_entity)
+
+	if a == null and b == null:
+		_controlled_entity = null
+		_companion_entity = null
+		_on_all_characters_dead()
+		return
+
+	var next: Entity
+	if current == null:
+		next = a if a != null else b  # controlled one died, hand over
+	elif a != null and b != null:
+		next = b if current == a else a  # normal swap
+	else:
+		_companion_entity = null  # the follower died, keep control
 		return
 
 	can_swap = false
 
-	var swapping_to_companion = true
+	var follower: Entity = b if next == a else a  # may be null
 
-	if is_instance_valid(_controlled_entity):
-		swapping_to_companion = (_controlled_entity.entity_id == 0)
-	else:
-		if is_instance_valid(companion):
-			swapping_to_companion = true
-		elif is_instance_valid(player):
-			swapping_to_companion = false
-		else:
-			can_swap = true
-			return
+	next.controller = PlayerController.new()
+	_controlled_entity = next
 
-	if swapping_to_companion:
-		if is_instance_valid(companion):
-			companion.controller = PlayerController.new()
-			_controlled_entity = companion
-		else:
-			_controlled_entity = null
+	if follower != null:
+		var follow_controller := CompanionController.new()
+		follow_controller.follow_target = next
+		follower.controller = follow_controller
+	_companion_entity = follower
 
-		if is_instance_valid(player):
-			player.controller = CompanionController.new()
-			player.controller.follow_target = _controlled_entity
-			_companion_entity = player
-		else:
-			_companion_entity = null
-
-	else:
-		if is_instance_valid(player):
-			player.controller = PlayerController.new()
-			_controlled_entity = player
-		else:
-			_controlled_entity = null
-
-		if is_instance_valid(companion):
-			companion.controller = CompanionController.new()
-			companion.controller.follow_target = player
-			_companion_entity = companion
-		else:
-			_companion_entity = null
-
-	var active_enemies = get_tree().get_nodes_in_group("enemies")
-	for enemy in active_enemies:
-		if is_instance_valid(enemy) and enemy.controller != null:
-			if "target" in enemy.controller:
-				enemy.controller.target = _controlled_entity
-
+	_retarget_enemies()
 	GState.controlled_entity_changed.emit(_controlled_entity)
 	update_accessories_state()
 
 	await get_tree().create_timer(0.4).timeout
 	can_swap = true
 
-	# if is_instance_valid(_controlled_entity):
-	# 	print("CONTROLLED:", _controlled_entity.entity_id)
-	# if is_instance_valid(_companion_entity):
-	# 	print("COMPANION:", _companion_entity.entity_id)
+
+func _retarget_enemies() -> void:
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy) and enemy.controller != null and "target" in enemy.controller:
+			enemy.controller.target = _controlled_entity
+
+
+func _on_all_characters_dead() -> void:
+	if _game_over:
+		return
+	_game_over = true
+	_retarget_enemies()
+	all_characters_dead.emit()
+
+	get_tree().paused = true
+	DialogueManager.show_messages(
+		["[shake]Voce morreu...[/shake]", "{pause=0.5}Placeholder: tela de game over aqui."]
+	)
 
 
 func update_accessories_state() -> void:
@@ -266,6 +331,8 @@ func spawn_player(pos: Vector3) -> Entity:
 	player.add_to_group("player")
 	player.add_child(listener3D)
 
+	player.tree_exited.connect(_forget_entity.bind(player))
+
 	# player.collision_layer = 1
 	return player
 
@@ -275,7 +342,7 @@ func spawn_enemy(pos: Vector3, definition: EntityDefinition = null) -> Entity:
 		definition = enemy_pool.pick_random()
 
 	var enemy := spawn_entity(definition, pos)
-	enemy.controller.target = _controlled_entity
+	enemy.controller.target = _alive(_controlled_entity)
 	enemy.add_to_group("enemies")
 
 	return enemy
@@ -285,9 +352,10 @@ func spawn_companion(pos: Vector3) -> Entity:
 	var local_companion := spawn_entity(companion_definition, pos)
 	_companion_entity = local_companion
 	companion = local_companion
-	local_companion.controller.follow_target = player
+	local_companion.controller.follow_target = _alive(player)
 
 	local_companion.add_to_group("player")
+	local_companion.tree_exited.connect(_forget_entity.bind(local_companion))
 	return local_companion
 
 

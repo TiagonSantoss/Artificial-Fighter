@@ -10,6 +10,7 @@ signal character_shown(index: int, character: String)
 
 var _plain := ""  # the text without any tags, one entry per visible character
 var _pauses := {}  # visible character count -> extra seconds
+var _sounds := {}
 var _accum := 0.0
 var _pause_left := 0.0
 var _typing := false
@@ -47,6 +48,10 @@ func _process(delta: float) -> void:
 		_pause_left -= delta
 		return
 
+	if _sounds.has(visible_characters):
+		var fmod_event: String = _sounds[visible_characters]
+		FmodServer.play_one_shot(fmod_event)
+
 	_accum += delta
 	var interval := 1.0 / chars_per_second
 
@@ -57,6 +62,9 @@ func _process(delta: float) -> void:
 		var index := visible_characters - 1
 		var ch := _plain[index]
 		character_shown.emit(index, ch)
+
+		if ch != " " and ch != "\n":
+			FmodServer.play_one_shot("event:/SFX/UI/Typing")
 
 		var delay: float = _pauses.get(visible_characters, 0.0) + punctuation_delay.get(ch, 0.0)
 		if delay > 0.0:
@@ -71,10 +79,9 @@ func _process(delta: float) -> void:
 func _finish() -> void:
 	_typing = false
 	set_process(false)
-	finished.emit()
+	typing_finished.emit()
 
 
-# Strips {pause=x} tags and records where they were. BBCode [tags] pass through untouched.
 func _parse(raw: String) -> String:
 	_pauses.clear()
 	var out := ""
@@ -96,6 +103,8 @@ func _parse(raw: String) -> String:
 				var cmd := raw.substr(i + 1, end - i - 1)
 				if cmd.begins_with("pause="):
 					_pauses[plain.length()] = float(cmd.get_slice("=", 1))
+				elif cmd.begins_with("sfx="):
+					_sounds[plain.length()] = cmd.get_slice("=", 1)
 				i = end + 1
 				continue
 

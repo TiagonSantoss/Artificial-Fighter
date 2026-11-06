@@ -1,0 +1,133 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://dkaq1keocoqr"]
+
+[ext_resource type="Resource" uid="uid://ddgxuya3uedri" path="res://assets/definitions/entities/controllers/enemies/moai_controller.tres" id="1_ntq5o"]
+[ext_resource type="VideoStream" uid="uid://cswtub7wl60d4" path="res://assets/pen_and_rat_versus.ogv" id="2_0jlcr"]
+[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="2_ntq5o"]
+[ext_resource type="Texture2D" uid="uid://jf32qlu52xoq" path="res://assets/sprites/characters/sigmo_boss.png" id="3_xj751"]
+[ext_resource type="Resource" uid="uid://bnsk1034kn6o6" path="res://assets/definitions/weapons/enemies/boss_weapon.tres" id="4_x1h2x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntq5o"]
+atlas = ExtResource("3_xj751")
+region = Rect2(0, 540, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jlcr"]
+atlas = ExtResource("3_xj751")
+region = Rect2(384, 540, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1h2x"]
+atlas = ExtResource("3_xj751")
+region = Rect2(768, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74l3m"]
+atlas = ExtResource("3_xj751")
+region = Rect2(1152, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6qdx"]
+atlas = ExtResource("3_xj751")
+region = Rect2(1536, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f33rd"]
+atlas = ExtResource("3_xj751")
+region = Rect2(0, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pae3p"]
+atlas = ExtResource("3_xj751")
+region = Rect2(384, 540, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rnlp"]
+atlas = ExtResource("3_xj751")
+region = Rect2(768, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xj2ft"]
+atlas = ExtResource("3_xj751")
+region = Rect2(1152, 0, 384, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6iv6"]
+atlas = ExtResource("3_xj751")
+region = Rect2(1536, 0, 384, 540)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_faabb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntq5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jlcr")
+}],
+"loop": 1,
+"name": &"idle_down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1h2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74l3m")
+}],
+"loop": 1,
+"name": &"idle_side",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6qdx")
+}],
+"loop": 1,
+"name": &"idle_up",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f33rd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pae3p")
+}],
+"loop": 1,
+"name": &"walk_down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rnlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xj2ft")
+}],
+"loop": 1,
+"name": &"walk_side",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6iv6")
+}],
+"loop": 1,
+"name": &"walk_up",
+"speed": 6.0
+}]
+
+[resource]
+script = ExtResource("2_ntq5o")
+sprite_frames = SubResource("SpriteFrames_faabb")
+default_animation = "default"
+billboard = 2
+sprite_scale = Vector3(1.5, 1.5, 1.5)
+max_health = 250
+move_speed = 50.0
+max_speed = 15.0
+acceleration = 200.0
+friction = 200.0
+jump_force = 0.0
+hitbox_size = Vector3(2, 1, 2)
+controller = ExtResource("1_ntq5o")
+entity_id = 5
+starting_weapon = ExtResource("4_x1h2x")
+team = 2
+spawn_group = 2
+base_currency_drop = 150
+is_boss = true
+intro_cutscene = ExtResource("2_0jlcr")
+metadata/_custom_type_script = "uid://dll1idsl2062t"

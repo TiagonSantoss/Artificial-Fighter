@@ -148,9 +148,6 @@ size = Vector3(6.340576, 2.6611328, 3.7456665)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fqy3o"]
 size = Vector3(3.7973022, 2.0478516, 7.599121)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
-size = Vector3(1, 7.2165527, 56.533203)
-
 [node name="Arena 2" type="Node3D" unique_id=2117219993]
 script = ExtResource("1_vriqt")
 
@@ -170,6 +167,7 @@ map_settings = ExtResource("5_hv2nn")
 metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="FuncGodotMap" unique_id=509037849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.01718, 0)
 navigation_mesh = SubResource("NavigationMesh_2bgwa")
 
 [node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap/NavigationRegion3D" unique_id=1074631789]
@@ -228,7 +226,7 @@ shape = SubResource("ConvexPolygonShape3D_183cl")
 shape = SubResource("ConvexPolygonShape3D_l2xiy")
 
 [node name="x_area" type="Area3D" parent="." unique_id=338940070]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.14911556, 8.307143, 8.225248)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.14911556, -0.71003723, 8.225248)
 collision_mask = 3
 
 [node name="TV_DE_TUBO" parent="x_area" unique_id=926950336 instance=ExtResource("6_1h064")]
@@ -239,7 +237,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.13937378)
 shape = SubResource("BoxShape3D_2bgwa")
 
 [node name="z_area" type="Area3D" parent="." unique_id=906583778]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10.585715, 8.301969, -2.9623327)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -10.585715, -0.71521187, -2.9623327)
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="z_area" unique_id=1036590223]
@@ -250,23 +248,5 @@ shape = SubResource("BoxShape3D_fqy3o")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.455103, -0.5014343, -0.90554047)
 
 [node name="DoorSocket" parent="." unique_id=609152283 instance=ExtResource("9_4fos5")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.20315647, 5.811674, -31.201332)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.20315647, -3.2055063, -31.201332)
 direction = 4
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=541524152]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=693388570]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3279624, 2.025154, -4.7470784)
-shape = SubResource("BoxShape3D_3ir6a")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1949405946]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3279624, 2.025154, 18.26947)
-shape = SubResource("BoxShape3D_3ir6a")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=15661937]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3279624, 2.025154, -17.880257)
-shape = SubResource("BoxShape3D_3ir6a")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1131753040]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1888552, 2.025154, -4.7470784)
-shape = SubResource("BoxShape3D_3ir6a")

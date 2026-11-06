@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bf7vlpyhadq0e" path="res://assets/images/UI/credits.png" id="8_718h0"]
 [ext_resource type="Texture2D" uid="uid://bcrhvuwcdfeb1" path="res://assets/images/UI/exit.png" id="9_6x5qi"]
 [ext_resource type="Texture2D" uid="uid://dsnikvoc7yhgq" path="res://assets/images/UI/hovered_play.png" id="9_slyes"]
+[ext_resource type="VideoStream" uid="uid://c0kk77hb6d2t" path="res://assets/SFX_INTRO.ogv" id="14_slyes"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
 shader = ExtResource("2_n4wst")
@@ -194,14 +195,20 @@ texture_normal = ExtResource("9_6x5qi")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Intro" type="AnimationPlayer" parent="." unique_id=643472132]
-
 [node name="FmodEventEmitter2D" type="FmodEventEmitter2D" parent="." unique_id=1473116646]
 event_name = "event:/Music/MainTracks"
 event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
-autoplay = true
-auto_release = true
 volume = 0.3
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=631336112]
 bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank"]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1798719297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("14_slyes")
+expand = true

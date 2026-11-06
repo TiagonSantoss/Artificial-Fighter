@@ -46,6 +46,7 @@ enum VisualType { SPRITE_3D, MESH_3D, HYBRID }
 @export var base_currency_drop: int = 50
 @export_range(0.0, 1.0) var drop_variance: float = 0.2
 @export var is_boss := false
+@export var intro_cutscene: VideoStream
 
 
 func get_randomized_drop() -> int:

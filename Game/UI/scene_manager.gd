@@ -1,5 +1,7 @@
 extends Control
 
+signal _cutsceneDone
+
 @export
 var _persistent_foreground_scene: PackedScene = preload("res://Game/UI/screen_transition.tscn")
 
@@ -17,6 +19,13 @@ var _vignette_tween: Tween
 var _is_transitioning: bool = false
 
 var _impact_frame: ColorRect
+
+var _video_canvas: CanvasLayer
+var _video_root: ColorRect
+var _video_player: VideoStreamPlayer
+var _is_playing_cutscene := false
+var _paused_before_cutscene := false
+var _cutscene_skippable := true
 
 var _transition_effect_parameter_call = func(value: float):
 	if _transition_effect and _transition_effect.material:
@@ -118,6 +127,8 @@ func _ready():
 	_impact_frame = _foreground_scene.get_node_or_null("%ImpactFrame")
 	if _impact_frame:
 		_impact_frame.hide()
+
+	_setup_video_layer()
 
 
 func change_scene(scene_path: String) -> void:
@@ -272,3 +283,62 @@ func spawn_trail(
 	var tween = create_tween()
 	tween.tween_property(ghost, "modulate:a", 0.0, duration).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(ghost.queue_free)
+
+
+func _setup_video_layer() -> void:
+	_video_canvas = CanvasLayer.new()
+	_video_canvas.layer = 999  # under the transition layer (1000)
+	_video_canvas.process_mode = Node.PROCESS_MODE_ALWAYS  # children inherit, so it runs while paused
+	add_child(_video_canvas)
+
+	_video_root = ColorRect.new()
+	_video_root.color = Color.BLACK
+	_video_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_video_root.mouse_filter = Control.MOUSE_FILTER_STOP  # blocks clicks reaching the game
+	_video_root.focus_mode = Control.FOCUS_ALL
+	_video_root.gui_input.connect(_on_video_gui_input)
+	_video_root.hide()
+	_video_canvas.add_child(_video_root)
+
+	_video_player = VideoStreamPlayer.new()
+	_video_player.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_video_player.expand = true
+	_video_player.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_video_player.finished.connect(_finish_cutscene)
+	_video_root.add_child(_video_player)
+
+
+func play_cutscene(stream: VideoStream, skippable := true) -> void:
+	if stream == null or _is_playing_cutscene:
+		return
+
+	_is_playing_cutscene = true
+	_cutscene_skippable = skippable
+	_paused_before_cutscene = get_tree().paused  # restore whatever it was, e.g. a dialogue pause
+	get_tree().paused = true
+
+	_video_player.stream = stream
+	_video_root.show()
+	_video_root.grab_focus()  # so key presses reach gui_input
+	_video_player.play()
+
+	await _cutsceneDone
+
+
+func _finish_cutscene() -> void:
+	if not _is_playing_cutscene:
+		return
+
+	_is_playing_cutscene = false
+	_video_player.stop()
+	_video_root.hide()
+	get_tree().paused = _paused_before_cutscene
+	_cutsceneDone.emit()
+
+
+func _on_video_gui_input(event: InputEvent) -> void:
+	if not _cutscene_skippable or not event.is_pressed() or event.is_echo():
+		return
+	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
+		accept_event()
+		_finish_cutscene()

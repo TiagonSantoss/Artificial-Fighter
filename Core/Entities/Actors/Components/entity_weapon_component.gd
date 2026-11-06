@@ -61,6 +61,7 @@ func update_aim(target: Vector3) -> void:
 		return
 
 	var dir := target - weapon_socket.global_position
+	dir.y = 0.0
 	if dir.length_squared() > 0.001:
 		aim_direction = dir.normalized()
 

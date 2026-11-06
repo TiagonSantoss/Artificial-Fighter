@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://djjcuqo0v83se"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_yyh1p"]
+[ext_resource type="Resource" uid="uid://cxlh1b3e38c" path="res://assets/items/behaviors/Jacarindo_3000.tres" id="2_oytbf"]
+[ext_resource type="Resource" uid="uid://b7exh8h1e6le2" path="res://assets/items/behaviors/Natural_Acceleration.tres" id="3_7nxux"]
+[ext_resource type="Resource" uid="uid://csebym7jqvd3r" path="res://assets/definitions/projectiles/bullet.tres" id="5_5h02e"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="6_3j8ds"]
+[ext_resource type="Texture2D" uid="uid://bp3w8krg03wfs" path="res://assets/sprites/combat/double_barrel.png" id="7_sa28h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hne5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_sa28h")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("6_3j8ds")
+sprite_frames = SubResource("SpriteFrames_hne5q")
+sprite_scale = Vector3(0.3, 0.3, 0.3)
+sprite_offset = Vector3(0, 1, 0)
+damage_multiplier = 3.0
+knockback_multiplier = 4.0
+recoil = 8.0
+stun_duration = 1.3
+projectile_count = 8
+ammo_per_axis = 2
+shoot_sound = "DoubleBarrel"
+default_behaviors = Array[ExtResource("1_yyh1p")]([ExtResource("2_oytbf"), ExtResource("3_7nxux")])
+projectile = ExtResource("5_5h02e")
+id = &"DBB"
+display_name = "Double Barrel"
+description = "it has 2 barrels"
+shop_description = "capa"
+icon = ExtResource("7_sa28h")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

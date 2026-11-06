@@ -1,5 +1,8 @@
 extends Node3D
 
+enum HitOutcome { IGNORED, HIT, DESTROYED }
+const MAX_PASS_THROUGH := 4
+
 var active_projectiles: Array[Projectile] = []
 
 var space_state: PhysicsDirectSpaceState3D
@@ -16,57 +19,48 @@ func _ready():
 
 
 func _handle_projectile_hit(
-	projectile: Projectile, collider: Node, hit_pos: Vector3, hit_norm: Vector3
-) -> bool:
+	projectile: Projectile, target: Node, hit_pos: Vector3, hit_norm: Vector3
+) -> HitOutcome:
 	if not is_instance_valid(projectile.source_entity):
 		projectile.source_entity = null
 
-	if projectile.already_hit.has(collider):
-		return false
+	if projectile.already_hit.has(target):
+		return HitOutcome.IGNORED
 
-	# Team check
-	if collider.has_method("get_team"):
+	if target.has_method("get_team"):
+		var target_team = target.get_team()
 		if is_instance_valid(projectile.source_entity):
-			if projectile.source_entity.is_friendly_to(collider.get_team()):
-				return false
-		elif projectile.source_team == collider.get_team():
-			return false
+			if projectile.source_entity.is_friendly_to(target_team):
+				return HitOutcome.IGNORED
+		elif projectile.source_team == target_team:
+			return HitOutcome.IGNORED
 
 	var hit_data := HitData.new()
-
-	# Build hit data safely
 	hit_data.damage = projectile.definition.damage
 	hit_data.damage_mult = projectile.damage_multiplier
 	hit_data.knockback = projectile.definition.knockback
 	hit_data.knockback_multiplier = projectile.knockback_multiplier
 	hit_data.stun_duration = projectile.stun_duration
 	hit_data.direction = projectile.velocity.normalized()
-
-	# Since we cleared it above if it was dead, this is now 100% safe to assign
 	hit_data.source_entity = projectile.source_entity
-
 	hit_data.source_team = projectile.source_team
 	hit_data.projectile = projectile
 	hit_data.lifetime = projectile.lifetime_left
 	hit_data.hit_position = hit_pos
 	hit_data.hit_normal = hit_norm
 
-	# Apply damage directly if supported
-	if collider.has_method("apply_hit"):
-		collider.apply_hit(hit_data)
-	elif collider.get_parent() and collider.get_parent().has_method("apply_hit"):
-		collider.get_parent().apply_hit(hit_data)
+	var result = target.apply_hit(hit_data)
+	projectile.already_hit[target] = true
 
-	#AutoHitVFXPool.spawn(hit_pos, hit_norm)
+	if result == Entity.HitResult.NONE:
+		return HitOutcome.IGNORED
 
-	projectile.already_hit[collider] = true
 	projectile.remaining_pierce -= 1
-
 	if projectile.remaining_pierce <= 0:
 		release(projectile)
-		return true  # Signal that projectile was deleted
+		return HitOutcome.DESTROYED
 
-	return false
+	return HitOutcome.HIT
 
 
 func spawn(request: ProjectileRequest) -> Projectile:
@@ -93,8 +87,16 @@ func _physics_process(delta: float) -> void:
 		_update_projectile(active_projectiles[i], delta)
 
 
+func _get_hit_target(collider: Node) -> Node:
+	if collider.has_method("apply_hit"):
+		return collider
+	var parent := collider.get_parent()
+	if parent != null and parent.has_method("apply_hit"):
+		return parent
+	return null
+
+
 func _update_projectile(projectile: Projectile, delta: float) -> void:
-	# 1. LIFETIME / PHYSICS UPDATES
 	projectile.velocity.y -= projectile.definition.gravity * delta
 	projectile.lifetime_left -= delta
 
@@ -105,17 +107,7 @@ func _update_projectile(projectile: Projectile, delta: float) -> void:
 	projectile.velocity.x *= projectile.drag_factor
 	projectile.velocity.z *= projectile.drag_factor
 
-	var start := projectile.position
-	var end := start + projectile.velocity * delta
-
-	# 2. UNIFIED RAYCAST COLLISION (Hits entities AND world surfaces)
-	ray.from = start
-	ray.to = end
-	ray.exclude = projectile.exclude
-
-	var hit := space_state.intersect_ray(ray)
-
-	# 🟢 FIXED SAFE CHECK: Fetch as a basic Variant first, check validity, then cast safely
+	# Moved up so behavior changes to velocity apply this same frame
 	if projectile.has_meta("source_behavior_component"):
 		var component_raw = projectile.get_meta("source_behavior_component", null)
 		if is_instance_valid(component_raw):
@@ -123,43 +115,44 @@ func _update_projectile(projectile: Projectile, delta: float) -> void:
 			if component:
 				component.update_live_projectile(projectile, delta)
 
-	if not hit.is_empty():
+	var start := projectile.position
+	var end := start + projectile.velocity * delta
+
+	for _i in MAX_PASS_THROUGH:
+		ray.from = start
+		ray.to = end
+		ray.exclude = projectile.exclude
+
+		var hit := space_state.intersect_ray(ray)
+		if hit.is_empty():
+			break
+
 		var collider: Node = hit.collider
-		projectile.position = hit.position
+		var target := _get_hit_target(collider)
 
-		# Check if the entity hit can take damage
-		if (
-			collider.has_method("apply_hit")
-			or (collider.get_parent() and collider.get_parent().has_method("apply_hit"))
-		):
-			var was_deleted = _handle_projectile_hit(projectile, collider, hit.position, hit.normal)
-			if was_deleted:
+		if target != null:
+			var outcome := _handle_projectile_hit(projectile, target, hit.position, hit.normal)
+			if outcome == HitOutcome.DESTROYED:
 				return
+			# IGNORED (friendly / already hit / i-frames) or pierced: fly through it
+			projectile.exclude.append(hit.rid)
+			start = hit.position
+			continue
 
-		# var parent_node: Node3D = collider.get_parent()
-		#
-		# # if parent_node is Melee:
-		# # 	var guard_area := parent_node as Melee
-		# # 	var total_incoming_dmg := projectile.definition.damage * projectile.damage_multiplier
-		# # 	if guard_area.source_team != projectile.source_team:
-		# # 		var _was_parried = guard_area.process_projectile_impact(
-		# # 			hit.position, projectile.source_entity, total_incoming_dmg
-		# # 		)
-		# #
-		# # 		release(projectile)
-		# # 		return
+		if collider is Area3D:
+			# pickups, trigger zones, interaction areas: not solid
+			projectile.exclude.append(hit.rid)
+			start = hit.position
+			continue
 
-		# If it didn't hit a damageable target, or had pierce leftover, execute bounce/wall code
+		# Solid world geometry
 		if projectile.remaining_bounces > 0:
 			projectile.velocity = projectile.velocity.bounce(hit.normal)
 			projectile.remaining_bounces -= 1
-			projectile.position += hit.normal * 0.05
+			projectile.position = hit.position + hit.normal * 0.05
 			return
 
-		# Structural wall impact fallback
-		#AutoHitVFXPool.spawn(hit.position, hit.normal)
 		release(projectile)
 		return
 
-	# No collisions occurred, move forward cleanly
 	projectile.position = end

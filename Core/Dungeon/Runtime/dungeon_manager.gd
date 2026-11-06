@@ -15,10 +15,9 @@ signal room_exited(room: RoomInstance)
 @export var item_pool: Array[ItemDefinition]
 
 @export_category("Special Doors")
-@export var bonus_room_pool: Array[RoomDefinition] 
+@export var bonus_room_pool: Array[RoomDefinition]
 @export var special_door_min_rank := 5
 @export var special_door_rank_bonus := 25.0
-
 
 @export var boss_room: RoomDefinition
 
@@ -124,16 +123,19 @@ func _spawn_player_at_start(keep_party := false) -> void:
 	var spawn_pos = spawn_point.global_position if spawn_point else Vector3.ZERO
 
 	if keep_party:
-		# Only moves whoever is still alive, nobody gets respawned
-		_move_entity(GameAutoLoad.player, spawn_pos)
-		_move_entity(GameAutoLoad.companion, spawn_pos + Vector3(1.5, 0.0, 0.0))
-		return
+		# Bring back whoever died during the floor, then move everyone who's alive
+		GameAutoLoad.revive_missing_characters(spawn_pos)
 
+		var offset := 0.0
+		for entity in GameAutoLoad.get_living_characters():
+			_move_entity(entity, spawn_pos + Vector3(offset, 0.0, 0.0))
+			offset += 1.5
+		return
 	GameAutoLoad.spawn_player(spawn_pos)
 	GameAutoLoad.spawn_companion(spawn_pos)
 
 
-func _move_entity(entity: Entity, pos: Vector3) -> void:
+func _move_entity(entity, pos: Vector3) -> void:
 	if not is_instance_valid(entity):
 		return
 	entity.global_position = pos
@@ -163,6 +165,15 @@ func clear() -> void:
 # --------------------------------------------------
 
 
+func _update_boss_bar(room: RoomInstance) -> void:
+	var bosses: Array = []
+	for e in room.enemies:
+		if is_instance_valid(e) and not e.is_queued_for_deletion():
+			if e.definition != null and e.definition.is_boss:
+				bosses.append(e)
+	GState.boss_fight_changed.emit(bosses)
+
+
 func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> void:
 	var marker := room.get_random_spawn(definition.get_spawn_group_name())
 
@@ -180,15 +191,31 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 			room.enemies.erase(enemy)
 
+			if room.cleared:
+				return  # already cleared, e.g. leftover minions dying afterwards
+
 			if definition.is_boss:
-				_on_boss_defeated(room)
+				_update_boss_bar(room)
+
+			if definition.is_boss:
+				# Only clear once the last boss is gone
+				if not _boss_alive_in(room):
+					_on_boss_defeated(room)
 			elif room.enemies.is_empty():
 				_on_room_cleared(room)
 	)
 
+
 func _on_boss_defeated(room: RoomInstance) -> void:
 	room.cleared = true
 	advance_floor()
+
+
+func _boss_alive_in(room: RoomInstance) -> bool:
+	for e in room.enemies:
+		if is_instance_valid(e) and e.definition != null and e.definition.is_boss:
+			return true
+	return false
 
 
 func advance_floor() -> void:
@@ -232,6 +259,11 @@ func start_encounter(room: RoomInstance) -> void:
 
 	MusicDirector.set_mood(MusicDirector.Mood.COMBAT)
 
+	for enemy_def in encounter.possible_enemies:
+		if enemy_def.intro_cutscene != null:
+			await SceneManager.play_cutscene(enemy_def.intro_cutscene)
+			break
+
 	if encounter.possible_enemies.size() > 0:
 		for i in range(encounter.spawn_count):
 			var random_enemy_def = encounter.possible_enemies.pick_random()
@@ -264,6 +296,7 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	# 	var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
 	# 	WorldItemSpawner.drop(new_item_instance, drop_pos)
 
+
 func _try_open_special_door(room: RoomInstance) -> void:
 	if bonus_room_pool.is_empty():
 		return
@@ -282,7 +315,6 @@ func _try_open_special_door(room: RoomInstance) -> void:
 
 	var chance := clampf(base + (rank - special_door_min_rank) * special_door_rank_bonus, 0.0, 1.0)
 
-
 	# Deterministic per seed + room, so it doesn't mess with your global RNG
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash("%s_%s_special" % [_seed, room.room_id])
@@ -290,7 +322,7 @@ func _try_open_special_door(room: RoomInstance) -> void:
 	#if rng.randf() > chance:
 	#	print("DANG IT")
 	#	return
-	
+
 	print("SPAWNING SPECIAL ROOM")
 
 	var bonus_def := bonus_room_pool[rng.randi_range(0, bonus_room_pool.size() - 1)]

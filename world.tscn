@@ -1,9 +1,7 @@
 [gd_scene format=4 uid="uid://trvpmwnapc7o"]
 
-[ext_resource type="Script" uid="uid://bqb78gjgjfjxs" path="res://Game/game.gd" id="2_fj7yv"]
-[ext_resource type="Script" uid="uid://dll1idsl2062t" path="res://Core/Entities/entity_definition.gd" id="4_bh8nc"]
+[ext_resource type="Script" uid="uid://dwb16goax5y71" path="res://game_scene.gd" id="1_my276"]
 [ext_resource type="Texture2D" uid="uid://c2nytfcu5r7u0" path="res://assets/images/shaders/248138c3-816f-400e-b52a-3a0875186dac.jpeg" id="5_bh8nc"]
-[ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="5_jjr1n"]
 [ext_resource type="Shader" uid="uid://b8mshtgoljwss" path="res://sky.gdshader" id="5_wukud"]
 [ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="8_bo7i5"]
 [ext_resource type="Resource" uid="uid://d2f8vfomoc0bv" path="res://assets/definitions/rooms/PS2/v2.tres" id="9_6ah6f"]
@@ -20,13 +18,13 @@
 [ext_resource type="Resource" uid="uid://bjr6k03j8knel" path="res://assets/definitions/rooms/PS2/treasure_room.tres" id="14_my276"]
 [ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="15_2u3nc"]
 [ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="16_qktwf"]
+[ext_resource type="Resource" uid="uid://bxnv2qrw8uskf" path="res://assets/definitions/rooms/PS2/boss2_single.tres" id="17_my276"]
 [ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="17_o3ebs"]
 [ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="17_udxuc"]
 [ext_resource type="Resource" uid="uid://dlfwjnksvm6a0" path="res://assets/definitions/rooms/PS2/start_room.tres" id="18_55kwu"]
 [ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="18_k83mh"]
 [ext_resource type="Resource" uid="uid://cmc7ekwdcwcen" path="res://assets/definitions/rooms/PS2/v1.tres" id="18_ryup7"]
 [ext_resource type="Resource" uid="uid://ch56nvbm4jbak" path="res://assets/definitions/rooms/PS2/shop_room_1_special.tres" id="18_yx0jh"]
-[ext_resource type="Resource" uid="uid://bmygwo6p5n2jl" path="res://assets/definitions/rooms/PS2/boss1_single.tres" id="19_1ew0l"]
 [ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/dot_vignette.gdshader" id="19_bh8nc"]
 [ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="19_cbp6q"]
 [ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="19_qktwf"]
@@ -39,6 +37,9 @@
 [ext_resource type="PackedScene" uid="uid://bao0lkwunib3s" path="res://Game/UI/submenu.tscn" id="30_jjr1n"]
 [ext_resource type="PackedScene" uid="uid://cjl7py7intgn7" path="res://Game/UI/player_hud.tscn" id="32_6ah6f"]
 [ext_resource type="Script" uid="uid://dqdfuq6devhnm" path="res://Game/UI/ammo_bar.gd" id="33_g1i3r"]
+[ext_resource type="Texture2D" uid="uid://pypeiwjw8n1u" path="res://assets/sprites/UI/barra_de_vida1.png" id="35_ytpkv"]
+[ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="36_jas3d"]
+[ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="37_7htu6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc84e"]
 shader = ExtResource("5_wukud")
@@ -183,8 +184,7 @@ corner_detail = 6
 size = Vector3(689.05664, 101.70068, 824.17285)
 
 [node name="Game" type="Node3D" unique_id=1397934900]
-script = ExtResource("2_fj7yv")
-enemy_pool = Array[ExtResource("4_bh8nc")]([ExtResource("5_jjr1n")])
+script = ExtResource("1_my276")
 
 [node name="MainContainer" type="SubViewportContainer" parent="." unique_id=1282863015]
 visible = false
@@ -208,11 +208,11 @@ script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc"), ExtResource("14_my276")])
 start_room = ExtResource("18_55kwu")
 _seed = 2
-room_count = 10
+room_count = 15
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 bonus_room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_yx0jh")])
 special_door_min_rank = -1
-boss_room = ExtResource("19_1ew0l")
+boss_room = ExtResource("17_my276")
 
 [node name="ChunkManager" type="Node3D" parent="DungeonManager" unique_id=204241371]
 script = ExtResource("15_2u3nc")
@@ -298,6 +298,7 @@ grow_horizontal = 2
 clip_contents = true
 layout_mode = 2
 script = ExtResource("13_cbp6q")
+map_rotation_steps = 3
 highlights = {
 "start": Color(0, 0.9860479, 0.8730128, 1),
 "start_room": ""
@@ -427,6 +428,43 @@ value = 10.0
 show_percentage = false
 script = ExtResource("33_g1i3r")
 
+[node name="BossHealthBar" type="Control" parent="UI/Control" unique_id=9134851]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Control/BossHealthBar" unique_id=7805933]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.925001
+anchor_right = 23.925001
+offset_left = -235.00006
+offset_top = -21.0
+offset_right = 234.99994
+offset_bottom = 187.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("35_ytpkv")
+texture_over = ExtResource("36_jas3d")
+texture_progress = ExtResource("37_7htu6")
+tint_progress = Color(0.66651094, 0, 0.1660923, 1)
+
+[node name="Label" type="Label" parent="UI/Control/BossHealthBar/TextureProgressBar" unique_id=56416755]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.95
+anchor_right = 23.95
+offset_left = -11164.5
+offset_top = 46.0
+offset_right = -10824.5
+offset_bottom = 173.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("16_qktwf")
+text = "moai"
+
 [node name="Submenu" parent="UI" unique_id=356753527 instance=ExtResource("30_jjr1n")]
 visible = false
 offset_left = -514.0
@@ -446,3 +484,5 @@ script = ExtResource("19_cbp6q")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Kill_Volume" unique_id=47664547]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50.35034, -1.1047363)
 shape = SubResource("BoxShape3D_3ir6a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=28153246]

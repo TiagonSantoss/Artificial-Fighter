@@ -44,12 +44,9 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	if Input.is_action_just_pressed("ui_cancel"):
 		actions.append(EscapeAction.new())
 
-	if (
-		Input.get_current_cursor_shape() == Input.CURSOR_ARROW
-		or Input.get_current_cursor_shape() == Input.CURSOR_POINTING_HAND
-	):
-		return actions
-	elif Input.is_action_pressed("fire"):
+	var over_ui := _actor.get_viewport().gui_get_hovered_control() != null
+
+	if Input.is_action_pressed("fire") and not over_ui:
 		actions.append(AttackAction.new())
 
 	if Input.is_action_just_pressed("rotate_camera_right"):
@@ -81,39 +78,39 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 
 
 func get_aim_target(actor: Entity) -> Vector3:
-	var cam: Camera3D = actor.get_viewport().get_camera_3d()
-
+	var viewport := actor.get_viewport()
+	var cam := viewport.get_camera_3d()
 	if cam == null:
 		return actor.global_position + Vector3.FORWARD
 
-	var mouse := actor.get_viewport().get_mouse_position()
+	var mouse := viewport.get_mouse_position()
+	var ray_origin := cam.project_ray_origin(mouse)
+	var ray_dir := cam.project_ray_normal(mouse)
 
-	var player_screen := cam.unproject_position(actor.global_position)
-	var screen_dir := mouse - player_screen
+	var plane := Plane(Vector3.UP, actor.weapon_socket.global_position.y)
+	var hit = plane.intersects_ray(ray_origin, ray_dir)
 
-	if screen_dir.length() < 0.001:
-		screen_dir = Vector2.RIGHT
+	if hit == null:
+		return actor.global_position - actor.global_transform.basis.z * 10.0
 
-	screen_dir = screen_dir.normalized()
-
-	var cam_forward := -cam.global_transform.basis.z
-	var cam_right := cam.global_transform.basis.x
-
-	cam_forward.y = 0
-	cam_right.y = 0
-
-	cam_forward = cam_forward.normalized()
-	cam_right = cam_right.normalized()
-
-	var world_dir := (cam_right * screen_dir.x + cam_forward * -screen_dir.y).normalized()
-
-	return actor.global_position + world_dir * 10.0
+	return hit
 
 
 func update_aim(actor: Entity) -> void:
-	Input.set_default_cursor_shape(Input.CURSOR_CROSS)
+	var shape := Input.CURSOR_CROSS
 
+	var interactable = actor.current_interactable
+	if is_instance_valid(interactable) and _can_interact(interactable):
+		shape = Input.CURSOR_POINTING_HAND
+
+	Input.set_default_cursor_shape(shape)
 	aim_target = get_aim_target(actor)
+
+
+func _can_interact(interactable: Node) -> bool:
+	if interactable.has_method("can_interact"):
+		return interactable.can_interact()
+	return true
 
 
 func should_auto_jump(actor: Entity, move_dir: Vector3) -> bool:
