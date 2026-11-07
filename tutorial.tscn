@@ -47,7 +47,6 @@ sky = SubResource("Sky_jjr1n")
 ambient_light_source = 3
 ambient_light_color = Color(0.9237736, 0.8051104, 0.9422711, 1)
 ambient_light_sky_contribution = 0.0
-reflected_light_source = 2
 tonemap_mode = 1
 tonemap_agx_contrast = 2.0
 ssr_fade_in = 3.820437

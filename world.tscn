@@ -255,6 +255,7 @@ bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Deskt
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
 event_name = "event:/Music/MainTracks"
 event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
+autoplay = true
 script = ExtResource("17_o3ebs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
