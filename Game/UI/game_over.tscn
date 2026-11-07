@@ -17,6 +17,23 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lln0k"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 0.3529412)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+shadow_size = 5
+
 [node name="Root" type="Control" unique_id=1663830525]
 layout_mode = 3
 anchors_preset = 15
@@ -26,55 +43,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ldqti")
 
-[node name="Root" type="CanvasLayer" parent="." unique_id=2079432156]
-unique_name_in_owner = true
-
-[node name="RestartButton" type="TextureButton" parent="Root" unique_id=1309064267]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = 180.0
-offset_right = 80.0
-offset_bottom = 220.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("2_i06k6")
-texture_pressed = ExtResource("3_lln0k")
-
-[node name="Message" type="Label" parent="Root" unique_id=984649564]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -50.0
-offset_right = 20.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_i06k6")
-
-[node name="Stats" type="Label" parent="Root" unique_id=199104282]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -50.0
-offset_right = 20.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_i06k6")
-
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1602401143]
 layout_mode = 1
 anchors_preset = 15
@@ -83,3 +51,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ur80v")
+
+[node name="Root" type="Control" parent="." unique_id=1765780251]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Root" unique_id=1933620456]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -747.0
+offset_top = -432.5
+offset_right = 747.0
+offset_bottom = 432.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lln0k")
+
+[node name="RestartButton" type="TextureButton" parent="Root/Panel" unique_id=1309064267]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -199.5
+offset_right = -80.0
+offset_bottom = -159.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(3, 3)
+texture_normal = ExtResource("2_i06k6")
+texture_pressed = ExtResource("3_lln0k")
+
+[node name="Label" type="Label" parent="Root/Panel/RestartButton" unique_id=711413253]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -3.0
+offset_right = 168.5
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("4_i06k6")
+theme_override_font_sizes/font_size = 6
+text = "Restart"
+
+[node name="Message" type="Label" parent="Root" unique_id=984649564]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -41.0
+offset_right = 23.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_i06k6")
+
+[node name="Stats" type="Label" parent="Root" unique_id=199104282]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -320.0
+offset_right = 7.0
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_i06k6")
+theme_override_font_sizes/font_size = 24

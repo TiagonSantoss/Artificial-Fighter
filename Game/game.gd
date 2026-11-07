@@ -457,6 +457,7 @@ func configure_entity_collision(entity: Entity) -> void:
 
 		Entity.Team.ENEMY:
 			entity.set_collision_layer_value(LAYER_ENEMY, true)
+			entity.set_collision_mask_value(LAYER_ENEMY, true)
 
 		Entity.Team.ALLY:
 			entity.set_collision_layer_value(LAYER_PLAYER, true)

@@ -12,9 +12,10 @@ signal restart_requested
 @export var fade_time := 0.8  # only used when there is no "open" animation
 @export var input_delay := 0.8  # stops button-mashing from restarting instantly
 
-@onready var _root: CanvasLayer = get_node_or_null("%Root")
+@onready var _root: Control = get_node_or_null("%Root")
 @onready var _button: BaseButton = get_node_or_null("%RestartButton")
 @onready var _message: Control = get_node_or_null("%Message")
+@onready var _stats_number: Control = get_node_or_null("%StatsNumber")
 @onready var _stats: Control = get_node_or_null("%Stats")
 @onready var _anim: AnimationPlayer = get_node_or_null("%AnimationPlayer")
 

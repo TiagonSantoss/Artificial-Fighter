@@ -6,9 +6,10 @@
 [ext_resource type="Resource" uid="uid://dymn465u87fc4" path="res://assets/definitions/entities/actors/enemies/ball.tres" id="3_xfuic"]
 [ext_resource type="Resource" uid="uid://bblsf1insg13l" path="res://assets/definitions/entities/actors/enemies/cube.tres" id="4_psbsa"]
 [ext_resource type="Resource" uid="uid://v2mn6m1rgov" path="res://assets/definitions/entities/actors/enemies/cylinder.tres" id="5_6g16r"]
+[ext_resource type="Resource" uid="uid://cifotusvosip3" path="res://assets/definitions/entities/actors/enemies/pyramid.tres" id="6_psbsa"]
 
 [resource]
 script = ExtResource("2_07to5")
-possible_enemies = Array[ExtResource("1_hnj2p")]([ExtResource("2_wo4ft"), ExtResource("3_xfuic"), ExtResource("4_psbsa"), ExtResource("5_6g16r")])
+possible_enemies = Array[ExtResource("1_hnj2p")]([ExtResource("2_wo4ft"), ExtResource("3_xfuic"), ExtResource("4_psbsa"), ExtResource("5_6g16r"), ExtResource("6_psbsa")])
 spawn_count = 5
 metadata/_custom_type_script = "uid://cbwqmhh6ormqo"

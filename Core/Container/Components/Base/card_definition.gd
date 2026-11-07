@@ -13,3 +13,15 @@ func play(
 	_caster: Entity, _target: Entity = null, _throw_direction: Vector3 = Vector3.ZERO
 ) -> void:
 	pass
+
+
+func on_pickup(entity: Entity, instance: ItemInstance) -> bool:
+	var cards := entity.cards_component
+	if cards == null or cards.hand == null:
+		return false
+
+	if cards.hand.has_method("is_full") and cards.hand.is_full():
+		return false
+
+	cards.hand.add(instance)
+	return true

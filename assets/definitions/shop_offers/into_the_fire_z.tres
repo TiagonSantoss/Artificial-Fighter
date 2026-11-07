@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://dq53tjea8lp20"]
+
+[ext_resource type="Resource" uid="uid://c7caodcr0fln6" path="res://assets/items/cards/into_the_fire_z.tres" id="1_jh7ns"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="2_lirff"]
+
+[resource]
+script = ExtResource("2_lirff")
+item_to_sell = ExtResource("1_jh7ns")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

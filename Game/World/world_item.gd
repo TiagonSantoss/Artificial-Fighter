@@ -189,6 +189,11 @@ func _collect_item(body: Entity) -> void:
 	var def := instance.definition
 	var accepted := false
 
+	if def != null and def.has_method("on_pickup"):
+		if def.on_pickup(body, instance):
+			queue_free()
+			return
+
 	if def is CurrencyDefinition:
 		accepted = body.currency_component != null and body.currency_component.collect_item(self)
 	elif def is WeaponDefinition:
