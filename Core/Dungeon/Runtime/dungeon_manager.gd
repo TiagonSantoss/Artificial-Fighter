@@ -49,6 +49,7 @@ func generate(keep_party := false) -> void:
 		_seed = randi()
 
 	print("DungeonManager generating layout with seed: ", _seed)
+	GameAutoLoad.floors_reached = floor_number
 
 	seed(_seed)
 	GState.seed_changed.emit(_seed)
@@ -186,6 +187,9 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 
 	enemy.tree_exited.connect(
 		func():
+			if _advancing or GameAutoLoad.is_restarting:
+				return
+
 			if _advancing:
 				return  # being cleaned up by a floor change, not killed
 
@@ -224,6 +228,8 @@ func advance_floor() -> void:
 	_advancing = true
 
 	await get_tree().create_timer(1.5).timeout  # let the kill land
+
+	SceneManager.play_cutscene(preload("res://assets/elevador.ogv"))
 
 	var fader := GameAutoLoad.get_node_or_null("ScreenFader")
 	if fader:
@@ -271,11 +277,20 @@ func start_encounter(room: RoomInstance) -> void:
 
 
 func _on_room_cleared(room: RoomInstance) -> void:
+	if not is_inside_tree():
+		return
+
 	room.cleared = true
 
 	await get_tree().create_timer(1.2).timeout
 	_try_open_special_door(room)
 	room.unlock_room()
+
+	if is_instance_valid(room.node):
+		var scene_doors = room.node.find_children("*", "SceneTransitionDoor", true, false)
+		for door in scene_doors:
+			if door.has_method("unlock"):
+				door.unlock()
 
 	MusicDirector.set_mood(MusicDirector.Mood.EXPLORE)
 
@@ -283,18 +298,6 @@ func _on_room_cleared(room: RoomInstance) -> void:
 	if _advancing or chunk_manager.loaded_rooms.get(room.room_id) != room:
 		return
 	room.unlock_room()
-
-	# if item_pool.size() > 0:
-	# 	var random_accessory_def = item_pool.pick_random()
-	# 	var new_item_instance = ItemInstance.new()
-	# 	new_item_instance.definition = random_accessory_def
-	#
-	# 	var player = GameAutoLoad.get_current_entity()
-	# 	if player and player.rank_component:
-	# 		player.rank_component.finish_encounter()
-	#
-	# 	var drop_pos = player.position + Vector3(0.0, 2.0, 0.0) if player else room.world_origin
-	# 	WorldItemSpawner.drop(new_item_instance, drop_pos)
 
 
 func _try_open_special_door(room: RoomInstance) -> void:

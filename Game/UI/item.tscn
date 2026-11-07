@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://sjxnbdrduybk"]
 
-[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="2_gok8d"]
+[ext_resource type="FontFile" uid="uid://c6q44sq20e4mo" path="res://assets/fonts/GIZMO_FONT_DARK.tres" id="2_1wxrh"]
 [ext_resource type="Script" uid="uid://v2mg1x1xd2yj" path="res://Game/UI/item.gd" id="3_gok8d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wxrh"]
@@ -33,7 +33,7 @@ stretch_mode = 5
 [node name="Name" type="RichTextLabel" parent="Item" unique_id=1222114480]
 layout_mode = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_gok8d")
+theme_override_fonts/normal_font = ExtResource("2_1wxrh")
 theme_override_font_sizes/normal_font_size = 7
 text = "kokorowatari
 "
@@ -45,7 +45,7 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.47582054, 0.47582048, 0.47582054, 1)
-theme_override_fonts/normal_font = ExtResource("2_gok8d")
+theme_override_fonts/normal_font = ExtResource("2_1wxrh")
 theme_override_font_sizes/normal_font_size = 3
 text = "big sword"
 fit_content = true

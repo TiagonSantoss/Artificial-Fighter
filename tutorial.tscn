@@ -1,0 +1,479 @@
+[gd_scene format=4 uid="uid://ct6slu31jd32t"]
+
+[ext_resource type="Script" uid="uid://dwb16goax5y71" path="res://game_scene.gd" id="1_8xhbf"]
+[ext_resource type="Resource" uid="uid://dec608d33y08j" path="res://assets/definitions/rooms/PS2/tutorial_room.tres" id="4_bb16k"]
+[ext_resource type="Script" uid="uid://bnfeqp0kqi013" path="res://Core/Dungeon/Runtime/dungeon_manager.gd" id="4_wefqq"]
+[ext_resource type="Script" uid="uid://c4rxfwpj30llb" path="res://Core/Dungeon/Data/room_definition.gd" id="5_122c4"]
+[ext_resource type="Script" uid="uid://dow7jqk8dxyeg" path="res://Core/Container/Collectible/item_definition.gd" id="14_flb3l"]
+[ext_resource type="Resource" uid="uid://bpcqyqbt5hm1v" path="res://assets/items/accesories/speed_bolt.tres" id="15_ujv2f"]
+[ext_resource type="Resource" uid="uid://ch56nvbm4jbak" path="res://assets/definitions/rooms/PS2/shop_room_1_special.tres" id="16_f5f8o"]
+[ext_resource type="Resource" uid="uid://bxnv2qrw8uskf" path="res://assets/definitions/rooms/PS2/boss2_single.tres" id="17_syew5"]
+[ext_resource type="Script" uid="uid://bux1t0byomtcm" path="res://Core/Dungeon/Runtime/chunk_manager.gd" id="18_itjou"]
+[ext_resource type="Script" uid="uid://bprvkx27hsefu" path="res://Game/Calls/entities.gd" id="19_uuyus"]
+[ext_resource type="Script" uid="uid://crgencadfahnn" path="res://Game/Calls/camera_rig.gd" id="20_xh8ec"]
+[ext_resource type="Script" uid="uid://bmoje4yltj2n2" path="res://Game/Calls/player_spawn.gd" id="21_bwhyx"]
+[ext_resource type="PackedScene" uid="uid://2yk6kpa6ob3m" path="res://Core/Combat/Projectile/Renderer/Projectile_Renderer.tscn" id="22_lf4xf"]
+[ext_resource type="Script" uid="uid://rlf6ilsniipa" path="res://Game/Calls/emitter.gd" id="23_vhh8j"]
+[ext_resource type="Shader" uid="uid://ctcge41gm8byq" path="res://assets/shaders/dot_vignette.gdshader" id="24_6impb"]
+[ext_resource type="PackedScene" uid="uid://c4fiyc3xv7u8x" path="res://Minimap.tscn" id="25_vhmfj"]
+[ext_resource type="Script" uid="uid://chbi0xhk4l3rq" path="res://Game/UI/Minimap/minimap.gd" id="26_vp5g0"]
+[ext_resource type="Script" uid="uid://bknssai2kudvb" path="res://Game/UI/seed_indicator.gd" id="27_k1101"]
+[ext_resource type="FontFile" uid="uid://3bmnf8so5c74" path="res://assets/fonts/gizmo_font.tres" id="28_igxax"]
+[ext_resource type="Texture2D" uid="uid://mhnu5d62uoi6" path="res://assets/sprites/UI/zescuroicone.png" id="29_6yx4r"]
+[ext_resource type="Texture2D" uid="uid://dx46trsl14lsk" path="res://assets/sprites/UI/zicon.png" id="30_1ix83"]
+[ext_resource type="Texture2D" uid="uid://dpjc1v3mljlp0" path="res://assets/sprites/UI/xicon.png" id="31_frv1u"]
+[ext_resource type="Texture2D" uid="uid://co6fuqo00j3pi" path="res://assets/sprites/UI/xescuroicone.png" id="32_omlls"]
+[ext_resource type="PackedScene" uid="uid://cjl7py7intgn7" path="res://Game/UI/player_hud.tscn" id="33_6ed1v"]
+[ext_resource type="Script" uid="uid://dqdfuq6devhnm" path="res://Game/UI/ammo_bar.gd" id="34_k2k75"]
+[ext_resource type="Texture2D" uid="uid://pypeiwjw8n1u" path="res://assets/sprites/UI/barra_de_vida1.png" id="35_0k2kd"]
+[ext_resource type="Texture2D" uid="uid://c0pq32bk6kx7y" path="res://assets/sprites/UI/barra_de_vida3.png" id="36_0ab36"]
+[ext_resource type="Texture2D" uid="uid://cqjov7w6q7cc0" path="res://assets/sprites/UI/barra_de_vida2.png" id="37_7y0ot"]
+[ext_resource type="PackedScene" uid="uid://bao0lkwunib3s" path="res://Game/UI/submenu.tscn" id="38_grq5y"]
+[ext_resource type="PackedScene" uid="uid://cr56gd4y8f611" path="res://Game/UI/shop_ui.tscn" id="39_s0edj"]
+[ext_resource type="Script" uid="uid://b6bbbbsufoxen" path="res://Utils/kill_volume.gd" id="40_guqle"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kofuw"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(0.57911843, 0.5874359, 0.60407656, 1)
+ground_bottom_color = Color(0.8302816, 0.77924836, 0.7228644, 1)
+
+[sub_resource type="Sky" id="Sky_jjr1n"]
+sky_material = SubResource("ProceduralSkyMaterial_kofuw")
+
+[sub_resource type="Environment" id="Environment_k3n1d"]
+background_mode = 2
+background_color = Color(0.14782101, 0.12733516, 0.2354807, 1)
+sky = SubResource("Sky_jjr1n")
+ambient_light_source = 3
+ambient_light_color = Color(0.9237736, 0.8051104, 0.9422711, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+tonemap_mode = 1
+tonemap_agx_contrast = 2.0
+ssr_fade_in = 3.820437
+ssao_enabled = true
+ssao_radius = 0.01
+ssao_intensity = 0.76
+ssao_power = 2.568522
+sdfgi_read_sky_light = false
+fog_light_color = Color(0.54878145, 0.53406936, 0.648159, 1)
+fog_sun_scatter = 0.16
+fog_density = 0.0
+volumetric_fog_density = 0.0075
+volumetric_fog_albedo = Color(0.6791901, 0.46811938, 0.7361212, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+volumetric_fog_temporal_reprojection_amount = 0.5
+adjustment_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioo17"]
+particle_flag_rotate_y = true
+emission_shape_offset = Vector3(1, 0, 0)
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angular_velocity_min = -38.060017
+angular_velocity_max = 52.99998
+gravity = Vector3(0, 1, 0)
+linear_accel_min = 0.09999776
+linear_accel_max = 0.49999776
+radial_accel_min = 0.09999776
+radial_accel_max = 0.99999774
+scale_min = 0.099999994
+scale_max = 0.39999998
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlaa2"]
+transparency = 1
+albedo_color = Color(0.44730002, 0.50820005, 0.63, 0.105882354)
+roughness = 0.3
+roughness_texture_channel = 2
+emission = Color(0.15073305, 0.0003029109, 0.3064861, 1)
+emission_energy_multiplier = 2.05
+rim_tint = 1.0
+ao_light_affect = 1.0
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+backlight_enabled = true
+backlight = Color(0.162, 0.23790003, 0.3, 1)
+refraction_enabled = true
+billboard_keep_scale = true
+stencil_flags = 2
+stencil_color = Color(0.6159605, 0.77062285, 1, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_y5hus"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wse8f"]
+resource_name = "assets_Cube_001"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("/1////+f/7//n////1//v/9f/7//n/9//5//v/9f/3//X/9//5//P/+f/3//X/8//1//P/+fAAD/n/8//18AAP8f/3//X/8//1//f/8f/z//n/9//9//P//f/3//n/8/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_mlaa2"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP///78AAP//////v/////////+/AAAAAP///78AAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP//AAD///////8AAP//AAD/////////////VNVU1VTVVNVU1VTVVNVU1f+//7//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoq/////////////////////wAA/38AAP9/AAD/fwAA/3//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_y5hus")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0tdab"]
+shading_mode = 0
+specular_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_2bgwa"]
+material = SubResource("StandardMaterial3D_0tdab")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bgwa"]
+shader = ExtResource("24_6impb")
+shader_parameter/vignette_color = Color(1, 1, 1, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/spacing = 20.0
+shader_parameter/max_dot_size = 12.0
+shader_parameter/vignette_multiplier = 2.0
+shader_parameter/opacity = 0.50000002375
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_my276"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.12941177, 0.62352943, 0.9137255, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+shadow_size = 2
+shadow_offset = Vector2(1.177, 1.745)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1i3r"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.8901961, 0.16470589, 0.15294118, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_detail = 6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ir6a"]
+size = Vector3(689.05664, 101.70068, 824.17285)
+
+[node name="Game" type="Node3D" unique_id=1397934900]
+script = ExtResource("1_8xhbf")
+
+[node name="MainContainer" type="SubViewportContainer" parent="." unique_id=1282863015]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="MainContainer" unique_id=1560079631]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=304097809]
+environment = SubResource("Environment_k3n1d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1954401825]
+transform = Transform3D(-0.9041211, -0.41352996, -0.10750824, -0.057911094, -0.13069306, 0.9897301, -0.42333362, 0.9010618, 0.09421438, 0, 0.29394203, 0)
+shadow_enabled = true
+
+[node name="DungeonManager" type="Node3D" parent="." unique_id=622007835]
+script = ExtResource("4_wefqq")
+room_pool = Array[ExtResource("5_122c4")]([ExtResource("4_bb16k")])
+start_room = ExtResource("4_bb16k")
+generate_random_seed = false
+_seed = 2
+room_count = 1
+item_pool = Array[ExtResource("14_flb3l")]([ExtResource("15_ujv2f")])
+bonus_room_pool = Array[ExtResource("5_122c4")]([ExtResource("16_f5f8o")])
+special_door_min_rank = -1
+boss_room = ExtResource("17_syew5")
+
+[node name="ChunkManager" type="Node3D" parent="DungeonManager" unique_id=204241371]
+script = ExtResource("18_itjou")
+
+[node name="Entities" type="Node3D" parent="." unique_id=681819372 groups=["entities"]]
+script = ExtResource("19_uuyus")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=60823169]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 22.603718, 24.407417)
+projection = 1
+fov = 147.0
+size = 45.0
+near = 0.163
+far = 87.56
+script = ExtResource("20_xh8ec")
+
+[node name="BlueCubes" type="GPUParticles3D" parent="Camera3D" unique_id=770795994]
+transform = Transform3D(8.717856, 0, 0, 0, 2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, -0.038464546, -0.8393612, -13.7882)
+amount = 18
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_ioo17")
+draw_pass_1 = SubResource("ArrayMesh_wse8f")
+
+[node name="Circle" type="MeshInstance3D" parent="Camera3D" unique_id=683361365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.558569, -5.907938)
+visible = false
+mesh = SubResource("SphereMesh_2bgwa")
+
+[node name="PlayerSpawn" type="Marker3D" parent="." unique_id=565742135]
+script = ExtResource("21_bwhyx")
+
+[node name="ProjectileRenderer" parent="." unique_id=261744940 instance=ExtResource("22_lf4xf")]
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=466698288]
+bank_paths = ["res://assets/banks/Desktop/Music.bank", "res://assets/banks/Desktop/Master.bank", "res://assets/banks/Desktop/Master.strings.bank", "res://assets/banks/Desktop/SFX.bank"]
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=180386481]
+event_name = "event:/Music/MainTracks"
+event_guid = "{572ae642-d5d3-4b34-87ae-2a2dd9a51642}"
+script = ExtResource("23_vhh8j")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=429095701]
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=260962739]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_2bgwa")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI" unique_id=1182223194]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.9990001
+offset_right = -4.0
+offset_bottom = 0.079956055
+mouse_filter = 2
+
+[node name="Minimap" parent="UI/Control" unique_id=806877094 instance=ExtResource("25_vhmfj")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.4375
+offset_right = 113.4375
+offset_bottom = 116.0
+grow_horizontal = 2
+
+[node name="MinimapFrame" type="PanelContainer" parent="UI/Control/Minimap" unique_id=2070747487]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 120.0
+grow_horizontal = 2
+
+[node name="Minimap" parent="UI/Control/Minimap/MinimapFrame" unique_id=910392165 instance=ExtResource("25_vhmfj")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("26_vp5g0")
+map_rotation_steps = 3
+highlights = {
+"start": Color(0, 0.9860479, 0.8730128, 1),
+"start_room": ""
+}
+
+[node name="SeedIndicator" type="Control" parent="UI/Control" unique_id=138866117]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("27_k1101")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/SeedIndicator" unique_id=215793002]
+layout_mode = 0
+offset_left = -202.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 46.0
+theme_override_fonts/normal_font = ExtResource("28_igxax")
+theme_override_font_sizes/normal_font_size = 4
+bbcode_enabled = true
+
+[node name="ArrowIndicator" type="Control" parent="UI/Control" unique_id=1125274345]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 932.724
+offset_top = 48.641
+offset_right = 932.724
+offset_bottom = 48.641
+grow_horizontal = 2
+
+[node name="ArrowZN" type="TextureRect" parent="UI/Control/ArrowIndicator" unique_id=1762000006]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("29_6yx4r")
+expand_mode = 2
+
+[node name="ArrowZP" type="TextureRect" parent="UI/Control/ArrowIndicator" unique_id=43050200]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("30_1ix83")
+expand_mode = 2
+
+[node name="ArrowXP" type="TextureRect" parent="UI/Control/ArrowIndicator" unique_id=631044437]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -19.0
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("31_frv1u")
+expand_mode = 2
+
+[node name="ArrowXN" type="TextureRect" parent="UI/Control/ArrowIndicator" unique_id=1754141769]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("32_omlls")
+expand_mode = 2
+
+[node name="CurrencyIndicator" type="Control" parent="UI/Control" unique_id=598359608]
+anchors_preset = 0
+offset_left = 41.0
+offset_top = 477.0
+offset_right = 81.0
+offset_bottom = 517.0
+
+[node name="PlayerHud" parent="UI/Control" unique_id=1038164618 instance=ExtResource("33_6ed1v")]
+layout_mode = 1
+offset_left = 1.0
+offset_top = 12.0
+offset_right = 1.0
+offset_bottom = 12.0
+mouse_filter = 2
+
+[node name="AmmoBar" type="ProgressBar" parent="UI/Control" unique_id=229908925]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_top = 0.11100001
+anchor_right = 0.499
+anchor_bottom = 0.11100001
+offset_left = -93.084045
+offset_top = 1.2309875
+offset_right = 96.915955
+offset_bottom = 23.230988
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_my276")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g1i3r")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+script = ExtResource("34_k2k75")
+
+[node name="BossHealthBar" type="Control" parent="UI/Control" unique_id=9134851]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Control/BossHealthBar" unique_id=7805933]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.925001
+anchor_right = 23.925001
+offset_left = -235.00006
+offset_top = -21.0
+offset_right = 234.99994
+offset_bottom = 187.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("35_0k2kd")
+texture_over = ExtResource("36_0ab36")
+texture_progress = ExtResource("37_7y0ot")
+tint_progress = Color(0.66651094, 0, 0.1660923, 1)
+
+[node name="Label" type="Label" parent="UI/Control/BossHealthBar/TextureProgressBar" unique_id=56416755]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.95
+anchor_right = 23.95
+offset_left = -11164.5
+offset_top = 46.0
+offset_right = -10824.5
+offset_bottom = 173.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("28_igxax")
+text = "moai"
+
+[node name="Submenu" parent="UI" unique_id=356753527 instance=ExtResource("38_grq5y")]
+visible = false
+offset_left = -514.0
+offset_top = -310.5
+offset_right = 510.0
+offset_bottom = 309.5
+
+[node name="Shop" parent="UI" unique_id=641156019 instance=ExtResource("39_s0edj")]
+visible = false
+
+[node name="Kill_Volume" type="Area3D" parent="." unique_id=525981836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.18882, 0)
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("40_guqle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kill_Volume" unique_id=47664547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50.35034, -1.1047363)
+shape = SubResource("BoxShape3D_3ir6a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=28153246]

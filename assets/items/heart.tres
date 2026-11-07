@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HealItemDefinition" format=3 uid="uid://cgp78opx5gr36"]
+
+[ext_resource type="Script" uid="uid://cnmsrk5oxev3f" path="res://Core/Container/Components/Base/health_item.gd" id="1_q5u2i"]
+[ext_resource type="Texture2D" uid="uid://i77mxpvhlnw5" path="res://assets/images/UI/coracao.png" id="1_xsqfk"]
+
+[resource]
+script = ExtResource("1_q5u2i")
+heal_percent = 1.0
+id = &"HEALTH"
+display_name = "HEALTH"
+description = "it healths"
+shop_description = "it healths"
+icon = ExtResource("1_xsqfk")
+auto_despawns = false
+metadata/_custom_type_script = "uid://cnmsrk5oxev3f"

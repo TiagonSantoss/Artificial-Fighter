@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	SceneManager.change_scene("res://world.tscn")
+	SceneManager.change_scene("res://tutorial.tscn")

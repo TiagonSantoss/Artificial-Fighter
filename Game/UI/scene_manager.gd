@@ -339,6 +339,6 @@ func _finish_cutscene() -> void:
 func _on_video_gui_input(event: InputEvent) -> void:
 	if not _cutscene_skippable or not event.is_pressed() or event.is_echo():
 		return
-	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
+	if event.is_action_pressed("ui_accept") and not event.is_echo():
 		accept_event()
 		_finish_cutscene()

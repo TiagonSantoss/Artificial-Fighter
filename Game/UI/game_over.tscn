@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://ddjnp11h315ly"]
+
+[ext_resource type="Script" uid="uid://de0wsp8opd50w" path="res://Game/UI/game_over_screen.gd" id="1_ldqti"]
+[ext_resource type="Texture2D" uid="uid://c6a0od6rnhc23" path="res://assets/images/UI/Copy_of_Paint_Layer_1.JPEG" id="2_i06k6"]
+[ext_resource type="Texture2D" uid="uid://5uosq8yl5djj" path="res://assets/images/UI/Paint_Layer_1.JPEG" id="3_lln0k"]
+[ext_resource type="FontFile" uid="uid://c6q44sq20e4mo" path="res://assets/fonts/GIZMO_FONT_DARK.tres" id="4_i06k6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur80v"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.5882353, 0.101960786, 0.101960786, 0.24705882)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Root" type="Control" unique_id=1663830525]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ldqti")
+
+[node name="Root" type="CanvasLayer" parent="." unique_id=2079432156]
+unique_name_in_owner = true
+
+[node name="RestartButton" type="TextureButton" parent="Root" unique_id=1309064267]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 180.0
+offset_right = 80.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_i06k6")
+texture_pressed = ExtResource("3_lln0k")
+
+[node name="Message" type="Label" parent="Root" unique_id=984649564]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -50.0
+offset_right = 20.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_i06k6")
+
+[node name="Stats" type="Label" parent="Root" unique_id=199104282]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -50.0
+offset_right = 20.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_i06k6")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1602401143]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ur80v")

@@ -22,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://c2plg2epr635f" path="res://assets/definitions/shop_offers/please_punch.tres" id="14_4h8rk"]
 [ext_resource type="Resource" uid="uid://dncqfct2riiju" path="res://assets/definitions/shop_offers/sledgehammer.tres" id="15_c3ec7"]
 [ext_resource type="Resource" uid="uid://dmtjf1p8w76da" path="res://assets/definitions/shop_offers/double_barrel.tres" id="16_gm556"]
+[ext_resource type="FontFile" uid="uid://c6q44sq20e4mo" path="res://assets/fonts/GIZMO_FONT_DARK.tres" id="22_fd6n1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qktwf"]
 content_margin_left = 0.0
@@ -113,7 +114,7 @@ script = ExtResource("3_r1weg")
 custom_minimum_size = Vector2(400, 460)
 layout_mode = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_vs4iv")
+theme_override_fonts/normal_font = ExtResource("22_fd6n1")
 theme_override_font_sizes/normal_font_size = 8
 text = "
 "

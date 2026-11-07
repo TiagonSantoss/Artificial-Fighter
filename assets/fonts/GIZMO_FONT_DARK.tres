@@ -4,7 +4,7 @@
 [ext_resource type="Image" uid="uid://cjuqh8vl26cuc" path="res://addons/texture_fonts/Assets/placeholder.png" id="1_lu56o"]
 [ext_resource type="Script" uid="uid://w5b45mey4je7" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="2_klj8h"]
 [ext_resource type="Script" uid="uid://dwmdf8brhnouw" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="3_lu56o"]
-[ext_resource type="Texture2D" uid="uid://b28y418h4lwxr" path="res://assets/fonts/SpritesheetLETRAS.png" id="5_lu56o"]
+[ext_resource type="Texture2D" uid="uid://c8abmw27jnvin" path="res://assets/fonts/Spritesheetcomacentos.png" id="5_lu56o"]
 
 [sub_resource type="Resource" id="Resource_dytlu"]
 script = ExtResource("1_b0ups")
@@ -37,7 +37,8 @@ bcdefghij
 klmnopqrs
 tuvwxyz/.
 ,:?!@#$%&
-*()-+"
+*()-+ÃÁÀÉ
+ÍÇáàãéíç"
 
 [resource]
 fixed_size = 16
@@ -399,6 +400,66 @@ cache/0/16/0/glyphs/43/offset = Vector2(0, 0)
 cache/0/16/0/glyphs/43/size = Vector2(42, 100)
 cache/0/16/0/glyphs/43/uv_rect = Rect2(427, 700, 42, 100)
 cache/0/16/0/glyphs/43/texture_idx = 0
+cache/0/16/0/glyphs/195/advance = Vector2(48, 0)
+cache/0/16/0/glyphs/195/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/195/size = Vector2(47, 100)
+cache/0/16/0/glyphs/195/uv_rect = Rect2(525, 700, 47, 100)
+cache/0/16/0/glyphs/195/texture_idx = 0
+cache/0/16/0/glyphs/193/advance = Vector2(48, 0)
+cache/0/16/0/glyphs/193/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/193/size = Vector2(47, 100)
+cache/0/16/0/glyphs/193/uv_rect = Rect2(625, 700, 47, 100)
+cache/0/16/0/glyphs/193/texture_idx = 0
+cache/0/16/0/glyphs/192/advance = Vector2(48, 0)
+cache/0/16/0/glyphs/192/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/192/size = Vector2(47, 100)
+cache/0/16/0/glyphs/192/uv_rect = Rect2(725, 700, 47, 100)
+cache/0/16/0/glyphs/192/texture_idx = 0
+cache/0/16/0/glyphs/201/advance = Vector2(47, 0)
+cache/0/16/0/glyphs/201/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/201/size = Vector2(46, 100)
+cache/0/16/0/glyphs/201/uv_rect = Rect2(822, 700, 46, 100)
+cache/0/16/0/glyphs/201/texture_idx = 0
+cache/0/16/0/glyphs/205/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/205/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/205/size = Vector2(12, 100)
+cache/0/16/0/glyphs/205/uv_rect = Rect2(42, 800, 12, 100)
+cache/0/16/0/glyphs/205/texture_idx = 0
+cache/0/16/0/glyphs/199/advance = Vector2(47, 0)
+cache/0/16/0/glyphs/199/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/199/size = Vector2(46, 100)
+cache/0/16/0/glyphs/199/uv_rect = Rect2(119, 800, 46, 100)
+cache/0/16/0/glyphs/199/texture_idx = 0
+cache/0/16/0/glyphs/225/advance = Vector2(37, 0)
+cache/0/16/0/glyphs/225/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/225/size = Vector2(36, 100)
+cache/0/16/0/glyphs/225/uv_rect = Rect2(231, 800, 36, 100)
+cache/0/16/0/glyphs/225/texture_idx = 0
+cache/0/16/0/glyphs/224/advance = Vector2(38, 0)
+cache/0/16/0/glyphs/224/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/224/size = Vector2(37, 100)
+cache/0/16/0/glyphs/224/uv_rect = Rect2(330, 800, 37, 100)
+cache/0/16/0/glyphs/224/texture_idx = 0
+cache/0/16/0/glyphs/227/advance = Vector2(37, 0)
+cache/0/16/0/glyphs/227/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/227/size = Vector2(36, 100)
+cache/0/16/0/glyphs/227/uv_rect = Rect2(431, 800, 36, 100)
+cache/0/16/0/glyphs/227/texture_idx = 0
+cache/0/16/0/glyphs/233/advance = Vector2(42, 0)
+cache/0/16/0/glyphs/233/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/233/size = Vector2(41, 100)
+cache/0/16/0/glyphs/233/uv_rect = Rect2(529, 800, 41, 100)
+cache/0/16/0/glyphs/233/texture_idx = 0
+cache/0/16/0/glyphs/237/advance = Vector2(21, 0)
+cache/0/16/0/glyphs/237/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/237/size = Vector2(20, 100)
+cache/0/16/0/glyphs/237/uv_rect = Rect2(649, 800, 20, 100)
+cache/0/16/0/glyphs/237/texture_idx = 0
+cache/0/16/0/glyphs/231/advance = Vector2(32, 0)
+cache/0/16/0/glyphs/231/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/231/size = Vector2(31, 100)
+cache/0/16/0/glyphs/231/uv_rect = Rect2(732, 800, 31, 100)
+cache/0/16/0/glyphs/231/texture_idx = 0
 cache/0/16/0/glyphs/32/advance = Vector2(26, 0)
 cache/0/16/0/glyphs/32/offset = Vector2(0, 0)
 cache/0/16/0/glyphs/32/size = Vector2(0, 0)

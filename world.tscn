@@ -208,7 +208,7 @@ script = ExtResource("17_udxuc")
 room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_ryup7"), ExtResource("9_6ah6f"), ExtResource("10_g1i3r"), ExtResource("11_my276"), ExtResource("12_yx0jh"), ExtResource("9_bh8nc"), ExtResource("14_my276")])
 start_room = ExtResource("18_55kwu")
 _seed = 2
-room_count = 15
+room_count = 10
 item_pool = Array[ExtResource("21_wjb0r")]([ExtResource("22_mc2jv")])
 bonus_room_pool = Array[ExtResource("10_2o6r5")]([ExtResource("18_yx0jh")])
 special_door_min_rank = -1
@@ -298,11 +298,6 @@ grow_horizontal = 2
 clip_contents = true
 layout_mode = 2
 script = ExtResource("13_cbp6q")
-map_rotation_steps = 3
-highlights = {
-"start": Color(0, 0.9860479, 0.8730128, 1),
-"start_room": ""
-}
 
 [node name="SeedIndicator" type="Control" parent="UI/Control" unique_id=138866117]
 layout_mode = 1

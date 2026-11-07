@@ -7,7 +7,7 @@ extends Control
 @export var line_width := 4.0
 @export var rotate_with_camera := true
 @export var rotation_smoothing := 10.0  # 0 = snap instantly
-@export_range(0, 3) var map_rotation_steps := 1
+@export_range(0, 3) var map_rotation_steps := 0
 
 @export_category("Colors")
 @export var color_current := Color.WHITE
@@ -113,30 +113,33 @@ func _update_rotation(delta: float) -> void:
 		_angle = 0.0
 		return
 
-	var cam := get_viewport().get_camera_3d()
-	if cam == null:
-		cam = get_tree().root.get_camera_3d()
-	if cam == null:
-		return
+	var target := 0.0
 
-	# The camera's right vector flattened onto the ground plane (x, z)
-	var right := cam.global_transform.basis.x
-	if Vector2(right.x, right.z).length_squared() < 0.0001:
-		return
+	# 1. Pega a rotação Y direta do rig (como no script 2) para evitar problemas de vetor
+	if is_instance_valid(GameAutoLoad) and GameAutoLoad.camera_rig:
+		target = GameAutoLoad.camera_rig.rotation.y
+	else:
+		var cam := get_viewport().get_camera_3d()
+		if cam == null:
+			cam = get_tree().root.get_camera_3d()
+		if cam != null:
+			target = cam.global_rotation.y
 
-	# CHANGED: subtract the grid-to-world offset
-	var target := atan2(right.z, right.x) - map_rotation_steps * PI / 2.0
+	# 2. Adiciona os steps da sua configuração
+	target += map_rotation_steps * (PI / 2.0)
 
+	# 3. Mantém a sua animação de suavização original
 	if rotation_smoothing <= 0.0 or not _angle_ready:
 		_angle = target
-		_angle_ready = true  # snap on the first frame instead of sweeping from 0
+		_angle_ready = true
 	else:
 		_angle = lerp_angle(_angle, target, 1.0 - exp(-rotation_smoothing * delta))
 
 
 func _to_screen(coord: Vector2i, anchor: Vector2i, center: Vector2) -> Vector2:
 	var offset := Vector2(coord - anchor) * spacing
-	return center + offset.rotated(-_angle)
+	# NOTA: Agora aplicamos a rotação positiva pura da câmera!
+	return center + offset.rotated(_angle)
 
 
 # ---------------------------------------------------------
@@ -146,7 +149,6 @@ func _draw() -> void:
 	if _graph == null or room_coords.is_empty() or current_room_id == "":
 		return
 
-	# If we're inside a bonus room, keep the map centered on the room that owns the door
 	var anchor_id := current_room_id
 	if not room_coords.has(anchor_id):
 		anchor_id = _chunks.special_links.get(current_room_id, "")
@@ -183,7 +185,6 @@ func _draw() -> void:
 
 		_draw_room(pos, fill, _get_highlight(room_id))
 
-		# Small diamond = this room has an open special door
 		if is_discovered and _chunks.special_links.has(room_id):
 			_draw_bonus_marker(pos + Vector2(cell_size * 0.5, -cell_size * 0.5))
 
@@ -195,7 +196,8 @@ func _draw() -> void:
 
 func _draw_room(pos: Vector2, fill: Color, accent: Variant) -> void:
 	# Rooms rotate with the map so they line up with the hallways
-	draw_set_transform(pos, -_angle, Vector2.ONE)
+	# NOTA: Agora usa _angle positivo para as salas rodarem perfeitamente alinhadas
+	draw_set_transform(pos, _angle, Vector2.ONE)
 
 	var half := Vector2.ONE * (cell_size * 0.5)
 	var rect := Rect2(-half, half * 2.0)
@@ -275,11 +277,9 @@ func _draw_bonus_panel() -> void:
 # HELPERS
 # ---------------------------------------------------------
 func _get_highlight(room_id: String) -> Variant:
-	# 1. Exact room id
 	if highlights.has(room_id):
 		return highlights[room_id]
 
-	# 2. Room definition file name (e.g. res://rooms/shop.tres -> "shop")
 	if _graph and _graph.nodes.has(room_id):
 		var variant: RoomVariant = _graph.nodes[room_id]
 		var def := variant.definition
@@ -288,7 +288,6 @@ func _get_highlight(room_id: String) -> Variant:
 			if highlights.has(key):
 				return highlights[key]
 
-	# 3. Prefix match
 	for prefix in highlight_prefixes:
 		if room_id.begins_with(prefix):
 			return highlight_prefixes[prefix]

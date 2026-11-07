@@ -3,6 +3,16 @@ extends Controller
 
 const DASH_COOLDOWN := 1.2
 
+const STICK_DEADZONE := 0.25
+const STICK_FIRE_THRESHOLD := 0.4
+const STICK_AIM_DISTANCE := 30.0
+
+static var _using_gamepad := false
+static var _last_mouse_pos := Vector2.ZERO
+static var _last_aim_dir := Vector3.ZERO
+
+var _aim_stick := Vector2.ZERO
+
 var locked_forward := Vector3.ZERO
 var locked_right := Vector3.ZERO
 var movement_locked := false
@@ -16,6 +26,7 @@ var dodge_cooldown_left := 0.0
 
 func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	var actions: Array[Action] = []
+	_poll_aim_input(_actor)
 
 	if dodge_cooldown_left > 0.0:
 		dodge_cooldown_left -= _delta
@@ -45,8 +56,10 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 		actions.append(EscapeAction.new())
 
 	var over_ui := _actor.get_viewport().gui_get_hovered_control() != null
+	var stick_firing := _aim_stick.length() >= STICK_FIRE_THRESHOLD
+	var button_firing := Input.is_action_pressed("fire") and (_using_gamepad or not over_ui)
 
-	if Input.is_action_pressed("fire") and not over_ui:
+	if stick_firing or button_firing:
 		actions.append(AttackAction.new())
 
 	if Input.is_action_just_pressed("rotate_camera_right"):
@@ -77,7 +90,21 @@ func get_actions(_actor: Entity, _delta: float) -> Array[Action]:
 	return actions
 
 
+func _poll_aim_input(actor: Entity) -> void:
+	_aim_stick = Input.get_vector("aim_left", "aim_right", "aim_down", "aim_up", STICK_DEADZONE)
+
+	var mouse := actor.get_viewport().get_mouse_position()
+	if _aim_stick.length() > 0.0:
+		_using_gamepad = true
+	elif mouse.distance_squared_to(_last_mouse_pos) > 4.0:
+		_using_gamepad = false
+	_last_mouse_pos = mouse
+
+
 func get_aim_target(actor: Entity) -> Vector3:
+	if _using_gamepad:
+		return _get_stick_aim_target(actor)
+
 	var viewport := actor.get_viewport()
 	var cam := viewport.get_camera_3d()
 	if cam == null:
@@ -96,14 +123,38 @@ func get_aim_target(actor: Entity) -> Vector3:
 	return hit
 
 
+func _get_stick_aim_target(actor: Entity) -> Vector3:
+	if _aim_stick.length() > 0.0:
+		# Same camera-relative mapping as movement, so aim matches where you walk
+		var forward := GameAutoLoad.get_camera_forward()
+		var right := GameAutoLoad.get_camera_right()
+		_last_aim_dir = (right * _aim_stick.x + forward * _aim_stick.y).normalized()
+
+	if _last_aim_dir == Vector3.ZERO:
+		_last_aim_dir = -actor.global_transform.basis.z
+		_last_aim_dir.y = 0.0
+		_last_aim_dir = _last_aim_dir.normalized()
+
+	# Released stick keeps the last direction, so the weapon doesn't snap back
+	var target := actor.global_position + _last_aim_dir * STICK_AIM_DISTANCE
+	target.y = actor.weapon_socket.global_position.y
+	return target
+
+
 func update_aim(actor: Entity) -> void:
-	var shape := Input.CURSOR_CROSS
+	if _using_gamepad:
+		if Input.mouse_mode != Input.MOUSE_MODE_HIDDEN:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	else:
+		if Input.mouse_mode != Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-	var interactable = actor.current_interactable
-	if is_instance_valid(interactable) and _can_interact(interactable):
-		shape = Input.CURSOR_POINTING_HAND
+		var shape := Input.CURSOR_CROSS
+		var interactable = actor.current_interactable
+		if is_instance_valid(interactable) and _can_interact(interactable):
+			shape = Input.CURSOR_POINTING_HAND
+		Input.set_default_cursor_shape(shape)
 
-	Input.set_default_cursor_shape(shape)
 	aim_target = get_aim_target(actor)
 
 

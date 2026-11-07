@@ -150,6 +150,9 @@ func is_friendly_to(other_team: Team) -> bool:
 
 
 func apply_hit(hit: HitData):
+	if is_queued_for_deletion():
+		return HitResult.NONE
+
 	if is_invincible:
 		return HitResult.NONE
 
@@ -161,6 +164,9 @@ func apply_hit(hit: HitData):
 
 	if controller is CompanionController:
 		return HitResult.NONE
+
+	# Read this BEFORE any damage: a fatal hit swaps/clears the controlled entity
+	var was_current := GameAutoLoad.is_current_entity(self)
 
 	if is_blocking:
 		if parry_window_left > 0.0:
@@ -175,45 +181,46 @@ func apply_hit(hit: HitData):
 			GState.enemy_parried.emit(25.0)
 			return HitResult.CONSUME
 
-		else:
-			# print("ENTITY BLOCKED!")
-			var chip_damage = hit.get_final_damage() * CHIP_DAMAGE_RATIO
+		var chip_damage = hit.get_final_damage() * CHIP_DAMAGE_RATIO
 
-			if health_component:
-				health_component.damage(chip_damage)
+		audio_component.play_sfx("BlockSound")
+		visual_effects_component.flash_gray()
+		if movement_component:
+			movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
 
-			audio_component.play_sfx("BlockSound")
-			visual_effects_component.flash_gray()
-			if movement_component:
-				movement_component.apply_impulse(hit.direction * hit.get_final_knockback() * 0.5)
-
-			if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
-				rank_component.reset_rank()
-				GState.player_damaged.emit(entity_id, iframe_duration)
-
-			return HitResult.CONSUME
-
-	if hit.source_entity != null and team == Team.ENEMY:
-		if hit.source_entity.entity_id == GameAutoLoad.get_current_entity().entity_id:
-			GState.enemy_damaged.emit(hit.source_entity.entity_id, 1)
-			SceneManager.spawn_effect(SceneManager.Fx.HIT, hit.hit_position)
-
-	if health_component:
-		health_component.damage(hit.get_final_damage())
-		visual_effects_component.flash_red()
-		audio_component.play_sfx("EntityHurt")
-
-		if entity_id == GameAutoLoad.get_current_entity().entity_id and rank_component:
+		if was_current and rank_component:
 			rank_component.reset_rank()
 			GState.player_damaged.emit(entity_id, iframe_duration)
 
-		start_iframes()
+		# Damage last: if chip damage kills, nothing below touches a dying entity
+		if health_component:
+			health_component.damage(chip_damage)
 
-		var incoming_stun = hit.stun_duration
-		stun_duration = maxf(stun_duration, incoming_stun)
+		return HitResult.CONSUME
+
+	if hit.source_entity != null and team == Team.ENEMY:
+		if GameAutoLoad.is_current_entity(hit.source_entity):
+			GState.enemy_damaged.emit(hit.source_entity.entity_id, 1)
+			SceneManager.spawn_effect(SceneManager.Fx.HIT, hit.hit_position)
 
 	if movement_component:
 		movement_component.apply_impulse(hit.direction * hit.get_final_knockback())
+
+	if health_component:
+		visual_effects_component.flash_red()
+		audio_component.play_sfx("EntityHurt")
+
+		if was_current and rank_component:
+			rank_component.reset_rank()
+			GState.player_damaged.emit(entity_id, iframe_duration)
+
+		stun_duration = maxf(stun_duration, hit.stun_duration)
+
+		health_component.damage(hit.get_final_damage())
+
+		# Fatal hit: _on_died already queued the free, skip i-frames
+		if not is_queued_for_deletion():
+			start_iframes()
 
 	return HitResult.CONSUME
 
@@ -331,23 +338,23 @@ func _on_interaction_entered(area: Area3D) -> void:
 	if area.has_method("interact"):
 		current_interactable = area
 
-	if team != Team.PLAYER or team != Team.ALLY:
+	if team == Team.ENEMY:
 		return
 
-	var world_item = area as WorldItem
+	var world_item := area as WorldItem
 	if not world_item:
 		world_item = area.get_parent() as WorldItem
+	if world_item == null or world_item.is_queued_for_deletion():
+		return
 
-	if world_item and world_item.instance is CurrencyItemInstance:
-		var coin_data = world_item.instance as CurrencyItemInstance
-		var currency_name = coin_data.get_currency_type()
+	var item = world_item.instance
 
-		GameAutoLoad.add_money(currency_name, coin_data.amount)
-		print(GameAutoLoad.wallet.get_amount("Cash Cards"))
-
-		# audio_component.play_sfx("CoinPickup")
-
+	if item is CurrencyItemInstance:
+		GameAutoLoad.add_money(item.get_currency_type(), item.amount)
 		world_item.queue_free()
+	elif item != null and item.definition != null and item.definition.has_method("on_pickup"):
+		if item.definition.on_pickup(self, item):
+			world_item.queue_free()
 
 
 func _on_interaction_exited(area: Area3D) -> void:

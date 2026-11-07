@@ -10,8 +10,9 @@
 [ext_resource type="Resource" uid="uid://2v58ds8dm73l" path="res://assets/definitions/weapons/melee/Metal_Pipe.tres" id="7_hfoic"]
 [ext_resource type="Resource" uid="uid://bscl5f0adwebr" path="res://assets/definitions/weapons/melee/Kokorowatari.tres" id="8_qbmej"]
 [ext_resource type="Resource" uid="uid://b5ab7bvsvusbg" path="res://assets/definitions/weapons/melee/Axe.tres" id="9_qbmej"]
+[ext_resource type="Resource" uid="uid://cgp78opx5gr36" path="res://assets/items/heart.tres" id="10_swbhx"]
 
 [resource]
 script = ExtResource("2_1mbwq")
-possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("4_hfoic"), ExtResource("5_qbmej"), ExtResource("6_swbhx"), ExtResource("6_5v0nr"), ExtResource("7_hfoic"), ExtResource("8_qbmej"), ExtResource("9_qbmej")])
+possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("4_hfoic"), ExtResource("5_qbmej"), ExtResource("6_swbhx"), ExtResource("6_5v0nr"), ExtResource("7_hfoic"), ExtResource("8_qbmej"), ExtResource("9_qbmej"), ExtResource("10_swbhx")])
 metadata/_custom_type_script = "uid://b8ih4p6c3s4n3"

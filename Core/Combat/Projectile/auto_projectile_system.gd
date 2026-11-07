@@ -123,6 +123,12 @@ func _update_projectile(projectile: Projectile, delta: float) -> void:
 		ray.to = end
 		ray.exclude = projectile.exclude
 
+		ray.collision_mask = (
+			(1 << (Game.LAYER_WORLD - 1))
+			| (1 << (Game.LAYER_PLAYER - 1))
+			| (1 << (Game.LAYER_ENEMY - 1))
+		)
+
 		var hit := space_state.intersect_ray(ray)
 		if hit.is_empty():
 			break
