@@ -19,7 +19,10 @@ signal room_exited(room: RoomInstance)
 @export var special_door_min_rank := 5
 @export var special_door_rank_bonus := 25.0
 
-@export var boss_room: RoomDefinition
+@export var boss_room_pool: Array[RoomDefinition]
+@export var boss_room: RoomDefinition  # fallback, used only if the pool is empty
+
+var _last_boss_room: RoomDefinition
 
 var _advancing := false
 var floor_number := 1
@@ -57,7 +60,8 @@ func generate(keep_party := false) -> void:
 	chunk_manager.clear()
 	clear()
 
-	chunk_manager.generate(_seed, room_pool, room_count, start_room, boss_room)
+	var chosen_boss := _pick_boss_room()
+	chunk_manager.generate(_seed, room_pool, room_count, start_room, chosen_boss)
 	graph = chunk_manager.graph
 	layout = chunk_manager.layout
 
@@ -213,6 +217,25 @@ func _spawn_enemy_for_room(room: RoomInstance, definition: EntityDefinition) -> 
 func _on_boss_defeated(room: RoomInstance) -> void:
 	room.cleared = true
 	advance_floor()
+
+
+func _pick_boss_room() -> RoomDefinition:
+	if boss_room_pool.is_empty():
+		return boss_room
+
+	var candidates := boss_room_pool.duplicate()
+
+	# Avoid repeating the previous floor's boss when there's another option
+	if candidates.size() > 1 and _last_boss_room != null:
+		candidates.erase(_last_boss_room)
+
+	# Own RNG seeded from the dungeon seed: same seed = same boss,
+	# and the global seed() sequence (so the room layout) is unaffected
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash("%s_boss" % _seed)
+
+	_last_boss_room = candidates[rng.randi_range(0, candidates.size() - 1)]
+	return _last_boss_room
 
 
 func _boss_alive_in(room: RoomInstance) -> bool:

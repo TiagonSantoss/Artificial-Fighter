@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://dl8pvtjocw6up"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_rm4m1"]
+[ext_resource type="Texture2D" uid="uid://bri0ibfge00k7" path="res://assets/sprites/combat/weapons/Ak-47.png" id="2_ce35w"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="3_kmfg5"]
+[ext_resource type="Texture2D" uid="uid://bv2kyr52ukyus" path="res://assets/sprites/combat/weapons/sniper.png" id="4_ce35w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmfg5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ce35w")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_kmfg5")
+sprite_frames = SubResource("SpriteFrames_kmfg5")
+damage_multiplier = 12.0
+knockback_multiplier = 7.0
+speed_multiplier = 3.0
+fire_rate = 2.0
+recoil = 15.0
+spread = 0.0
+stun_duration = 2.1
+ammo_per_axis = 4
+shoot_sound = "SniperShot"
+id = &"AK47"
+display_name = "AK-47"
+description = "AK"
+shop_description = "AK do CS"
+icon = ExtResource("2_ce35w")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

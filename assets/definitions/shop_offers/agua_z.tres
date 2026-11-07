@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://7l7cu2a1av6k"]
+
+[ext_resource type="Resource" uid="uid://u8b7y43fglf0" path="res://assets/items/cards/agua_z.tres" id="1_0udym"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="2_1pwac"]
+
+[resource]
+script = ExtResource("2_1pwac")
+item_to_sell = ExtResource("1_0udym")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

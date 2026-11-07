@@ -88,7 +88,13 @@ room_size_units = Vector2(500, 300)
 [node name="Boss" type="Node3D" parent="SpawnGroups" unique_id=1538346634]
 
 [node name="M1" type="Marker3D" parent="SpawnGroups/Boss" unique_id=1697421521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.856243, 3.6210957, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59356, 3.6210957, 13.641168)
+
+[node name="M2" type="Marker3D" parent="SpawnGroups/Boss" unique_id=1359727693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.732293, 3.6210957, 5.590455)
+
+[node name="M3" type="Marker3D" parent="SpawnGroups/Boss" unique_id=870091258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.203373, 6.648592, -16.78785)
 
 [node name="Melee" type="Node3D" parent="SpawnGroups" unique_id=88160643]
 

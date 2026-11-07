@@ -19,6 +19,9 @@ extends Controller
 @export var hit_interval := 1.2  # keep this above your players' iframe_duration
 @export var parry_stun := 2.0  # boss freezes this long when a hit gets parried
 
+@export var count_from_body_edge := true  # hit_radius is added to the boss's own size
+@export var forward_reach := 1.0  # shifts the hitbox toward the rush direction
+
 enum Phase { AIM, CHARGE, RECOVER }
 
 var target: Entity  # Game.spawn_enemy assigns this
@@ -182,12 +185,22 @@ func _tick_hit_cooldowns(delta: float) -> void:
 
 
 func _hit_nearby(actor: Entity) -> void:
+	var radius := hit_radius
+	var center := actor.global_position + Vector3(0, 1.0, 0)
+
+	if count_from_body_edge and actor.definition != null:
+		var size := actor.definition.hitbox_size
+		radius += maxf(size.x, size.z) * 0.5
+		center = actor.global_position + actor.definition.hitbox_offset
+
+	center += _facing * forward_reach  # the front of the boss is what should hurt
+
 	var query := PhysicsShapeQueryParameters3D.new()
 	var sphere := SphereShape3D.new()
-	sphere.radius = hit_radius
+	sphere.radius = radius
 	query.shape = sphere
-	query.transform = Transform3D(Basis.IDENTITY, actor.global_position + Vector3(0, 1.0, 0))
-	query.collision_mask = 1 << (Game.LAYER_PLAYER - 1)  # players and allies
+	query.transform = Transform3D(Basis.IDENTITY, center)
+	query.collision_mask = 1 << (Game.LAYER_PLAYER - 1)
 	query.exclude = [actor.get_rid()]
 
 	for result in actor.get_world_3d().direct_space_state.intersect_shape(query):

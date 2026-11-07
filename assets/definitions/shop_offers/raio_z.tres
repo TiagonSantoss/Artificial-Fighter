@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://by0tjvelk0vvi"]
+
+[ext_resource type="Resource" uid="uid://2kl75lnlv48a" path="res://assets/items/cards/raio_z.tres" id="1_1wldg"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="2_beqt7"]
+
+[resource]
+script = ExtResource("2_beqt7")
+item_to_sell = ExtResource("1_1wldg")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

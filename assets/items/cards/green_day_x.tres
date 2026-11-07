@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://dpinojhnt81ka"]
+
+[ext_resource type="Texture2D" uid="uid://cpfhexitgfdq0" path="res://assets/sprites/UI/green_day_x.png" id="1_28g2p"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="2_vgsqq"]
+
+[resource]
+script = ExtResource("2_vgsqq")
+card_type = 2
+dual_fire = true
+id = &"gr"
+display_name = "Green Day"
+description = "veneno"
+shop_description = "dia verde"
+icon = ExtResource("1_28g2p")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

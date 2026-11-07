@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://2im61dgmmp6f"]
+
+[ext_resource type="Texture2D" uid="uid://26wnf5f58ug6" path="res://assets/sprites/UI/mettalica_vermelho.png" id="1_y4xkq"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="2_3hree"]
+
+[resource]
+script = ExtResource("2_3hree")
+card_type = 2
+dual_fire = true
+id = &"m"
+display_name = "Mettalica"
+description = "metal"
+shop_description = "metal de verdade"
+icon = ExtResource("1_y4xkq")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://divkp0sol1h1s"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_qq02r"]
+[ext_resource type="Resource" uid="uid://bffje4xlbkih6" path="res://assets/definitions/weapons/ranged/PP-Bizon.tres" id="1_xect6"]
+
+[resource]
+script = ExtResource("1_qq02r")
+item_to_sell = ExtResource("1_xect6")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

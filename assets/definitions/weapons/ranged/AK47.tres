@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://b5bw8y8ee3may"]
+
+[ext_resource type="Script" uid="uid://tw7t0a6xuas3" path="res://Core/Container/Components/Base/behavior_definition.gd" id="1_nnj3h"]
+[ext_resource type="Script" uid="uid://bj0tx3188ordn" path="res://Core/Combat/Weapon/weapon_definition.gd" id="2_f08ow"]
+[ext_resource type="Texture2D" uid="uid://bri0ibfge00k7" path="res://assets/sprites/combat/weapons/Ak-47.png" id="3_f08ow"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vccj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f08ow")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_f08ow")
+sprite_frames = SubResource("SpriteFrames_vccj8")
+damage_multiplier = 0.7
+knockback_multiplier = 0.3
+fire_rate = 0.2
+recoil = 0.0
+spread = 0.0
+stun_duration = 0.0
+ammo_per_axis = 25
+shoot_sound = "AK47"
+id = &"AK47"
+display_name = "AK-47"
+description = "AK"
+shop_description = "AK do CS"
+icon = ExtResource("3_f08ow")
+metadata/_custom_type_script = "uid://bj0tx3188ordn"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://r6jgumlj5nuh"]
+
+[ext_resource type="Texture2D" uid="uid://dfky2yy8ifvkh" path="res://assets/sprites/UI/agua_vermelha.png" id="1_xhjg6"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="1_yyrvj"]
+
+[resource]
+script = ExtResource("1_yyrvj")
+card_type = 2
+dual_fire = true
+id = &"agua"
+display_name = "Agua"
+description = "agua molhada"
+shop_description = "molahdo"
+icon = ExtResource("1_xhjg6")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

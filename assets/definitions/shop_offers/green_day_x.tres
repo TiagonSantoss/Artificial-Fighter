@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://bdlle0sbba7ww"]
+
+[ext_resource type="Resource" uid="uid://dpinojhnt81ka" path="res://assets/items/cards/green_day_x.tres" id="1_dg4c1"]
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="2_6srox"]
+
+[resource]
+script = ExtResource("2_6srox")
+item_to_sell = ExtResource("1_dg4c1")
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

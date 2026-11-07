@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://cmpq53jvw44kv"]
+
+[ext_resource type="Script" uid="uid://dc4ovcmos3joo" path="res://Game/World/shop/shop_offer.gd" id="1_dw6ru"]
+[ext_resource type="Resource" uid="uid://b5bw8y8ee3may" path="res://assets/definitions/weapons/ranged/AK47.tres" id="1_h6a41"]
+
+[resource]
+script = ExtResource("1_dw6ru")
+item_to_sell = ExtResource("1_h6a41")
+price = 25
+metadata/_custom_type_script = "uid://dc4ovcmos3joo"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="IntoTheFire" format=3 uid="uid://2kl75lnlv48a"]
+
+[ext_resource type="Texture2D" uid="uid://doio20rtg35rp" path="res://assets/fonts/raio_z.png" id="1_ku2ro"]
+[ext_resource type="Script" uid="uid://cv6lk8wgplqve" path="res://Core/Container/Components/Cards/into_the_fire.gd" id="2_p04m3"]
+
+[resource]
+script = ExtResource("2_p04m3")
+card_type = 2
+dual_fire = true
+id = &"raioZ"
+display_name = "Raio"
+description = "buzzz"
+shop_description = "choque"
+icon = ExtResource("1_ku2ro")
+metadata/_custom_type_script = "uid://cv6lk8wgplqve"

@@ -13,8 +13,18 @@
 [ext_resource type="Resource" uid="uid://cgp78opx5gr36" path="res://assets/items/heart.tres" id="10_swbhx"]
 [ext_resource type="Resource" uid="uid://c1mrer2qiyi3a" path="res://assets/items/cards/into_the_fire_x.tres" id="11_omkjc"]
 [ext_resource type="Resource" uid="uid://c7caodcr0fln6" path="res://assets/items/cards/into_the_fire_z.tres" id="12_pjfg6"]
+[ext_resource type="Resource" uid="uid://ikmbwnx1n2l6" path="res://assets/items/cards/raio_x.tres" id="13_nvbw1"]
+[ext_resource type="Resource" uid="uid://2kl75lnlv48a" path="res://assets/items/cards/raio_z.tres" id="14_on1q8"]
+[ext_resource type="Resource" uid="uid://dpinojhnt81ka" path="res://assets/items/cards/green_day_x.tres" id="15_ymugu"]
+[ext_resource type="Resource" uid="uid://d0kbh0eymyfwv" path="res://assets/items/cards/green_day_z.tres" id="16_b7xmp"]
+[ext_resource type="Resource" uid="uid://2im61dgmmp6f" path="res://assets/items/cards/mettalica_x.tres" id="17_qc3ye"]
+[ext_resource type="Resource" uid="uid://c8gako8lgawj6" path="res://assets/items/cards/mettalica_z.tres" id="18_hcgej"]
+[ext_resource type="Resource" uid="uid://dl8pvtjocw6up" path="res://assets/definitions/weapons/ranged/Sniper.tres" id="19_42hp1"]
+[ext_resource type="Resource" uid="uid://b5bw8y8ee3may" path="res://assets/definitions/weapons/ranged/AK47.tres" id="20_3pfwf"]
+[ext_resource type="Resource" uid="uid://bffje4xlbkih6" path="res://assets/definitions/weapons/ranged/PP-Bizon.tres" id="21_uxqia"]
+[ext_resource type="Resource" uid="uid://srbvpfwtanob" path="res://assets/definitions/weapons/ranged/Shuriken.tres" id="22_q3tw8"]
 
 [resource]
 script = ExtResource("2_1mbwq")
-possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("4_hfoic"), ExtResource("6_swbhx"), ExtResource("6_5v0nr"), ExtResource("7_hfoic"), ExtResource("8_qbmej"), ExtResource("9_qbmej"), ExtResource("10_swbhx"), ExtResource("10_ed2o2"), ExtResource("11_omkjc"), ExtResource("12_pjfg6")])
+possible_items = Array[ExtResource("1_hp7c5")]([ExtResource("2_5v0nr"), ExtResource("4_hfoic"), ExtResource("6_swbhx"), ExtResource("6_5v0nr"), ExtResource("7_hfoic"), ExtResource("8_qbmej"), ExtResource("9_qbmej"), ExtResource("10_swbhx"), ExtResource("10_ed2o2"), ExtResource("11_omkjc"), ExtResource("12_pjfg6"), ExtResource("13_nvbw1"), ExtResource("14_on1q8"), ExtResource("15_ymugu"), ExtResource("16_b7xmp"), ExtResource("17_qc3ye"), ExtResource("18_hcgej"), ExtResource("19_42hp1"), ExtResource("20_3pfwf"), ExtResource("21_uxqia"), ExtResource("22_q3tw8")])
 metadata/_custom_type_script = "uid://b8ih4p6c3s4n3"
